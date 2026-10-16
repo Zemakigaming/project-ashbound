@@ -1,0 +1,701 @@
+<!DOCTYPE html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Project Ashbound v0.1 — Prototype</title><style>
+*{box-sizing:border-box}body{margin:0;background:#08080a;color:#cfc8bd;font-family:"Sarabun","Noto Sans Thai",Tahoma,sans-serif;font-size:14px}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 30%,transparent 40%,#000 100%),repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0 1px,transparent 1px 3px);z-index:50}
+h1,.ttl{font-family:Georgia,serif;letter-spacing:.3em;color:#b33a2f;text-shadow:0 0 12px #600}
+button{background:#1b1a1d;color:#ddd;border:1px solid #444;padding:7px 10px;margin:3px;border-radius:3px;cursor:pointer;font:inherit}button:hover{border-color:#b33a2f;color:#fff}
+button.rec{border-color:#8a7b3a}button.ultb{border-color:#7a1010;color:#f99}button.skb{border-color:#3a6a8a}button.auto{opacity:.6;font-size:12px}
+#setup{padding:20px;max-width:1300px;margin:auto}#heroGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.hcard{border:1px solid #333;background:linear-gradient(#141317,#0c0b0d);padding:10px;cursor:pointer;border-radius:4px}.hcard.on{border-color:#b33a2f;box-shadow:0 0 14px #5a1010}
+.hn{font-weight:bold;color:#eee}.hr,.sm,small{color:#8d867c;font-size:12px}.st{color:#d9b56a;font-size:12px;margin:4px 0}.ab{font-size:12px;margin:3px 0}.blood,.ll.blood{color:#e05555}
+#game{display:none;grid-template-columns:270px 1fr 360px;grid-template-rows:auto 1fr;height:100vh;gap:6px;padding:6px}
+#top{grid-column:1/4;display:flex;flex-wrap:wrap;gap:14px;align-items:center;padding:6px 10px;background:#111013;border-bottom:1px solid #3a1010}
+#party{overflow:auto}.pc{border:1px solid #2a2a2e;padding:7px;margin-bottom:6px;background:#0f0e11}.pc.cur{border-color:#d9b56a}.pc.dead{opacity:.35}
+.hpbar{position:relative;height:16px;background:#2a0c0c;margin:4px 0}.hpbar i{position:absolute;inset:0 auto 0 0;background:#8e1f1f}.hpbar span{position:relative;font-size:11px;padding-left:4px}
+.die{display:inline-block;width:16px;text-align:center;margin:0 1px;border-radius:2px;color:#000;font-size:11px;font-weight:bold}.die.W{background:#ddd}.die.Y{background:#e0c040}.die.R{background:#c03030;color:#fff}
+#mid{display:flex;flex-direction:column;gap:6px;overflow:auto}.map{width:100%;max-height:52vh;border:1px solid #222}
+.edge{stroke:#5a4a3a;stroke-width:3;stroke-dasharray:6 4}.tile rect{stroke:#000;opacity:.9}.tile.closed rect{opacity:.35}.tn{fill:#f0e8dc;font-size:11px;text-anchor:middle;font-weight:bold}.tz{fill:#d8cfc0;font-size:9px;text-anchor:middle}
+.pawn{stroke:#000;stroke-width:1.5}.p0{fill:#e05555}.p1{fill:#55a0e0}.p2{fill:#e0c040}.p3{fill:#a070e0}
+#combat{border:1px solid #5a1010;background:#100b0b;padding:6px}.ctitle{color:#e07060;font-weight:bold}.bf{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:6px 0}
+.cell{min-height:120px;background:#17120f;border:1px solid #3a2a20;padding:3px}.cn{color:#665;font-size:11px}.unit{font-size:11px;padding:3px;margin:2px 0;border-radius:3px}
+.unit.s{background:#1d2a33;border:1px solid #3a6a8a}.unit.elite{background:#3a1515;border:1px solid #9a3030}.unit.minion{background:#2a2015;border:1px solid #6a5030}.unit.down{opacity:.5}.unit.cur{outline:2px solid #d9b56a}.slots{color:#d9b56a}
+.order{font-size:12px;color:#998}
+#right{display:flex;flex-direction:column;gap:6px;min-height:0}#choices{background:#111013;border:1px solid #333;padding:6px;max-height:48vh;overflow:auto}#choices button{display:block;width:calc(100% - 6px);text-align:left}
+.prompt{color:#d9b56a;margin-bottom:4px}#log{flex:1;overflow:auto;background:#0b0a0c;border:1px solid #222;padding:6px;font-size:12px}
+.ll.phase{color:#d9b56a;margin-top:4px}.ll.good{color:#7fc07f}.ll.bad,.ll.loss{color:#e07a6a}.ll.story{color:#b9a3d9;font-style:italic}.ll.combat{color:#ff9070}.ll.win{color:#9fe09f;font-weight:bold}.ll.sys{color:#aaa}
+#overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);align-items:center;justify-content:center;z-index:60}.endbox{border:1px solid #5a1010;padding:30px;text-align:center;background:#0c0a0a;max-width:600px}
+.rules{font-size:13px;color:#a69f94;line-height:1.5}
+</style></head><body>
+<div id="setup"><h1>PROJECT ASHBOUND</h1><div class="rules">Pry Ridge · 06/06/2026 — ต้นอาชาลุกไหม้จากข้างใน เถ้าต้องสาป (cursed ash) ปกคลุมเมือง ไม่มีใครออกไปได้<br>
+<b>Prototype v0.1</b> · Co-op 1–4 Survivors · เลือกฮีโร่ (คลิกการ์ด สูงสุด 4) · Main Quest: หา Clue 3 ชิ้น แล้วปราบ <b>Krasue</b> ที่ประตูเมือง ก่อนสิ้นวันที่ 6 (Act 1 deadline)<br>
+วันละ 3 ช่วง: เช้า/บ่าย/กลางคืน (1 Action) · เดินฟรี 1 ช่อง/ช่วง · กลางคืนต้อง Rest ≥1 (กินอาหาร = +1 Rest) ไม่งั้น Weak · ลูกเต๋า White(1,1,2,2,3,4) Yellow(1-6) Red(3,3,4,4,5,6) เริ่ม 3 White วาง 1 ลูก/Stat · Charge Die เก็บไว้รอบหน้า</div>
+<p id="selInfo"></p><button onclick="start(false)">▶ เริ่มเกม (Start)</button><button onclick="start(true)">👁 ดู Bot เล่น (Watch 3 bots)</button>
+<div id="heroGrid"></div><p class="rules">Survivor ที่เลือก = ผู้เล่นควบคุมเอง (ไม่เลือกเลย = สุ่ม 1 ตัว). ทุกตัวเลือกมีปุ่ม 🤖 Auto ให้ Bot เล่นแทนได้. ตัวเลือกกรอบทองคือที่ Bot แนะนำ.</p></div>
+<div id="game"><div id="top"></div><div id="party"></div><div id="mid"><div id="map"></div><div id="combat"></div></div><div id="right"><div id="choices"></div><div id="log"></div></div></div>
+<div id="overlay"></div>
+<script>
+// ===== Project Ashbound v0.1 engine (UI-agnostic) =====
+const VERSION='v0.1';
+let RNG=Math.random;
+const rnd=n=>Math.floor(RNG()*n);
+const pick=a=>a[rnd(a.length)];
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]];}return a;};
+const FACES={W:[1,1,2,2,3,4],Y:[1,2,3,4,5,6],R:[3,3,4,4,5,6]};
+const roll=t=>FACES[t][rnd(6)];
+const CFG={deadlineDays:6,cluesNeeded:3,startDice:3,diceCap:6,maxRounds:40,expPerLevel:3};
+const PHASES=['morning','afternoon','night'];
+const PHASE_TH={morning:'เช้า (Morning)',afternoon:'บ่าย (Afternoon)',night:'กลางคืน (Night)'};
+
+// ---- Heroes: HP/Sp/Mv from "Characters ASHBOUND" sheet; Str/Dex/Int base = placeholder ----
+const HEROES=[
+ {id:'zemaki',name:'Zemaki',role:'Warrior',faction:'Achans',hp:12,sp:3,mv:2,str:3,dex:1,int:0,atk:'phy',range:[0,1],weapon:'Oni katana',
+  passive:{name:'Oni Focus',txt:'Reroll ลูกเต๋ากี่ลูกก็ได้ 1 ครั้ง/รอบ'},
+  skill:{name:'Oni Splash',req:{type:'range',n:1,min:4,max:6},txt:'6 dmg Splash ทุกศัตรูในช่องหน้า/ช่องเดียวกัน (1 die 4-6)'},
+  ult:{name:'Oni Awakening',cost:3,txt:'จ่ายเลือด 3 HP: 12 dmg ศัตรู 1 ตัวในระยะ Melee'}},
+ {id:'damon',name:'Damon Cross',role:'Necromancer',faction:'Achans',hp:10,sp:2,mv:2,str:1,dex:0,int:3,atk:'mag',range:[0,2],weapon:'Blood grimoire',
+  passive:{name:'Corpse Harvest',txt:'ได้ Corpse token เมื่อศัตรูตาย (สูงสุด 3)'},
+  skill:{name:'Raise Twisted',req:{type:'any',n:1},txt:'อัญเชิญ Zombie (HP1) สูงสุด 2 ตัว: ตี 2 dmg ทุกท้ายเทิร์น และรับดาเมจแทน 1 ครั้ง (1 die any)'},
+  ult:{name:'Blood Legion',cost:2,txt:'จ่ายเลือด 2 HP + Corpse ทั้งหมด: 4 dmg ต่อ Corpse (ขั้นต่ำ 4) ใส่ศัตรู 1 ตัว'}},
+ {id:'hartmann',name:'Hartmann',role:'Shielder',faction:'Achans',hp:14,sp:2,mv:2,str:2,dex:0,int:0,atk:'phy',range:[0,1],weapon:'Zagan incense lamp',
+  passive:{name:'Bull Stance',txt:'-1 dmg ที่ได้รับ ถ้ารอบที่แล้วไม่ได้เดิน'},
+  skill:{name:'Ash Wall',req:{type:'any',n:1},txt:'สร้างกำแพงเถ้า: ลดดาเมจครั้งถัดไปของ Survivor ในช่องเดียวกันเท่าหน้าลูกเต๋า (1 die any)'},
+  ult:{name:"Zagan's Bastion",cost:3,txt:'จ่ายเลือด 3 HP: Survivor ทุกคนไม่รับดาเมจจนจบรอบ'}},
+ {id:'troika',name:'Troika',role:'Healer',faction:'Achans',hp:12,sp:2,mv:2,str:1,dex:0,int:2,atk:'mag',range:[0,2],weapon:'Musket-broom mortar',
+  passive:{name:'Black Cat & Dog',txt:'+1 ให้ลูกเต๋า 1 ลูกของตัวเองเมื่อใช้ฮีล'},
+  skill:{name:'Hearth Brew',req:{type:'total',upto:3,total:7},txt:'ฮีล 2 HP ทุก Survivor ในช่องเดียวกัน (up to 3 dice รวม ≥7)'},
+  ult:{name:"Babayaga's Cauldron",cost:2,txt:'จ่ายเลือด 2 HP: ฮีล 4 HP + ล้างสถานะ Survivor ทุกคน'}},
+ {id:'sora',name:'Sora Han',role:'Rogue',faction:'Ridgefolk (Achan side)',hp:12,sp:4,mv:2,str:2,dex:2,int:0,atk:'phy',range:[0,1],weapon:'Rainbow scissors',
+  passive:{name:'Backstab',txt:'โจมตีจากด้านหลัง +½ Dex (ปัดขึ้น)'},
+  skill:{name:'Rainbow Warp',req:{type:'total',upto:3,total:5},txt:'วาร์ปไปด้านหลังศัตรู 1 ตัว (up to 3 dice รวม ≥5)'},
+  ult:{name:'Rainbow Shear',cost:3,txt:'จ่ายเลือด 3 HP: ฟัน 3 ครั้ง ครั้งละ Str+2 ใส่ศัตรู 1 ตัว'}},
+ {id:'mina',name:'Mina',role:'Buffer',faction:'Ridgefolk (Achan side)',hp:10,sp:2,mv:2,str:1,dex:1,int:2,atk:'mag',range:[0,2],weapon:'Mic-staff',
+  passive:{name:'Rainbow Yantra',txt:'Survivor อื่นในช่องเดียวกัน +1 Sp'},
+  skill:{name:'Encore',req:{type:'total',upto:3,total:7},txt:'เลือกเพื่อน 1 คน: การโจมตีครั้งถัดไป +4 dmg (แทน "ตั้งหน้าลูกเต๋า") (up to 3 dice รวม ≥7)'},
+  ult:{name:'Yantra Anthem',cost:2,txt:'จ่ายเลือด 2 HP: Survivor ทุกคน +2 dmg ทุกการโจมตีจนจบรอบ'}},
+ {id:'lydia',name:'Lydia Ashbane',role:'Purifier',faction:'Old Ridgefolk',hp:10,sp:2,mv:2,str:0,dex:0,int:3,atk:'mag',range:[0,2],weapon:'Living Iron bracelet',
+  passive:{name:'Iron Prayer',txt:'ทิ้งลูกเต๋าที่เหลือ 2 ลูก → รอบหน้าลูกเต๋า 1 ลูกเป็น 6'},
+  skill:{name:'Purge',req:{type:'total',upto:3,total:10},txt:'8 dmg ทุกศัตรูใน 1 ช่องในระยะ (up to 3 dice รวม ≥10)'},
+  ult:{name:'Living Iron Seal',cost:0,dice:2,txt:'ไม่มี Blood ultimate (ตาม World Building): ทิ้งลูกเต๋า 2 ลูก → 10 dmg + Stun ศัตรู 1 ตัว'}},
+ {id:'dixon',name:'Dixon',role:'Warlock',faction:'Old Ridgefolk',hp:12,sp:2,mv:2,str:3,dex:0,int:1,atk:'phy',range:[0,2],weapon:'Living Iron shotgun',
+  passive:{name:'Wrath Body',txt:'Rest โดยไม่ต้องกินอาหารก็นับ 2 Rest; จ่าย 2 HP แทนลูกเต๋าสกิลได้ 1 ครั้ง/รอบ'},
+  skill:{name:'Wrath Shot',req:{type:'range',n:1,min:4,max:6},txt:'Str+4 dmg ทุกศัตรูในช่องเป้าหมาย (1 die 4-6 หรือจ่าย 2 HP)'},
+  ult:{name:'Sin Sense Rampage',cost:4,txt:'จ่ายเลือด 4 HP: 10 dmg ทุกศัตรูในระยะ 0-1'}},
+ {id:'jack',name:'Jack Blackwood',role:'Archer',faction:'Outsider',hp:10,sp:4,mv:2,str:2,dex:2,int:0,atk:'phy',range:[1,3],weapon:'Living Iron crossbow',
+  passive:{name:'Investigator',txt:'ทิ้ง 1 ลูก เพื่อปรับอีกลูก ±2'},
+  skill:{name:'Twin Bolt',req:{type:'any',n:1},txt:'ดาเมจเท่าหน้าลูกเต๋า ใส่ศัตรู 2 ตัวที่ต่างกัน (1 die any)'},
+  ult:{name:'Living Iron Bolt',cost:2,txt:'จ่ายเลือด 2 HP: 10 dmg ไม่สนใจ Evasion'}},
+ {id:'ronan',name:'Ronan Seaborn',role:'Ordinary',faction:'Outsider',hp:10,sp:2,mv:2,str:2,dex:0,int:0,atk:'phy',range:[0,1],weapon:'Boat anchor',
+  passive:{name:'Good Company',txt:'+1 Ally slot ให้ทีม'},
+  skill:{name:'Rally / Anchor Sweep',req:{type:'same',n:2},txt:'ถ้ามี Ally: Ally ทำแอคชันอีกครั้ง; ไม่มี: 5 dmg ทุกศัตรูในช่องหน้า (2 dice เลขเดียวกัน)'},
+  ult:{name:"Seaborn's Last Stand",cost:3,txt:'จ่ายเลือด 3 HP: Str×2+4 dmg ศัตรู 1 ตัว และดึงความสนใจ (Taunt) จนจบรอบ'}},
+];
+
+// ---- Monsters ("The Burning"). Stats from boardgame app 1.2 Elier sheet (dmg 0 → 1 placeholder) ----
+const ELITES={
+ 'G-Sw':{name:'Grove Blade (Pride)',fam:'grove',hp:12,sp:5,mv:2,move:'walk',dmg:2,rng:[0,1],aoe:false,bonus:'W',wg:1},
+ 'G-Ar':{name:'Grove Archer (Envy)',fam:'grove',hp:8,sp:7,mv:2,move:'walk',dmg:1,rng:[2,4],aoe:false,bonus:'W',wg:1},
+ 'G-Ax':{name:'Grove Axe (Wrath)',fam:'grove',hp:16,sp:4,mv:1,move:'walk',dmg:2,rng:[0,1],aoe:true,bonus:'W',wg:2},
+ 'G-Bb':{name:'Grove Boomerang (Gluttony)',fam:'grove',hp:12,sp:3,mv:2,move:'walk',dmg:2,rng:[2,3],aoe:true,bonus:'W',wg:2},
+ 'G-Sh':{name:'Grove Shield (Greed)',fam:'grove',hp:20,sp:2,mv:1,move:'block',dmg:2,rng:[0,1],aoe:false,bonus:'W',wg:2},
+ 'G-Rd':{name:'Grove Whip-Rider (Lust)',fam:'grove',hp:26,sp:6,mv:2,move:'walk',dmg:3,rng:[0,1],aoe:false,bonus:'Y',wg:4,stun:1},
+ 'B-Bt':{name:'Moonflower (Bloom)',fam:'bloom',hp:6,sp:6,mv:3,move:'swoop',dmg:1,rng:[0,0],aoe:false,bonus:'W',wg:1,ev:1},
+ 'B-Wf':{name:'Petunia (Bloom)',fam:'bloom',hp:14,sp:5,mv:2,move:'walk',dmg:4,rng:[0,1],aoe:false,bonus:'W',wg:1},
+ 'B-Sd':{name:'Cobra Lily (Bloom)',fam:'bloom',hp:20,sp:4,mv:1,move:'walk',dmg:4,rng:[0,1],aoe:false,bonus:'W',wg:2,poison:1},
+ 'B-Bp':{name:'Yellow Rose (Bloom)',fam:'bloom',hp:8,sp:7,mv:3,move:'swoop',dmg:1,rng:[0,0],aoe:false,bonus:'W',wg:2,poison:1,ev:1},
+ 'B-Ch':{name:'Tulip Mania (Bloom)',fam:'bloom',hp:20,sp:6,mv:3,move:'walk',dmg:4,rng:[0,1],aoe:false,bonus:'Y',wg:4,poison:1,dearmor:1,ev:1},
+ 'U-Sw':{name:'Mold Husk Blade',fam:'mold',hp:10,sp:5,mv:2,move:'walk',dmg:3,rng:[0,1],aoe:false,bonus:'W',wg:1},
+ 'U-Ar':{name:'Mold Husk Archer',fam:'mold',hp:8,sp:6,mv:2,move:'walk',dmg:2,rng:[2,4],aoe:false,bonus:'W',wg:1},
+ 'U-Sy':{name:'Mold Scythe',fam:'mold',hp:12,sp:5,mv:2,move:'walk',dmg:4,rng:[0,1],aoe:false,bonus:'W',wg:2,dearmor:1},
+ 'U-Mg':{name:'Mold Spore-Mage',fam:'mold',hp:12,sp:3,mv:1,move:'walk',dmg:3,rng:[2,5],aoe:true,bonus:'Y',wg:2,mag:true},
+ 'U-Bm':{name:'Lamproderma (Bloater)',fam:'mold',hp:20,sp:2,mv:1,move:'block',dmg:2,rng:[0,1],aoe:false,bonus:'W',wg:2},
+ 'U-Cy':{name:'Comatricha (Crystal)',fam:'mold',hp:20,sp:4,mv:0,move:'stationary',dmg:4,rng:[3,5],aoe:true,bonus:'Y',wg:4,mb:2},
+ 'RINA':{name:'Rina, the Cursed Seer',fam:'npc',hp:14,sp:5,mv:2,move:'swoop',dmg:3,rng:[1,3],aoe:false,bonus:'Y',wg:2,mb:1,mag:true},
+ 'KRASUE':{name:'Krasue (กระสือ) — Act 1 Boss',fam:'boss',hp:22,sp:6,mv:3,move:'fly',dmg:4,rng:[0,1],aoe:false,bonus:'R',wg:6,poison:1,boss:true},
+};
+const MINIONS={
+ grove:{name:'Vine Twisted (Grove Minion)',kill:3,sp:6,mv:2,dmg:1,rng:[0,1],move:'walk',groveBuff:true},
+ bloom:{name:'Rose-hand (Bloom Minion)',kill:2,sp:4,mv:2,dmg:1,rng:[0,0],move:'walk',poison:1},
+ mold:{name:'Stomach Tombstone (Mold Minion)',kill:6,sp:0,mv:0,dmg:0,rng:null,move:'stationary',tomb:true},
+};
+// Combat cards: per family per tier → [elites], minions count
+const COMBAT_CARDS={
+ grove:{1:[[['G-Sw'],2],[['G-Ar'],2]],2:[[['G-Ax'],2],[['G-Bb','G-Ar'],1],[['G-Sh','G-Sw'],1]],3:[[['G-Rd'],2],[['G-Ax','G-Bb'],2]]},
+ bloom:{1:[[['B-Wf'],2],[['B-Bt','B-Bt'],1]],2:[[['B-Sd'],2],[['B-Bp','B-Wf'],1]],3:[[['B-Ch'],2],[['B-Sd','B-Bp'],2]]},
+ mold:{1:[[['U-Sw'],2],[['U-Ar'],2]],2:[[['U-Sy'],2],[['U-Mg','U-Sw'],1],[['U-Bm','U-Ar'],1]],3:[[['U-Cy','U-Sw'],2],[['U-Sy','U-Mg'],2]]},
+};
+const TIER_REWARD={1:{g:2,e:1},2:{g:3,e:1},3:{g:3,e:2}};
+
+// ---- Map ----
+const ZONES={windward:{th:'เมืองต้นลม',en:'Windward City',fam:'grove',col:'#7a8c5a'},blackwood:{th:'ป่าทมิฬ',en:'Blackwood',fam:'grove',col:'#3b3f2e'},
+ sandstone:{th:'ภูเขาหินทราย',en:'Sandstone Mountains',fam:'bloom',col:'#9c7b4a'},ancient:{th:'เมืองโบราณ',en:'Ancient City',fam:'mold',col:'#6d6470'},
+ mangrove:{th:'ป่าชายเลนเถ้าถ่าน',en:'Ashen Mangrove',fam:'mold',col:'#4f5f63'}};
+const TILES_DEF=[
+ {id:'W1',name:'ท่าเรือ (Port)',zone:'windward',x:300,y:380,food:1,explore:1,npc:1},
+ {id:'W2',name:'ห้าง (Mall)',zone:'windward',x:420,y:300,food:2,explore:1,npc:1,rina:true},
+ {id:'W3',name:'ประตูเมือง (Town Gate)',zone:'windward',x:430,y:180,food:0,explore:1,npc:1,gate:true},
+ {id:'W4',name:'คลินิก (Clinic)',zone:'windward',x:240,y:270,food:1,explore:1,npc:1},
+ {id:'K1',name:'ชายป่าทมิฬ (Blackwood Edge)',zone:'blackwood',x:560,y:90,food:1,explore:2,npc:0},
+ {id:'S1',name:'ถ้ำหินทราย (Sandstone Caves)',zone:'sandstone',x:600,y:240,food:1,explore:2,npc:0},
+ {id:'S2',name:'เหมือง Living Iron',zone:'sandstone',x:700,y:330,food:0,explore:2,npc:1},
+ {id:'A1',name:'ซากวิหาร (Ruined Temple)',zone:'ancient',x:150,y:140,food:1,explore:2,npc:1},
+ {id:'M1',name:'ท่าน้ำเถ้า (Ash Pier)',zone:'mangrove',x:110,y:330,food:2,explore:1,npc:0},
+ {id:'M2',name:'รากโกงกาง (Mangrove Roots)',zone:'mangrove',x:60,y:220,food:1,explore:2,npc:0},
+];
+const EDGES=[['W1','W2'],['W1','W4'],['W2','W3'],['W2','W4'],['W3','K1'],['W3','S1'],['S1','S2'],['W4','M1'],['M1','M2'],['M2','A1'],['A1','W4'],['K1','A1']];
+const adj=id=>EDGES.filter(e=>e.includes(id)).map(e=>e[0]===id?e[1]:e[0]);
+function dist(a,b){if(a===b)return 0;const seen={[a]:0},q=[a];while(q.length){const c=q.shift();for(const n of adj(c))if(!(n in seen)){seen[n]=seen[c]+1;if(n===b)return seen[n];q.push(n);}}return 99;}
+function stepToward(a,b){let best=null,bd=99;for(const n of adj(a)){const d=dist(n,b);if(d<bd){bd=d;best=n;}}return best;}
+
+// ---- State ----
+let G=null;
+const IO={ask:null,log:()=>{},render:()=>{},sleep:async()=>{},onEnd:()=>{}};
+function log(m,cls){G.log.push({m,cls});if(G.log.length>400)G.log.shift();IO.log(m,cls);}
+function newGame(cfg){
+ // cfg: {players:[{hero:id,bot:bool}]}
+ G={ver:VERSION,day:1,phase:0,food:2*cfg.players.length,gold:0,exp:0,soot:3,clues:0,checkpoints:0,blood:0,rinaMet:false,allies:[],
+  tiles:{},log:[],over:false,result:null,combat:null,stats:{combats:0,wins:0,rounds:0,retreats:0},
+  players:cfg.players.map((p,i)=>{const h=HEROES.find(x=>x.id===p.hero);return {i,id:h.id,name:h.name,h,bot:!!p.bot,hp:h.hp,maxhp:h.hp,dice:Array(CFG.startDice).fill('W'),
+   tile:'W1',weak:false,rests:0,items:[],corpses:0,down:false,strB:0,revive:false};})};
+ for(const t of TILES_DEF)G.tiles[t.id]={...t,cubes:{food:t.food,explore:t.explore,npc:t.npc},opened:t.zone==='windward'};
+ G.exploreDeck=buildExploreDeck();
+ return G;
+}
+function buildExploreDeck(){
+ const d=[];for(let i=0;i<5;i++)d.push('clue');for(let i=0;i<3;i++)d.push('checkpoint');for(let i=0;i<3;i++)d.push('item');for(let i=0;i<4;i++)d.push('ambush');d.push('nothing','nothing','food');
+ return shuffle(d);
+}
+const allySlots=()=>1+(G.players.some(p=>p.id==='ronan')?1:0);
+const tier=()=>G.soot<=5?1:G.soot<=8?2:3;
+const alive=()=>G.players.filter(p=>p.hp>0);
+
+async function ask(p,kind,prompt,opts,botIdx){
+ if(!opts.length)throw new Error('no options for '+kind);
+ if(botIdx==null||botIdx<0||botIdx>=opts.length)botIdx=0;
+ if(!p||p.bot||!IO.ask)return opts[botIdx].v;
+ const v=await IO.ask(p,kind,prompt,opts,botIdx);
+ return v;
+}
+
+// ================= MAP / DAY CYCLE =================
+async function runGame(){
+ log(`เริ่มเกม Project Ashbound ${VERSION} — Pry Ridge, 06/06/2026 เถ้าต้องสาปปกคลุมเมือง`,'sys');
+ log(`Main Quest: หาเบาะแส (Clue) ${CFG.cluesNeeded} ชิ้น แล้วไปเผชิญ Krasue ที่ประตูเมือง ก่อนสิ้นวันที่ ${CFG.deadlineDays}`,'sys');
+ while(!G.over){
+  const ph=PHASES[G.phase];
+  log(`— วันที่ ${G.day} · ${PHASE_TH[ph]} —`,'phase');
+  for(const p of alive()){ p.restsTonight=0; }
+  for(const p of G.players){
+   if(G.over)break; if(p.hp<=0)continue;
+   G.cur=p; IO.render(); await IO.sleep(1);
+   await playerTurn(p,ph);
+  }
+  if(G.over)break;
+  if(ph==='night')await nightEnd();
+  if(G.over)break;
+  G.phase++; if(G.phase>2){G.phase=0;G.day++;
+   if(G.day>CFG.deadlineDays){endGame('loss','เลยกำหนด Act 1 — เถ้าต้องสาปกลืนกิน Pry Ridge');break;}}
+  IO.render();
+ }
+ IO.render(); IO.onEnd(G.result);
+ return G.result;
+}
+function endGame(r,why){if(G.over)return;G.over=true;G.result={r,why,day:G.day};log((r==='win'?'ชัยชนะ! ':'พ่ายแพ้: ')+why,r==='win'?'win':'loss');}
+
+async function playerTurn(p,ph){
+ // free move once per round
+ const t=G.tiles[p.tile];
+ const mOpts=[{v:null,l:'อยู่ที่เดิม (Stay)'}].concat(adj(p.tile).map(n=>({v:n,l:`เดินไป ${G.tiles[n].name} [${ZONES[G.tiles[n].zone].en}]`})));
+ const mv=await ask(p,'move',`${p.name}: เดินฟรี 1 ช่อง (Free move) จาก ${t.name}?`,mOpts,botMoveIdx(p,mOpts,ph));
+ if(mv){await moveTo(p,mv); if(G.over||p.hp<=0)return;}
+ const tt=G.tiles[p.tile];
+ const opts=[];
+ if(ph==='night'){opts.push({v:'rest_eat',l:`Rest + กินอาหาร (Food ${G.food})`,dis:G.food<1&&p.id!=='dixon'});opts.push({v:'rest',l:'Rest (ไม่กิน)'});}
+ if(tt.cubes.explore>0)opts.push({v:'explore',l:`Explore (สำรวจ) ■เหลือง ×${tt.cubes.explore}`});
+ if(tt.cubes.food>0)opts.push({v:'forage',l:`Forage (หาอาหาร) ■เขียว ×${tt.cubes.food}`});
+ if(tt.cubes.npc>0)opts.push({v:'talk',l:`Talk (คุย NPC) ■ฟ้า ×${tt.cubes.npc}`});
+ if(tt.gate&&G.clues>=CFG.cluesNeeded&&!G.krasueDone)opts.push({v:'boss',l:'⚔ เผชิญ Krasue (Main Quest Q1)'});
+ if(ph!=='night')opts.push({v:'rest',l:'พัก (ไม่ทำอะไร)'});
+ const valid=opts.filter(o=>!o.dis);
+ const a=await ask(p,'action',`${p.name} @ ${tt.name}: เลือก Action (${PHASE_TH[ph]})`,valid,botActionIdx(p,valid,ph));
+ await doAction(p,a,ph);
+}
+function botMoveIdx(p,opts,ph){
+ // toward gate if clues done; else toward nearest tile with explore cubes (spread players)
+ let target=null;
+ if(G.clues>=CFG.cluesNeeded&&!G.krasueDone)target='W3';
+ else{
+  const here=G.tiles[p.tile];
+  if(here.cubes.explore>0||(ph==='night'))return 0;
+  let bd=99;for(const id in G.tiles){const t=G.tiles[id];if(t.cubes.explore>0){const d=dist(p.tile,id)+(G.players.some(o=>o!==p&&o.tile===id)?1:0);if(d<bd){bd=d;target=id;}}}
+  if(!target){if(here.cubes.food>0)return 0;for(const id in G.tiles)if(G.tiles[id].cubes.food>0){target=id;break;}}
+ }
+ if(!target||target===p.tile)return 0;
+ const s=stepToward(p.tile,target);return Math.max(0,opts.findIndex(o=>o.v===s));
+}
+function botActionIdx(p,opts,ph){
+ const f=v=>opts.findIndex(o=>o.v===v);
+ if(f('boss')>=0&&(alive().every(o=>o.tile==='W3'||G.food>=dist(o.tile,'W3'))||G.day>=CFG.deadlineDays))return f('boss');
+ if(ph==='night'){
+  if(p.hp<p.maxhp*0.5&&f('rest_eat')>=0)return f('rest_eat');
+  if(f('rest_eat')>=0&&G.food>alive().length)return f('rest_eat');
+  return f('rest');
+ }
+ if(G.food<alive().length&&f('forage')>=0)return f('forage');
+ if(f('explore')>=0)return f('explore');
+ if(f('talk')>=0)return f('talk');
+ if(f('forage')>=0)return f('forage');
+ return 0;
+}
+async function moveTo(p,id){
+ const from=G.tiles[p.tile];p.tile=id;const t=G.tiles[id];
+ if(!t.opened){t.opened=true;log(`${p.name} เปิดพื้นที่ใหม่: ${t.name} (${ZONES[t.zone].en})`);}
+ else log(`${p.name} เดินไป ${t.name}`);
+ if(from.zone==='windward'&&t.zone!=='windward'&&!G.rinaMet){
+  log('ขณะกำลังออกจากเมืองต้นลม… เสียงกระซิบดังขึ้นจากความมืด','story');
+  await rinaEvent(p);
+ }
+}
+async function doAction(p,a,ph){
+ const t=G.tiles[p.tile];
+ if(a==='rest'){p.restsTonight=(p.restsTonight||0)+(ph==='night'?(p.id==='dixon'?2:1):0);log(`${p.name} พัก${ph==='night'?' (Rest)':''}`);return;}
+ if(a==='rest_eat'){if(G.food>0){G.food--;p.restsTonight=(p.restsTonight||0)+2;log(`${p.name} Rest + กินอาหาร (Food เหลือ ${G.food})`);}else{p.restsTonight=(p.restsTonight||0)+2;log(`${p.name} Rest (Wrath Body ไม่ต้องกิน)`);}return;}
+ if(a==='forage'){t.cubes.food--;
+  const d=roll(pick(p.dice)),need=4,val=d+p.h.dex+(p.h.sp>=4?1:0);
+  log(`${p.name} Forage — Challenge Dex ≥${need}: ทอย ${d}+${val-d} = ${val}`);
+  if(val>=need){const g=1+(val>=6?1:0);G.food+=g;log(`สำเร็จ! ได้อาหาร +${g} (Food ${G.food})`,'good');}
+  else{G.food+=1;log('ได้อาหารมา 1 แต่เสียงดังเกินไป…','bad');if(RNG()<0.4)await startCombat(p,t,{});}
+  return;}
+ if(a==='talk'){t.cubes.npc--;await talkEvent(p,t);return;}
+ if(a==='explore'){t.cubes.explore--;await exploreEvent(p,t);return;}
+ if(a==='boss'){await bossFight(p);return;}
+}
+async function nightEnd(){
+ for(const p of alive()){
+  const r=p.restsTonight||0;
+  if(r===0){p.weak=true;log(`${p.name} ไม่ได้พักเลย → Weak (-1 die วันพรุ่งนี้)`,'bad');}
+  else{p.weak=false;if(r>=2){const h=Math.min(2,p.maxhp-p.hp);p.hp+=h;log(`${p.name} พักเต็มที่ +${h} HP`,'good');}}
+ }
+}
+async function exploreEvent(p,t){
+ if(!G.exploreDeck.length)G.exploreDeck=buildExploreDeck();
+ let c=G.exploreDeck.pop();
+ if(c==='clue'&&t.zone==='windward'&&G.clues>=1&&RNG()<0.5)c='ambush'; // outer zones hold more truth (placeholder)
+ log(`${p.name} สำรวจ ${t.name}…`);
+ if(c==='clue'){G.clues++;log(`พบเบาะแสเกี่ยวกับ Krasue! (Main Quest Q1: ${G.clues}/${CFG.cluesNeeded})`,'good');
+  if(G.clues===CFG.cluesNeeded)log('เบาะแสครบ — Krasue ซ่อนตัวอยู่ที่ประตูเมือง (Town Gate)!','story');
+  if(RNG()<0.35)await startCombat(p,t,{});return;}
+ if(c==='checkpoint'){G.checkpoints++;G.soot++;
+  log(`Quest Q2 — Check Point! พลังของ Achans ตื่นขึ้น (เขม่า/Soot ${G.soot} → Combat T${tier()})`,'good');
+  for(const q of alive())upgradeDie(q);return;}
+ if(c==='item'){const it=pick(ITEMS);p.items.push(it.id);log(`Side Quest Q3 — ${p.name} ได้ไอเท็ม: ${it.name} (${it.txt})`,'good');if(it.id==='necklace')p.strB++;return;}
+ if(c==='food'){G.food+=2;log('เจอเสบียงที่ถูกทิ้งไว้ Food +2','good');return;}
+ if(c==='ambush'){log('The Burning ซุ่มโจมตี!','bad');await startCombat(p,t,{});return;}
+ log('ไม่พบอะไรนอกจากเถ้าถ่าน…');
+}
+const ITEMS=[
+ {id:'lamp',name:'ตะเกียงศักดิ์สิทธิ์ (Holy Lamp)',txt:'ฮีล 3 HP อัตโนมัติเมื่อ HP < ครึ่งหลังจบการต่อสู้ (ใช้ครั้งเดียว)'},
+ {id:'necklace',name:'สร้อยคอแห่งพละกำลัง (Necklace of Strength)',txt:'+1 Str ถาวร'},
+ {id:'bracelet',name:'กำไลแห่งเทพี (Goddess Bracelet)',txt:'ลูกเต๋าหน้า 1 นับเป็น 3'},
+ {id:'chest',name:'หีบแห่งความโกลาหล (Chest of Chaos)',txt:'การต่อสู้ครั้งถัดไป +1 Yellow die (ใช้ครั้งเดียว)'},
+];
+function upgradeDie(p){
+ const wi=p.dice.indexOf('W');
+ if(p.dice.length<4&&wi>=0){p.dice.push('W');}
+ else if(wi>=0)p.dice[wi]='Y';else{const yi=p.dice.indexOf('Y');if(yi>=0)p.dice[yi]='R';else if(p.dice.length<CFG.diceCap)p.dice.push('W');}
+ log(`${p.name} อัปเกรดลูกเต๋า → [${p.dice.join(' ')}]`);
+}
+async function talkEvent(p,t){
+ if(t.rina&&!G.rinaMet){await rinaEvent(p);return;}
+ const npcs=[
+  ['Elias คนขับเรือ','ยื่นเสบียงให้ "ขับทั้งคืนก็วนกลับมาที่ Pry Ridge…"',()=>{G.food+=1;}, 'Food +1'],
+  ['Amy เด็กสาว','ทำแผลให้ด้วยผ้าพันแผลเก่า',()=>{for(const q of alive())if(q.tile===p.tile)q.hp=Math.min(q.maxhp,q.hp+3);},'ฮีล 3 HP ทุกคนในช่อง'],
+  ['ชาว Ridgefolk ผู้หวาดกลัว','กระซิบถึงต้นอาชาที่ไหม้จากข้างใน',()=>{if(RNG()<0.5){G.clues++;log(`ได้เบาะแส (${G.clues}/${CFG.cluesNeeded})`,'good');}else{G.gold+=2;}},'ข่าวลือ'],
+  ['พ่อค้าตลาดมืด','"Gold 2 แลกอาหาร 2"',()=>{if(G.gold>=2){G.gold-=2;G.food+=2;log('แลก Gold 2 → Food 2','good');}else{G.food+=1;log('ให้ฟรี 1 เพราะสงสาร','good');}},'แลกของ'],
+ ];
+ const n=pick(npcs);log(`${p.name} คุยกับ ${n[0]}: ${n[1]}`,'story');n[2]();log(`→ ${n[3]}`,'good');
+}
+async function rinaEvent(p){
+ G.rinaMet=true;
+ log('Rina, the Cursed Seer — เหลือเพียงศีรษะและอวัยวะลอยอยู่ ถูกสร้อยคอยื้อชีวิตไว้ "เจ้าคือเศษเสี้ยวที่ถูกผนึก… ข้ามองเห็น"','story');
+ const opts=[{v:'blood',l:'ให้เลือด (-2 HP): Rina เข้าร่วมเป็น Ally + เบาะแสเรื่องต้นไม้'},{v:'listen',l:'ฟังคำทำนาย: +1 เบาะแส แต่เขม่า (Soot) +1'},{v:'fight',l:'ปฏิเสธและต่อสู้กับ Rina'}];
+ const bi=p.hp>5&&G.allies.length<allySlots()?0:1;
+ const c=await ask(p,'rina','Rina, the Cursed Seer (Envy): จะทำอย่างไร?',opts,bi);
+ if(c==='blood'){p.hp=Math.max(1,p.hp-2);G.blood+=2;G.clues++;
+  if(G.allies.length<allySlots()){G.allies.push('rina');log('Rina เข้าร่วมทีม (Ally: 3 magic dmg ทุกรอบ)','good');}else log('Ally slot เต็ม Rina จึงลอยหายไป','bad');
+  log(`ได้เบาะแสเรื่องต้นอาชา (${G.clues}/${CFG.cluesNeeded})`,'good');}
+ else if(c==='listen'){G.clues++;G.soot++;log(`"Krasue หิวโหย… มันรออยู่ที่ประตู" เบาะแส ${G.clues}/${CFG.cluesNeeded}, Soot ${G.soot}`,'story');}
+ else{const r=await startCombat(p,G.tiles[p.tile],{elites:['RINA'],minions:1,fam:'grove',title:'Rina, the Cursed Seer'});
+  if(r==='win'){p.items.push('rinaneck');p.revive=true;log('ได้ สร้อยคอของ Rina — ฟื้นคืนชีพ 1 HP ได้ 1 ครั้ง','good');}}
+}
+async function bossFight(p){
+ log('ประตูเมืองสั่นสะเทือน… หัวลอยพร้อมเครื่องในเรืองแสงพุ่งออกจากหมอกเถ้า — Krasue!','story');
+ const r=await startCombat(p,G.tiles[p.tile],{elites:['KRASUE'],minions:2,fam:'grove',boss:true,title:'Krasue — Act 1 Boss'});
+ if(r==='win'){G.krasueDone=true;endGame('win',`ปราบ Krasue สำเร็จ ผ่าน Act 1 (วันที่ ${G.day}) — Krasue ชี้ทางสู่ป่าทมิฬ… Blood used: ${G.blood}`);}
+}
+
+// ================= COMBAT =================
+let UID=1;
+function mkElite(code,n){const d=ELITES[code];const scale=d.boss?(0.6+0.4*n):(0.4+0.2*n);const hp=Math.max(4,Math.round(d.hp*scale));
+ return {uid:UID++,kind:'elite',code,name:d.name,d,hp,maxhp:hp,sp:d.sp,pos:5,face:-1,ev:d.ev||0,poison:0,stun:0,dearm:0,bonus:0,side:'m',revived:false};}
+function mkMinion(fam){const d=MINIONS[fam];return {uid:UID++,kind:'minion',name:d.name,d,fam,down:false,hp:1,sp:d.sp,pos:4,face:-1,poison:0,stun:0,dearm:0,ev:0,side:'m'};}
+async function startCombat(p,t,o){
+ const fam=o.fam||ZONES[t.zone].fam;const T=tier();
+ let elites=o.elites,mins=o.minions;
+ if(!elites){const card=pick(COMBAT_CARDS[fam][T]);elites=card[0];mins=card[1];}
+ // participants
+ const parts=[p];
+ for(const q of alive()){if(q===p)continue;const d=dist(q.tile,p.tile);
+  if(d===0){parts.push(q);continue;}
+  if(G.food>=d){const j=await ask(q,'join',`${q.name}: เข้าร่วมการต่อสู้ของ ${p.name}? (ใช้อาหาร ${d})`,[{v:true,l:`เข้าร่วม (Food -${d})`},{v:false,l:'ไม่เข้าร่วม'}],(o.boss||G.food-d>=1)?0:1);
+   if(j){G.food-=d;parts.push(q);q.tile=p.tile;}}}
+ const n=parts.length;
+ const C={title:o.title||`${ZONES[fam==='grove'?'windward':fam==='bloom'?'sandstone':'mangrove'].en} — Combat T${T}`,tier:T,fam,boss:!!o.boss,round:0,units:[],parts,shield:{},log:[],zombies:0};
+ elites.forEach((c,i)=>{const e=mkElite(c,n);e.pos=5-(i%2);C.units.push(e);});
+ const mc=Math.max(0,mins+(n>=3?1:0)-(n===1?1:0));for(let i=0;i<mc;i++){const m=mkMinion(fam);m.pos=fam==='mold'?5:4-(i%2);C.units.push(m);}
+ parts.forEach((q,i)=>{q.pos=i%2;q.face=1;q.wtemp=0;q.poison=0;q.stun=0;q.dearm=0;q.charge=null;q.lydia6=false;q.down=false;q.ultUsed=false;q.movedLast=false;});
+ G.combat=C;G.stats.combats++;
+ log(`⚔ การต่อสู้: ${C.title} — ${C.units.filter(u=>u.kind==='elite').map(u=>u.name+' ('+u.hp+' HP)').join(', ')} + Minion ×${mc}`,'combat');
+ IO.render();
+ let res=null;
+ while(!res){C.round++;G.stats.rounds++;
+  if(C.round>CFG.maxRounds){res='retreat';break;}
+  res=await combatRound(C);
+ }
+ // cleanup
+ for(const q of parts){if(q.hp<=0&&res==='win'){q.hp=1;log(`${q.name} ฟื้นขึ้นมาด้วย 1 HP`);}q.weakUsed=false;
+  if(q.hp<q.maxhp/2){const li=q.items.indexOf('lamp');if(li>=0){q.items.splice(li,1);q.hp=Math.min(q.maxhp,q.hp+3);log(`${q.name} ใช้ Holy Lamp +3 HP`,'good');}}}
+ if(res==='win'){G.stats.wins++;const rw=TIER_REWARD[Math.min(3,C.tier)];G.gold+=rw.g*n;G.exp+=rw.e;log(`ชนะ! ได้ Gold +${rw.g*n}, Exp +${rw.e}`,'win');
+  while(G.exp>=CFG.expPerLevel){G.exp-=CFG.expPerLevel;log('Level up! ทุกคนอัปเกรดลูกเต๋า','good');for(const q of alive())upgradeDie(q);}}
+ else if(res==='retreat'){G.stats.retreats++;G.soot++;log('ถอยหนีออกจากการต่อสู้… Soot +1','bad');for(const q of parts)if(q.hp<=0)q.hp=1;}
+ else{endGame('loss','Survivors ทั้งหมดล้มลงในการต่อสู้');}
+ G.combat=null;IO.render();
+ return res;
+}
+const liveM=C=>C.units.filter(u=>u.side==='m'&&u.hp>0);
+const liveS=C=>C.parts.filter(q=>q.hp>0);
+function rollPool(q){
+ let types=q.dice.slice();
+ if(q.items.includes('chest')&&!q.chestUsed){types.push('Y');}
+ let lose=(q.weak?1:0)+(q.mb||0);q.mb=0;
+ while(lose-->0&&types.length>1){types.sort((a,b)=>'WYR'.indexOf(a)-'WYR'.indexOf(b));types.shift();}
+ let vals=types.map(t=>({t,v:roll(t)}));
+ if(q.items.includes('bracelet'))vals.forEach(d=>{if(d.v===1)d.v=3;});
+ if(q.charge){vals.push({t:q.charge.t,v:q.charge.v,charged:true});q.charge=null;}
+ if(q.lydia6&&vals.length){vals.sort((a,b)=>a.v-b.v);vals[0].v=6;q.lydia6=false;}
+ return vals;
+}
+function reqSubsets(req,vals){ // returns list of index arrays satisfying requirement
+ const idx=vals.map((_,i)=>i),out=[];
+ const combos=k=>{const r=[];const rec=(s,a)=>{if(a.length===k){r.push(a.slice());return;}for(let i=s;i<idx.length;i++){a.push(i);rec(i+1,a);a.pop();}};rec(0,[]);return r;};
+ if(req.type==='range'||req.type==='any'){for(const [i] of combos(1)){const v=vals[i].v;if(req.type==='any'||(v>=req.min&&v<=req.max))out.push([i]);}}
+ else if(req.type==='same'){for(const c of combos(2))if(vals[c[0]].v===vals[c[1]].v)out.push(c);}
+ else if(req.type==='total'){for(let k=1;k<=Math.min(req.upto,vals.length);k++)for(const c of combos(k)){const s=c.reduce((a,i)=>a+vals[i].v,0);if(s>=req.total)out.push(c);}}
+ // dedupe by values, prefer minimal sum
+ const seen={};return out.filter(c=>{const key=c.map(i=>vals[i].v).sort().join(',');if(seen[key])return false;seen[key]=1;return true;}).sort((a,b)=>a.reduce((s,i)=>s+vals[i].v,0)-b.reduce((s,i)=>s+vals[i].v,0));
+}
+async function placeDice(q,C){
+ let vals=rollPool(q);
+ q.slot={str:0,dex:0,int:0,move:0,hp:0};q.skillReady=false;q.skillDice=[];
+ log(`${q.name} ทอยลูกเต๋า: ${vals.map(d=>d.t+d.v+(d.charged?'*':'')).join(' ')}`);
+ // passives that modify dice
+ if(q.id==='zemaki'&&!q.bot0){
+  const low=vals.filter(d=>d.v<=2&&!d.charged);
+  const r=await ask(q,'reroll',`Zemaki · Oni Focus: Reroll ลูกเต๋า?`,[{v:'low',l:`Reroll ลูกที่ ≤2 (${low.length} ลูก)`},{v:'none',l:'ไม่ Reroll'}],low.length?0:1);
+  if(r==='low'&&low.length){low.forEach(d=>d.v=roll(d.t));log(`Zemaki reroll → ${vals.map(d=>d.t+d.v).join(' ')}`);}
+ }
+ if(q.id==='jack'&&vals.length>=3){
+  vals.sort((a,b)=>a.v-b.v);const hi=vals[vals.length-1];
+  const r=await ask(q,'jack',`Jack · Investigator: ทิ้งลูก ${vals[0].v} เพื่อเพิ่มลูก ${hi.v} +2?`,[{v:true,l:`ใช้ (→ ${Math.min(6,hi.v+2)})`},{v:false,l:'ไม่ใช้'}],hi.v<=4&&vals[0].v<=2?0:1);
+  if(r){hi.v=Math.min(6,hi.v+2);vals.shift();}
+ }
+ // skill dice
+ const subs=reqSubsets(q.h.skill.req,vals);
+ const sOpts=[{v:-1,l:'ไม่จองลูกเต๋าให้สกิล'}].concat(subs.slice(0,8).map((c,i)=>({v:i,l:`จองให้ ${q.h.skill.name}: [${c.map(j=>vals[j].v).join(',')}]`})));
+ let sb=subs.length?1:0;
+ if(q.id==='troika'&&!liveS(C).some(o=>o.pos===q.pos&&o.hp<=o.maxhp-3))sb=0;
+ if(q.id==='mina'&&liveS(C).length<2)sb=0;
+ if(q.id==='hartmann'&&vals.length<3)sb=0;
+ if(q.id==='ronan'&&!G.allies.length&&false)sb=0;
+ const si=await ask(q,'skilldice',`${q.name}: จองลูกเต๋าสำหรับ Skill "${q.h.skill.name}" (${q.h.skill.txt})`,sOpts,sb);
+ if(si>=0){const c=subs[si];q.skillReady=true;q.skillDice=c.map(j=>vals[j].v);vals=vals.filter((_,j)=>!c.includes(j));}
+ else if(q.id==='dixon'&&q.hp>4){const r=await ask(q,'dixonpay','Dixon · Wrath Body: จ่าย 2 HP แทนลูกเต๋าสกิล?',[{v:true,l:'จ่าย 2 HP (Wrath Shot พร้อมใช้)'},{v:false,l:'ไม่จ่าย'}],q.hp>7?0:1);
+  if(r){q.hp-=2;G.blood+=2;q.skillReady=true;q.skillDice=[4];log('Dixon จ่ายเลือด 2 HP ปลุก Wrath Shot','blood');}}
+ // stat placement (one die per stat), highest first
+ vals.sort((a,b)=>b.v-a.v);
+ const main=q.h.atk==='mag'?'int':'str';
+ const order=[main,'dex','move','hp'];
+ for(const d of vals.slice()){
+  const free=['str','dex','int','move','hp'].filter(s=>!q.slot[s]);
+  const opts=free.map(s=>({v:s,l:`${s.toUpperCase()} ← ${d.v}`+({str:' (Physical atk)',dex:' (+Sp)',int:' (Magic atk)',move:' (+½ Move)',hp:' (Temp HP)'}[s])}));
+  opts.push({v:'charge',l:`Charge Die (เก็บ ${d.v} ไว้รอบหน้า)`,dis:!!q.charge});
+  if(q.id==='lydia')opts.push({v:'discard',l:'ทิ้ง (Iron Prayer)'});
+  const ok=opts.filter(o=>!o.dis);
+  let bi=ok.findIndex(o=>o.v===order.find(s=>free.includes(s)));
+  if(d.v<=1&&!q.charge&&vals.length>2)bi=ok.findIndex(o=>o.v==='hp');
+  if(bi<0)bi=0;
+  const s=await ask(q,'place',`${q.name}: วางลูกเต๋า ${d.t}${d.v} ลงช่องไหน?`,ok,bi);
+  if(s==='charge')q.charge={t:d.t,v:d.v};else if(s==='discard'){q.lydDisc=(q.lydDisc||0)+1;if(q.lydDisc>=2){q.lydia6=true;q.lydDisc=0;log('Lydia · Iron Prayer: รอบหน้าลูกเต๋า 1 ลูกเป็น 6');}}
+  else q.slot[s]=d.v;
+ }
+ q.wtemp=q.slot.hp;
+ q.curSp=q.h.sp+q.slot.dex;
+}
+function heroDmg(q,base){let d=base+(q.atkB||0)+(q.anthem?2:0);q.atkB=0;return d;}
+function frontOK(q,u){const dd=(u.pos-q.pos)*q.face;return u.pos===q.pos||dd>0;}
+function inRange(q,u,rng){const d=Math.abs(u.pos-q.pos);return d>=rng[0]&&d<=rng[1]&&frontOK(q,u);}
+function damageM(C,u,dmg,src,opt={}){
+ if(u.hp<=0)return;
+ if(u.code==='KRASUE'&&opt.close&&false)return;
+ if(u.ev>0&&!opt.pierce){u.ev--;log(`${u.name} หลบ (Evasion)!`);return;}
+ if(u.kind==='minion'){
+  if(dmg>=u.d.kill||u.down){u.hp=0;log(`${src} สังหาร ${u.name}`);onKill(C,u,src);}
+  else{u.down=true;log(`${src} ล้ม ${u.name} (Knocked down)`);}
+  return;}
+ if(u.dearm){dmg=Math.ceil(dmg*1.5);u.dearm=0;}
+ u.hp-=dmg;log(`${src} → ${u.name} ${dmg} dmg (${Math.max(0,u.hp)}/${u.maxhp})`);
+ if(u.hp<=0){u.hp=0;
+  if(u.d.fam==='mold'&&!u.revived){const tombs=C.units.filter(m=>m.kind==='minion'&&m.d.tomb&&m.hp>0).length;const r=rnd(6)+1;
+   if(tombs&&r<=tombs){u.revived=true;u.hp=Math.ceil(u.maxhp/2);log(`Tombstone: ${u.name} ฟื้นคืนชีพ! (D6=${r} ≤ ${tombs})`,'bad');return;}}
+  log(`${u.name} ถูกทำลาย!`,'good');onKill(C,u,src);}
+}
+function onKill(C,u,src){const dm=C.parts.find(q=>q.id==='damon'&&q.hp>0);if(dm&&dm.corpses<3)dm.corpses++;}
+function hurtS(C,q,dmg,src,eff={}){
+ if(q.hp<=0)return;
+ if(C.bastion){log(`${q.name} ได้รับการปกป้องจาก Zagan's Bastion`);return;}
+ if(q.id==='damon'&&C.zombies>0){C.zombies--;log(`Zombie รับการโจมตีแทน Damon`);return;}
+ if(q.dearm){dmg=Math.ceil(dmg*1.5);q.dearm=0;}
+ if(q.id==='hartmann'&&!q.movedLast)dmg=Math.max(0,dmg-1);
+ if(C.shield[q.pos]){const s=Math.min(C.shield[q.pos],dmg);dmg-=s;C.shield[q.pos]-=s;if(s)log(`Ash Wall ลด ${s} dmg`);}
+ if(q.wtemp){const s=Math.min(q.wtemp,dmg);q.wtemp-=s;dmg-=s;}
+ q.hp-=dmg;log(`${src} → ${q.name} ${dmg} dmg (Wound coins: ${q.maxhp-Math.max(0,q.hp)})`,'bad');
+ if(eff.poison)q.poison+=eff.poison;if(eff.stun)q.stun=1;if(eff.dearmor)q.dearm=1;if(eff.mb)q.mb=(q.mb||0)+eff.mb;
+ if(q.hp<=0){
+  if(q.revive){q.revive=false;q.hp=1;q.items=q.items.filter(i=>i!=='rinaneck');log(`สร้อยคอของ Rina ยื้อชีวิต ${q.name} ไว้ที่ 1 HP`,'good');return;}
+  q.hp=0;log(`${q.name} ล้มลง!`,'bad');}
+}
+async function combatRound(C){
+ log(`— Round ${C.round} —`,'phase');
+ C.bastion=false;C.shield={};for(const q of C.parts){q.anthem=false;q.taunt=false;}
+ for(const u of liveM(C))if(u.kind==='elite'){u.bonus=roll(u.d.bonus);}
+ for(const q of liveS(C)){G.cur=q;IO.render();await placeDice(q,C);}
+ // Mina passive
+ const mina=liveS(C).find(q=>q.id==='mina');
+ if(mina)for(const q of liveS(C))if(q!==mina&&q.pos===mina.pos)q.curSp++;
+ const order=[...liveS(C).map(q=>({u:q,sp:q.curSp,s:1})),...liveM(C).filter(u=>!(u.kind==='minion'&&u.d.tomb)).map(u=>({u,sp:u.sp,s:0}))].sort((a,b)=>b.sp-a.sp||b.s-a.s);
+ C.order=order.map(o=>o.u);
+ for(const o of order){
+  const u=o.u;if(u.hp<=0)continue;
+  if(!liveM(C).some(m=>m.kind==='elite'))return 'win';
+  if(!liveS(C).length)return 'loss';
+  G.cur=u;IO.render();await IO.sleep(2);
+  if(u.stun){u.stun=0;log(`${u.name} ติด Stun ข้ามเทิร์น`);continue;}
+  if(o.s)await heroTurn(u,C);else await monsterTurn(u,C);
+  if(u.poison&&u.hp>0){if(o.s){u.hp-=u.poison;log(`${u.name} เสีย ${u.poison} HP จาก Poison`,'bad');if(u.hp<=0){u.hp=0;log(`${u.name} ล้มลง!`,'bad');}}else damageM(C,u,u.poison,'Poison',{pierce:true});}
+ }
+ // allies & zombies
+ if(G.allies.includes('rina')&&liveS(C).length){const t=liveM(C).sort((a,b)=>(b.kind==='elite')-(a.kind==='elite'))[0];if(t)damageM(C,t,3,'Rina (Ally)',{pierce:true});}
+ if(!liveM(C).some(m=>m.kind==='elite'))return 'win';
+ if(!liveS(C).length)return 'loss';
+ return null;
+}
+function nearestM(C,q){const ms=liveM(C).filter(u=>!(u.kind==='minion'&&u.d.tomb&&liveM(C).some(e=>e.kind==='elite')))||[];
+ return (ms.length?ms:liveM(C)).sort((a,b)=>Math.abs(a.pos-q.pos)-Math.abs(b.pos-q.pos)||(b.kind==='elite')-(a.kind==='elite')||a.hp-b.hp)[0];}
+function blocked(C,from,to){return liveM(C).some(u=>u.pos===to&&u.d.move==='block')&&to!==from;}
+async function heroTurn(q,C){
+ let mv=q.h.mv+Math.floor(q.slot.move/2);let attacked=false,skilled=!q.skillReady,moved=false;
+ const atkBase=(q.h.atk==='mag'?q.h.int+q.slot.int:q.h.str+q.strB+q.slot.str);
+ for(let guard=0;guard<30;guard++){
+  if(!liveM(C).some(m=>m.kind==='elite'))break;
+  const opts=[];
+  const ms=liveM(C);
+  if(!attacked)for(const u of ms)if(inRange(q,u,q.h.range)&&!(u.d.move==='fly'&&Math.abs(u.pos-q.pos)===0&&false))opts.push({v:{a:'atk',u},l:`โจมตี ${u.name}${u.kind==='minion'?(u.down?' (ล้มอยู่)':''):` (${u.hp} HP)`} — ${atkBase+(backAtk(q,u)?Math.ceil(q.h.dex/2):0)+(q.atkB||0)} dmg`,u});
+  if(!skilled)for(const s of skillOpts(q,C))opts.push(s);
+  if(!q.ultUsed&&(q.h.ult.cost<q.hp)&&(!q.h.ult.dice||true))for(const s of ultOpts(q,C))opts.push(s);
+  const nx=q.pos+q.face;
+  if(mv>0&&nx>=0&&nx<=5&&!blocked(C,q.pos,nx))opts.push({v:{a:'fwd'},l:`เดินหน้า → ช่อง ${nx+1} (Move ${mv})`});
+  if(mv>0)opts.push({v:{a:'turn'},l:`หันกลับ (Turn, ใช้ 1 Move)`});
+  opts.push({v:{a:'end'},l:'จบเทิร์น (End turn)'});
+  const bi=botHeroIdx(q,C,opts,mv);
+  const c=await ask(q,'combat',`${q.name} (Sp ${q.curSp}) — ช่อง ${q.pos+1} หัน${q.face>0?'ขวา →':'ซ้าย ←'}`,opts,bi);
+  if(c.a==='end')break;
+  if(c.a==='fwd'){q.pos+=q.face;mv--;moved=true;continue;}
+  if(c.a==='turn'){q.face*=-1;mv--;continue;}
+  if(c.a==='atk'){attacked=true;let d=heroDmg(q,atkBase+(backAtk(q,c.u)?Math.ceil(q.h.dex/2):0));damageM(C,c.u,d,q.name,{close:q.pos===c.u.pos});}
+  if(c.a==='skill'){skilled=true;c.run();}
+  if(c.a==='ult'){q.ultUsed=true;if(q.h.ult.cost){q.hp-=q.h.ult.cost;G.blood+=q.h.ult.cost;log(`${q.name} จ่ายเลือด ${q.h.ult.cost} HP — Blood of the Past: ${q.h.ult.name}!`,'blood');}else log(`${q.name}: ${q.h.ult.name}!`,'blood');c.run();}
+  IO.render();await IO.sleep(1);
+ }
+ q.movedLast=moved;
+ if(q.id==='damon'&&C.zombies>0){for(let z=0;z<C.zombies;z++){const t=nearestM(C,q);if(t&&Math.abs(t.pos-q.pos)<=1)damageM(C,t,2,'Zombie');}}
+}
+function backAtk(q,u){return q.id==='sora'&&u.face===q.face&&u.pos===q.pos||(q.id==='sora'&&q.warped===u.uid);}
+function tgtsIn(q,C,rng){return liveM(C).filter(u=>inRange(q,u,rng));}
+function skillOpts(q,C){
+ const o=[],sd=q.skillDice,mx=Math.max(...sd,0),ms=liveM(C);
+ const S=(l,run)=>o.push({v:{a:'skill',run},l:`[Skill] ${q.h.skill.name}: ${l}`,skill:true});
+ switch(q.id){
+  case 'zemaki':{const ps=[...new Set(tgtsIn(q,C,[0,1]).map(u=>u.pos))];for(const p of ps)S(`6 dmg ทุกศัตรูช่อง ${p+1}`,()=>ms.filter(u=>u.pos===p).forEach(u=>damageM(C,u,heroDmg(q,6),'Oni Splash')));break;}
+  case 'damon':if(C.zombies<2)S('อัญเชิญ Zombie',()=>{C.zombies++;log(`Damon อัญเชิญ Zombie (${C.zombies}/2)`);});break;
+  case 'hartmann':S(`Ash Wall ลดดาเมจ ${mx} ที่ช่อง ${q.pos+1}`,()=>{C.shield[q.pos]=(C.shield[q.pos]||0)+mx;log(`Hartmann สร้าง Ash Wall (${mx})`);});break;
+  case 'troika':S('ฮีล 2 HP ทุกคนในช่องเดียวกัน',()=>{for(const s of liveS(C))if(s.pos===q.pos){s.hp=Math.min(s.maxhp,s.hp+3);}log('Troika ฮีล 2(+1 Black Cat & Dog) HP ในช่อง','good');});break;
+  case 'sora':for(const u of ms.filter(u=>u.kind==='elite'))S(`วาร์ปไปหลัง ${u.name}`,()=>{const np=Math.max(0,Math.min(5,u.pos-u.face));q.pos=u.pos===np?u.pos:u.pos;q.face=u.face;q.warped=u.uid;log(`Sora วาร์ปไปด้านหลัง ${u.name}`);});break;
+  case 'mina':for(const s of liveS(C))if(s!==q)S(`Encore ให้ ${s.name} (+4 dmg)`,()=>{s.atkB=(s.atkB||0)+4;log(`Mina ร้อง Encore ให้ ${s.name}`);});break;
+  case 'lydia':{const ps=[...new Set(tgtsIn(q,C,[0,2]).map(u=>u.pos))];for(const p of ps)S(`Purge 8 dmg ทุกศัตรูช่อง ${p+1}`,()=>ms.filter(u=>u.pos===p).forEach(u=>damageM(C,u,heroDmg(q,8),'Purge')));break;}
+  case 'dixon':{const ps=[...new Set(tgtsIn(q,C,[0,2]).map(u=>u.pos))];for(const p of ps)S(`Wrath Shot ${q.h.str+4} dmg ช่อง ${p+1}`,()=>ms.filter(u=>u.pos===p).forEach(u=>damageM(C,u,heroDmg(q,q.h.str+4),'Wrath Shot')));break;}
+  case 'jack':{const ts=tgtsIn(q,C,[1,3]).concat(tgtsIn(q,C,[0,0]));if(ts.length)S(`${mx} dmg ใส่ 2 เป้าหมาย`,()=>{const tt=[...new Set(ts)].sort((a,b)=>(b.kind==='elite')-(a.kind==='elite')).slice(0,2);tt.forEach(u=>damageM(C,u,heroDmg(q,mx),'Twin Bolt'));});break;}
+  case 'ronan':if(G.allies.length)S('Ally ทำแอคชันอีกครั้ง',()=>{const t=liveM(C)[0];if(t)damageM(C,t,3,'Rina (Rally)',{pierce:true});});
+   else{const ps=[...new Set(tgtsIn(q,C,[0,1]).map(u=>u.pos))];for(const p of ps)S(`Anchor Sweep 5 dmg ช่อง ${p+1}`,()=>ms.filter(u=>u.pos===p).forEach(u=>damageM(C,u,heroDmg(q,5),'Anchor Sweep')));}break;
+ }
+ return o;
+}
+function ultOpts(q,C){
+ const o=[],ms=liveM(C),U=(l,run,u)=>o.push({v:{a:'ult',run},l:`[Ultimate ${q.h.ult.cost?'−'+q.h.ult.cost+' HP':''}] ${q.h.ult.name}: ${l}`,ult:true,u});
+ const single=(rng,d,opt)=>{for(const u of tgtsIn(q,C,rng).filter(u=>u.kind==='elite'))U(`${typeof d==='function'?d():d} dmg → ${u.name}`,()=>damageM(C,u,typeof d==='function'?d():d,q.h.ult.name,opt),u);};
+ switch(q.id){
+  case 'zemaki':single([0,1],12);break;
+  case 'damon':single([0,2],()=>Math.max(4,4*q.corpses));if(o.length){const r0=o.map(x=>x.v.run);o.forEach((x,i)=>x.v.run=()=>{r0[i]();q.corpses=0;});}break;
+  case 'hartmann':U('Survivor ทุกคนไม่รับดาเมจรอบนี้',()=>{C.bastion=true;});break;
+  case 'troika':U('ฮีล 4 + ล้างสถานะทุกคน',()=>{for(const s of liveS(C)){s.hp=Math.min(s.maxhp,s.hp+4);s.poison=0;s.stun=0;s.dearm=0;}});break;
+  case 'sora':single([0,1],()=>3*(q.h.str+2));break;
+  case 'mina':U('ทุกคน +2 dmg รอบนี้',()=>{for(const s of liveS(C))s.anthem=true;});break;
+  case 'lydia':for(const u of tgtsIn(q,C,[0,2]).filter(u=>u.kind==='elite'))U(`10 dmg + Stun → ${u.name}`,()=>{damageM(C,u,10,'Living Iron Seal');u.stun=1;},u);break;
+  case 'dixon':if(tgtsIn(q,C,[0,1]).length)U('10 dmg ทุกศัตรูระยะ 0-1',()=>{tgtsIn(q,C,[0,1]).forEach(u=>damageM(C,u,10,'Sin Sense'));});break;
+  case 'jack':single([0,3],10,{pierce:true});break;
+  case 'ronan':single([0,1],q.h.str*2+4);if(o.length){const r0=o.map(x=>x.v.run);o.forEach((x,i)=>x.v.run=()=>{r0[i]();q.taunt=true;});}break;
+ }
+ return o;
+}
+function botHeroIdx(q,C,opts,mv){
+ const f=p=>opts.findIndex(p);
+ // ultimate: when elite would die or boss fight and hp healthy
+ const ui=f(o=>o.ult&&(!o.u||o.u.hp<=14&&o.u.hp>4||C.boss));
+ const support=['hartmann','troika','mina'].includes(q.id);
+ if(ui>=0&&(q.hp-q.h.ult.cost>=5||C.boss&&q.hp-q.h.ult.cost>=2)){
+  if(q.id==='troika'&&!liveS(C).some(s=>s.hp<s.maxhp-4));
+  else if(q.id==='hartmann'&&C.round<2);
+  else return ui;}
+ const si=f(o=>o.skill);if(si>=0&&!(q.id==='troika'&&!liveS(C).some(s=>s.pos===q.pos&&s.hp<s.maxhp-1)))return si;
+ // attack elite first, else any
+ let ai=f(o=>o.v.a==='atk'&&o.u.kind==='elite');if(ai<0)ai=f(o=>o.v.a==='atk'&&!(o.u.kind==='minion'&&o.u.d.tomb));if(ai<0)ai=f(o=>o.v.a==='atk');
+ if(ai>=0)return ai;
+ if(mv>0){const t=liveM(C).filter(u=>u.kind==='elite').sort((a,b)=>Math.abs(a.pos-q.pos)-Math.abs(b.pos-q.pos))[0]||nearestM(C,q);
+  if(t){const want=t.pos>q.pos?1:t.pos<q.pos?-1:q.face;const d=Math.abs(t.pos-q.pos);
+   const minR=q.h.range[0];
+   if(want!==q.face&&d>0){const ti=f(o=>o.v.a==='turn');if(ti>=0)return ti;}
+   if(d>q.h.range[1]||(d===0&&false)){const fi=f(o=>o.v.a==='fwd');if(fi>=0)return fi;}
+   if(d<minR&&d>=0){/* archer too close: step back via turn */}}}
+ return f(o=>o.v.a==='end');
+}
+async function monsterTurn(u,C){
+ const d=u.d;
+ if(u.kind==='minion'&&(u.down||d.tomb||!d.rng)){if(u.down){u.down=false;log(`${u.name} ลุกขึ้นมา`);}return;}
+ const tgtOf=()=>{const ss=liveS(C);const taunt=ss.find(s=>s.taunt);if(taunt)return taunt;return ss.sort((a,b)=>Math.abs(a.pos-u.pos)-Math.abs(b.pos-u.pos)||a.hp-b.hp)[0];};
+ let mv=d.mv||0;
+ const can=t=>{const dd=Math.abs(t.pos-u.pos);return d.rng&&(d.aoe&&d.rng[1]>=5&&!d.rng[0]&&false||dd>=d.rng[0]&&dd<=d.rng[1]);};
+ let t=tgtOf();if(!t)return;
+ for(let g=0;g<8&&!can(t)&&mv>0&&d.move!=='stationary';g++){
+  const want=t.pos>u.pos?1:t.pos<u.pos?-1:u.face;const dd=Math.abs(t.pos-u.pos);
+  if(dd<d.rng[0]){const back=u.pos-want;if(back>=0&&back<=5){u.pos=back;mv--;continue;}break;}
+  if(want!==u.face&&d.move!=='fly'&&d.move!=='swoop'){u.face=want;mv--;continue;}
+  u.face=want;u.pos+=want;mv--;
+ }
+ t=tgtOf();
+ if(!t||!can(t))return;
+ u.face=t.pos>u.pos?1:t.pos<u.pos?-1:u.face;
+ // special: G-Mg heal not used in v0.1 cards
+ let dmg=d.dmg+(u.kind==='elite'?Math.floor(u.bonus/2):0);
+ if(d.groveBuff||u.d.fam==='grove')dmg+=liveM(C).filter(m=>m!==u&&m.pos===u.pos&&(m.fam==='grove'||m.d.fam==='grove')).length?1:0;
+ if(u.code==='KRASUE'&&C.round%3===0){log('Krasue กรีดร้อง! (Shriek) ทุก Survivor 2 dmg + Stun 1 คน','bad');const ss=liveS(C);ss.forEach(s=>hurtS(C,s,2,'Shriek'));const st=liveS(C);if(st.length)pick(st).stun=1;return;}
+ const eff={poison:d.poison,stun:d.stun,dearmor:d.dearmor,mb:d.mb};
+ if(d.aoe){const vs=liveS(C).filter(s=>s.pos===t.pos);log(`${u.name} โจมตีทุกคนในช่อง ${t.pos+1}`);vs.forEach(s=>hurtS(C,s,dmg,u.name,eff));}
+ else{ // shared square: Hartmann / highest HP takes the hit
+  const same=liveS(C).filter(s=>s.pos===t.pos);const tank=same.find(s=>s.taunt)||same.find(s=>s.id==='hartmann')||same.sort((a,b)=>b.hp-a.hp)[0]||t;
+  hurtS(C,tank,dmg,u.name,eff);}
+}
+if(typeof module!=='undefined'&&typeof window==='undefined')module.exports={newGame,runGame,IO,CFG,HEROES,ELITES,setRng:r=>{RNG=r},get G(){return G}};
+
+// ===== UI layer =====
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+let SPEED=1, pendingResolve=null;
+const sel=[];
+function setupScreen(){
+ const box=$('#setup');box.style.display='block';$('#game').style.display='none';
+ const grid=$('#heroGrid');grid.innerHTML='';
+ HEROES.forEach(h=>{const d=document.createElement('div');d.className='hcard'+(sel.includes(h.id)?' on':'');d.dataset.id=h.id;
+  d.innerHTML=`<div class="hn">${esc(h.name)}</div><div class="hr">${h.role} · ${h.faction}</div>
+  <div class="st">HP ${h.hp} · Sp ${h.sp} · Mv ${h.mv} · Str ${h.str} · Dex ${h.dex} · Int ${h.int}</div>
+  <div class="ab"><b>Passive</b> ${esc(h.passive.name)}: ${esc(h.passive.txt)}</div>
+  <div class="ab"><b>Skill</b> ${esc(h.skill.name)}: ${esc(h.skill.txt)}</div>
+  <div class="ab blood"><b>Ultimate</b> ${esc(h.ult.name)}: ${esc(h.ult.txt)}</div>`;
+  d.onclick=()=>{const i=sel.indexOf(h.id);if(i>=0)sel.splice(i,1);else if(sel.length<4)sel.push(h.id);setupScreen();};
+  grid.appendChild(d);});
+ $('#selInfo').textContent=`เลือก Survivor แล้ว ${sel.length}/4 ${sel.length?'— '+sel.map(id=>HEROES.find(h=>h.id===id).name).join(', '):''}`;
+}
+function start(watch){
+ let ids=sel.slice();if(!ids.length||watch){ids=shuffle(HEROES.map(h=>h.id)).slice(0,watch?3:1);}
+ const autoAll=watch;
+ newGame({players:ids.map(id=>({hero:id,bot:autoAll}))});
+ $('#setup').style.display='none';$('#game').style.display='grid';$('#log').innerHTML='';
+ render();runGame().catch(e=>{console.error(e);logLine('ERROR: '+e.message,'loss');});
+}
+function logLine(m,cls){const L=$('#log');if(!L)return;const d=document.createElement('div');d.className='ll '+(cls||'');d.textContent=m;L.appendChild(d);while(L.children.length>300)L.removeChild(L.firstChild);L.scrollTop=L.scrollHeight;}
+IO.log=(m,c)=>logLine(m,c);
+IO.sleep=async n=>{const human=G.players.some(p=>!p.bot);const ms=(human?120:220)*n/SPEED;if(ms>0&&!window.FAST)await new Promise(r=>setTimeout(r,ms));};
+IO.ask=(p,kind,prompt,opts,bi)=>new Promise(res=>{
+ const box=$('#choices');box.innerHTML=`<div class="prompt">${esc(prompt)}</div>`;
+ opts.forEach((o,i)=>{const b=document.createElement('button');b.textContent=o.l;b.className=(i===bi?'rec ':'')+(o.ult?'ultb ':'')+(o.skill?'skb':'');b.title=i===bi?'แนะนำ (Bot)':'';
+  b.onclick=()=>{box.innerHTML='';res(o.v);};box.appendChild(b);});
+ const a=document.createElement('button');a.className='auto';a.textContent='🤖 ให้ Bot เล่นตัวนี้ (Auto)';a.onclick=()=>{p.bot=true;box.innerHTML='';res(opts[bi].v);render();};box.appendChild(a);
+ render();
+});
+IO.onEnd=r=>{render();const o=$('#overlay');o.style.display='flex';o.innerHTML=`<div class="endbox ${r.r}"><h1>${r.r==='win'?'ACT 1 CLEARED':'YOU ARE BOUND TO THE ASH'}</h1><p>${esc(r.why)}</p>
+ <p>วันที่ ${r.day} · Combats ${G.stats.combats} · Blood used ${G.blood}</p><button onclick="location.reload()">เล่นใหม่</button></div>`;};
+IO.render=()=>render();
+const STAT_TH={str:'Str',dex:'Dex',int:'Int',move:'Move',hp:'HP'};
+function render(){
+ if(!G)return;
+ $('#top').innerHTML=`<span class="ttl">ASHBOUND</span><span>วันที่ <b>${Math.min(G.day,CFG.deadlineDays)}</b>/${CFG.deadlineDays} (Act 1 deadline)</span><span>${PHASE_TH[PHASES[G.phase]]}</span>
+ <span>🍖 Food <b>${G.food}</b></span><span>🔍 Clue <b>${G.clues}</b>/${CFG.cluesNeeded}</span><span>🌫 Soot <b>${G.soot}</b> (T${tier()})</span><span>🪙 ${G.gold} · Exp ${G.exp}/${CFG.expPerLevel}</span><span class="blood">🩸 Blood ${G.blood}</span>
+ <span>Ally: ${G.allies.length?G.allies.map(a=>a==='rina'?'Rina':a).join(','):'—'} (${allySlots()} slot)</span>
+ <span class="spd">Speed <button onclick="SPEED=Math.max(0.5,SPEED/2)">−</button>${SPEED}× <button onclick="SPEED=Math.min(8,SPEED*2)">+</button></span>`;
+ // party
+ $('#party').innerHTML=G.players.map(p=>`<div class="pc ${G.cur===p?'cur':''} ${p.hp<=0?'dead':''}"><div class="hn">${esc(p.name)} <small>${p.h.role}${p.bot?' 🤖':''}</small></div>
+  <div class="hpbar"><i style="width:${100*Math.max(0,p.hp)/p.maxhp}%"></i><span>${Math.max(0,p.hp)}/${p.maxhp} HP</span></div>
+  <div class="sm">@ ${esc(G.tiles[p.tile].name)} · Dice ${p.dice.map(d=>`<span class="die ${d}">${d}</span>`).join('')}${p.weak?' <span class="bad">Weak</span>':''}${p.corpses?' Corpse '+p.corpses:''}</div>
+  <div class="sm">${p.items.length?'Items: '+p.items.join(', '):''}</div></div>`).join('');
+ drawMap();
+ drawCombat();
+}
+function drawMap(){
+ const s=[`<svg viewBox="0 0 780 440" class="map">`,`<defs><filter id="fog"><feTurbulence baseFrequency="0.012" numOctaves="3" seed="6"/><feColorMatrix values="0 0 0 0 0.5 0 0 0 0 0.48 0 0 0 0 0.45 0 0 0 0.35 0"/></filter></defs><rect width="780" height="440" fill="#0d0d0f"/><rect width="780" height="440" filter="url(#fog)"/>`];
+ for(const [a,b] of EDGES){const A=G.tiles[a],B=G.tiles[b];s.push(`<line x1="${A.x}" y1="${A.y}" x2="${B.x}" y2="${B.y}" class="edge"/>`);}
+ for(const id in G.tiles){const t=G.tiles[id];const z=ZONES[t.zone];
+  s.push(`<g class="tile ${t.opened?'':'closed'}"><rect x="${t.x-62}" y="${t.y-30}" width="124" height="60" rx="6" fill="${z.col}" />
+  <text x="${t.x}" y="${t.y-14}" class="tn">${esc(t.name)}</text><text x="${t.x}" y="${t.y-2}" class="tz">${z.en}${t.gate?' ☠':''}${t.rina&&!G.rinaMet?' 👁':''}</text>`);
+  let cx=t.x-50;const cube=(c,n)=>{for(let i=0;i<n;i++){s.push(`<rect x="${cx}" y="${t.y+8}" width="10" height="10" fill="${c}" stroke="#000"/>`);cx+=13;}};
+  cube('#4caf50',t.cubes.food);cube('#e0c040',t.cubes.explore);cube('#4a90d9',t.cubes.npc);
+  const ps=G.players.filter(p=>p.tile===id&&p.hp>0);ps.forEach((p,i)=>s.push(`<circle cx="${t.x+40-i*14}" cy="${t.y+13}" r="6" class="pawn p${p.i}"/>`));
+  s.push('</g>');}
+ s.push('</svg>');$('#map').innerHTML=s.join('');
+}
+function drawCombat(){
+ const C=G.combat,el=$('#combat');
+ if(!C){el.style.display='none';return;}
+ el.style.display='block';
+ let h=`<div class="ctitle">⚔ ${esc(C.title)} · Round ${C.round}</div><div class="bf">`;
+ for(let i=0;i<6;i++){h+=`<div class="cell"><div class="cn">${i+1}${C.shield[i]?' 🛡'+C.shield[i]:''}</div>`;
+  for(const q of C.parts.filter(q=>q.pos===i&&q.hp>0))h+=`<div class="unit s ${G.cur===q?'cur':''}">${q.face>0?'':'◀ '}${esc(q.name)}${q.face>0?' ▶':''}<br><small>${q.hp}/${q.maxhp}HP Sp${q.curSp??q.h.sp}${q.wtemp?' +'+q.wtemp+'T':''}${q.poison?' ☠'+q.poison:''}${q.stun?' ⚡':''}</small>${q.slot?`<div class="slots">${Object.entries(q.slot).filter(e=>e[1]).map(([k,v])=>STAT_TH[k]+':'+v).join(' ')}${q.skillReady?' ★Skill':''}${q.charge?' ⏸'+q.charge.v:''}</div>`:''}</div>`;
+  for(const u of C.units.filter(u=>u.pos===i&&u.hp>0))h+=`<div class="unit m ${u.kind} ${G.cur===u?'cur':''} ${u.down?'down':''}">${u.face>0?'':'◀ '}${esc(u.name)}${u.face>0?' ▶':''}<br><small>${u.kind==='elite'?`${u.hp}/${u.maxhp}HP Sp${u.sp} dmg${u.d.dmg}+${Math.floor(u.bonus/2)} [${u.d.bonus}${u.bonus}]${u.ev?' Ev'+u.ev:''}`:`Minion kill≥${u.d.kill}${u.down?' (ล้ม)':''}`}${u.stun?' ⚡':''}</small></div>`;
+  h+='</div>';}
+ h+=`</div><div class="order">Turn order (Sp): ${(C.order||[]).filter(u=>u.hp>0).map(u=>esc(u.name)).join(' → ')}${C.zombies?' · Zombies '+C.zombies:''}</div>`;
+ el.innerHTML=h;
+}
+window.addEventListener('DOMContentLoaded',()=>{setupScreen();});
+window.ASH={newGame,runGame,IO,CFG,HEROES,setRng:r=>{RNG=r},get G(){return G},start,
+ async sim(n){const saveAsk=IO.ask,saveLog=IO.log,saveR=IO.render,saveS=IO.sleep,saveE=IO.onEnd;IO.ask=null;IO.log=()=>{};IO.render=()=>{};IO.sleep=async()=>{};IO.onEnd=()=>{};
+  const out={win:0,loss:0,errors:0};const ids=HEROES.map(h=>h.id);
+  for(let i=0;i<n;i++){try{const k=1+i%4;newGame({players:shuffle(ids.slice()).slice(0,k).map(id=>({hero:id,bot:true}))});const r=await runGame();out[r.r]++;}catch(e){out.errors++;out.last=e.message;}}
+  Object.assign(IO,{ask:saveAsk,log:saveLog,render:saveR,sleep:saveS,onEnd:saveE});G=null;return out;}};
+
+</script></body></html>
