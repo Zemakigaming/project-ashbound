@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
-<title>Project Ashbound v0.8.2 — Prototype</title><style>
+<title>Project Ashbound v0.8.3 — Prototype</title><style>
 *{box-sizing:border-box}body{margin:0;background:#08080a;color:#cfc8bd;font-family:"Sarabun","Noto Sans Thai",Tahoma,sans-serif;font-size:14px}
 body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 30%,transparent 40%,#000 100%),repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0 1px,transparent 1px 3px);z-index:50}
 h1,.ttl{font-family:Georgia,serif;letter-spacing:.3em;color:#b33a2f;text-shadow:0 0 12px #600}
@@ -380,6 +380,24 @@ body.dragging .slotbox .sock{border-color:#ffb04a}
 .scard.mini{background:#15131a;border:1px solid #2e2833;border-radius:7px;padding:3px;text-align:center;display:flex;flex-direction:column;line-height:1.15}
 .scard.mini .skey{font-size:10px}.scard.mini .sval{font-size:15px}.scard.mini .sdi{font-size:10px;color:#8fd8e8}.scard.mini.filled{border-color:#4a7f8c}
 .aoth{display:flex;flex-direction:column;gap:6px;flex:0 0 auto}
+/* ===== v0.8.3 dice + narrow stats in one top row; wide text cards below ===== */
+.ptop{display:flex;gap:6px;align-items:stretch;margin:4px 0 8px;flex-wrap:nowrap}
+.ptop .ppool{position:static;max-width:none;min-width:0;flex:0 0 auto}
+.ptop .ppool .pdice{display:flex;flex-wrap:wrap;gap:4px}
+.ptop .pstats{flex:1 1 auto;margin:0;display:flex;gap:4px;padding:4px}
+.planb .ptop .acard.scard{flex:0 0 74px;width:74px;padding:3px;text-align:center}
+.ptop .scard .shd2{flex-direction:column;align-items:center}.ptop .scard .suse{font-size:9px}
+.ptop .scard .apv{min-height:0;font-size:11px}
+.pstats.turn{display:flex;flex:1 1 auto}.pstats.turn .scard.mini{flex:1 1 0;min-width:44px}
+.ptop.turn .tdie{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;width:30px;height:34px;border-radius:6px;background:#e9e4da;color:#111;line-height:1}
+.ptop.turn .tdie i{font-size:8px;font-style:normal}.ptop.turn .tdie.tg{opacity:.55}
+.planb .pwrap .abar{flex:1 1 100%}
+.planb .abar .acard,.abar.turn .acard,.aoth .acard{min-width:210px;flex:1 1 210px;max-width:320px}
+.aoth{flex-direction:row;flex-wrap:wrap;flex:1 1 100%}
+.planb .pwrap{flex-wrap:wrap}
+.htop{display:flex;gap:3px;align-items:stretch;margin:5px 0}.htop .pdice.hd{display:flex;flex-direction:column;flex-wrap:wrap;gap:1px;margin:0;font-size:10px;max-height:46px}
+.htop .pdice.hd small{display:none}.htop .hstats{flex:1;margin:0}
+.ptop{flex-wrap:wrap}.ptop .pstats{flex-wrap:wrap;min-width:0}
 </style></head><body>
 <div id="setup"><div id="tbg"></div><div class="tfog"></div><div class="tin">
 <div class="tlogo"><small>ACT 1 · THE SURVIVORS</small><h1>PROJECT<br>ASHBOUND</h1><div class="tsub">เมืองอาชา (Achar) — ผนึก 666 ปีแตก เถ้าต้องสาปปกคลุมเมือง</div></div>
@@ -387,11 +405,11 @@ body.dragging .slotbox .sock{border-color:#ffb04a}
 <div class="tlinks"><button onclick="start(true)">👁 ดู Bot เล่น</button><button onclick="showHow()">📖 วิธีเล่น</button><button onclick="toggleAsm()">⚠ Assumptions</button><button onclick="showNew(true)">✨ มีอะไรใหม่</button></div></div>
 <div class="tsel"><div class="tselh">เลือก SURVIVOR <span>(สูงสุด 4 · ชี้เมาส์ดูรายละเอียด)</span></div><p id="selInfo"></p><div id="heroGrid"></div>
 <details class="trules"><summary>กติกาโดยย่อ</summary><div class="rules">เมืองอาชา (Achar) · Act 1: THE SURVIVORS — ผนึก 666 ปีแตก เถ้าต้องสาปปกคลุมเมือง<br>
-<b>Prototype v0.8.2</b> (Rulebook V1.3 + ชีต " ASHBOUND ") · Co-op 1–4 Survivors · เริ่มที่ท่าเรือ A8 · แผนที่ Act 1 12 ช่อง (A5–D8)<br>
+<b>Prototype v0.8.3</b> (Rulebook V1.3 + ชีต " ASHBOUND ") · Co-op 1–4 Survivors · เริ่มที่ท่าเรือ A8 · แผนที่ Act 1 12 ช่อง (A5–D8)<br>
 วันละ 3 ช่วง เช้า/บ่าย/กลางคืน · ทุกคน 1 Action ต่อช่วง: Forage ■ / Explore ■ / Talk ■ / <b>เดินไปช่องติดกัน = 1 Action</b> / Hunt ⚠<br>
 Main Quest: Scene B7-1 (มอลล์) เปิดร้านค้า → B7-2 ส่งเสบียง 5 ชุด → B7-3 ทุกคนรวมตัวที่ B7 ต่อสู้ <b>กระสือ (Krasue)</b> · แพ้การต่อสู้ไม่แพ้เกม — แพ้เมื่อหมดเวลา Act (8 วัน ⚠)<br>
 Combat: Start Up (รีเซ็ต Sp มอน + ทอย Buff) → Player phase (ทอย/วางลูกเต๋า) → Resolve (ตาม Sp) · สนาม 6 ช่องแนวนอน ฮีโร่เริ่ม 2 ช่องล่าง · Soot T1–T4 · ⚠ = ค่าสมมติ (ดูปุ่ม Assumptions)<br>Survivor ที่เลือก = ผู้เล่นควบคุมเอง · ทุกตัวเลือกมีปุ่ม 🤖 Auto · กรอบทอง = Bot แนะนำ</div></details></div>
-</div><div id="whatsnew"></div></div><div id="verbadge">v0.8.2</div>
+</div><div id="whatsnew"></div></div><div id="verbadge">v0.8.3</div>
 <div id="netbar"></div><div id="lobby"></div><div id="game"><div id="top"></div><div id="party"></div><div id="mid"><div id="map"></div><div id="combat"></div></div><div id="right"><div id="phasebar"></div><div id="tray"></div><div id="choices"></div><div id="log"></div><div id="chat"><input id="chatIn" maxlength="200" placeholder="💬 แชทถึงทุกคน…"><button id="chatSend" onclick="chatSend()">ส่ง</button></div></div></div>
 <div id="overlay"></div><div id="asm"></div><div id="confirm" class="modal"></div><div id="tut"></div><div id="howto" class="modal"><div class="mbox"><button class="mx" onclick="hideHow()">✕ ปิด</button><h2>📖 วิธีเล่น ASHBOUND (Act 1)</h2>
 <h3>🎯 เป้าหมาย</h3><p>Co-op 1–4 คน เริ่มที่ท่าเรือ A8. ไปมอลล์ <b>B7</b> → Scene B7-1 เปิดร้านค้า → B7-2 ส่งเสบียง 5 ชุด (Main Quest) → B7-3 ทุกคนรวมตัวที่ B7 แล้วชนะ <b>รินา กระสือ (Cursed Seer)</b> = ชนะเกม</p>
@@ -413,7 +431,7 @@ const SHEET_ART={"zemaki": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2
 const SHEET_SRC=[["zemaki", "Survivor", 2, "1.0"], ["damon", "Survivor", 3, "2.0"], ["hartmann", "Survivor", 4, "3.0"], ["troika", "Survivor", 5, "4.0"], ["sora", "Survivor", 6, "5.0"], ["mina", "Survivor", 7, "6.0"], ["lydia", "Survivor", 8, "7.0"], ["dixon", "Survivor", 9, "8.0"], ["jack", "Survivor", 10, "9.0"], ["ronan", "Survivor", 11, "10.0"], ["G-Sw", "Elite", 2, "ME-002"], ["G-Ar", "Elite", 3, "ME-003"], ["G-Sh", "Elite", 4, "ME-008"], ["G-Ax", "Elite", 5, "ME-009"], ["G-Bb", "Elite", 6, "ME-010"], ["G-Rd", "Elite", 7, "ME-015"], ["G-Mg", "Elite", 8, "ME-016"], ["B-Bp", "Elite", 10, "ME-014"], ["B-Ch", "Elite", 11, "ME-019"], ["B-Wf", "Elite", 12, "ME-001"], ["B-Sd", "Elite", 13, "ME-013"], ["B-Mi", "Elite", 14, "ME-020"], ["B-Bt", "Elite", 15, "ME-004"], ["U-Bm", "Elite", 16, "ME-007"], ["U-Mg", "Elite", 17, "ME-012"], ["U-Sw", "Elite", 18, "ME-005"], ["U-Sy", "Elite", 19, "ME-011"], ["U-Sd", "Elite", 20, "ME-018"], ["U-Ar", "Elite", 21, "ME-006"], ["U-Cy", "Elite", 22, "ME-017"], ["grove", "Minion", 2, "MN-002"], ["bloom", "Minion", 3, "MN-001"], ["mold", "Minion", 4, "MN-003"], ["ally:homeless", "Ally", 2, "คนไร้บ้าน"], ["ally:mechanic", "Ally", 3, "ช่าง"], ["ally:prisoner", "Ally", 4, "นักโทษ"], ["ally:sheriffkid", "Ally", 5, "ลูกนายอำเภอ"], ["ally:police", "Ally", 9, "ตำรวจ"], ["KRASUE", "NPC", 2, "THE CURSED SEER "]];
 
 // ===== Project Ashbound v0.6.1 engine — Rulebook + sheet " ASHBOUND " + World Building (update 2026-10-24) =====
-const VERSION='v0.8.2';
+const VERSION='v0.8.3';
 let RNG=Math.random;
 const rnd=n=>Math.floor(RNG()*n);
 const pick=a=>a[rnd(a.length)];
@@ -425,7 +443,7 @@ const roll=t=>FACES[t][rnd(6)];
 const CFG={dayLimit:8,startDice:3,diceCap:7,maxRounds:30,soot0:3,mainFood:5,startCoins:3,openingFight:true,allySlot:1,skillSlots:4};
 const PHASES=['morning','afternoon','night'];
 const PHASE_TH={morning:'เช้า (Morning)',afternoon:'บ่าย (Afternoon)',night:'กลางคืน (Night)'};
-const ASSUMPTIONS=['⚠ v0.8.2 UI: "Stat" = core attribute ในชีต (STR/DEX/INT/CHA/HP/Sp/Move) → อยู่แถวบนสุด; ช่องวางเต๋าแถว Stat = STR(Attack)/DEX(Speed)/INT/HP(Guard)/Move; Charge/ทิ้งลูก ไม่ใช่ stat → อยู่ข้างล่างกับการ์ด Skill','⚠ v0.8.1 UI: การลากลูกเต๋าลงการ์ด Skill ช่วงวางลูก = การจองลูกตามกฎเดิม (Skill พร้อมใช้รอบนี้) ส่วนการเลือกเป้าหมาย/ใช้ Skill ทำในเทิร์นของฮีโร่ — ไม่ได้เปลี่ยนกฎ','⚠ v0.8.1 UI: การ์ด Skill ที่ใช้แล้วแสดง "ใช้แล้ว — รีเซ็ตรอบหน้า" (กฎไม่มี Cooldown หลายรอบ) · การ์ดล็อก = ไม่ได้จองลูก/ไม่มีลูกตรงเงื่อนไข',
+const ASSUMPTIONS=['⚠ v0.8.3 UI: กล่องลูกเต๋า + ช่อง Stat แคบ (STR/DEX/INT/HP/Move) อยู่แถวบน; การ์ดคำอธิบายยาว (Skill/Ult/Attack/Move/Charge/ทิ้งลูก) อยู่แถวล่าง — ในเทิร์นต่อสู้กล่องลูกเต๋าแถวบนเป็นแบบแสดงผล (ลูกที่วางแล้ว)','⚠ v0.8.2 UI: "Stat" = core attribute ในชีต (STR/DEX/INT/CHA/HP/Sp/Move) → อยู่แถวบนสุด; ช่องวางเต๋าแถว Stat = STR(Attack)/DEX(Speed)/INT/HP(Guard)/Move; Charge/ทิ้งลูก ไม่ใช่ stat → อยู่ข้างล่างกับการ์ด Skill','⚠ v0.8.1 UI: การลากลูกเต๋าลงการ์ด Skill ช่วงวางลูก = การจองลูกตามกฎเดิม (Skill พร้อมใช้รอบนี้) ส่วนการเลือกเป้าหมาย/ใช้ Skill ทำในเทิร์นของฮีโร่ — ไม่ได้เปลี่ยนกฎ','⚠ v0.8.1 UI: การ์ด Skill ที่ใช้แล้วแสดง "ใช้แล้ว — รีเซ็ตรอบหน้า" (กฎไม่มี Cooldown หลายรอบ) · การ์ดล็อก = ไม่ได้จองลูก/ไม่มีลูกตรงเงื่อนไข',
  'Act 1 day limit = 8 วัน (Rulebook: "ยังไม่คอนเฟิม")',
  'Basic Attack Area ของฮีโร่: ชีตคอลัมน์ว่าง → Physical = Melee 1 (Zemaki Close Melee, Upg1 → Melee 1), Magic = Range 0-2, Jack Range 1-3',
  'Sp = Dex + หน้าเต๋าที่วางช่อง Dex (ชีตใหม่ไม่มีค่า Sp แยก)',
@@ -1592,7 +1610,7 @@ function setupScreen(){
  $('#selInfo').innerHTML=sel.length?`เลือกแล้ว <b>${sel.length}/4</b> — ${sel.map(id=>esc(HEROES.find(h=>h.id===id).name)).join(', ')}`:'คลิกการ์ด Survivor เพื่อเลือก (สูงสุด 4) · ไม่เลือก = สุ่ม 1 ตัว · ชี้เมาส์ดูรายละเอียด';
  showNew();
 }
-const WHATSNEW=['v0.8.2: จัดเลย์เอาต์ใหม่ — ค่า Stat (STR/DEX/INT/HP/Move…) เรียงเป็นแถวเดียวด้านบน ทั้งช่องวางเต๋าตอนต่อสู้และแผงฮีโร่ · ด้านล่าง = ลูกเต๋า, การ์ด Skill/Ultimate/ท่าพื้นฐาน, Charge/ทิ้งลูก (ยังลากอย่างเดียวเหมือนเดิม)','v0.8.1: ไม่มีปุ่มจอง/เลือกลูกเต๋าแล้ว — ลากลูกเต๋า (เมาส์/นิ้ว) ไปวางบนการ์ดอย่างเดียว · ลากออกหรือย้ายได้','v0.8.1: Skill / Ultimate / Attack / Move เป็นการ์ด Ability แถบล่าง มีช่องเงื่อนไขลูกเต๋า, พรีวิวค่าระหว่างลาก, สถานะ READY / ใช้แล้ว / ล็อก','หน้าจอใหม่ทั้งหมด: Title / แผนที่เต็มจอ / สนามรบแนวนอนแบบ SpellRogue','ศัตรูตัวใหญ่ + Intent เหนือหัว · คลิกศัตรูเพื่อโจมตี · ปุ่มส้ม END TURN','Skill draft / ร้านค้า / ทางเลือกการ์ด = การ์ดใหญ่ "เลือก 1"','ปุ่ม Action ขึ้นข้างช่องที่ยืนอยู่ · Log ย้ายไปลิ้นชัก 📜'];
+const WHATSNEW=['v0.8.3: กล่องลูกเต๋าอยู่แถวเดียวกับช่อง Stat แคบๆ (ขนาดเท่าลูกเต๋า) ด้านบน · การ์ดที่มีคำอธิบายยาว (Skill/Ultimate/Attack/Move/Charge/ทิ้งลูก) อยู่แถวล่างแบบกว้าง อ่านง่าย','v0.8.2: จัดเลย์เอาต์ใหม่ — ค่า Stat (STR/DEX/INT/HP/Move…) เรียงเป็นแถวเดียวด้านบน ทั้งช่องวางเต๋าตอนต่อสู้และแผงฮีโร่ · ด้านล่าง = ลูกเต๋า, การ์ด Skill/Ultimate/ท่าพื้นฐาน, Charge/ทิ้งลูก (ยังลากอย่างเดียวเหมือนเดิม)','v0.8.1: ไม่มีปุ่มจอง/เลือกลูกเต๋าแล้ว — ลากลูกเต๋า (เมาส์/นิ้ว) ไปวางบนการ์ดอย่างเดียว · ลากออกหรือย้ายได้','v0.8.1: Skill / Ultimate / Attack / Move เป็นการ์ด Ability แถบล่าง มีช่องเงื่อนไขลูกเต๋า, พรีวิวค่าระหว่างลาก, สถานะ READY / ใช้แล้ว / ล็อก','หน้าจอใหม่ทั้งหมด: Title / แผนที่เต็มจอ / สนามรบแนวนอนแบบ SpellRogue','ศัตรูตัวใหญ่ + Intent เหนือหัว · คลิกศัตรูเพื่อโจมตี · ปุ่มส้ม END TURN','Skill draft / ร้านค้า / ทางเลือกการ์ด = การ์ดใหญ่ "เลือก 1"','ปุ่ม Action ขึ้นข้างช่องที่ยืนอยู่ · Log ย้ายไปลิ้นชัก 📜'];
 function showNew(force){const w=$('#whatsnew');if(!w)return;if(!force&&localStorage.getItem('ash_seen_ver')===VERSION){w.style.display='none';return;}
  w.innerHTML=`<div class="wnh">✨ มีอะไรใหม่ใน ${VERSION}</div><ul>${WHATSNEW.map(x=>`<li>${esc(x)}</li>`).join('')}</ul><button id="wnOk" onclick="hideNew()">รับทราบ</button>`;w.style.display='block';}
 function hideNew(){localStorage.setItem('ash_seen_ver',VERSION);const w=$('#whatsnew');if(w)w.style.display='none';}
@@ -1733,9 +1751,8 @@ function render(){
  <span class="chip bag" data-tip="${esc('🎒 กระเป๋ากลาง (Bag)\n'+(Object.entries(G.bag).map(([k,n])=>(ITEMS[k]?ITEMS[k].name:k)+' ×'+n+(ITEMS[k]?' — '+ITEMS[k].txt:'')).join('\n')||'ว่าง'))}">🎒 ${Object.entries(G.bag).map(([k,n])=>itemIcon(k)+'×'+n).join(' ')||'—'}</span>${G.shopOpen?'<span>🛒 ร้านค้าเปิด (B7)</span>':''}
  <button id="logBtn" onclick="toggleLog()">📜 Log</button><span class="spd">Speed <button onclick="SPEED=Math.max(0.5,SPEED/2)">−</button>${SPEED}× <button onclick="SPEED=Math.min(8,SPEED*2)">+</button></span><button onclick="showHow()">📖 วิธีเล่น</button><button onclick="tutStart(true)">🎓 Tutorial</button><button onclick="toggleAsm()">⚠ Assumptions</button>`;
  $('#party').innerHTML=G.players.map(p=>`<div class="pc pb ${G.cur===p?'cur':''} ${p.hp<=0?'dead':''}" data-uk="h:${p.id}" data-hp="${Math.max(0,p.hp)}"><div class="pport" style="--ring:${PCOL[p.i%4]}"><img class="pimg" src="${artOf(p.id)}"><div class="pnm"><b>${esc(p.name)}</b><small>${esc(p.h.role)} ${meTag(p)}</small></div><span class="ploc" data-tip="${esc('ตำแหน่ง: '+p.tile+' '+TILES[p.tile].name)}">📍${p.tile}</span></div>
-  <div class="hstats"><span data-tip="Str (Phy atk)"><i>STR</i><b>${stat(p,'str')}</b></span><span data-tip="Dex"><i>DEX</i><b>${stat(p,'dex')}</b></span><span data-tip="Int (Mag atk)"><i>INT</i><b>${stat(p,'int')}</b></span><span data-tip="CHA"><i>CHA</i><b>${stat(p,'cha')}</b></span><span data-tip="HP"><i>HP</i><b>${Math.max(0,p.hp)}</b></span><span data-tip="Speed (ลำดับเล่น)"><i>Sp</i><b>${p.h.sp}</b></span><span data-tip="Move"><i>Move</i><b>${moveOf(p)}</b></span></div>
+  <div class="htop"><div class="pdice hd" data-tip="${esc('ลูกเต๋าที่มี · Passive Upg '+p.upg+'/3'+(p.corpses?' · Corpse '+p.corpses:'')+(p.weak?' · Weak':''))}">${p.dice.map(d=>`<span class="die ${d}">${d}</span>`).join('')}${p.weak?' <span class="bad">Weak</span>':''} <small>Upg ${p.upg}/3</small></div><div class="hstats"><span data-tip="Str (Phy atk)"><i>STR</i><b>${stat(p,'str')}</b></span><span data-tip="Dex"><i>DEX</i><b>${stat(p,'dex')}</b></span><span data-tip="Int (Mag atk)"><i>INT</i><b>${stat(p,'int')}</b></span><span data-tip="CHA"><i>CHA</i><b>${stat(p,'cha')}</b></span><span data-tip="HP"><i>HP</i><b>${Math.max(0,p.hp)}</b></span><span data-tip="Speed (ลำดับเล่น)"><i>Sp</i><b>${p.h.sp}</b></span><span data-tip="Move"><i>Move</i><b>${moveOf(p)}</b></span></div></div>
   ${hpBar(p,p.maxhp)}${statusChips(p)}
-  <div class="pdice" data-tip="${esc('ลูกเต๋าที่มี · Passive Upg '+p.upg+'/3'+(p.corpses?' · Corpse '+p.corpses:'')+(p.weak?' · Weak':''))}">${p.dice.map(d=>`<span class="die ${d}">${d}</span>`).join('')}${p.weak?' <span class="bad">Weak</span>':''} <small>Upg ${p.upg}/3</small></div>
   <div class="mrow">${[0,1,2,3].map(i=>skillCard(p,p.skills[i],i)).join('')}</div>
   <div class="mrow">${[0,1,2].map(i=>itemCard(p.wear[i],i)).join('')}</div>
   ${p.allies.length?`<div class="sm">Ally: ${p.allies.map(allyChip).join(' ')}</div>`:''}</div>`).join('')+questBoard();
@@ -1798,7 +1815,7 @@ function hideHow(){$('#howto').style.display='none';}
 const TUT=[
  {sel:'#phasebar',t:'ยินดีต้อนรับสู่ ASHBOUND 🎓',x:'เป้าหมาย Act 1: ไปมอลล์ B7 (เปิดร้านค้า) → ส่งเสบียง 5 ชุด → ทุกคนรวมที่ B7 แล้วชนะ <b>กระสือ (Cursed Seer)</b> ให้ได้ภายใน 8 วัน⚠. แถบนี้บอกวัน / ช่วงเวลา / ตาของใคร และ 👉 <b>สิ่งที่ต้องทำต่อไป</b> เสมอ'},
  {sel:'#top',t:'แถบสถานะ',x:'วันที่ (Day limit 8⚠) · ช่วง เช้า/บ่าย/กลางคืน (ทุกคน 1 Action ต่อช่วง) · 🍖 อาหาร · 🪙 เหรียญ (ใช้ที่ร้านค้า) · 🌫 Soot = ความยากของการต่อสู้ (T1–T4) · ✦ Check Points (CP). ปุ่ม 📖 วิธีเล่น เปิดกฎได้ทุกเมื่อ'},
- {sel:'#party',t:'แผงฮีโร่ (Hero panel)',x:'ด้านซ้าย = การ์ดฮีโร่: รูปใหญ่, HP, แถวบนสุด = Stats (STR DEX INT CHA HP Sp Move), ข้างล่าง = HP bar, ลูกเต๋า, Skill 4 ช่อง, Item 3 ช่อง. ชี้เมาส์ที่อะไรก็ได้เพื่อดูรายละเอียด'},
+ {sel:'#party',t:'แผงฮีโร่ (Hero panel)',x:'ด้านซ้าย = การ์ดฮีโร่: รูปใหญ่, HP, แถวบนสุด = ลูกเต๋า + Stats (STR DEX INT CHA HP Sp Move), ข้างล่าง = HP bar, Skill 4 ช่อง, Item 3 ช่อง. ชี้เมาส์ที่อะไรก็ได้เพื่อดูรายละเอียด'},
  {sel:'#map',t:'แผนที่ & คิวบ์',x:'กระดานใหญ่ตรงกลาง: คิวบ์ ■เขียว Forage ■เหลือง Explore ■ฟ้า Talk · ช่องขอบ<b>ส้ม</b> = เดินไปได้ (คลิก = 1 Action) · ขอบขาว = ที่คุณยืน · ชี้ช่องเพื่อดูรายละเอียด'},
  {when:()=>CUR&&CUR.kind==='action',sel:'#choices',t:'เลือก 1 Action',x:'ปุ่มไอคอนใหญ่จะเด้ง<b>ข้างช่องที่คุณยืน</b>: 🌿 Forage 🔦 Explore 💬 Talk ⚔ Hunt 💤 Rest · ชิป ➜ = เดิน · ปุ่มจาง = ทำไม่ได้ (ชี้ดูเหตุผล)'},
  {when:()=>TRAY.pending,sel:'#tray',t:'ทอยลูกเต๋าเอง 🎲',x:'ทุกครั้งที่ต้องทอย (Combat / Challenge / D6 ของ Scene) ปุ่ม <b>ROLL</b> จะขึ้นใน Dice Tray นี้ — กดเพื่อทอย ผลจะค้างแสดงไว้ให้ดูเสมอ'},
@@ -1885,8 +1902,8 @@ function planRender(){const box=$('#choices');if(!box||!PLAN||!PLAN.pending)retu
  const p=planP(),free=PLAN.pool.filter(i=>!PLAN.at[i]);
  box.className='planb';
  box.innerHTML=`<div class="prompt">🎲 <b>${esc(p.name)}</b> — ลากลูกเต๋าไปวางบนการ์ด (ลากออก/ย้ายได้จนกว่าจะยืนยัน)</div>
- <div class="pstats" title="ค่า Stat (STR/DEX/INT/HP/Move) — ลากลูกเต๋าวางเพื่อใช้ค่านั้น">${STORD.map(k=>PLAN.socks.find(S=>S.sv===k)).filter(Boolean).map(cardHTML).join('')}</div>
- <div class="pwrap"><div class="ppool"><div class="pth">ลูกเต๋า</div><div class="pdice">${free.map(i=>dieMini(i,'')).join('')||'<span class="sm">วางครบแล้ว ✓</span>'}</div></div>
+ <div class="ptop"><div class="ppool"><div class="pth">ลูกเต๋า</div><div class="pdice">${free.map(i=>dieMini(i,'')).join('')||'<span class="sm">วางครบแล้ว ✓</span>'}</div></div><div class="pstats" title="ค่า Stat (STR/DEX/INT/HP/Move) — ลากลูกเต๋าวางเพื่อใช้ค่านั้น">${STORD.map(k=>PLAN.socks.find(S=>S.sv===k)).filter(Boolean).map(cardHTML).join('')}</div></div>
+ <div class="pwrap">
  <div class="abar">${PLAN.socks.filter(S=>S.kind==='skill').map(cardHTML).join('')||'<span class="sm">ไม่มี Skill</span>'}</div>${PLAN.socks.some(S=>S.kind==='stat'&&!S.sv)?`<div class="aoth">${PLAN.socks.filter(S=>S.kind==='stat'&&!S.sv).map(cardHTML).join('')}</div>`:''}</div><div class="pstat" id="pstat"></div>`;
  planBind();const ok=planDone(),ps=$('#pstat');
  if(ok){const ms=window.FAST?300:1200;ps.innerHTML=`✓ วางครบ — ยืนยันอัตโนมัติใน ${(ms/1000).toFixed(1)} วิ <small>(ลากลูกเต๋าเพื่อแก้ไข)</small><i class="pbar" style="animation-duration:${ms}ms"></i>`;ps.className='pstat go';PLAN.timer=setTimeout(planCommit,ms);}
@@ -1945,7 +1962,7 @@ function abarCombat(p,box,opts){const bar=document.createElement('div');bar.clas
  if(p.h.ult){const bs=[...box.querySelectorAll('button.ultb')];const st=p.ultUsed?'used':bs.length?'live':'locked';
   const c=mk('ult','☄',p.h.ult.name,'Ultimate · จ่าย HP เป็นค่าใช้ (1 ครั้ง/การต่อสู้)','<div class="asock"><span class="areq">HP</span></div>',st);c.insertAdjacentHTML('beforeend',`<div class="ast ${st}">${st==='used'?'✔ ใช้แล้ว':st==='locked'?'🔒 HP ไม่พอ':'☄ พร้อม — เลือกตัวเลือก'}</div>`);bs.forEach(b=>c.querySelector('.achips').appendChild(b));}
  const mvb=[...box.querySelectorAll('button.cact:not(.endturn)')];const cm=mk('util mv','👣','Move',`Move ${typeof moveOf==='function'?moveOf(p):''} · เดิน / หันหน้า / สลับ`,sd(p.slot&&p.slot.move),mvb.length?'live':'locked');mvb.forEach(b=>cm.querySelector('.achips').appendChild(b));
- const srow=document.createElement('div');srow.className='pstats turn';const sl=p.slot||{};srow.innerHTML=[['str','STR'],['dex','DEX'],['int','INT'],['cha','CHA'],['hp','HP'],['sp','Sp'],['move','Move']].map(([k,l])=>{const v=k==='sp'?(p.curSp||p.h.sp):k==='cha'?stat(p,'cha'):statVal(p,k);const d=sl[k];return `<div class="scard mini ${d?'filled':''}"><b class="skey">${l}</b><span class="sval">${v}</span>${d?`<span class="sdi">🎲${d}</span>`:''}${k==='hp'&&p.wtemp?`<span class="sdi">+${p.wtemp}T</span>`:''}</div>`;}).join('');
+ const srow=document.createElement('div');srow.className='ptop turn';const sl=p.slot||{};srow.innerHTML=[['str','STR'],['dex','DEX'],['int','INT'],['cha','CHA'],['hp','HP'],['sp','Sp'],['move','Move']].map(([k,l])=>{const v=k==='sp'?(p.curSp||p.h.sp):k==='cha'?stat(p,'cha'):statVal(p,k);const d=sl[k];return `<div class="scard mini ${d?'filled':''}"><b class="skey">${l}</b><span class="sval">${v}</span>${d?`<span class="sdi">🎲${d}</span>`:''}${k==='hp'&&p.wtemp?`<span class="sdi">+${p.wtemp}T</span>`:''}</div>`;}).join('');srow.innerHTML=`<div class="ppool ro"><div class="pth">ลูกเต๋า</div><div class="pdice">${(G.tray&&G.tray.dice||[]).map(d=>`<span class="tdie ${d.tag?'tg':''}" title="${esc(d.tag||'')}"><b>${d.v}</b><i>${d.t}</i></span>`).join('')||'—'}</div></div><div class="pstats turn">${srow.innerHTML}</div>`;
  bar.querySelectorAll('.achips button').forEach(b=>{b.title=b.textContent.trim();if(b._o&&b._o.u){const uid=b._o.u.uid;b.onmouseenter=()=>document.querySelectorAll(`[data-uid="${uid}"]`).forEach(e=>e.classList.add('tgt'));b.onmouseleave=()=>document.querySelectorAll('.tgt').forEach(e=>e.classList.remove('tgt'));}});
  const pr=box.querySelector('.bigrow');if(pr)pr.before(bar);else box.appendChild(bar);bar.before(srow);if(pr&&!pr.children.length)pr.remove();
  const e=box.querySelector('.endturn');if(e)box.appendChild(e);}
