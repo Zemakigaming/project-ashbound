@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
-<title>Project Ashbound v0.8.6 — Prototype</title><style>
+<title>Project Ashbound v0.8.7 — Prototype</title><style>
 *{box-sizing:border-box}body{margin:0;background:#08080a;color:#cfc8bd;font-family:"Sarabun","Noto Sans Thai",Tahoma,sans-serif;font-size:14px}
 body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 30%,transparent 40%,#000 100%),repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0 1px,transparent 1px 3px);z-index:50}
 h1,.ttl{font-family:Georgia,serif;letter-spacing:.3em;color:#b33a2f;text-shadow:0 0 12px #600}
@@ -419,11 +419,11 @@ body.dragging .slotbox .sock{border-color:#ffb04a}
 .tok.fig.hit{animation:figshake .4s}
 @keyframes figshake{15%{transform:translateX(-6px) rotate(-2deg)}35%{transform:translateX(6px) rotate(2deg)}55%{transform:translateX(-4px)}75%{transform:translateX(3px)}}
 
-/* v0.8.6 dice pool + stat row stays visible while the board scrolls (fixes off-screen pool when the target card is far below) */
+/* v0.8.7 dice pool + stat row stays visible while the board scrolls (fixes off-screen pool when the target card is far below) */
 #choices.planb>.ptop:not(.turn){position:sticky;top:-8px;z-index:6;background:#111013;box-shadow:0 8px 10px -6px #000;padding-top:4px}
 #choices.planb .acard,#choices.planb .scard{scroll-margin-top:calc(var(--ptopH,0px) + 10px)}
 
-/* ===== v0.8.6 feel layer ===== */
+/* ===== v0.8.7 feel layer ===== */
 #muteBtn{position:fixed;left:10px;bottom:10px;z-index:9000;font:700 12px system-ui;padding:6px 10px;border-radius:8px;background:#1a1414;color:#e8d8c8;border:1px solid #6a3a2a;cursor:pointer}#muteBtn.off{opacity:.6}
 .tok .tint .intent{font-size:14px!important;padding:3px 9px!important;border-radius:9px!important;border-width:2px!important;box-shadow:0 0 12px #000a}
 .tok .tint .intent b{font-size:22px;line-height:1;color:#ff5040;text-shadow:0 0 6px #f008}.tok .tint .intent.atk,.tok .tint .intent.aoe{background:#3a0c0a;border-color:#ff4a30}
@@ -454,6 +454,25 @@ button.shopexit{width:auto!important;max-width:220px;margin:6px auto!important;d
 .mcard.empty{min-height:0!important;height:auto!important;padding:2px 4px!important;font-size:9px!important;opacity:.3;border-style:dashed!important}
 .tok.fig[data-uk^="a:"]>img.fimg{filter:drop-shadow(0 0 1px #000) drop-shadow(0 0 3px #000) drop-shadow(0 4px 4px #000c) brightness(.92) contrast(1.08)}
 .tok.fig[data-uk^="a:"]::after{content:"";position:absolute;left:15%;right:15%;bottom:2%;height:8%;border-radius:50%;background:radial-gradient(#000c,#0000 70%);z-index:-1}
+.acard .srar,.scard.mini .srar{display:none!important}
+.tbar{display:flex;align-items:center;gap:10px;margin:6px 0 4px;padding:6px 10px 4px;background:#0c0d0fcc;border:1px solid #2a2c30;border-radius:10px;overflow-x:auto}
+.tbar .tbh{display:flex;flex-direction:column;flex:0 0 auto;line-height:1.2}.tbar .tbh b{font:800 11px system-ui;letter-spacing:.15em;color:#bbb}.tbar .tbh small{font-size:10px;color:#888;max-width:150px}
+.tchips{display:flex;align-items:flex-start;gap:8px;padding:2px 2px 16px}
+.tchip{position:relative;flex:0 0 auto;width:40px;height:40px;border-radius:50%;border:2px solid #3ec7b0;background:#111;transition:transform .2s,opacity .2s}
+.tchip.m{border-color:#c0302a}.tchip.a{border-color:#8a7ad8}.tchip img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+.tchip .tsp{position:absolute;right:-6px;top:-6px;min-width:18px;height:18px;border-radius:9px;background:#1a1b1e;border:1px solid #666;color:#fff;font:800 11px/16px system-ui;text-align:center;padding:0 3px}
+.tchip .tlab{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:2px;white-space:nowrap;font:800 10px/1 system-ui;font-style:normal;color:#ccc}
+.tchip.now{width:54px;height:54px;border:3px solid #ff9a2e;box-shadow:0 0 14px #ff9a2e,0 0 2px #fff inset}.tchip.now .tlab{color:#ff9a2e;font-size:11px}.tchip.now .tsp{background:#ff9a2e;color:#000;border-color:#ffd}
+.tchip.next{border-style:dashed;border-color:#e8d37a}.tchip.next .tlab{color:#e8d37a}
+.tchip.done{opacity:.35;filter:grayscale(1)}.tchip.dead{opacity:.2}
+/* v0.8.7 overlap fixes */
+.tok.fig .tint{margin-bottom:14px!important}
+.ptop.turn .tdie b{font-size:15px;line-height:16px;display:block}.ptop.turn .tdie i{line-height:9px;display:block;margin-top:1px}
+.mcard .mcost{position:relative!important;display:inline-block;top:auto!important;left:auto!important;margin:-1px 0 3px -1px;white-space:normal!important;text-overflow:clip!important;max-width:calc(100% + 2px)!important;line-height:1.25;padding:1px 5px!important}
+#combat .toks{row-gap:56px!important}.tok .tint{top:auto!important}.tok:not(.fig) .tint{margin-bottom:6px!important}
+.tok.narrow .tint .intent em{display:none}.tok.fig .tpo{top:16px!important}
+.tok .tnm{white-space:normal!important;width:100%;text-align:center;line-height:1.1;word-break:break-word}
+.scard .suse,.ptop .scard .suse{white-space:normal!important;overflow:visible!important;text-overflow:clip!important;line-height:1.15;text-align:center;word-break:break-word}
 </style></head><body>
 <div id="setup"><div id="tbg"></div><div class="tfog"></div><div class="tin">
 <div class="tlogo"><small>ACT 1 · THE SURVIVORS</small><h1>PROJECT<br>ASHBOUND</h1><div class="tsub">เมืองอาชา (Achar) — ผนึก 666 ปีแตก เถ้าต้องสาปปกคลุมเมือง</div></div>
@@ -461,11 +480,11 @@ button.shopexit{width:auto!important;max-width:220px;margin:6px auto!important;d
 <div class="tlinks"><button onclick="start(true)">👁 ดู Bot เล่น</button><button onclick="showHow()">📖 วิธีเล่น</button><button onclick="toggleAsm()">⚠ Assumptions</button><button onclick="showNew(true)">✨ มีอะไรใหม่</button></div></div>
 <div class="tsel"><div class="tselh">เลือก SURVIVOR <span>(สูงสุด 4 · ชี้เมาส์ดูรายละเอียด)</span></div><p id="selInfo"></p><div id="heroGrid"></div>
 <details class="trules"><summary>กติกาโดยย่อ</summary><div class="rules">เมืองอาชา (Achar) · Act 1: THE SURVIVORS — ผนึก 666 ปีแตก เถ้าต้องสาปปกคลุมเมือง<br>
-<b>Prototype v0.8.6</b> (Rulebook V1.3 + ชีต " ASHBOUND ") · Co-op 1–4 Survivors · เริ่มที่ท่าเรือ A8 · แผนที่ Act 1 12 ช่อง (A5–D8)<br>
+<b>Prototype v0.8.7</b> (Rulebook V1.3 + ชีต " ASHBOUND ") · Co-op 1–4 Survivors · เริ่มที่ท่าเรือ A8 · แผนที่ Act 1 12 ช่อง (A5–D8)<br>
 วันละ 3 ช่วง เช้า/บ่าย/กลางคืน · ทุกคน 1 Action ต่อช่วง: Forage ■ / Explore ■ / Talk ■ / <b>เดินไปช่องติดกัน = 1 Action</b> / Hunt ⚠<br>
 Main Quest: Scene B7-1 (มอลล์) เปิดร้านค้า → B7-2 ส่งเสบียง 5 ชุด → B7-3 ทุกคนรวมตัวที่ B7 ต่อสู้ <b>กระสือ (Krasue)</b> · แพ้การต่อสู้ไม่แพ้เกม — แพ้เมื่อหมดเวลา Act (8 วัน ⚠)<br>
 Combat: Start Up (รีเซ็ต Sp มอน + ทอย Buff) → Player phase (ทอย/วางลูกเต๋า) → Resolve (ตาม Sp) · สนาม 6 ช่องแนวนอน ฮีโร่เริ่ม 2 ช่องล่าง · Soot T1–T4 · ⚠ = ค่าสมมติ (ดูปุ่ม Assumptions)<br>Survivor ที่เลือก = ผู้เล่นควบคุมเอง · ทุกตัวเลือกมีปุ่ม 🤖 Auto · กรอบทอง = Bot แนะนำ</div></details></div>
-</div><div id="whatsnew"></div></div><div id="verbadge">v0.8.6</div>
+</div><div id="whatsnew"></div></div><div id="verbadge">v0.8.7</div>
 <div id="netbar"></div><div id="lobby"></div><div id="game"><div id="top"></div><div id="party"></div><div id="mid"><div id="map"></div><div id="combat"></div></div><div id="right"><div id="phasebar"></div><div id="tray"></div><div id="choices"></div><div id="log"></div><div id="chat"><input id="chatIn" maxlength="200" placeholder="💬 แชทถึงทุกคน…"><button id="chatSend" onclick="chatSend()">ส่ง</button></div></div></div>
 <div id="overlay"></div><div id="asm"></div><div id="confirm" class="modal"></div><div id="tut"></div><div id="howto" class="modal"><div class="mbox"><button class="mx" onclick="hideHow()">✕ ปิด</button><h2>📖 วิธีเล่น ASHBOUND (Act 1)</h2>
 <h3>🎯 เป้าหมาย</h3><p>Co-op 1–4 คน เริ่มที่ท่าเรือ A8. ไปมอลล์ <b>B7</b> → Scene B7-1 เปิดร้านค้า → B7-2 ส่งเสบียง 5 ชุด (Main Quest) → B7-3 ทุกคนรวมตัวที่ B7 แล้วชนะ <b>รินา กระสือ (Cursed Seer)</b> = ชนะเกม</p>
@@ -492,7 +511,7 @@ Object.assign(FIG,{"dog": "data:image/webp;base64,UklGRvIZAABXRUJQVlA4WAoAAAAQAA
 const PETART={"ally:dog": "data:image/webp;base64,UklGRuwCAABXRUJQVlA4IOACAAAwHgCdASqAAIAAPm0skkYkIqGhLxiLEIANiWkA1UXG5mGN+Em1tUZxM2435BUMrrtXU+0v8nThP8YQtQoUjztK7fUgmFgqcxXLr4p79O7NPIlAH3Ecr7EleBqcESF+B8ePmDa1+RldWcyg6BsylGMU5ybX/LbrFL4lNlQEAapr7KoLslIIyl3KL2pOW4CPSAEvNF1aQprYfd4TubzrTQGrUW5GvfzZfayyhh0P8RXPFC7GIbWH9B5jCyF9o1vs3659sN93ZzbrdYXMjKu3IiNe0PRW/MPi7dvFNzYECShdCVWZro0ygwTrx0zMFWsOxfgr2CAz9bdBIEHgAP75ZlNbZSaz97zIA+EjrwsQoRGLB8Kt/9ExhVaQtW/223tt+uQ2Ik0EXuCJzqlFpos1zxFKdtu4FUUnmEO6MOkb/w1LSaqgi+vsHzRO/kMsjzDWIlV8XevVrabdhN7nUd1z7iJHT4VXxnqnKWgocuV7/ILuPtsz6MnRJQQ64SUKUwz3UgWVMDUc9ozrU5L5xYOV9drNGA7cqGCb4EhiCJdI6Oilhp2rKkeorDyjjKhHCopq7EcLNPRjXrvjrsavUf1A3m9ziX4CgwWbFNNtQQUSXglqH7L01LPfAPb6gdm5g4UUHlFbEnBzDxmU53Quwj0aVzzc0sUHIOOX7qYGTO5IfKca21+BuUPwbuluNcSsGOdKEu+zKq8MjHVyTl3V4ZzPpjfJKZ/u6TOsaBdOu6oEliN/bXKrcwb7h/tZB5nK0c6n5NY+6N7M7tGyi1BZH94vXSGDhxwD1915u259Bo674rP7WAgE/AowwFO5hb+HPNHahdt9ePcEHl87BUXqCkrgqTljqVJkTTsZLTTwq82UwO1etHbLfbku5/8TaPCyGZ/BLRqXGxDN6ecESHiGgd0JvRoerVElHzsXY+w6Zn/nXiAMVPbRpwAAhCZ+ch74OQA1gDU0orFI9+aIU5oTwIE+AAAA", "ally:cat": "data:image/webp;base64,UklGRkYDAABXRUJQVlA4IDoDAABwHgCdASqAAIAAPm0wk0YkIyGhKhWdEIANiWkA1Qu5QOKULe4utpMEK+icgyj0drvlz14oVxqiyUcV13XHDIqXhlC7vRaO8APeFSD2TZtFA9qEpDhu6ebcsnsTFPcKA+OspeTefmvFq4o255lmi0LJ8b4Yf4cvpbwUKEEWFOr2uXP8ABYmnuIEEmEZC+LNqjmsoXc65lH5sY4ievoRk7yDfisuSpWBY95GslML4j8mageAFGqwH2ba3oWYivUD9Y10ht1GzSioUDCiPUlfpbLHdVzVGiZ4hbqcAyAb0z4IsJSMAgBK+/itVCPzrEhXr+VeF5Qe2svEsfsVfAAA/vozJ3WF8KNvNADEXSvIPH8gEuG729xSrlDP4AWh22304keZ54Q9iPEZ+WDQ1JsEz3HZyzaMStps/UnDtHEKKl0OxpyFX1ALqroSH+KKpaKqXbDdYlNSz2AR4eyjrJR9G/tbceNeaegDoQcwQyKlSsrYew1q56WD0WR8ZdARsSu96u5m2DAiVWrwLafXFVoxm22DuyS1NefOhtPtLR7PnAfMu9CP8dmwhzzVN98k3fgsditzzRFe1gzBzv49L2dzI9wX8g1t+zG2zYYoZLGli5wd3cB4adyA1AgbRWbLFN1Tjp2m2HYiFu5aqk19DqlLoA4w/aquurVkvzvoCyAMv8eeGPEbCkcHHhAzeGUmKWhOKh+2q6emATatLkZoa7sDoUbRxXFvNKeNs2AP0M3YCJdHRLb8qWDeieUz2obVH2T8rL9APHq88jq4oS2kXmWpux3YEOsNRSymOo1GHAIUwXsvq1f7NDKmIFRmOcCQqngOxZaXznOTmUGDWtu2XHe/MdhCdrEtyMt5YBMuyXNd/CRB2Y7uBy6XpOihBxLO7aCXO4CDA7rc77p3d5w2MbyMN/CTjTmv8uc9rTSfn7JTs3fKeiyalpDKxKrUHU8jluln/8GvJpL1kpVfH/UK+YgzuIax6A7RMmwcVfT6xapOjBKGmxl+UbS8oXz9YGC3aU52Y1CCR8FQj8iwOpURZAyLX6V6eDceK4oL1RLSpk8VwsSU/Eu2FVdteSUdG47hq0JbenmsEIkEr1SrugAA"};
 
 // ===== Project Ashbound v0.6.1 engine — Rulebook + sheet " ASHBOUND " + World Building (update 2026-10-24) =====
-const VERSION='v0.8.6';
+const VERSION='v0.8.7';
 let RNG=Math.random;
 const rnd=n=>Math.floor(RNG()*n);
 const pick=a=>a[rnd(a.length)];
@@ -504,7 +523,7 @@ const roll=t=>FACES[t][rnd(6)];
 const CFG={dayLimit:8,startDice:3,diceCap:7,maxRounds:30,soot0:3,mainFood:5,startCoins:3,openingFight:true,allySlot:1,skillSlots:4};
 const PHASES=['morning','afternoon','night'];
 const PHASE_TH={morning:'เช้า (Morning)',afternoon:'บ่าย (Afternoon)',night:'กลางคืน (Night)'};
-const ASSUMPTIONS=['⚠ v0.8.6 Crit flash: ไม่มีกติกา Crit — แสดงเอฟเฟกต์ “หนัก” เมื่อดาเมจ ≥6 เท่านั้น (ภาพ/เสียงล้วน ไม่กระทบกติกา)','⚠ v0.8.6 Shop rarity: ชีตไม่มีระดับความหายาก — กรอบสีแบ่งจากราคา (≥8 Rare, 6–7 Uncommon, ≤5 Common) ใช้แค่ภาพ','⚠ v0.8.6 Glossary: Melee All / Close Melee / Range All / Swoop / Stationary / Guard มีแค่ชื่อในแหล่ง; Taunt / Veil ไม่พบในแหล่ง — แสดงชื่อโดยไม่มีคำอธิบาย','⚠ v0.8.6 เสียงทั้งหมดสังเคราะห์ด้วย WebAudio (ไม่มีไฟล์เสียง) — เป็นเสียงชั่วคราว ⚠ รอ sound design จริง','⚠ v0.8.6 Undo: ย้อนได้เฉพาะการวางลูกเต๋าก่อนยืนยัน (รวมช่วงนับถอยหลังยืนยันอัตโนมัติ 1.2 วิ) — ไม่ทอยใหม่','⚠ v0.8.5 Art: แมวดำ/หมาดำตัดจากภาพชีต Troika ขนาดเล็ก (59×113 / 75×226) แล้วขยาย — รายละเอียดจะนุ่ม/ไม่คม; หมาตัดขอบขวาตรงที่ติดตัว Troika ออก (ขอบขวาจึงตรง); หมากลับด้านให้หันขวา','⚠ v0.8.4 Art: กลับด้านภาพ (mirror) ตามการตัดสินด้วยตา — ฝั่งฮีโร่: zemaki, ronan, police; ฝั่งศัตรู: G-Rd, U-Ar, U-Cy, U-Sd, U-Sw, grove, mold. ภาพหน้าตรงไม่กลับ. ตำแหน่ง lane/กติกาไม่เปลี่ยน แค่การแสดงผล','⚠ v0.8.3 UI: กล่องลูกเต๋า + ช่อง Stat แคบ (STR/DEX/INT/HP/Move) อยู่แถวบน; การ์ดคำอธิบายยาว (Skill/Ult/Attack/Move/Charge/ทิ้งลูก) อยู่แถวล่าง — ในเทิร์นต่อสู้กล่องลูกเต๋าแถวบนเป็นแบบแสดงผล (ลูกที่วางแล้ว)','⚠ v0.8.2 UI: "Stat" = core attribute ในชีต (STR/DEX/INT/CHA/HP/Sp/Move) → อยู่แถวบนสุด; ช่องวางเต๋าแถว Stat = STR(Attack)/DEX(Speed)/INT/HP(Guard)/Move; Charge/ทิ้งลูก ไม่ใช่ stat → อยู่ข้างล่างกับการ์ด Skill','⚠ v0.8.1 UI: การลากลูกเต๋าลงการ์ด Skill ช่วงวางลูก = การจองลูกตามกฎเดิม (Skill พร้อมใช้รอบนี้) ส่วนการเลือกเป้าหมาย/ใช้ Skill ทำในเทิร์นของฮีโร่ — ไม่ได้เปลี่ยนกฎ','⚠ v0.8.1 UI: การ์ด Skill ที่ใช้แล้วแสดง "ใช้แล้ว — รีเซ็ตรอบหน้า" (กฎไม่มี Cooldown หลายรอบ) · การ์ดล็อก = ไม่ได้จองลูก/ไม่มีลูกตรงเงื่อนไข',
+const ASSUMPTIONS=['⚠ v0.8.7 Turn order bar: ใช้ลำดับเดิมของเกม (Sp สูง→ต่ำ, เสมอ: Survivor ก่อน Ally ก่อน Monster) — Rulebook ให้ผู้เล่นเลือกลำดับเองเมื่อ Sp เสมอฝ่ายเดียวกัน แต่โปรโตไทป์ใช้ลำดับในรายการ; ลำดับ Ally อยู่ระหว่างฮีโร่กับมอนสเตอร์ (เดิม); ก่อนช่วง Resolve แถบเป็น "คาดการณ์" เพราะ Sp ยังเปลี่ยนได้จาก DEX','⚠ v0.8.6 Crit flash: ไม่มีกติกา Crit — แสดงเอฟเฟกต์ “หนัก” เมื่อดาเมจ ≥6 เท่านั้น (ภาพ/เสียงล้วน ไม่กระทบกติกา)','⚠ v0.8.6 Shop rarity: ชีตไม่มีระดับความหายาก — กรอบสีแบ่งจากราคา (≥8 Rare, 6–7 Uncommon, ≤5 Common) ใช้แค่ภาพ','⚠ v0.8.6 Glossary: Melee All / Close Melee / Range All / Swoop / Stationary / Guard มีแค่ชื่อในแหล่ง; Taunt / Veil ไม่พบในแหล่ง — แสดงชื่อโดยไม่มีคำอธิบาย','⚠ v0.8.6 เสียงทั้งหมดสังเคราะห์ด้วย WebAudio (ไม่มีไฟล์เสียง) — เป็นเสียงชั่วคราว ⚠ รอ sound design จริง','⚠ v0.8.6 Undo: ย้อนได้เฉพาะการวางลูกเต๋าก่อนยืนยัน (รวมช่วงนับถอยหลังยืนยันอัตโนมัติ 1.2 วิ) — ไม่ทอยใหม่','⚠ v0.8.5 Art: แมวดำ/หมาดำตัดจากภาพชีต Troika ขนาดเล็ก (59×113 / 75×226) แล้วขยาย — รายละเอียดจะนุ่ม/ไม่คม; หมาตัดขอบขวาตรงที่ติดตัว Troika ออก (ขอบขวาจึงตรง); หมากลับด้านให้หันขวา','⚠ v0.8.4 Art: กลับด้านภาพ (mirror) ตามการตัดสินด้วยตา — ฝั่งฮีโร่: zemaki, ronan, police; ฝั่งศัตรู: G-Rd, U-Ar, U-Cy, U-Sd, U-Sw, grove, mold. ภาพหน้าตรงไม่กลับ. ตำแหน่ง lane/กติกาไม่เปลี่ยน แค่การแสดงผล','⚠ v0.8.3 UI: กล่องลูกเต๋า + ช่อง Stat แคบ (STR/DEX/INT/HP/Move) อยู่แถวบน; การ์ดคำอธิบายยาว (Skill/Ult/Attack/Move/Charge/ทิ้งลูก) อยู่แถวล่าง — ในเทิร์นต่อสู้กล่องลูกเต๋าแถวบนเป็นแบบแสดงผล (ลูกที่วางแล้ว)','⚠ v0.8.2 UI: "Stat" = core attribute ในชีต (STR/DEX/INT/CHA/HP/Sp/Move) → อยู่แถวบนสุด; ช่องวางเต๋าแถว Stat = STR(Attack)/DEX(Speed)/INT/HP(Guard)/Move; Charge/ทิ้งลูก ไม่ใช่ stat → อยู่ข้างล่างกับการ์ด Skill','⚠ v0.8.1 UI: การลากลูกเต๋าลงการ์ด Skill ช่วงวางลูก = การจองลูกตามกฎเดิม (Skill พร้อมใช้รอบนี้) ส่วนการเลือกเป้าหมาย/ใช้ Skill ทำในเทิร์นของฮีโร่ — ไม่ได้เปลี่ยนกฎ','⚠ v0.8.1 UI: การ์ด Skill ที่ใช้แล้วแสดง "ใช้แล้ว — รีเซ็ตรอบหน้า" (กฎไม่มี Cooldown หลายรอบ) · การ์ดล็อก = ไม่ได้จองลูก/ไม่มีลูกตรงเงื่อนไข',
  'Act 1 day limit = 8 วัน (Rulebook: "ยังไม่คอนเฟิม")',
  'Basic Attack Area ของฮีโร่: ชีตคอลัมน์ว่าง → Physical = Melee 1 (Zemaki Close Melee, Upg1 → Melee 1), Magic = Range 0-2, Jack Range 1-3',
  'Sp = Dex + หน้าเต๋าที่วางช่อง Dex (ชีตใหม่ไม่มีค่า Sp แยก)',
@@ -1391,7 +1410,7 @@ function counter(C,q,u){if(!u||u.hp<=0||q.hp<=0||u.side!=='m')return;const melee
  else if(q.c46&&inRange(q,u,heroRange(q))||q.c46&&Math.abs(u.pos-q.pos)<=heroRange(q)[1])damageM(C,u,atkVal(q),q.name+' สวนกลับ (#46)',atkType(q));}
 async function combatRound(C){
  log(`— Round ${C.round}${C.limit?' / '+C.limit:''} · Start Up —`,'phase');
- C.bastion=false;C.shield={};C.huddle={};C.noEnter={};C.traps={};C.acted=[];C.hult=null;C.replay=null;
+ C.bastion=false;C.shield={};C.huddle={};C.noEnter={};C.traps={};C.acted=[];C.resolving=false;C.hult=null;C.replay=null;
  for(const q of C.parts){Object.assign(q,{anthem:false,taunt:false,iron:0,pguard:0,veil:false,extraAtk:0,zemB:0,warped:null,b19:false,b29:null,ramp:0,rampN:0,b38:null,movedN:0,baMove:0,_mv:0,_noMove:false,swaps:0,c28:null,c46:false,reflect:0,killChain:0,steal:0,b58:false,hit58:[],b59:0,dexAdd:0,endTurn:false,ultStr:0,ultMv:0,anthemS:null,drinkS:null,traps:0,dbl:!!q.dblNext,dblNext:false});}
  for(const q of liveS(C))if(q.bomb50){const v=q.bomb50;q.bomb50=0;log(`${q.name}: ระเบิด (Skill #50) ${v} dmg`,'good');liveM(C).filter(u=>Math.abs(u.pos-q.pos)<=1).forEach(u=>damageM(C,u,v,q.name+' (#50)','skillmag'));}
  for(const u of liveM(C)){u.sp=u.d.sp;if(u.kind==='elite'&&u.d.bonus)u.bonus=roll(u.d.bonus);}
@@ -1403,7 +1422,7 @@ async function combatRound(C){
  if(mina)for(const q of liveS(C))if(q!==mina&&q.pos===mina.pos)q.curSp+=upg(mina,1)?2:1;
  log('— Resolve: เรียงตาม Sp —','phase');
  const order=[...liveS(C).map(q=>({u:q,sp:q.curSp,s:2})),...liveA(C).map(a=>({u:a,sp:a.owner.curSp||a.owner.h.sp,s:1})),...liveM(C).filter(u=>!(u.kind==='minion'&&u.d.tomb)).map(u=>({u,sp:u.sp,s:0}))].sort((a,b)=>b.sp-a.sp||b.s-a.s);
- C.order=order.map(o=>o.u);
+ C.order=order.map(o=>o.u);C.resolving=true;C.oSp=order.map(o=>o.sp);
  for(const o of order){
   const u=o.u;if(u.hp<=0)continue;
   if(!liveE(C).length)return 'win';
@@ -1415,6 +1434,7 @@ async function combatRound(C){
   else if(o.s===1)allyTurn(u,C);else await monsterTurn(u,C);
   if(u.poison&&u.hp>0){if(o.s){u.hp-=u.poison;log(`${u.name} เสีย ${u.poison} HP จาก Poison`,'bad');if(u.hp<=0){u.hp=0;if(o.s===2){C.downed=true;log(`${u.name} ล้มลง!`,'bad');}}}else damageM(C,u,u.poison,'Poison','skill',{pierce:true});}
  }
+ C.resolving=false;
  for(const a of liveA(C))if(a.code==='avaElite'){const r=await hd6(a.owner,'AVA Splash D6');if(r>=4){log(`${a.name}: D6 ${r} → Splash 3 dmg ช่อง ${a.pos+1}`,'good');liveM(C).filter(u=>u.pos===a.pos).forEach(u=>damageM(C,u,3,a.name+' (Splash)','phy'));}}
  // Hartmann Upg3: leftover block hits
  const hm=liveS(C).find(q=>q.id==='hartmann'&&upg(q,3));if(hm&&C.shield[hm.pos]>0){const t=liveM(C).find(u=>u.pos===hm.pos);if(t)damageM(C,t,C.shield[hm.pos],'Ash Wall (Upg3)','phy');}
@@ -1671,7 +1691,7 @@ function setupScreen(){
  $('#selInfo').innerHTML=sel.length?`เลือกแล้ว <b>${sel.length}/4</b> — ${sel.map(id=>esc(HEROES.find(h=>h.id===id).name)).join(', ')}`:'คลิกการ์ด Survivor เพื่อเลือก (สูงสุด 4) · ไม่เลือก = สุ่ม 1 ตัว · ชี้เมาส์ดูรายละเอียด';
  showNew();
 }
-const WHATSNEW=['v0.8.6: 🔊 เสียง SFX+บรรยากาศ (ปุ่มปิดเสียงมุมล่างซ้าย) · Intent ใหญ่ขึ้น+กรอบแดงฮีโร่ที่จะโดนตี+เส้นชี้เป้าเมื่อชี้ศัตรู · เต๋ากลิ้งก่อนออกผล · ↶ Undo การวางเต๋า · เลขดาเมจใหญ่/hit-stop/แฟลช/HP bar 2 ชั้น/ศัตรูพุ่งตี · Keyword สี+tooltip+Glossary ในวิธีเล่น · ร้านค้าใหม่+ไอคอน SVG · ช่องว่างในแผงฮีโร่กะทัดรัด','v0.8.5: แถวลูกเต๋า+Stat ติดด้านบน (sticky) ตอนเลื่อนบอร์ด — แก้ปัญหาลากลูกเต๋าไปการ์ดสกิลด้านล่างไม่ได้เมื่อการ์ดเยอะ; สัตว์เลี้ยง Troika ใช้ภาพแมวดำ/หมาดำจากภาพตัวละคร (แทน emoji)','v0.8.4: หน้า COMBAT ใช้ภาพเต็มตัว (ตัดพื้นหลังโปร่งใส) — ฮีโร่ซ้ายหันขวา ศัตรูขวาหันซ้าย, HP/สถานะอยู่เหนือหัว, ไฮไลต์เป้าหมาย + สั่นเมื่อโดนตี (Token บนแผนที่ยังกลมเหมือนเดิม)','v0.8.3: กล่องลูกเต๋าอยู่แถวเดียวกับช่อง Stat แคบๆ (ขนาดเท่าลูกเต๋า) ด้านบน · การ์ดที่มีคำอธิบายยาว (Skill/Ultimate/Attack/Move/Charge/ทิ้งลูก) อยู่แถวล่างแบบกว้าง อ่านง่าย','v0.8.2: จัดเลย์เอาต์ใหม่ — ค่า Stat (STR/DEX/INT/HP/Move…) เรียงเป็นแถวเดียวด้านบน ทั้งช่องวางเต๋าตอนต่อสู้และแผงฮีโร่ · ด้านล่าง = ลูกเต๋า, การ์ด Skill/Ultimate/ท่าพื้นฐาน, Charge/ทิ้งลูก (ยังลากอย่างเดียวเหมือนเดิม)','v0.8.1: ไม่มีปุ่มจอง/เลือกลูกเต๋าแล้ว — ลากลูกเต๋า (เมาส์/นิ้ว) ไปวางบนการ์ดอย่างเดียว · ลากออกหรือย้ายได้','v0.8.1: Skill / Ultimate / Attack / Move เป็นการ์ด Ability แถบล่าง มีช่องเงื่อนไขลูกเต๋า, พรีวิวค่าระหว่างลาก, สถานะ READY / ใช้แล้ว / ล็อก','หน้าจอใหม่ทั้งหมด: Title / แผนที่เต็มจอ / สนามรบแนวนอนแบบ SpellRogue','ศัตรูตัวใหญ่ + Intent เหนือหัว · คลิกศัตรูเพื่อโจมตี · ปุ่มส้ม END TURN','Skill draft / ร้านค้า / ทางเลือกการ์ด = การ์ดใหญ่ "เลือก 1"','ปุ่ม Action ขึ้นข้างช่องที่ยืนอยู่ · Log ย้ายไปลิ้นชัก 📜'];
+const WHATSNEW=['v0.8.7: แถบ TURN ORDER ด้านบนสนามรบ (รูป+Sp, ตาตอนนี้/ถัดไป, คนที่เล่นแล้วจาง) · แก้ตัวหนังสือซ้อนกัน — ป้าย COMMON หลุดไปอยู่บนการ์ด Stat (STR/DEX/INT/HP/MOV) · ตรวจข้อความซ้อน/ล้นทุกหน้าจอทั้งเดสก์ท็อปและมือถือ','v0.8.6: 🔊 เสียง SFX+บรรยากาศ (ปุ่มปิดเสียงมุมล่างซ้าย) · Intent ใหญ่ขึ้น+กรอบแดงฮีโร่ที่จะโดนตี+เส้นชี้เป้าเมื่อชี้ศัตรู · เต๋ากลิ้งก่อนออกผล · ↶ Undo การวางเต๋า · เลขดาเมจใหญ่/hit-stop/แฟลช/HP bar 2 ชั้น/ศัตรูพุ่งตี · Keyword สี+tooltip+Glossary ในวิธีเล่น · ร้านค้าใหม่+ไอคอน SVG · ช่องว่างในแผงฮีโร่กะทัดรัด','v0.8.5: แถวลูกเต๋า+Stat ติดด้านบน (sticky) ตอนเลื่อนบอร์ด — แก้ปัญหาลากลูกเต๋าไปการ์ดสกิลด้านล่างไม่ได้เมื่อการ์ดเยอะ; สัตว์เลี้ยง Troika ใช้ภาพแมวดำ/หมาดำจากภาพตัวละคร (แทน emoji)','v0.8.4: หน้า COMBAT ใช้ภาพเต็มตัว (ตัดพื้นหลังโปร่งใส) — ฮีโร่ซ้ายหันขวา ศัตรูขวาหันซ้าย, HP/สถานะอยู่เหนือหัว, ไฮไลต์เป้าหมาย + สั่นเมื่อโดนตี (Token บนแผนที่ยังกลมเหมือนเดิม)','v0.8.3: กล่องลูกเต๋าอยู่แถวเดียวกับช่อง Stat แคบๆ (ขนาดเท่าลูกเต๋า) ด้านบน · การ์ดที่มีคำอธิบายยาว (Skill/Ultimate/Attack/Move/Charge/ทิ้งลูก) อยู่แถวล่างแบบกว้าง อ่านง่าย','v0.8.2: จัดเลย์เอาต์ใหม่ — ค่า Stat (STR/DEX/INT/HP/Move…) เรียงเป็นแถวเดียวด้านบน ทั้งช่องวางเต๋าตอนต่อสู้และแผงฮีโร่ · ด้านล่าง = ลูกเต๋า, การ์ด Skill/Ultimate/ท่าพื้นฐาน, Charge/ทิ้งลูก (ยังลากอย่างเดียวเหมือนเดิม)','v0.8.1: ไม่มีปุ่มจอง/เลือกลูกเต๋าแล้ว — ลากลูกเต๋า (เมาส์/นิ้ว) ไปวางบนการ์ดอย่างเดียว · ลากออกหรือย้ายได้','v0.8.1: Skill / Ultimate / Attack / Move เป็นการ์ด Ability แถบล่าง มีช่องเงื่อนไขลูกเต๋า, พรีวิวค่าระหว่างลาก, สถานะ READY / ใช้แล้ว / ล็อก','หน้าจอใหม่ทั้งหมด: Title / แผนที่เต็มจอ / สนามรบแนวนอนแบบ SpellRogue','ศัตรูตัวใหญ่ + Intent เหนือหัว · คลิกศัตรูเพื่อโจมตี · ปุ่มส้ม END TURN','Skill draft / ร้านค้า / ทางเลือกการ์ด = การ์ดใหญ่ "เลือก 1"','ปุ่ม Action ขึ้นข้างช่องที่ยืนอยู่ · Log ย้ายไปลิ้นชัก 📜'];
 function showNew(force){const w=$('#whatsnew');if(!w)return;if(!force&&localStorage.getItem('ash_seen_ver')===VERSION){w.style.display='none';return;}
  w.innerHTML=`<div class="wnh">✨ มีอะไรใหม่ใน ${VERSION}</div><ul>${WHATSNEW.map(x=>`<li>${esc(x)}</li>`).join('')}</ul><button id="wnOk" onclick="hideNew()">รับทราบ</button>`;w.style.display='block';}
 function hideNew(){localStorage.setItem('ash_seen_ver',VERSION);const w=$('#whatsnew');if(w)w.style.display='none';}
@@ -1850,24 +1870,36 @@ function tokenHTML(u,kind,sz){
  const fk=kind==='s'?u.id:kind==='a'?u.code:(u.kind==='elite'?u.code:u.fam),fg=figOf(fk);
  const fflip=!!fg&&FIGFLIP.has(fk);
  const uk=kind==='s'?'h:'+u.id:(kind==='a'?'a:':'m:')+u.uid;
- return `<div data-uk="${uk}" data-hp="${kind==='m'&&u.kind!=='elite'?(u.down?1:2):Math.max(0,u.hp)}" data-uid="${u.uid??''}" class="tok ${fg?'fig':''} ${isS?'ts':'tm'} ${G.cur===u?'cur':''} ${u.down?'down':''} ${u.d&&u.d.boss?'boss':''}" style="width:${fg?Math.round(sz*1.1):sz}px;height:${fg?Math.round(sz*1.47):sz}px;--ring:${ring}" title="${esc(tip)}">${kind==='m'?`<span class="tint">${intentHTML(u,G.combat)}</span>`:''}${fg?`<img class="fimg ${fflip?'flip':''}" src="${fg}">`:img}<span class="thp" style="font-size:${fs}px">${hp}</span><span class="tface" style="font-size:${fs}px">${u.face>0?'▶':'◀'}</span>${kind!=='m'||u.kind==='elite'?`<span class="thb"><i style="width:${Math.max(0,100*u.hp/(u.maxhp||1))}%"></i></span>`:''}<span class="tnm">${esc(String(u.name).split(' (')[0])}</span>${u.stun?'<span class="tst">⚡</span>':''}${u.poison?`<span class="tpo">☠${u.poison}</span>`:''}${kind==='m'&&G.combat?(()=>{const i=intentOf(u,G.combat);return `<span class="tint ${i.c}">${i.ic}${i.n!=null?i.n:''}</span>`;})():''}</div>`;
+ return `<div data-uk="${uk}" data-hp="${kind==='m'&&u.kind!=='elite'?(u.down?1:2):Math.max(0,u.hp)}" data-uid="${u.uid??''}" class="tok ${fg?'fig':''} ${isS?'ts':'tm'} ${G.cur===u?'cur':''} ${u.down?'down':''} ${u.d&&u.d.boss?'boss':''}" style="width:${fg?Math.round(sz*1.1):sz}px;height:${fg?Math.round(sz*1.47):sz}px;--ring:${ring}" title="${esc(tip)}">${kind==='m'?`<span class="tint">${intentHTML(u,G.combat)}</span>`:''}${fg?`<img class="fimg ${fflip?'flip':''}" src="${fg}">`:img}<span class="thp" style="font-size:${fs}px">${hp}</span><span class="tface" style="font-size:${fs}px">${u.face>0?'▶':'◀'}</span>${kind!=='m'||u.kind==='elite'?`<span class="thb"><i style="width:${Math.max(0,100*u.hp/(u.maxhp||1))}%"></i></span>`:''}<span class="tnm">${esc(String(u.name).split(' (')[0])}</span>${u.stun?'<span class="tst">⚡</span>':''}${u.poison?`<span class="tpo">☠${u.poison}</span>`:''}</div>`;
 }
 function foeCard(u){const el=u.kind==='elite';const hpP=el?100*Math.max(0,u.hp)/u.maxhp:100;
  return `<div data-uid="${u.uid}" class="foe ${el?'elite':'minion'} ${u.d.boss?'boss':''} ${G.cur===u?'cur':''} ${u.down?'down':''}"><img src="${artOf(el?u.code:u.fam)}"><div class="fi"><b>${esc(u.name)}</b><small>${esc(u.d.id||'')} · ช่อง ${u.pos+1}</small>
  ${intentHTML(u,G.combat)}${el?`${hpBar(u,u.maxhp)}${statusChips(u)}<small>Sp ${u.sp} · Dmg ${u.d.dmg==='top'?'top':u.d.dmg}${u.bonus&&u.d.dmg?'+'+Math.floor(u.bonus/2):''} ${u.d.bonus?'['+u.d.bonus+u.bonus+']':''}${u.ev?' · Ev'+u.ev:''}${u.stun?' ⚡':''}</small>`:`<small>Minion · kill ≥ ${u.d.kill}${u.down?' (ล้ม)':''}</small>${statusChips(u)}`}</div></div>`;}
+function turnBarHTML(C){
+ // v0.8.7 turn-order bar — mirrors e5.js Resolve sort: Sp high→low, ties Survivor > Ally > Monster; same-side ties keep list order ⚠
+ let L,live=!!(C.resolving&&C.order&&Array.isArray(C.oSp));
+ if(live)L=C.order.map((u,k)=>({u,sp:C.oSp[k]??u.curSp??u.sp}));
+ else L=[...C.parts.filter(q=>q.hp>0).map(q=>({u:q,sp:q.curSp??q.h.sp,s:2})),...C.units.filter(u=>u.side==='s'&&!u.h&&u.hp>0&&u.owner).map(a=>({u:a,sp:a.owner.curSp||a.owner.h.sp,s:1})),...C.units.filter(u=>u.side==='m'&&u.hp>0&&!(u.kind==='minion'&&u.d&&u.d.tomb)).map(u=>({u,sp:u.sp,s:0}))].sort((a,b)=>b.sp-a.sp||b.s-a.s);
+ const same=(a,b)=>a&&b&&(a===b||(a.uid!=null&&a.uid===b.uid)||(a.h&&b.h&&a.id===b.id));const ci=live?L.findIndex(o=>same(o.u,G.cur)):-1;let ni=-1;
+ if(live){for(let k=ci+1;k<L.length;k++)if(L[k].u.hp>0){ni=k;break;}}else ni=L.findIndex(o=>o.u.hp>0);
+ const art=u=>u.h?artOf(u.id):u.side==='m'?artOf(u.kind==='elite'?u.code:u.fam):(allyArt(u.code)||artOf('grove'));
+ const chips=L.map((o,k)=>{const u=o.u,dead=u.hp<=0,done=live&&(k<ci||ci<0)&&!(k===ci);const st=k===ci?'now':k===ni?'next':done||dead?'done':'';
+  const lab=st==='now'?'<em class="tlab">ตาตอนนี้</em>':st==='next'?'<em class="tlab">ถัดไป</em>':'';
+  return `<div class="tchip ${u.side==='m'?'m':u.h?'s':'a'} ${st} ${dead?'dead':''}" data-tip="${esc(String(u.name).split(' (')[0]+' · Sp '+o.sp+(st==='done'?' · เล่นแล้วรอบนี้':''))}"><img src="${art(u)}"><span class="tsp">${o.sp}</span>${lab}</div>`;}).join('');
+ return `<div class="tbar" id="turnBar"><div class="tbh"><b>TURN ORDER</b><small>${live?'Round '+C.round:'คาดการณ์ ⚠ (Sp อาจเปลี่ยนหลังวางเต๋า DEX)'}</small></div><div class="tchips">${chips}</div></div>`;}
 function drawCombat(){
  const C=G.combat,el=$('#combat');
  $('#game').classList.toggle('incombat',!!C);
  if(!C){el.style.display='none';return;}
  el.style.display='block';
  const foes=C.units.filter(u=>u.side==='m'&&u.hp>0);
- let h=`<div class="cbanner">⚔ การต่อสู้! <b>${esc(C.title)}</b> · Round ${C.round}${C.limit?'/'+C.limit:''} · Combat T${C.tier}<div class="creason">สาเหตุ: ${esc(C.reason||'')}${C.cardTxt?' · '+esc(C.cardTxt):''}</div></div>
+ let h=`<div class="cbanner">⚔ การต่อสู้! <b>${esc(C.title)}</b> · Round ${C.round}${C.limit?'/'+C.limit:''} · Combat T${C.tier}<div class="creason">สาเหตุ: ${esc(C.reason||'')}${C.cardTxt?' · '+esc(C.cardTxt):''}</div></div>${turnBarHTML(C)}
  <div class="foes">${foes.filter(u=>u.kind==='elite').map(foeCard).join('')}${foes.filter(u=>u.kind!=='elite').map(foeCard).join('')}</div><div class="bfv">`;
  for(let i=0;i<=5;i++){
   const ss=C.parts.filter(q=>q.pos===i&&q.hp>0),as=C.units.filter(u=>u.side==='s'&&u.pos===i&&u.hp>0),ms=C.units.filter(u=>u.side==='m'&&u.pos===i&&u.hp>0),n=ss.length+as.length+ms.length;
   const sz=n<=1?150:n<=2?104:n<=4?74:n<=6?58:46;
   h+=`<div class="cell ${i<2?'hz':''}"><div class="cn">${i+1}${i<2?' <small>Hero</small>':''}${C.shield[i]?' 🛡'+C.shield[i]:''}</div><div class="toks">`+ss.map(q=>tokenHTML(q,'s',sz)).join('')+as.map(a=>tokenHTML(a,'a',sz)).join('')+ms.map(u=>tokenHTML(u,'m',sz)).join('')+`</div></div>`;}
- h+=`</div><div class="order"><span class="olb">TURN ORDER · Sp</span>${(C.order||[]).filter(u=>u.hp>0).map(u=>`<span class="op ${u.side==='m'?'m':'s'} ${G.cur===u?'cur':''}" data-tip="${esc(u.name)} · Sp ${u.curSp??u.sp??(u.h?u.h.sp:'')}"><img src="${u.h?artOf(u.id):u.side==='m'?artOf(u.kind==='elite'?u.code:u.fam):(allyArt(u.code)||artOf('grove'))}"></span>`).join('<i>›</i>')}</div><div class="cards">`;
+ h+=`</div><div class="cards">`;
  for(const q of C.parts.filter(q=>q.hp>0))h+=`<div class="unit s ${G.cur===q?'cur':''}"><img class="uimg" src="${artOf(q.id)}"><b>${esc(q.name)}</b> <small>ช่อง ${q.pos+1} ${q.face>0?'▲':'▼'}</small><br>${hpBar(q,q.maxhp)}<small>Sp ${q.curSp??q.h.sp}${C.shield[q.pos]?' · 🛡'+C.shield[q.pos]:''}</small>${statusChips(q)}${q.slot?`<div class="slots">${Object.entries(q.slot).filter(e=>e[1]).map(([k,v])=>k.toUpperCase()+':'+v).join(' ')}${Object.keys(q.ready||{}).length?' ★'+Object.keys(q.ready).length+' skill':''}${q.charge?' ⏸'+q.charge.v:''}</div>`:''}</div>`;
  el.innerHTML=h+'</div>';
 }
@@ -2278,14 +2310,14 @@ function intentMarks(){if(!G||!G.combat)return;const C=G.combat;document.querySe
  document.addEventListener('scroll',clear,true);})();
 
 /* (7) shop cards: rarity by price ⚠, reason, compact exit */
-function shopDecor(){document.querySelectorAll('.scard').forEach(b=>{if(b.dataset.dec)return;b.dataset.dec=1;const m=(b.querySelector('.spr')||{}).textContent||'';const pr=parseInt((m.match(/(\d+)/)||[])[1])||0;
+function shopDecor(){document.querySelectorAll('.scard').forEach(b=>{if(b.dataset.dec||!b.querySelector('.spr'))return;b.dataset.dec=1;const m=(b.querySelector('.spr')||{}).textContent||'';const pr=parseInt((m.match(/(\d+)/)||[])[1])||0;
   b.classList.add(pr>=8?'r-rare':pr>=6?'r-unc':'r-com');const rl=document.createElement('div');rl.className='srar';rl.textContent=pr>=8?'Rare ⚠':pr>=6?'Uncommon ⚠':'Common ⚠';rl.dataset.tip='⚠ ระดับความหายากแบ่งจากราคา (≥8 Rare, 6–7 Uncommon, ≤5 Common) — ไม่มีในแหล่ง ใช้แค่สีกรอบ';b.prepend(rl);
   const no=b.querySelector('.sno');if(no&&G){no.textContent=`🔒 เหรียญไม่พอ — ขาดอีก ${Math.max(0,pr-G.coins)}`;b.classList.add('sdis');}});
  document.querySelectorAll('#choices button, #overlay button').forEach(b=>{if(b.textContent.trim()==='ออกจากร้าน')b.classList.add('shopexit');});}
 
 /* hook into render pipeline */
 const _fxAfter=fxAfterRender;
-fxAfterRender=function(){_fxAfter.apply(this,arguments);try{lagRecord();intentMarks();shopDecor();['#choices','#party','#overlay','#asm'].forEach(s=>kwTag(document.querySelector(s)));}catch(e){console.warn('x86',e);}};
+fxAfterRender=function(){_fxAfter.apply(this,arguments);try{lagRecord();intentMarks();document.querySelectorAll('#combat .tok').forEach(t=>t.classList.toggle('narrow',t.offsetWidth<96));shopDecor();['#choices','#party','#overlay','#asm'].forEach(s=>kwTag(document.querySelector(s)));}catch(e){console.warn('x86',e);}};
 
 /* (3) dice roll animation — manual ROLL kept */
 const _doRoll=doRoll;
