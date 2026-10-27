@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
-<title>Project Ashbound v0.8.8 — Prototype</title><style>
+<title>Project Ashbound v0.8.9 — Prototype</title><style>
 *{box-sizing:border-box}body{margin:0;background:#08080a;color:#cfc8bd;font-family:"Sarabun","Noto Sans Thai",Tahoma,sans-serif;font-size:14px}
 body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 30%,transparent 40%,#000 100%),repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0 1px,transparent 1px 3px);z-index:50}
 h1,.ttl{font-family:Georgia,serif;letter-spacing:.3em;color:#b33a2f;text-shadow:0 0 12px #600}
@@ -359,6 +359,40 @@ body.dragging .slotbox .sock{border-color:#ffb04a}
 .abar.turn{margin:6px 0}
 .pstat{margin-top:6px;font-size:13px;color:#cbd;position:relative;overflow:hidden;border-radius:6px;padding:4px 8px;background:#111}
 .pstat.go{color:#bff5d8;background:#12261d}
+#combat .rngbar{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;margin:4px 0;padding:4px 8px;background:#0c0b0e;border:1px solid #2a2630;border-radius:8px;font-size:12px;color:#cbc}
+#combat .rngbar .rbt{font-weight:700;letter-spacing:.15em;color:#ff8a3d;font-size:11px}#combat .rbtn{padding:3px 10px;font-size:12px;border-radius:6px;background:#1a1518;border:1px solid #5a2a2a;color:#f3c;color:#f0d0d0;cursor:pointer;min-height:28px}#combat .rbtn.on{background:#5a1414;border-color:#ff4a3a;color:#fff}
+#combat .rleg{display:flex;align-items:center;gap:4px;flex-wrap:wrap;color:#a99}#combat .lg{display:inline-block;width:12px;height:10px;border-radius:2px;margin-left:4px}.lg.me{background:#3ec7b0}.lg.sk{background:#7aa8ff}.lg.al{background:#6ad06a}.lg.mon{background:#ff3a2a}.lg.mv{background:repeating-linear-gradient(135deg,#ff3a2a 0 3px,transparent 3px 6px)}
+#combat .rcap{flex:1 1 280px;min-width:0;color:#f0e6dc;min-height:16px}
+#game .bfv .cell.r-me{box-shadow:inset 0 0 0 2px #3ec7b0,inset 0 0 26px #3ec7b044}
+#game .bfv .cell.r-al{box-shadow:inset 0 0 0 2px #6ad06a,inset 0 0 26px #6ad06a44}
+#game .bfv .cell.r-mv{background-image:repeating-linear-gradient(135deg,#ff3a2a22 0 8px,transparent 8px 16px)!important}
+#game .bfv .cell.r-mon{box-shadow:inset 0 0 0 2px #ff3a2a,inset 0 0 30px #ff3a2a44}
+#game .bfv .cell.r-hov.me{box-shadow:inset 0 0 0 3px #3ec7b0,inset 0 0 40px #3ec7b066}#game .bfv .cell.r-hov.sk{box-shadow:inset 0 0 0 3px #7aa8ff,inset 0 0 40px #7aa8ff66}
+#game .bfv .cell.r-hov.al{box-shadow:inset 0 0 0 3px #6ad06a,inset 0 0 40px #6ad06a66}#game .bfv .cell.r-hov.mon{box-shadow:inset 0 0 0 3px #ff3a2a,inset 0 0 40px #ff3a2a66}
+#game .bfv .cell{position:relative}#game .bfv .cell .rbadge{display:inline-block;margin-left:6px;font-size:11px;font-weight:700;color:#ffb0a0;background:#300a;border-radius:4px;padding:0 4px;pointer-events:none}
+#map .mclock{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 8px;padding:6px 10px;border-radius:10px;border:1px solid #2f323b;background:linear-gradient(90deg,#14161c,#0d0e12);font-size:12px;color:#d8d0c8;min-height:40px;box-sizing:border-box}
+#map .mclock.ph2{background:linear-gradient(90deg,#0b0d1c,#07070d);border-color:#2b2f5a}#map .mclock.ph0{border-color:#5a4a2a}
+#map .cday{display:flex;align-items:baseline;gap:4px}#map .cday b{font-size:22px;color:var(--o2);font-weight:900;line-height:1}#map .cday small{color:#a99;letter-spacing:.1em}
+#map .csegs{display:flex;align-items:center;gap:4px}#map .cseg{padding:3px 9px;border-radius:999px;border:1px solid #333;color:#877;white-space:nowrap}#map .cseg.past{opacity:.45;text-decoration:line-through}
+#map .cseg.now{color:#160800;background:var(--o);border-color:var(--o);font-weight:800;box-shadow:0 0 12px #ff6a0066}#map .cseg.now.ph2{background:#4a5ad8;border-color:#7a8aff;color:#fff;box-shadow:0 0 12px #4a5ad888}#map .carr{color:#555;font-style:normal}
+#map .cpips{display:flex;gap:6px;flex:1;justify-content:flex-end;flex-wrap:wrap}#map .cpip{display:flex;align-items:center;gap:3px;padding:1px 6px 1px 1px;border-radius:999px;border:1px solid #333;color:#aaa}
+#map .cpip img{width:22px;height:22px;border-radius:50%;object-fit:cover}#map .cpip small{font-size:11px}#map .cpip.done{opacity:.45}#map .cpip.done small::after{content:' ✔'}#map .cpip.now{border-color:#3ec7b0;color:#fff;box-shadow:0 0 8px #3ec7b066}
+#map .cleft{font-weight:700;color:#c9b}#map .cleft.warn{color:#ff5a4a}
+#map .mclock~.grid{height:calc(100% - 82px)!important}
+#banslot.phase .phb{font-size:30px;line-height:1}#banslot.phase.ph2{background:linear-gradient(90deg,#0b0d2ccc,#0008 70%,transparent)}#banslot .phnext{display:block;font-style:normal;font-size:12px;color:#3ec7b0}
+#choices.k-passive .bigrow,#choices.k-reroll .bigrow,#choices.k-jack .bigrow{display:flex!important;flex-wrap:wrap!important;gap:10px!important;justify-content:center!important;align-items:stretch!important;height:auto!important;grid-template-columns:none!important}
+#choices.k-passive .bigrow>button,#choices.k-reroll .bigrow>button,#choices.k-jack .bigrow>button{flex:0 1 280px!important;width:auto!important;min-height:72px!important;height:auto!important;max-height:none!important;aspect-ratio:auto!important;padding:10px 14px!important}
+#scenePop{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;background:#000a;backdrop-filter:blur(2px)}
+#scenePop .spbox{width:min(520px,92vw);max-height:86vh;overflow:auto;background:linear-gradient(180deg,#1a1416,#0d0b0d);border:1px solid #6b2a1a;border-radius:12px;box-shadow:0 0 40px #ff3a0033,inset 0 0 30px #0009;padding:16px 18px;color:#e8dcd2;text-align:left}
+#scenePop .spk{font-size:11px;letter-spacing:.2em;color:#ff8a3d}#scenePop h3{margin:4px 0 8px;font-size:20px;color:#fff}#scenePop h3 small{font-size:13px;color:#b9a}
+#scenePop .sptx{font-size:14px;line-height:1.5;margin:0 0 10px;color:#f0e6dc}#scenePop .spq{background:#0007;border:1px solid #3a2a2a;border-radius:8px;padding:8px 10px;margin-bottom:10px}
+#scenePop .spqh{font-size:12px;color:#ffb37a;font-weight:700;margin-bottom:4px}#scenePop ul{margin:0;padding-left:18px;font-size:13px}#scenePop .qlv{color:#ffd27a}#scenePop .qid{color:#998}
+#scenePop.peek{inset:auto;top:72px;right:16px;background:none;backdrop-filter:none;pointer-events:none;animation:spIn .25s ease-out}#scenePop.peek .spbox{pointer-events:auto;width:min(380px,90vw);max-height:60vh}@keyframes spIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1}}
+#scenePop .spwho{font-size:11px;color:#998;margin-bottom:8px}#scenePop .planok{margin-left:auto}
+#choices{scroll-padding-bottom:96px;scroll-padding-top:12px}
+#choices #pstat{display:flex!important;align-items:center;gap:10px;justify-content:space-between;flex-wrap:wrap;position:sticky;bottom:0;z-index:6;background:linear-gradient(180deg,#0d0c10ee,#0a090c);border-top:1px solid #3a2a2a;box-shadow:0 -8px 18px #0009}#choices #pstat .pmsg{background:none;text-align:left;flex:1 1 220px;padding:0}
+.planok{flex:none;display:flex;flex-direction:column;align-items:center;padding:8px 18px!important;font-size:15px!important;font-weight:700;color:#fff!important;background:linear-gradient(180deg,#c2410c,#7c2d12)!important;border:1px solid #ff8a3d!important;border-radius:8px;box-shadow:0 0 12px #ff6a0055;cursor:pointer;min-height:44px}
+.planok small{font-size:10px;font-weight:400;opacity:.85}.planok:hover{filter:brightness(1.15)}#pstat.go .planok{animation:pulseO 1.6s infinite}
 .pstat .pbar{position:absolute;left:0;bottom:0;height:3px;background:#7fe0b0;width:0;animation:pfill linear forwards}@keyframes pfill{to{width:100%}}
 #dragGhost{pointer-events:none}
 .abar.turn{align-items:flex-start;padding-top:12px}.abar.turn .acard{min-height:0;flex-basis:122px}
@@ -471,7 +505,7 @@ button.shopexit{width:auto!important;max-width:220px;margin:6px auto!important;d
 .tok.fig .tint{margin-bottom:14px!important}
 .ptop.turn .tdie b{font-size:15px;line-height:16px;display:block}.ptop.turn .tdie i{line-height:9px;display:block;margin-top:1px}
 .mcard .mcost{position:relative!important;display:inline-block;top:auto!important;left:auto!important;margin:-1px 0 3px -1px;white-space:normal!important;text-overflow:clip!important;max-width:calc(100% + 2px)!important;line-height:1.25;padding:1px 5px!important}
-#combat .toks{row-gap:56px!important}.tok .tint{top:auto!important}.tok:not(.fig) .tint{margin-bottom:6px!important}
+#combat .toks{row-gap:64px!important}#combat .bfv .cell>.toks{margin-top:20px!important}.tok .tint{top:auto!important}.tok:not(.fig) .tint{margin-bottom:6px!important}
 .tok.narrow .tint .intent em{display:none}.tok.fig .tpo{top:16px!important}
 .tok .tnm{white-space:normal!important;width:100%;text-align:center;line-height:1.1;word-break:break-word}
 .scard .suse,.ptop .scard .suse{white-space:normal!important;overflow:visible!important;text-overflow:clip!important;line-height:1.15;text-align:center;word-break:break-word}
@@ -482,18 +516,18 @@ button.shopexit{width:auto!important;max-width:220px;margin:6px auto!important;d
 <div class="tlinks"><button onclick="start(true)">👁 ดู Bot เล่น</button><button onclick="showHow()">📖 วิธีเล่น</button><button onclick="toggleAsm()">⚠ Assumptions</button><button onclick="showNew(true)">✨ มีอะไรใหม่</button></div></div>
 <div class="tsel"><div class="tselh">เลือก SURVIVOR <span>(สูงสุด 4 · ชี้เมาส์ดูรายละเอียด)</span></div><p id="selInfo"></p><div id="heroGrid"></div>
 <details class="trules"><summary>กติกาโดยย่อ</summary><div class="rules">เมืองอาชา (Achar) · Act 1: THE SURVIVORS — ผนึก 666 ปีแตก เถ้าต้องสาปปกคลุมเมือง<br>
-<b>Prototype v0.8.8</b> (Rulebook V1.3 + ชีต " ASHBOUND ") · Co-op 1–4 Survivors · เริ่มที่ท่าเรือ A8 · แผนที่ Act 1 12 ช่อง (A5–D8)<br>
-วันละ 3 ช่วง เช้า/บ่าย/กลางคืน · ทุกคน 1 Action ต่อช่วง: Forage ■ / Explore ■ / Talk ■ / <b>เดินไปช่องติดกัน = 1 Action</b> / Hunt ⚠<br>
+<b>Prototype v0.8.9</b> (Rulebook V1.3 + ชีต " ASHBOUND ") · Co-op 1–4 Survivors · เริ่มที่ท่าเรือ A8 · แผนที่ Act 1 12 ช่อง (A5–D8)<br>
+วันละ 3 ช่วง เช้า/บ่าย/กลางคืน · ทุกคน 1 Action ต่อช่วง: Forage ■ / Explore ■ / Talk ■ / <b>เดินไปช่องติดกัน = 1 Action</b><br>
 Main Quest: Scene B7-1 (มอลล์) เปิดร้านค้า → B7-2 ส่งเสบียง 5 ชุด → B7-3 ทุกคนรวมตัวที่ B7 ต่อสู้ <b>กระสือ (Krasue)</b> · แพ้การต่อสู้ไม่แพ้เกม — แพ้เมื่อหมดเวลา Act (8 วัน ⚠)<br>
 Combat: Start Up (รีเซ็ต Sp มอน + ทอย Buff) → Player phase (ทอย/วางลูกเต๋า) → Resolve (ตาม Sp) · สนาม 6 ช่องแนวนอน ฮีโร่เริ่ม 2 ช่องล่าง · Soot T1–T4 · ⚠ = ค่าสมมติ (ดูปุ่ม Assumptions)<br>Survivor ที่เลือก = ผู้เล่นควบคุมเอง · ทุกตัวเลือกมีปุ่ม 🤖 Auto · กรอบทอง = Bot แนะนำ</div></details></div>
-</div><div id="whatsnew"></div></div><div id="verbadge">v0.8.8</div>
+</div><div id="whatsnew"></div></div><div id="verbadge">v0.8.9</div>
 <div id="netbar"></div><div id="lobby"></div><div id="game"><div id="top"></div><div id="party"></div><div id="mid"><div id="banslot"></div><div id="map"></div><div id="combat"></div></div><div id="right"><div id="phasebar"></div><div id="tray"></div><div id="choices"></div><div id="log"></div><div id="chat"><input id="chatIn" maxlength="200" placeholder="💬 แชทถึงทุกคน…"><button id="chatSend" onclick="chatSend()">ส่ง</button></div></div></div>
 <div id="overlay"></div><div id="asm"></div><div id="confirm" class="modal"></div><div id="tut"></div><div id="howto" class="modal"><div class="mbox"><button class="mx" onclick="hideHow()">✕ ปิด</button><h2>📖 วิธีเล่น ASHBOUND (Act 1)</h2>
 <h3>🎯 เป้าหมาย</h3><p>Co-op 1–4 คน เริ่มที่ท่าเรือ A8. ไปมอลล์ <b>B7</b> → Scene B7-1 เปิดร้านค้า → B7-2 ส่งเสบียง 5 ชุด (Main Quest) → B7-3 ทุกคนรวมตัวที่ B7 แล้วชนะ <b>รินา กระสือ (Cursed Seer)</b> = ชนะเกม</p>
 <h3>⏳ วันและช่วงเวลา</h3><p>วันละ 3 ช่วง: เช้า / บ่าย / กลางคืน. ทุกช่วง Survivor แต่ละคนได้ <b>1 Action</b>. จำกัด <b>8 วัน ⚠</b> (ค่าสมมติ) — หมดเวลาก่อนชนะบอส = แพ้</p>
 <h3>🚶 Action (เลือก 1 ต่อช่วง)</h3><ul><li><b>เดิน</b> ไปช่องติดกัน = 1 Action (คลิกช่องที่เรืองแสงบนแผนที่). 🔒 = ล็อก</li>
 <li><b>Forage</b> ■เขียว: จั่วการ์ดอาหาร · <b>Explore</b> ■เหลือง: สำรวจ/จั่วการ์ด · <b>Talk</b> ■ฟ้า: คุย NPC (ได้ Ally/Quest) — ใช้คิวบ์ 1 อันจากช่องนั้น</li>
-<li><b>⚔ Hunt</b>: ล่ามอนสเตอร์ตาม Soot Tier ⚠ · <b>Rest</b>: พัก (กลางคืน = 1 Rest)</li>
+<li><b>Rest</b>: พัก (กลางคืน = 1 Rest)</li>
 <li><b>Free action</b> (ไม่เสีย Action): ใช้ชุดพยาบาล, ร้านค้า (ที่ B7 เมื่อเปิดแล้ว), สวมใส่ไอเท็ม (สูงสุด 3)</li></ul>
 <h3>🎲 ลูกเต๋า</h3><p>ลูกเต๋า W / Y / R มีหน้าต่างกัน. ทุกครั้งที่ต้องทอย ให้กดปุ่ม <b>🎲 ROLL</b> ใน Dice Tray (Bot ทอยเองอัตโนมัติ). <b>Challenge</b>: ทอยลูกเต๋าทั้งหมด เลือกลูกสูงสุด + Stat ≥ ค่าที่กำหนด = ผ่าน. Scene บางอันทอย D6</p>
 <h3>⚔ การต่อสู้ (Combat)</h3><ol><li>Start Up: รีเซ็ต Sp มอนสเตอร์ + ทอย Buff</li><li>Player phase: ทอยลูกเต๋า → (จองลูกเต๋าให้ Skill ⚡) → <b>วางลูกเต๋า</b> ลงช่อง STR (Phy atk) / DEX (+Sp) / INT (Mag atk) / MOVE (+½ Move) / HP (Temp HP) หรือ CHARGE (เก็บไว้รอบหน้า) — ลากหรือคลิก</li>
@@ -513,7 +547,7 @@ Object.assign(FIG,{"dog": "data:image/webp;base64,UklGRvIZAABXRUJQVlA4WAoAAAAQAA
 const PETART={"ally:dog": "data:image/webp;base64,UklGRuwCAABXRUJQVlA4IOACAAAwHgCdASqAAIAAPm0skkYkIqGhLxiLEIANiWkA1UXG5mGN+Em1tUZxM2435BUMrrtXU+0v8nThP8YQtQoUjztK7fUgmFgqcxXLr4p79O7NPIlAH3Ecr7EleBqcESF+B8ePmDa1+RldWcyg6BsylGMU5ybX/LbrFL4lNlQEAapr7KoLslIIyl3KL2pOW4CPSAEvNF1aQprYfd4TubzrTQGrUW5GvfzZfayyhh0P8RXPFC7GIbWH9B5jCyF9o1vs3659sN93ZzbrdYXMjKu3IiNe0PRW/MPi7dvFNzYECShdCVWZro0ygwTrx0zMFWsOxfgr2CAz9bdBIEHgAP75ZlNbZSaz97zIA+EjrwsQoRGLB8Kt/9ExhVaQtW/223tt+uQ2Ik0EXuCJzqlFpos1zxFKdtu4FUUnmEO6MOkb/w1LSaqgi+vsHzRO/kMsjzDWIlV8XevVrabdhN7nUd1z7iJHT4VXxnqnKWgocuV7/ILuPtsz6MnRJQQ64SUKUwz3UgWVMDUc9ozrU5L5xYOV9drNGA7cqGCb4EhiCJdI6Oilhp2rKkeorDyjjKhHCopq7EcLNPRjXrvjrsavUf1A3m9ziX4CgwWbFNNtQQUSXglqH7L01LPfAPb6gdm5g4UUHlFbEnBzDxmU53Quwj0aVzzc0sUHIOOX7qYGTO5IfKca21+BuUPwbuluNcSsGOdKEu+zKq8MjHVyTl3V4ZzPpjfJKZ/u6TOsaBdOu6oEliN/bXKrcwb7h/tZB5nK0c6n5NY+6N7M7tGyi1BZH94vXSGDhxwD1915u259Bo674rP7WAgE/AowwFO5hb+HPNHahdt9ePcEHl87BUXqCkrgqTljqVJkTTsZLTTwq82UwO1etHbLfbku5/8TaPCyGZ/BLRqXGxDN6ecESHiGgd0JvRoerVElHzsXY+w6Zn/nXiAMVPbRpwAAhCZ+ch74OQA1gDU0orFI9+aIU5oTwIE+AAAA", "ally:cat": "data:image/webp;base64,UklGRkYDAABXRUJQVlA4IDoDAABwHgCdASqAAIAAPm0wk0YkIyGhKhWdEIANiWkA1Qu5QOKULe4utpMEK+icgyj0drvlz14oVxqiyUcV13XHDIqXhlC7vRaO8APeFSD2TZtFA9qEpDhu6ebcsnsTFPcKA+OspeTefmvFq4o255lmi0LJ8b4Yf4cvpbwUKEEWFOr2uXP8ABYmnuIEEmEZC+LNqjmsoXc65lH5sY4ievoRk7yDfisuSpWBY95GslML4j8mageAFGqwH2ba3oWYivUD9Y10ht1GzSioUDCiPUlfpbLHdVzVGiZ4hbqcAyAb0z4IsJSMAgBK+/itVCPzrEhXr+VeF5Qe2svEsfsVfAAA/vozJ3WF8KNvNADEXSvIPH8gEuG729xSrlDP4AWh22304keZ54Q9iPEZ+WDQ1JsEz3HZyzaMStps/UnDtHEKKl0OxpyFX1ALqroSH+KKpaKqXbDdYlNSz2AR4eyjrJR9G/tbceNeaegDoQcwQyKlSsrYew1q56WD0WR8ZdARsSu96u5m2DAiVWrwLafXFVoxm22DuyS1NefOhtPtLR7PnAfMu9CP8dmwhzzVN98k3fgsditzzRFe1gzBzv49L2dzI9wX8g1t+zG2zYYoZLGli5wd3cB4adyA1AgbRWbLFN1Tjp2m2HYiFu5aqk19DqlLoA4w/aquurVkvzvoCyAMv8eeGPEbCkcHHhAzeGUmKWhOKh+2q6emATatLkZoa7sDoUbRxXFvNKeNs2AP0M3YCJdHRLb8qWDeieUz2obVH2T8rL9APHq88jq4oS2kXmWpux3YEOsNRSymOo1GHAIUwXsvq1f7NDKmIFRmOcCQqngOxZaXznOTmUGDWtu2XHe/MdhCdrEtyMt5YBMuyXNd/CRB2Y7uBy6XpOihBxLO7aCXO4CDA7rc77p3d5w2MbyMN/CTjTmv8uc9rTSfn7JTs3fKeiyalpDKxKrUHU8jluln/8GvJpL1kpVfH/UK+YgzuIax6A7RMmwcVfT6xapOjBKGmxl+UbS8oXz9YGC3aU52Y1CCR8FQj8iwOpURZAyLX6V6eDceK4oL1RLSpk8VwsSU/Eu2FVdteSUdG47hq0JbenmsEIkEr1SrugAA"};
 
 // ===== Project Ashbound v0.6.1 engine — Rulebook + sheet " ASHBOUND " + World Building (update 2026-10-24) =====
-const VERSION='v0.8.8';
+const VERSION='v0.8.9';
 let RNG=Math.random;
 const rnd=n=>Math.floor(RNG()*n);
 const pick=a=>a[rnd(a.length)];
@@ -525,7 +559,7 @@ const roll=t=>FACES[t][rnd(6)];
 const CFG={dayLimit:8,startDice:3,diceCap:7,maxRounds:30,soot0:3,mainFood:5,startCoins:3,openingFight:true,allySlot:1,skillSlots:4};
 const PHASES=['morning','afternoon','night'];
 const PHASE_TH={morning:'เช้า (Morning)',afternoon:'บ่าย (Afternoon)',night:'กลางคืน (Night)'};
-const ASSUMPTIONS=['⚠ v0.8.8 Sp เท่ากันของ Ally (ผู้ติดตาม/สัตว์เลี้ยง): Rulebook V1.3 ไม่ได้ระบุ — คงลำดับเดิม (Survivor > Ally > Monster, ในกลุ่มเรียงตามรายชื่อ)','⚠ v0.8.8 ผู้เลือกลำดับ: Survivor เท่ากัน → ผู้เล่นคนแรก(ไม่ใช่ Bot)ในกลุ่มที่เสมอ; Monster เท่ากัน → ผู้เล่นคนแรก(ไม่ใช่ Bot)ที่ยังรอด; Bot/sim ใช้ลำดับเดิม','⚠ v0.8.7 Turn order bar: ใช้ลำดับเดิมของเกม (Sp สูง→ต่ำ, เสมอ: Survivor ก่อน Ally ก่อน Monster) — Rulebook ให้ผู้เล่นเลือกลำดับเองเมื่อ Sp เสมอฝ่ายเดียวกัน แต่โปรโตไทป์ใช้ลำดับในรายการ; ลำดับ Ally อยู่ระหว่างฮีโร่กับมอนสเตอร์ (เดิม); ก่อนช่วง Resolve แถบเป็น "คาดการณ์" เพราะ Sp ยังเปลี่ยนได้จาก DEX','⚠ v0.8.6 Crit flash: ไม่มีกติกา Crit — แสดงเอฟเฟกต์ “หนัก” เมื่อดาเมจ ≥6 เท่านั้น (ภาพ/เสียงล้วน ไม่กระทบกติกา)','⚠ v0.8.6 Shop rarity: ชีตไม่มีระดับความหายาก — กรอบสีแบ่งจากราคา (≥8 Rare, 6–7 Uncommon, ≤5 Common) ใช้แค่ภาพ','⚠ v0.8.6 Glossary: Melee All / Close Melee / Range All / Swoop / Stationary / Guard มีแค่ชื่อในแหล่ง; Taunt / Veil ไม่พบในแหล่ง — แสดงชื่อโดยไม่มีคำอธิบาย','⚠ v0.8.6 เสียงทั้งหมดสังเคราะห์ด้วย WebAudio (ไม่มีไฟล์เสียง) — เป็นเสียงชั่วคราว ⚠ รอ sound design จริง','⚠ v0.8.6 Undo: ย้อนได้เฉพาะการวางลูกเต๋าก่อนยืนยัน (รวมช่วงนับถอยหลังยืนยันอัตโนมัติ 1.2 วิ) — ไม่ทอยใหม่','⚠ v0.8.5 Art: แมวดำ/หมาดำตัดจากภาพชีต Troika ขนาดเล็ก (59×113 / 75×226) แล้วขยาย — รายละเอียดจะนุ่ม/ไม่คม; หมาตัดขอบขวาตรงที่ติดตัว Troika ออก (ขอบขวาจึงตรง); หมากลับด้านให้หันขวา','⚠ v0.8.4 Art: กลับด้านภาพ (mirror) ตามการตัดสินด้วยตา — ฝั่งฮีโร่: zemaki, ronan, police; ฝั่งศัตรู: G-Rd, U-Ar, U-Cy, U-Sd, U-Sw, grove, mold. ภาพหน้าตรงไม่กลับ. ตำแหน่ง lane/กติกาไม่เปลี่ยน แค่การแสดงผล','⚠ v0.8.3 UI: กล่องลูกเต๋า + ช่อง Stat แคบ (STR/DEX/INT/HP/Move) อยู่แถวบน; การ์ดคำอธิบายยาว (Skill/Ult/Attack/Move/Charge/ทิ้งลูก) อยู่แถวล่าง — ในเทิร์นต่อสู้กล่องลูกเต๋าแถวบนเป็นแบบแสดงผล (ลูกที่วางแล้ว)','⚠ v0.8.2 UI: "Stat" = core attribute ในชีต (STR/DEX/INT/CHA/HP/Sp/Move) → อยู่แถวบนสุด; ช่องวางเต๋าแถว Stat = STR(Attack)/DEX(Speed)/INT/HP(Guard)/Move; Charge/ทิ้งลูก ไม่ใช่ stat → อยู่ข้างล่างกับการ์ด Skill','⚠ v0.8.1 UI: การลากลูกเต๋าลงการ์ด Skill ช่วงวางลูก = การจองลูกตามกฎเดิม (Skill พร้อมใช้รอบนี้) ส่วนการเลือกเป้าหมาย/ใช้ Skill ทำในเทิร์นของฮีโร่ — ไม่ได้เปลี่ยนกฎ','⚠ v0.8.1 UI: การ์ด Skill ที่ใช้แล้วแสดง "ใช้แล้ว — รีเซ็ตรอบหน้า" (กฎไม่มี Cooldown หลายรอบ) · การ์ดล็อก = ไม่ได้จองลูก/ไม่มีลูกตรงเงื่อนไข',
+const ASSUMPTIONS=['⚠ v0.8.9 Confirm Action: เต๋าที่ไม่ได้วางเมื่อกดยืนยัน = ไม่ใช้ (Unused) ในตานั้น — Rulebook ไม่ได้ระบุว่าต้องวางครบ','⚠ v0.8.9 ลำดับ Passive อิสระ: ทำเป็นเมนูก่อนวางเต๋า (Zemaki Reroll / Jack ทิ้ง-ปรับ ±2 เลือกลูกเอง ใช้ก่อนหลังหรือข้ามได้); Energy Drink ยังอยู่ก่อนทอย และ Dixon Pact หลังวาง Skill dice ตามเดิม · ในต่อสู้ลำดับ Attack/Skill/Ult/Move เลือกได้อิสระอยู่แล้ว','⚠ v0.8.9 ควบคุม Ally: เจ้าของ (ผู้เล่นจริง) เลือกเดิน ±1 ช่องภายใน Move ของ Ally และเลือกเป้าในระยะเอง; ความเสียหาย/จำนวนครั้งตีใช้สูตรเดิมของ AI (ไม่เปลี่ยนกฎ) · Ally ของบอทยังใช้ AI','⚠ v0.8.9 ระยะโจมตี: Skill/Ult คำนวณจากตัวเลือกเป้าที่ระบบยอมรับ ณ ตอนนั้น (วางศัตรูทดสอบทุกช่อง) จึงเป็นค่าประมาณ; ระยะ “ถ้าเดินก่อน” ของมอนสเตอร์ = Move + ระยะโจมตี แบบเส้นตรงไม่คิดสิ่งกีดขวาง','⚠ v0.8.9 หน้าต่าง Scene: ระดับ Quest อ่านจากวงเล็บ (Q1..) ในข้อความ Scene ของชีต; ถ้าไม่มีจะไม่แสดงระดับ','⚠ v0.8.9 นาฬิกาแผนที่ใช้ day limit 8 วัน (Rulebook: ยังไม่คอนเฟิม) · ข้อความกลางคืน “ทุกคนต้องพักอย่างน้อย 1 หน่วย” ตาม Rulebook','v0.8.9 นำ Hunt ออก (เป็น Action ต้นแบบที่ไม่มีใน Rulebook V1.3)','⚠ v0.8.8 Sp เท่ากันของ Ally (ผู้ติดตาม/สัตว์เลี้ยง): Rulebook V1.3 ไม่ได้ระบุ — คงลำดับเดิม (Survivor > Ally > Monster, ในกลุ่มเรียงตามรายชื่อ)','⚠ v0.8.8 ผู้เลือกลำดับ: Survivor เท่ากัน → ผู้เล่นคนแรก(ไม่ใช่ Bot)ในกลุ่มที่เสมอ; Monster เท่ากัน → ผู้เล่นคนแรก(ไม่ใช่ Bot)ที่ยังรอด; Bot/sim ใช้ลำดับเดิม','⚠ v0.8.7 Turn order bar: ใช้ลำดับเดิมของเกม (Sp สูง→ต่ำ, เสมอ: Survivor ก่อน Ally ก่อน Monster) — Rulebook ให้ผู้เล่นเลือกลำดับเองเมื่อ Sp เสมอฝ่ายเดียวกัน แต่โปรโตไทป์ใช้ลำดับในรายการ; ลำดับ Ally อยู่ระหว่างฮีโร่กับมอนสเตอร์ (เดิม); ก่อนช่วง Resolve แถบเป็น "คาดการณ์" เพราะ Sp ยังเปลี่ยนได้จาก DEX','⚠ v0.8.6 Crit flash: ไม่มีกติกา Crit — แสดงเอฟเฟกต์ “หนัก” เมื่อดาเมจ ≥6 เท่านั้น (ภาพ/เสียงล้วน ไม่กระทบกติกา)','⚠ v0.8.6 Shop rarity: ชีตไม่มีระดับความหายาก — กรอบสีแบ่งจากราคา (≥8 Rare, 6–7 Uncommon, ≤5 Common) ใช้แค่ภาพ','⚠ v0.8.6 Glossary: Melee All / Close Melee / Range All / Swoop / Stationary / Guard มีแค่ชื่อในแหล่ง; Taunt / Veil ไม่พบในแหล่ง — แสดงชื่อโดยไม่มีคำอธิบาย','⚠ v0.8.6 เสียงทั้งหมดสังเคราะห์ด้วย WebAudio (ไม่มีไฟล์เสียง) — เป็นเสียงชั่วคราว ⚠ รอ sound design จริง','⚠ v0.8.6 Undo: ย้อนได้เฉพาะการวางลูกเต๋าก่อนยืนยัน (รวมช่วงนับถอยหลังยืนยันอัตโนมัติ 1.2 วิ) — ไม่ทอยใหม่','⚠ v0.8.5 Art: แมวดำ/หมาดำตัดจากภาพชีต Troika ขนาดเล็ก (59×113 / 75×226) แล้วขยาย — รายละเอียดจะนุ่ม/ไม่คม; หมาตัดขอบขวาตรงที่ติดตัว Troika ออก (ขอบขวาจึงตรง); หมากลับด้านให้หันขวา','⚠ v0.8.4 Art: กลับด้านภาพ (mirror) ตามการตัดสินด้วยตา — ฝั่งฮีโร่: zemaki, ronan, police; ฝั่งศัตรู: G-Rd, U-Ar, U-Cy, U-Sd, U-Sw, grove, mold. ภาพหน้าตรงไม่กลับ. ตำแหน่ง lane/กติกาไม่เปลี่ยน แค่การแสดงผล','⚠ v0.8.3 UI: กล่องลูกเต๋า + ช่อง Stat แคบ (STR/DEX/INT/HP/Move) อยู่แถวบน; การ์ดคำอธิบายยาว (Skill/Ult/Attack/Move/Charge/ทิ้งลูก) อยู่แถวล่าง — ในเทิร์นต่อสู้กล่องลูกเต๋าแถวบนเป็นแบบแสดงผล (ลูกที่วางแล้ว)','⚠ v0.8.2 UI: "Stat" = core attribute ในชีต (STR/DEX/INT/CHA/HP/Sp/Move) → อยู่แถวบนสุด; ช่องวางเต๋าแถว Stat = STR(Attack)/DEX(Speed)/INT/HP(Guard)/Move; Charge/ทิ้งลูก ไม่ใช่ stat → อยู่ข้างล่างกับการ์ด Skill','⚠ v0.8.1 UI: การลากลูกเต๋าลงการ์ด Skill ช่วงวางลูก = การจองลูกตามกฎเดิม (Skill พร้อมใช้รอบนี้) ส่วนการเลือกเป้าหมาย/ใช้ Skill ทำในเทิร์นของฮีโร่ — ไม่ได้เปลี่ยนกฎ','⚠ v0.8.1 UI: การ์ด Skill ที่ใช้แล้วแสดง "ใช้แล้ว — รีเซ็ตรอบหน้า" (กฎไม่มี Cooldown หลายรอบ) · การ์ดล็อก = ไม่ได้จองลูก/ไม่มีลูกตรงเงื่อนไข',
  'Act 1 day limit = 8 วัน (Rulebook: "ยังไม่คอนเฟิม")',
  'Basic Attack Area ของฮีโร่: ชีตคอลัมน์ว่าง → Physical = Melee 1 (Zemaki Close Melee, Upg1 → Melee 1), Magic = Range 0-2, Jack Range 1-3',
  'Sp = Dex + หน้าเต๋าที่วางช่อง Dex (ชีตใหม่ไม่มีค่า Sp แยก)',
@@ -553,7 +587,7 @@ const ASSUMPTIONS=['⚠ v0.8.8 Sp เท่ากันของ Ally (ผู้
  'ร่วมต่อสู้ของเพื่อน: เสียอาหาร = ระยะทาง (Bicycle −1, Dixon Upg1 ฟรีวันละครั้ง)',
  'Explore: การ์ดสำรวจทั่วไป (กองกลาง) ไม่มีข้อมูลในชีต → D6: 1-2 ซุ่มโจมตี, 3-4 ได้ 1 เหรียญ, 5-6 ว่าง; Cube เหลืองลูกสุดท้าย = การ์ดประจำ Area (Rulebook)',
  'การ์ดคุยที่หมดแล้ว = "ไม่มีเรื่องใหม่"',
- 'Hunt (ล่ามอนสเตอร์) = Action เสริมของต้นแบบ (ไม่มีใน Rulebook): ชนะได้ Food +1',
+ 'v0.8.9: นำ Action Hunt (ล่ามอนสเตอร์) ออกแล้ว — เป็น Action เสริมของต้นแบบที่ไม่มีใน Rulebook V1.3 (เดิม: ชนะได้ Food +1). Combat ยังเกิดจาก Scene / Explore (D6) / Ally ตาม Rulebook ⚠',
  'Opening fight = Scene A8-1 ที่ A8',
  'Scene A6-1 ปลดล็อก B6; กุญแจ B5 (Explore A5) ปลดล็อก B5',
  'Damon Ult: x = ไม่เกิน Hp−1 (บอทจ่าย 3); "ผู้ถูกกลืนกิน" ใช้ Str/Dex/Int ของ Damon, Atk = Str (ขั้นต่ำ 1)',
@@ -1011,7 +1045,18 @@ const SCENES={
   if(G.players.some(q=>q.id==='dixon'))log('🎬 กระจกสะท้อน DIXON: รอยดำบนแขนขยายใหญ่ขึ้น… (เนื้อเรื่องพิเศษ)','story');
   await checkpoint('Scene D8');}},
 };
-async function runScene(p,k){const s=SCENES[k];log(`🎬 Scene ${k}: ${s.txt}`,'story');await s.run(p);IO.render();}
+async function runScene(p,k){const s=SCENES[k];log(`🎬 Scene ${k}: ${s.txt}`,'story');
+ const T=TILES[s.tile]||{},qm=/\((Q\d)[^)]*\)/.exec(s.txt||'');
+ const rel=G.quests.filter(q=>!q.done&&(q.txt||'').includes(k));
+ await scenePop(p,{k,tile:s.tile,place:T.name||'',txt:s.txt,qlv:qm?qm[0].slice(1,-1):'',quests:rel.map(q=>({lvl:q.lvl,id:q.id,txt:q.txt})),stage:'open'});
+ const q0=G.quests.map(q=>q.id);await s.run(p);
+ const nq=G.quests.filter(q=>!q0.includes(q.id));
+ if(nq.length&&!G.over)await scenePop(p,{k,tile:s.tile,place:T.name||'',txt:s.txt,quests:nq.map(q=>({lvl:q.lvl,id:q.id,txt:q.txt})),stage:'quest'});
+ IO.render();}
+// v0.8.9: หน้าต่าง Scene/Quest — ผู้เล่นคน = รอกดรับทราบ (ask 'scene'); Bot = แสดงแบบไม่บล็อก
+async function scenePop(p,info){G.scenePop={...info,seq:(G.scenePop?G.scenePop.seq:0)+1,who:p&&p.name,wait:!!(p&&!p.bot&&IO.ask)};G.stats.scenePops=(G.stats.scenePops||0)+1;
+ if(G.scenePop.wait){await ask(p,'scene',info.stage==='quest'?`📜 Quest ใหม่จาก Scene ${info.k}`:`🎬 พบ Scene ${info.k}`,[{v:1,l:'รับทราบ — ไปต่อ'}],0);G.scenePop.wait=false;G.scenePop.ack=true;}
+ IO.render();}
 // auto-trigger open scenes on the player's tile; also quest turn-ins
 async function tileEvents(p){
  for(const k in SCENES){if(G.over)return;const s=SCENES[k];if(s.tile!==p.tile||G.scenes[k]!=='open')continue;if(s.need&&!s.need())continue;await runScene(p,k);}
@@ -1111,7 +1156,6 @@ async function playerTurn(p,ph){
  if(p.tile==='B7'&&questOpen('MAIN')&&G.food>=CFG.mainFood)opts.push({v:'main',l:`★ Main Quest: ส่งเสบียง ${CFG.mainFood} ชุด (มี ${G.food})`});
  if(p.tile==='B7'&&questOpen('BOSS')&&G.players.every(q=>q.tile==='B7'))opts.push({v:'boss',l:'★ ต่อสู้กับรินา กระสือ (Cursed Seer) — ทุกคนอยู่ที่ B7'});
  if(p.allies.some(a=>a.k==='mechanic'))opts.push({v:'craft',l:'ช่าง: Craft ชุดพยาบาลเล็ก ⚠'});
- opts.push({v:'hunt',l:`⚔ ล่ามอนสเตอร์ (Hunt) — Combat T${tier()} ⚠`});
  opts.push({v:'rest',l:ph==='night'?'Rest (พักผ่อนกลางคืน = 1 Rest)':'พัก (ไม่ทำอะไร)'});
  const a=await ask(p,'action',`${p.name} @ ${t.id} ${TILES[p.tile].name}: เลือก 1 Action (${PHASE_TH[ph]})`,opts,botActionIdx(p,opts,ph));
  await doAction(p,a,ph);
@@ -1143,7 +1187,6 @@ async function doAction(p,a,ph){
  if(a==='main'){G.food-=CFG.mainFood;G.mainFoodGiven=true;finishQuest('MAIN');doneScene('B7-2');log(`★ ส่งเสบียง ${CFG.mainFood} ชุด ให้แคมป์มอลล์ (เหลือ ${G.food})`,'good');openScene('B7-3');await runScene(p,'B7-3');return;}
  if(a==='boss'){await bossFight(p);return;}
  if(a==='craft'){bagAdd('medS');log('ช่าง craft ชุดพยาบาลเล็ก 1 ชุด ⚠','good');return;}
- if(a==='hunt'){log(`${p.name} ออกล่า The Burning ที่ ${p.tile}`);const r=await startCombat(p,{reason:`${p.name} เลือก Action ล่ามอนสเตอร์ (Hunt ⚠)`});if(r==='win'){G.food++;log('ได้เสบียง Food +1 ⚠','good');}return;}
 }
 async function nightEnd(){
  log('— สิ้นสุดกลางคืน: กินอาหาร / พักผ่อน / ค่าเลี้ยงดู Ally —','phase');
@@ -1199,7 +1242,6 @@ function botActionIdx(p,opts,ph){
  if(f('forage')>=0&&(G.food<CFG.mainFood+G.players.length+2))return f('forage');
  if(f('talk')>=0&&t.talkIdx<(TALK[p.tile]||[]).length)return f('talk');
  if(f('craft')>=0&&bagN('medS')<2)return f('craft');
- if(p.hp>=p.maxhp*0.7&&f('hunt')>=0)return f('hunt');
  return f('rest');
 }
 async function bossFight(p){
@@ -1325,12 +1367,38 @@ async function placeDice(q,C){
  if(!q.bot&&IO.roll)await IO.roll(q,'Combat — ทอยลูกเต๋า',G.tray.dice);
  q.slot={str:0,dex:0,int:0,move:0,hp:0};q.ready={};q.used={};q.skN={};
  log(`${q.name} ทอยลูกเต๋า: ${vals.map(d=>d.t+d.v+(d.charged?'*':'')).join(' ')}`);
- if(q.id==='zemaki'){const times=upg(q,3)?2:1;for(let r=0;r<times;r++){const low=vals.filter(d=>d.v<=2&&!d.charged);
-  const c=await ask(q,'reroll','Zemaki · Reroll (ทอยใหม่กี่ลูกก็ได้)',[{v:'low',l:`Reroll ลูกที่ ≤2 (${low.length} ลูก)`},{v:'all',l:'Reroll ทุกลูก'},{v:'none',l:'ไม่ Reroll'}],low.length?0:2);
-  const rr=c==='low'?low:c==='all'?vals.filter(d=>!d.charged):[];if(!rr.length)break;rr.forEach(d=>d.v=roll(d.t));G.tray.dice=vals.slice();if(!q.bot&&IO.roll)await IO.roll(q,'Zemaki Reroll',rr);if(upg(q,3))q.zemB=(q.zemB||0)+rr.length;log(`Zemaki reroll → ${vals.map(d=>d.t+d.v).join(' ')}`);}}
- if(q.id==='jack'&&vals.length>=2){vals.sort((a,b)=>a.v-b.v);const hi=vals[vals.length-1];
-  const c=await ask(q,'jack',`Jack · Investigator: ทิ้งลูก ${vals[0].v} แล้วปรับลูก ${hi.v} ±2?`,[{v:0,l:'ไม่ใช้'},{v:2,l:`ใช้ (+2 → ${Math.min(6,hi.v+2)})`},{v:-2,l:`ใช้ (−2 → ${Math.max(1,hi.v-2)})`}],hi.v<=4&&vals[0].v<=2&&vals.length>=3?1:0);
-  if(c){hi.v=Math.max(1,Math.min(6,hi.v+c));vals.shift().tag='ทิ้ง (Jack)';}}
+ // v0.8.9: Passive ที่กดใช้ได้ (Zemaki Reroll / Jack Investigator) — ผู้เล่นเลือกเองว่าจะใช้อะไร ใช้ก่อนหลัง หรือไม่ใช้ และเลือกลูกเต๋าเอง; Bot ใช้ตรรกะเดิม
+ const human=!q.bot&&!!IO.ask;
+ const pv={rr:q.id==='zemaki'?(upg(q,3)?2:1):0,jack:q.id==='jack'};
+ const doReroll=async rr=>{if(!rr.length)return false;rr.forEach(d=>d.v=roll(d.t));G.tray.dice=vals.slice();if(!q.bot&&IO.roll)await IO.roll(q,'Zemaki Reroll',rr);if(upg(q,3))q.zemB=(q.zemB||0)+rr.length;log(`Zemaki reroll → ${vals.map(d=>d.t+d.v).join(' ')}`);return true;};
+ const doJack=(lo,hi,c)=>{hi.v=Math.max(1,Math.min(6,hi.v+c));lo.tag='ทิ้ง (Jack)';vals.splice(vals.indexOf(lo),1);log(`Jack · Investigator: ทิ้งลูก ${lo.t}${lo.v} · ปรับลูก ${hi.t} → ${hi.v}`);};
+ if(!human){
+  for(let r=0;r<pv.rr;r++){const low=vals.filter(d=>d.v<=2&&!d.charged);
+   const c=await ask(q,'reroll','Zemaki · Reroll (ทอยใหม่กี่ลูกก็ได้)',[{v:'low',l:`Reroll ลูกที่ ≤2 (${low.length} ลูก)`},{v:'all',l:'Reroll ทุกลูก'},{v:'none',l:'ไม่ Reroll'}],low.length?0:2);
+   if(!await doReroll(c==='low'?low:c==='all'?vals.filter(d=>!d.charged):[]))break;}
+  if(pv.jack&&vals.length>=2){const so=vals.slice().sort((a,b)=>a.v-b.v);const lo=so[0],hi=so[so.length-1];
+   const c=await ask(q,'jack',`Jack · Investigator: ทิ้งลูก ${lo.v} แล้วปรับลูก ${hi.v} ±2?`,[{v:0,l:'ไม่ใช้'},{v:2,l:`ใช้ (+2 → ${Math.min(6,hi.v+2)})`},{v:-2,l:`ใช้ (−2 → ${Math.max(1,hi.v-2)})`}],hi.v<=4&&lo.v<=2&&vals.length>=3?1:0);
+   if(c)doJack(lo,hi,c);}
+ }else for(let g=0;g<12&&(pv.rr>0||(pv.jack&&vals.length>=2));g++){
+  const dl=d=>`${d.t}${d.v}${d.charged?'*':''}`;
+  const opts=[{v:'go',l:`➜ ไปวางลูกเต๋า (${vals.map(dl).join(' ')})`}];
+  if(pv.rr>0)opts.push({v:'rr',l:`🎲 Zemaki · Reroll — เลือกลูกที่จะทอยใหม่ (เหลือ ${pv.rr} ครั้ง)`});
+  if(pv.jack&&vals.length>=2)opts.push({v:'jack',l:'🔍 Jack · Investigator — เลือกลูกที่จะทิ้ง + ลูกที่จะปรับ ±2'});
+  const c=await ask(q,'passive',`${q.name}: Passive ที่ใช้ได้ — เลือกใช้เอง ลำดับไหนก็ได้ หรือข้าม`,opts,0);
+  if(c==='go')break;
+  if(c==='rr'){const sel=new Set();
+   for(let h=0;h<20;h++){const ds=vals.map((d,i)=>[d,i]).filter(([d])=>!d.charged);
+    const o=[{v:'ok',l:`✔ Reroll ที่เลือก (${sel.size} ลูก)`},{v:'x',l:'ยกเลิก'}].concat(ds.map(([d,i])=>({v:i,l:`${sel.has(i)?'☑':'☐'} ลูก ${dl(d)}`})));
+    const v=await ask(q,'reroll',`Zemaki · Reroll: แตะลูกเพื่อเลือก/ยกเลิก แล้วกด ✔`,o,0);
+    if(v==='ok'||v==='x'){if(v==='ok'&&sel.size){pv.rr--;await doReroll([...sel].map(i=>vals[i]));}break;}
+    if(sel.has(v))sel.delete(v);else sel.add(v);}
+   continue;}
+  if(c==='jack'){const di=await ask(q,'jack','Jack · Investigator: เลือกลูกที่จะทิ้ง',[{v:-1,l:'ยกเลิก'}].concat(vals.map((d,i)=>({v:i,l:`ทิ้งลูก ${dl(d)}`}))),0);
+   if(di<0)continue;const lo=vals[di];const o=[{v:null,l:'ยกเลิก'}];
+   vals.forEach((d,i)=>{if(i===di)return;if(d.v<6)o.push({v:[i,2],l:`ลูก ${dl(d)} +2 → ${Math.min(6,d.v+2)}`});if(d.v>1)o.push({v:[i,-2],l:`ลูก ${dl(d)} −2 → ${Math.max(1,d.v-2)}`});});
+   const aj=await ask(q,'jack',`Jack · Investigator: ทิ้งลูก ${dl(lo)} แล้วปรับลูกไหน?`,o,0);
+   if(!aj)continue;doJack(lo,vals[aj[0]],aj[1]);pv.jack=false;continue;}
+ }
  // skill dice
  for(const s of q.skills){
   const k=skKey(s);if(!vals.length)break;
@@ -1360,13 +1428,15 @@ async function placeDice(q,C){
   const opts=free.map(s=>({v:s,l:`${s.toUpperCase()} ← ${d.v}`+({str:' (Phy atk)',dex:' (+Sp)',int:' (Mag atk)',move:' (+½ Move)',hp:' (Temp HP / Guard)'}[s])}));
   if(!q.charge)opts.push({v:'charge',l:`Charge Die (เก็บ ${d.v} ไว้รอบหน้า)`});
   if(q.id==='lydia')opts.push({v:'discard',l:`ทิ้ง (Iron Prayer ${q.lydDisc||0}/${upg(q,2)?1:2})`});
+  if(!q.bot)opts.push({v:'none',l:`ไม่ใช้ลูก ${d.v} (Unused ⚠)`});
   let bi=opts.findIndex(o=>o.v===order.find(s=>free.includes(s)));
   if(d.v<=1&&!q.charge&&vals.length>2)bi=opts.findIndex(o=>o.v==='hp');
   if(q.id==='lydia'&&d.v<=2&&!q.lydia6)bi=opts.findIndex(o=>o.v==='discard');
   if(bi<0)bi=0;
   G.tray.cur=d;const s=await ask(q,'place',`${q.name}: วางลูกเต๋า ${d.t}${d.v} ลงช่องไหน?`,opts,bi);
-  G.tray.cur=null;d.tag=s==='charge'?'Charge':s==='discard'?'ทิ้ง':s.toUpperCase();
-  if(s==='charge')q.charge={t:d.t,v:d.v};
+  G.tray.cur=null;d.tag=s==='charge'?'Charge':s==='discard'?'ทิ้ง':s==='none'?'ไม่ใช้':s.toUpperCase();
+  if(s==='none')log(`${q.name}: ไม่ใช้ลูก ${d.t}${d.v} รอบนี้`);
+  else if(s==='charge')q.charge={t:d.t,v:d.v};
   else if(s==='discard'){q.lydDisc=(q.lydDisc||0)+1;if(q.lydDisc>=(upg(q,2)?1:2)){q.lydia6=true;q.lydDisc=0;log('Lydia · Iron Prayer: รอบหน้าลูกเต๋า 1 ลูกเป็นหน้าใดก็ได้ (6)');}}
   else q.slot[s]=d.v;
  }
@@ -1446,7 +1516,7 @@ async function combatRound(C){
   if(u.stun){u.stun=0;log(`${u.name} ติด Stun ข้ามเทิร์น`);continue;}
   if(o.s===2){await heroTurn(u,C);C.acted.push(u);
    if(C.replay&&C.replay.x.hp>0){const {x,pool}=C.replay;C.replay=null;const vs=pool.map(t=>roll(t));const m=x.h.atk==='mag'?'int':'str';x.slot[m]=Math.max(x.slot[m],Math.max(...vs));log(`${x.name} เล่นอีกครั้ง (Skill #33) ทอย ${pool.join('')}: ${vs.join(' ')} → ${m.toUpperCase()} ${x.slot[m]} ⚠`,'good');x.endTurn=false;await heroTurn(x,C);}}
-  else if(o.s===1)allyTurn(u,C);else await monsterTurn(u,C);
+  else if(o.s===1)await allyTurn(u,C);else await monsterTurn(u,C);
   if(u.poison&&u.hp>0){if(o.s){u.hp-=u.poison;log(`${u.name} เสีย ${u.poison} HP จาก Poison`,'bad');if(u.hp<=0){u.hp=0;if(o.s===2){C.downed=true;log(`${u.name} ล้มลง!`,'bad');}}}else damageM(C,u,u.poison,'Poison','skill',{pierce:true});}
  }
  C.resolving=false;
@@ -1460,7 +1530,27 @@ async function combatRound(C){
 function nearestM(C,q){const ms=liveM(C).filter(u=>!(u.kind==='minion'&&u.d.tomb&&liveE(C).length));
  return (ms.length?ms:liveM(C)).sort((a,b)=>Math.abs(a.pos-q.pos)-Math.abs(b.pos-q.pos)||(b.kind==='elite')-(a.kind==='elite')||a.hp-b.hp)[0];}
 function blocked(C,from,to){return liveM(C).some(u=>u.pos===to&&u.d.move==='block')&&to!==from;}
-function allyTurn(a,C){
+async function allyTurn(a,C,atkOnly){
+ const ow=a.owner;if(ow&&!ow.bot&&IO.ask&&ow.hp>0)return allyCtl(a,C,atkOnly);
+ return allyAI(a,C);}
+// v0.8.9: ผู้เล่นควบคุม Ally เอง (เดิน/โจมตี) — ใช้ค่า Move/Atk/ระยะเดิมของ Ally; Bot/Sim ยังใช้ allyAI
+async function allyCtl(a,C,atkOnly){
+ const rg=a.rng||[0,1];let mv=atkOnly?0:(a.mv||0);let atks=a.atk?(a.code==='avaElite'?2:1):0;
+ const dmgOf=()=>a.atk+(a.zombie&&upg(a.owner,3)?atkVal(a.owner)-1:0);
+ for(let g=0;g<30&&a.hp>0&&liveE(C).length;g++){
+  const opts=[];
+  if(atks>0)for(const t of liveM(C)){const d=Math.abs(t.pos-a.pos);if(d>=rg[0]&&d<=rg[1])opts.push({v:{a:'aatk',u:t},u:t,l:`Ally Attack ${t.name}${t.kind==='elite'?` (${t.hp} HP)`:''} — ${dmgOf()} dmg Phy`});}
+  for(const dir of [1,-1]){const nx=a.pos+dir;if(mv>0&&nx>=0&&nx<=5&&!blocked(C,a.pos,nx))opts.push({v:{a:'amv',dir},l:`เดิน${dir>0?'ขึ้น ▲':'ลง ▼'} → ช่อง ${nx+1} (Move ${mv})`});}
+  opts.push({v:{a:'aend'},l:'จบเทิร์น Ally'});
+  let bi=opts.length-1;{const t=nearestM(C,a);if(t){const ai=opts.findIndex(o=>o.v.a==='aatk');if(ai>=0)bi=ai;else{const d=t.pos-a.pos;const mi=opts.findIndex(o=>o.v.a==='amv'&&o.v.dir===Math.sign(d));if(mi>=0&&Math.abs(d)>rg[1])bi=mi;}}}
+  G.cur=a;C.allyCtl=a.uid;IO.render();
+  const c=await ask(a.owner,'ally',`🐾 ${a.name} (Ally ของ ${a.owner.name}) — ช่อง ${a.pos+1} · Move ${mv} · Atk ${a.atk||0} · ระยะ ${rg[0]}–${rg[1]}`,opts,bi);
+  if(c.a==='aend')break;
+  if(c.a==='amv'){a.pos+=c.dir;a.face=c.dir;mv--;continue;}
+  if(c.a==='aatk'){atks--;damageM(C,c.u,dmgOf(),a.name,'phy');IO.render();await IO.sleep(1);}
+ }
+ C.allyCtl=null;}
+function allyAI(a,C){
  let mv=a.mv;for(let g=0;g<6;g++){const t=nearestM(C,a);if(!t)return;const d=t.pos-a.pos;const rg=a.rng||[0,1];if(Math.abs(d)<=rg[1])break;if(mv<=0)break;const nx=a.pos+Math.sign(d);if(blocked(C,a.pos,nx))break;a.pos=nx;mv--;}
  if(!a.atk)return;const rg=a.rng||[0,1];for(let k=0;k<(a.code==='avaElite'?2:1);k++){const t=nearestM(C,a);if(t&&Math.abs(t.pos-a.pos)>=rg[0]&&Math.abs(t.pos-a.pos)<=rg[1]){damageM(C,t,a.atk+(a.zombie&&upg(a.owner,3)?atkVal(a.owner)-1:0),a.name,'phy');}}
 }
@@ -1497,6 +1587,7 @@ async function heroTurn(q,C){
    if(k&&q.id==='sora'&&upg(q,2)){const nb=liveM(C).find(u=>Math.abs(u.pos-q.pos)<=1);if(nb){q.pos=nb.pos;q.face=nb.face;q.warped=nb.uid;log('Sora Upg2: ย้ายไปหลังศัตรูข้าง ๆ');}}}
   if(c.a==='skill'){q.used[c.k]=true;if(c.k!=='orig'||!(q.id==='zemaki'&&upg(q,2)))q.acc[c.k]=0;else q.acc[c.k]=0;
    log(`${q.name} ใช้สกิล ${c.name}`,'good');c.run();
+   if(C.allyAgain){const aa=C.allyAgain;C.allyAgain=null;await allyTurn(aa,C);G.cur=q;}
    if(c.k==='orig'&&q.id==='zemaki'&&upg(q,2)){const g=q.skills.find(s=>!s.orig&&!q.ready[skKey(s)]);if(g){q.ready[skKey(g)]=true;q.skN[skKey(g)]=q.skN.orig||4;log('Zemaki Upg2: นำลูกเต๋าไปใช้สกิลอื่น');}}}
   if(c.a==='ult'){q.ultUsed=true;const x=c.cost||0;if(x){q.hp-=x;G.blood+=x;}log(`${q.name} จ่ายเลือด ${x} HP — ${q.h.ult.name}!`,'blood');c.run();}
   IO.render();await IO.sleep(1);
@@ -1520,7 +1611,7 @@ function skillOpts(q,C,s){
   case 'lydia':for(const p of cellsIn(q,C,[0,2],'skillmag'))S(`Purge 8 dmg ศัตรูทั้งช่อง ${p+1}${upg(q,1)?' (+ช่องข้าง ๆ)':''}`,()=>{dmgCell(p,8,'Purge','skillmag');if(upg(q,1))[p-1,p+1].filter(x=>x>=0&&x<=5).forEach(x=>dmgCell(x,8,'Purge','skillmag'));});break;
   case 'dixon':break; // passive pact handled in placement
   case 'jack':{const ts=tgtsIn(q,C,[0,3],'skill');if(ts.length)S(`${N} dmg ใส่ ${upg(q,1)?3:2} เป้าหมาย`,()=>{const tt=ts.sort((a,b)=>(b.kind==='elite')-(a.kind==='elite')||a.hp-b.hp);const n=upg(q,1)?3:2;for(let i=0;i<n;i++){const u=upg(q,1)?tt.find(x=>x.hp>0):tt[i];if(u)damageM(C,u,N,'Twin Bolt','skill');}});break;}
-  case 'ronan':{const al=liveA(C).filter(a=>a.owner===q&&a.atk);for(const a of al)S(`${a.name} โจมตีอีกครั้ง`,()=>allyTurn(a,C));break;}
+  case 'ronan':{const al=liveA(C).filter(a=>a.owner===q&&a.atk);for(const a of al)S(`${a.name} โจมตีอีกครั้ง`,()=>{C.allyAgain=a;});break;}
  }
  else return skill5Opts(q,C,s);
  return o;
@@ -1584,7 +1675,30 @@ async function monsterTurn(u,C){
  if(dmg<=0&&!eff.poison&&!eff.stun&&!eff.dearmor){log(`${u.name} โจมตี ${t.name} แต่ไม่มีดาเมจ (0 Dmg)`);return;}
  hurtS(C,t,dmg,u.name,eff);
 }
-if(typeof module!=="undefined")module.exports={newGame,runGame,IO,CFG,HEROES,ELITES,SKILL_DATA,ITEMS,ALLIES,TILES,ASSUMPTIONS,COMBAT_RAW,setRng:r=>{RNG=r},get G(){return G}};
+/* v0.8.9 ระยะโจมตี (แสดงผลเท่านั้น — ไม่เปลี่ยนกติกา) */
+function rngCells(pos,rng,face){const o=[];for(let c=0;c<=5;c++){const d=Math.abs(c-pos);if(d>=rng[0]&&d<=rng[1]&&(face==null||c===pos||(c-pos)*face>0))o.push(c);}return o;}
+function heroAtkCells(q){return rngCells(q.pos,heroRange(q),q.face);}
+function allyAtkCells(a){return rngCells(a.pos,a.rng||[0,1]);}
+function monThreat(u){const d=u.d||{};if(!d.rng)return {hit:[],reach:[],mv:0,rng:null};const hit=rngCells(u.pos,d.rng);
+ const mv=d.move==='stationary'?0:Math.max(0,(d.mv||0)-(u.slow||0));const reach=new Set();
+ for(let p=Math.max(0,u.pos-mv);p<=Math.min(5,u.pos+mv);p++)rngCells(p,d.rng).forEach(c=>reach.add(c));
+ return {hit,reach:[...reach].filter(c=>!hit.includes(c)).sort(),mv,rng:d.rng};}
+function probeOpts(q,C,fn){/* วางเป้าหลอกทุกช่อง แล้วดูว่าตัวเลือกของสกิลไปถึงช่องไหน */
+ const fakes=[0,1,2,3,4,5].map(c=>({uid:-900-c,side:'m',kind:'elite',hp:99,maxhp:99,pos:c,face:-1,d:{},name:`§${c}§`,fam:'probe',code:'PROBE',bonus:1,poison:0,stun:0,bleed:0,sp:0}));
+ const C2=Object.assign({},C,{units:C.units.filter(u=>u.side!=='m').concat(fakes),shield:{...(C.shield||{})}});
+ let os=[];try{os=fn(C2)||[];}catch(e){os=[];}
+ const cells=new Set();let self=false;const sa=liveSA(C);
+ for(const o of os){const l=o.l||'';let hit=false;
+  for(const m of l.matchAll(/§(\d)§/g)){cells.add(+m[1]);hit=true;}
+  for(const m of l.matchAll(/ช่อง (\d)(?! dmg)/g)){cells.add(+m[1]-1);hit=true;}
+  for(const x of sa)if(x!==q&&l.includes(x.name)){cells.add(x.pos);hit=true;}
+  if(o.u&&o.u.pos!=null&&o.u.uid>-900){cells.add(o.u.pos);hit=true;}
+  if(!hit)self=true;}
+ if(self)cells.add(q.pos);
+ return {cells:[...cells].filter(c=>c>=0&&c<=5).sort(),self,n:os.length};}
+function skillCells(q,C,s){return probeOpts(q,C,C2=>skillOpts(q,C2,s));}
+function ultCells(q,C){return probeOpts(q,C,C2=>ultOpts(q,C2));}
+if(typeof module!=="undefined")module.exports={rngCells,heroAtkCells,allyAtkCells,monThreat,skillCells,ultCells,newGame,runGame,IO,CFG,HEROES,ELITES,SKILL_DATA,ITEMS,ALLIES,TILES,ASSUMPTIONS,COMBAT_RAW,setRng:r=>{RNG=r},get G(){return G}};
 // ---------------- v0.6.1 state serializer (online sync + save/resume) ----------------
 let SREG=null;const SROOTS=()=>({HEROES,ELITES,MINIONS,ITEMS,SHOP,ALLIES,TILES,SCENES,SKILL_DATA,FORAGE,EXPLORE,TALK,COMBAT_RAW,TILES_DEF,MCODE,COIN_BY_TIER});
 function sreg(){if(SREG)return SREG;SREG=new Map();const R=SROOTS();
@@ -1607,6 +1721,7 @@ function snapG(){G.uid=UID;return ser(G);}
 function loadG(str){G=deser(str);UID=G.uid||UID;return G;}
 if(typeof module!=='undefined'&&typeof window==='undefined')Object.assign(module.exports,{ser,deser,shash,snapG,loadG});
 
+let FX_PHK=null,FX_PHHOLD=0;const PH_IC=['🌅','☀️','🌙'];
 /* ===== v0.7 UX layer: intents, previews, floating numbers, tooltips, banners, rewards (style ref: UX_REFERENCE.md) ===== */
 const ITEM_ICON={bicycle:'🚲',charm:'🧿',licharm:'⛓',knife:'🔪',boots:'🥾',gloves:'🧤',journal:'📓',jacket:'🧥',medS:'🩹',medL:'💊',energy:'🥤',rope:'🪢',flare:'🎆',livingIron:'⚙',fuel:'⛽',ironbox:'📦',statue:'🗿',keyB5:'🗝'};
 const itemIcon=k=>ITEM_ICON[k]||'✦';
@@ -1656,7 +1771,9 @@ let FX_LASTCUR=null,FX_INC=null,FX_SNAP=null;
 function fxBanner(html,cls){let b=$('#banslot');if(!b){const m=$('#mid');b=document.createElement('div');b.id='banslot';if(m)m.prepend(b);else document.body.appendChild(b);}b.className='';void b.offsetWidth;b.innerHTML=html;b.className='show '+(cls||'');}
 function snapRes(){return {coins:G.coins,food:G.food,cp:G.cp,blood:G.blood,soot:G.soot,bag:{...G.bag},wear:G.players.map(p=>p.wear.slice()),hp:G.players.map(p=>p.hp),wins:G.stats.wins,allies:G.players.map(p=>p.allies.length),corpses:G.players.map(p=>p.corpses||0)};}
 function fxAfterRender(){if(!G)return;fxScan();
- const c=G.cur;if(c&&c!==FX_LASTCUR&&c.h&&!G.over){const key=(c.id||'')+G.day+G.phase+(G.combat?G.combat.round:'');if(FX_LASTCUR===null||FX_LASTCUR.id!==c.id||key!==fxAfterRender.k){fxBanner(`<img src="${artOf(c.id)}"><div><small>${G.combat?'⚔ Combat Round '+G.combat.round:esc(PHASE_TH[PHASES[G.phase]])}</small><b>ตาของ ${esc(c.name)}</b><em>${meTag(c)}</em></div>`,G.combat?'cb':'');fxAfterRender.k=key;}}
+ const phk=G.day+'/'+G.phase;if(phk!==FX_PHK){const first=FX_PHK===null;FX_PHK=phk;if(!first&&!G.over&&G.setupDone){G.stats.phaseBanners=(G.stats.phaseBanners||0)+1;const nd=G.phase===0;
+  fxBanner(`<div class="phb"><span class="phi">${PH_IC[G.phase]}</span></div><div><small>${nd?'NEW DAY · วันใหม่':'PHASE · เปลี่ยนช่วงเวลา'}</small><b>วันที่ ${G.day}/${CFG.dayLimit} · ${esc(PHASE_TH[PHASES[G.phase]])}</b><em>${G.phase===2?'🌙 กลางคืน: สิ้นช่วงนี้ทุกคนต้องพัก (Rest) อย่างน้อย 1 หน่วย / กินอาหาร':'เหลือ '+(CFG.dayLimit-G.day)+' วันหลังจากวันนี้ ⚠'}</em><i class="phnext"></i></div>`,'phase ph'+G.phase);FX_PHHOLD=Date.now()+(typeof FAST!=='undefined'&&FAST?600:2200);FX_LASTCUR=G.cur||FX_LASTCUR;fxAfterRender.k=(G.cur&&G.cur.id||'')+G.day+G.phase;return;}}
+ const c=G.cur;if(c&&c!==FX_LASTCUR&&c.h&&!G.over){const key=(c.id||'')+G.day+G.phase+(G.combat?G.combat.round:'');if(Date.now()<FX_PHHOLD&&!G.combat){const n=document.querySelector('#banslot .phnext');if(n)n.textContent='▶ ตาของ '+c.name;fxAfterRender.k=key;}else if(FX_LASTCUR===null||FX_LASTCUR.id!==c.id||key!==fxAfterRender.k){fxBanner(`<img src="${artOf(c.id)}"><div><small>${G.combat?'⚔ Combat Round '+G.combat.round:esc(PHASE_TH[PHASES[G.phase]])}</small><b>ตาของ ${esc(c.name)}</b><em>${meTag(c)}</em></div>`,G.combat?'cb':'');fxAfterRender.k=key;}}
  FX_LASTCUR=c||FX_LASTCUR;
  const inC=!!G.combat;if(inC&&!FX_INC){FX_SNAP=snapRes();fxBanner(`<div><small>ENCOUNTER</small><b>⚔ ${esc(G.combat.title)}</b><em>Combat T${G.combat.tier}</em></div>`,'enc');}
  if(!inC&&FX_INC&&FX_SNAP){showReward(FX_SNAP,snapRes());FX_SNAP=null;}
@@ -1707,7 +1824,7 @@ function setupScreen(){
  $('#selInfo').innerHTML=sel.length?`เลือกแล้ว <b>${sel.length}/4</b> — ${sel.map(id=>esc(HEROES.find(h=>h.id===id).name)).join(', ')}`:'คลิกการ์ด Survivor เพื่อเลือก (สูงสุด 4) · ไม่เลือก = สุ่ม 1 ตัว · ชี้เมาส์ดูรายละเอียด';
  showNew();
 }
-const WHATSNEW=['v0.8.8: Sp เท่ากัน ตาม Rulebook V1.3 — Survivor เท่ากันผู้เล่นตกลงกันเอง, Monster เท่ากันผู้เล่นเลือกตัวที่เล่นก่อน (แตะในแถบ TURN ORDER) · ป้าย "ตาของ X" ย้ายเป็นแถบคงที่ด้านบน ไม่ทับการ์ดศัตรูแล้ว','v0.8.7: แถบ TURN ORDER ด้านบนสนามรบ (รูป+Sp, ตาตอนนี้/ถัดไป, คนที่เล่นแล้วจาง) · แก้ตัวหนังสือซ้อนกัน — ป้าย COMMON หลุดไปอยู่บนการ์ด Stat (STR/DEX/INT/HP/MOV) · ตรวจข้อความซ้อน/ล้นทุกหน้าจอทั้งเดสก์ท็อปและมือถือ','v0.8.6: 🔊 เสียง SFX+บรรยากาศ (ปุ่มปิดเสียงมุมล่างซ้าย) · Intent ใหญ่ขึ้น+กรอบแดงฮีโร่ที่จะโดนตี+เส้นชี้เป้าเมื่อชี้ศัตรู · เต๋ากลิ้งก่อนออกผล · ↶ Undo การวางเต๋า · เลขดาเมจใหญ่/hit-stop/แฟลช/HP bar 2 ชั้น/ศัตรูพุ่งตี · Keyword สี+tooltip+Glossary ในวิธีเล่น · ร้านค้าใหม่+ไอคอน SVG · ช่องว่างในแผงฮีโร่กะทัดรัด','v0.8.5: แถวลูกเต๋า+Stat ติดด้านบน (sticky) ตอนเลื่อนบอร์ด — แก้ปัญหาลากลูกเต๋าไปการ์ดสกิลด้านล่างไม่ได้เมื่อการ์ดเยอะ; สัตว์เลี้ยง Troika ใช้ภาพแมวดำ/หมาดำจากภาพตัวละคร (แทน emoji)','v0.8.4: หน้า COMBAT ใช้ภาพเต็มตัว (ตัดพื้นหลังโปร่งใส) — ฮีโร่ซ้ายหันขวา ศัตรูขวาหันซ้าย, HP/สถานะอยู่เหนือหัว, ไฮไลต์เป้าหมาย + สั่นเมื่อโดนตี (Token บนแผนที่ยังกลมเหมือนเดิม)','v0.8.3: กล่องลูกเต๋าอยู่แถวเดียวกับช่อง Stat แคบๆ (ขนาดเท่าลูกเต๋า) ด้านบน · การ์ดที่มีคำอธิบายยาว (Skill/Ultimate/Attack/Move/Charge/ทิ้งลูก) อยู่แถวล่างแบบกว้าง อ่านง่าย','v0.8.2: จัดเลย์เอาต์ใหม่ — ค่า Stat (STR/DEX/INT/HP/Move…) เรียงเป็นแถวเดียวด้านบน ทั้งช่องวางเต๋าตอนต่อสู้และแผงฮีโร่ · ด้านล่าง = ลูกเต๋า, การ์ด Skill/Ultimate/ท่าพื้นฐาน, Charge/ทิ้งลูก (ยังลากอย่างเดียวเหมือนเดิม)','v0.8.1: ไม่มีปุ่มจอง/เลือกลูกเต๋าแล้ว — ลากลูกเต๋า (เมาส์/นิ้ว) ไปวางบนการ์ดอย่างเดียว · ลากออกหรือย้ายได้','v0.8.1: Skill / Ultimate / Attack / Move เป็นการ์ด Ability แถบล่าง มีช่องเงื่อนไขลูกเต๋า, พรีวิวค่าระหว่างลาก, สถานะ READY / ใช้แล้ว / ล็อก','หน้าจอใหม่ทั้งหมด: Title / แผนที่เต็มจอ / สนามรบแนวนอนแบบ SpellRogue','ศัตรูตัวใหญ่ + Intent เหนือหัว · คลิกศัตรูเพื่อโจมตี · ปุ่มส้ม END TURN','Skill draft / ร้านค้า / ทางเลือกการ์ด = การ์ดใหญ่ "เลือก 1"','ปุ่ม Action ขึ้นข้างช่องที่ยืนอยู่ · Log ย้ายไปลิ้นชัก 📜'];
+const WHATSNEW=['v0.8.9: นำระบบ Hunt (ล่ามอนสเตอร์) ออก — Combat เกิดจาก Scene / Explore / Ally ตาม Rulebook','นาฬิกาบนแผนที่: วันที่ X/8 · เช้า › บ่าย › กลางคืน · ใครเล่นไปแล้ว/ตาใคร + แถบประกาศเมื่อเปลี่ยนช่วงเวลา/วันใหม่','Passive (Zemaki Reroll / Jack ทิ้ง-ปรับเต๋า) เลือกเองว่าจะใช้ก่อนหลัง หรือไม่ใช้ แล้วค่อยไปวางเต๋า','แสดงระยะโจมตี: ชี้/แตะตัวละคร · ศัตรู · การ์ด Skill / Ultimate เพื่อไฮไลต์ช่องในสนาม · ปุ่ม ☠ ระยะศัตรู','ปุ่ม ✔ Confirm Action — วางเต๋าครบแล้วไม่ออกแอกชันเอง ต้องกดยืนยัน และกดยืนยันได้แม้ยังวางไม่ครบ','เปิด Scene จะมีหน้าต่างบอกว่าเจอ Scene อะไร ที่ไหน และ Quest ที่เกี่ยวข้อง/ได้รับใหม่','ควบคุม Ally ได้เอง: เลือกเดิน ◀ ▶ และเลือกเป้าที่จะตี (บอทยังใช้ AI)','— v0.8.8 —','v0.8.8: Sp เท่ากัน ตาม Rulebook V1.3 — Survivor เท่ากันผู้เล่นตกลงกันเอง, Monster เท่ากันผู้เล่นเลือกตัวที่เล่นก่อน (แตะในแถบ TURN ORDER) · ป้าย "ตาของ X" ย้ายเป็นแถบคงที่ด้านบน ไม่ทับการ์ดศัตรูแล้ว','v0.8.7: แถบ TURN ORDER ด้านบนสนามรบ (รูป+Sp, ตาตอนนี้/ถัดไป, คนที่เล่นแล้วจาง) · แก้ตัวหนังสือซ้อนกัน — ป้าย COMMON หลุดไปอยู่บนการ์ด Stat (STR/DEX/INT/HP/MOV) · ตรวจข้อความซ้อน/ล้นทุกหน้าจอทั้งเดสก์ท็อปและมือถือ','v0.8.6: 🔊 เสียง SFX+บรรยากาศ (ปุ่มปิดเสียงมุมล่างซ้าย) · Intent ใหญ่ขึ้น+กรอบแดงฮีโร่ที่จะโดนตี+เส้นชี้เป้าเมื่อชี้ศัตรู · เต๋ากลิ้งก่อนออกผล · ↶ Undo การวางเต๋า · เลขดาเมจใหญ่/hit-stop/แฟลช/HP bar 2 ชั้น/ศัตรูพุ่งตี · Keyword สี+tooltip+Glossary ในวิธีเล่น · ร้านค้าใหม่+ไอคอน SVG · ช่องว่างในแผงฮีโร่กะทัดรัด','v0.8.5: แถวลูกเต๋า+Stat ติดด้านบน (sticky) ตอนเลื่อนบอร์ด — แก้ปัญหาลากลูกเต๋าไปการ์ดสกิลด้านล่างไม่ได้เมื่อการ์ดเยอะ; สัตว์เลี้ยง Troika ใช้ภาพแมวดำ/หมาดำจากภาพตัวละคร (แทน emoji)','v0.8.4: หน้า COMBAT ใช้ภาพเต็มตัว (ตัดพื้นหลังโปร่งใส) — ฮีโร่ซ้ายหันขวา ศัตรูขวาหันซ้าย, HP/สถานะอยู่เหนือหัว, ไฮไลต์เป้าหมาย + สั่นเมื่อโดนตี (Token บนแผนที่ยังกลมเหมือนเดิม)','v0.8.3: กล่องลูกเต๋าอยู่แถวเดียวกับช่อง Stat แคบๆ (ขนาดเท่าลูกเต๋า) ด้านบน · การ์ดที่มีคำอธิบายยาว (Skill/Ultimate/Attack/Move/Charge/ทิ้งลูก) อยู่แถวล่างแบบกว้าง อ่านง่าย','v0.8.2: จัดเลย์เอาต์ใหม่ — ค่า Stat (STR/DEX/INT/HP/Move…) เรียงเป็นแถวเดียวด้านบน ทั้งช่องวางเต๋าตอนต่อสู้และแผงฮีโร่ · ด้านล่าง = ลูกเต๋า, การ์ด Skill/Ultimate/ท่าพื้นฐาน, Charge/ทิ้งลูก (ยังลากอย่างเดียวเหมือนเดิม)','v0.8.1: ไม่มีปุ่มจอง/เลือกลูกเต๋าแล้ว — ลากลูกเต๋า (เมาส์/นิ้ว) ไปวางบนการ์ดอย่างเดียว · ลากออกหรือย้ายได้','v0.8.1: Skill / Ultimate / Attack / Move เป็นการ์ด Ability แถบล่าง มีช่องเงื่อนไขลูกเต๋า, พรีวิวค่าระหว่างลาก, สถานะ READY / ใช้แล้ว / ล็อก','หน้าจอใหม่ทั้งหมด: Title / แผนที่เต็มจอ / สนามรบแนวนอนแบบ SpellRogue','ศัตรูตัวใหญ่ + Intent เหนือหัว · คลิกศัตรูเพื่อโจมตี · ปุ่มส้ม END TURN','Skill draft / ร้านค้า / ทางเลือกการ์ด = การ์ดใหญ่ "เลือก 1"','ปุ่ม Action ขึ้นข้างช่องที่ยืนอยู่ · Log ย้ายไปลิ้นชัก 📜'];
 function showNew(force){const w=$('#whatsnew');if(!w)return;if(!force&&localStorage.getItem('ash_seen_ver')===VERSION){w.style.display='none';return;}
  w.innerHTML=`<div class="wnh">✨ มีอะไรใหม่ใน ${VERSION}</div><ul>${WHATSNEW.map(x=>`<li>${esc(x)}</li>`).join('')}</ul><button id="wnOk" onclick="hideNew()">รับทราบ</button>`;w.style.display='block';}
 function hideNew(){localStorage.setItem('ash_seen_ver',VERSION);const w=$('#whatsnew');if(w)w.style.display='none';}
@@ -1754,9 +1871,9 @@ function drawTray(){const T=G.tray,P=TRAY.pending,el=$('#tray');if(!el)return;
  dndInit();
 }
 /* ---------- ask ---------- */
-const HINT={action:'เลือก 1 Action: คลิกช่องที่เรืองแสงส้มเพื่อเดิน หรือกดปุ่มไอคอนข้างตัวละคร (Forage / Explore / Talk / Hunt)',
+const HINT={action:'เลือก 1 Action: คลิกช่องที่เรืองแสงส้มเพื่อเดิน หรือกดปุ่มไอคอนข้างตัวละคร (Forage / Explore / Talk)',
  free:'Free action ไม่เสีย Action: ใช้ยา / ร้านค้า / สวมใส่ไอเท็ม — หรือกด "ไปเลือก Action"',
- place:'ลากลูกเต๋า (เมาส์หรือนิ้ว) ไปวางบนการ์ด Ability — ลากออก/ย้ายได้ · วางครบแล้วยืนยันอัตโนมัติ',
+ place:'ลากลูกเต๋า (เมาส์หรือนิ้ว) ไปวางบนการ์ด Ability — ลากออก/ย้ายได้ · วางเสร็จแล้วกด ✔ Confirm Action (วางไม่ครบก็กดได้)',
  skilldice:'ลากลูกเต๋าที่ตรงเงื่อนไข (แถบขาวบนการ์ด) ไปวางบนการ์ด Skill เพื่อให้ใช้ได้รอบนี้ — ไม่มีปุ่มจอง', shop:'ซื้อไอเท็มด้วยเหรียญ หรือออกจากร้าน',
  card:'เลือกทางเลือกของการ์ด/Scene', reroll:'เลือกว่าจะทอยลูกเต๋าใหม่หรือไม่', drink:'เลือกว่าจะดื่ม Energy Drink หรือไม่'};
 function hintText(){if(typeof NETWAIT!=='undefined'&&NETWAIT)return NETWAIT;if(TRAY.pending&&TRAY.pending.remote)return `รอ ${TRAY.pending.p.name} กด ROLL…`;if(TRAY.pending)return 'กดปุ่ม 🎲 ROLL ใน Dice Tray เพื่อทอยลูกเต๋าเอง';
@@ -1784,9 +1901,10 @@ IO.ask=(p,kind,prompt,opts,bi)=>new Promise(res=>buildAsk(p,kind,prompt,opts,bi,
 function buildAsk(p,kind,prompt,opts,bi,res,noAuto){
  const box=$('#choices');
  const done=v=>{CUR=null;box.innerHTML='';box.className='';res(v);render();};
- const MODALK=['shop','skill','card','deck','gain','replace','join','peek','jack','dixonpay','eat','drink','reroll'];
- box.className=MODALK.includes(kind)?'modalk k-'+kind:(kind==='action'&&!G.combat)?'pop':G.combat&&kind==='combat'?'cbk':'';
+ const MODALK=['shop','skill','card','deck','gain','replace','join','peek','jack','dixonpay','eat','drink','reroll','passive'];
+ box.className=MODALK.includes(kind)?'modalk k-'+kind:(kind==='action'&&!G.combat)?'pop':G.combat&&(kind==='combat'||kind==='ally')?'cbk':'';
  if((kind==='place'||kind==='skilldice')&&typeof planAsk==='function'&&planAsk(p,kind,prompt,opts,bi,done))return;
+ if(kind==='scene'){CUR={p,kind,opts,bi,res:done};box.innerHTML='';box.className='';render();return;}
  CUR={p,kind,opts,bi,res:done};
  let h=(kind==='shop'?`<div class="event"><div><b>🛒 ร้านค้าเด็กสาวลึกลับ</b><br><small>มอลล์ B7 · ราคาจากแท็บ Items${G.promo?" · โปรโมชั่น 50% ชิ้นถัดไป":""}</small></div></div>`:'')+`<div class="prompt">${MODALK.includes(kind)?'<small>เลือก 1</small>':''}${esc(G.combat?prompt.replace(/ขึ้น ▲/g,'ขวา ▶').replace(/ลง ▼/g,'ซ้าย ◀'):prompt)}</div>`;
  box.innerHTML=h;
@@ -1798,7 +1916,7 @@ function buildAsk(p,kind,prompt,opts,bi,res,noAuto){
    let used=false;b._commit=()=>{if(used)return;used=true;b.classList.add('snap');const sk=b.querySelector('.sock');if(sk)sk.innerHTML=`<span class="sdie new">${v}</span>`;if(window.FAST)done(o.v);else setTimeout(()=>done(o.v),200);};
    g.appendChild(b);});
  }else{
-  let sg=null;if(kind==='shop'){sg=document.createElement('div');sg.className='shopgrid bigrow';}else if(MODALK.includes(kind)||kind==='combat'||(kind==='action'&&!G.combat)){sg=document.createElement('div');sg.className='bigrow';}
+  let sg=null;if(kind==='shop'){sg=document.createElement('div');sg.className='shopgrid bigrow';}else if(MODALK.includes(kind)||kind==='combat'||kind==='ally'||(kind==='action'&&!G.combat)){sg=document.createElement('div');sg.className='bigrow';}
   const mvrow=kind==='action'&&!G.combat?document.createElement('div'):null;if(mvrow)mvrow.className='mvrow';CUR.atkBtn={};
   opts.forEach((o,i)=>{const b=document.createElement('button');b.textContent=o.l;b.className=(i===bi?'rec ':'')+(o.ult?'ultb ':'')+(o.skill?'skb':'');b.title=i===bi?'แนะนำ (Bot)':'';
    let pv=null;
@@ -1807,8 +1925,10 @@ function buildAsk(p,kind,prompt,opts,bi,res,noAuto){
      const uid=pv.u.uid;b.onmouseenter=()=>document.querySelectorAll(`[data-uid="${uid}"]`).forEach(e=>e.classList.add('tgt'));b.onmouseleave=()=>document.querySelectorAll('.tgt').forEach(e=>e.classList.remove('tgt'));}}
    else if(o.skill||o.ult){b.className+=' cardb';b.innerHTML=`<span class="bic">${o.ult?'☄':'✧'}</span><span class="btx">${esc(o.l)}</span>`;}
    else if(kind==='skill'&&typeof mkSkill==='function'){try{const S=mkSkill(o.v,1);b.className+=' skc';b.innerHTML=`<div class="ktab">${esc(S.cost.lbl)}</div><div class="kic">✧</div><div class="knm">${esc(S.name)}</div><div class="kdk">${esc(DECK_TH[S.deck]||S.deck)} · ${esc(S.et||'')}</div><div class="ktx">${esc(S.txt)}</div>`;b.dataset.tip=esc(o.l);}catch(e){b.textContent=o.l;}}
+   else if(kind==='ally'&&o.v&&o.v.a){if(o.v.a==='aatk'){const uid=o.u.uid;b.className+=' atkb allyatk';b.innerHTML=`<span class="bic">🐾</span><span class="btx">${esc(o.l)}</span>`;b.onmouseenter=()=>document.querySelectorAll(`[data-uid="${uid}"]`).forEach(e=>e.classList.add('tgt'));b.onmouseleave=()=>document.querySelectorAll('.tgt').forEach(e=>e.classList.remove('tgt'));CUR.atkBtn[uid]={b,pv:{u:o.u,txt:o.l}};}
+     else{b.className+=' cact allyact '+(o.v.a==='aend'?'endturn':'');b.innerHTML=o.v.a==='aend'?'<b>END ALLY</b><small>จบเทิร์น Ally</small>':`<span class="bic">${o.v.dir>0?'▶':'◀'}</span><span class="btx">${esc(o.l.replace(/ขึ้น ▲/g,'ขวา ▶').replace(/ลง ▼/g,'ซ้าย ◀'))}</span>`;}}
    else if(kind==='combat'&&o.v&&o.v.a){const ic={fwd:o.l.includes('▲')?'▶':'◀',turn:'↻',end:'⏭',swap:'⇄'}[o.v.a]||'✦';b.className+=' cact '+(o.v.a==='end'?'endturn':'');b.innerHTML=o.v.a==='end'?'<b>END TURN</b><small>จบเทิร์น</small>':`<span class="bic">${ic}</span><span class="btx">${esc(o.l.replace(/ขึ้น ▲/g,'ขวา ▶').replace(/ลง ▼/g,'ซ้าย ◀'))}</span>`;}
-   else if(kind==='action'&&!G.combat){const vv=String(o.v);const AIC={forage:'🌿',explore:'🔦',talk:'💬',hunt:'⚔',rest:'💤',main:'★',boss:'☠',shop:'🛒',free:'🎒'};
+   else if(kind==='action'&&!G.combat){const vv=String(o.v);const AIC={forage:'🌿',explore:'🔦',talk:'💬',rest:'💤',main:'★',boss:'☠',shop:'🛒',free:'🎒'};
     if(vv.startsWith('mv:')){b.className+=' mvb';b.innerHTML=`➜ ${esc(o.l.replace(/\s*\(.*$/,''))}`;b.dataset.tip=esc(o.l);}
     else{b.className+=' acb';b.innerHTML=`<span class="aic">${AIC[vv]||'✦'}</span><span class="atx">${esc(o.l.split(/[(:—]/)[0].trim()||o.l)}</span>`;b.dataset.tip=esc(o.l);}}
    else if(MODALK.includes(kind)&&kind!=='shop'){b.className+=' ccard';b.innerHTML=`<span class="ctx">${esc(o.l)}</span>`;}
@@ -1853,7 +1973,7 @@ function render(){
   <div class="mrow">${[0,1,2,3].map(i=>skillCard(p,p.skills[i],i)).join('')}</div>
   <div class="mrow">${[0,1,2].map(i=>itemCard(p.wear[i],i)).join('')}</div>
   ${p.allies.length?`<div class="sm">Ally: ${p.allies.map(allyChip).join(' ')}</div>`:''}</div>`).join('')+questBoard();
- drawPhase();drawTray();drawMap();drawCombat();posPop();tutPos();try{fxAfterRender();}catch(e){console.warn(e);}
+ drawPhase();drawTray();drawMap();drawCombat();if(typeof rngApply==='function')rngApply();drawScenePop();posPop();tutPos();try{fxAfterRender();}catch(e){console.warn(e);}
 }
 function questBoard(){
  return `<div class="qb"><b>📜 Quest</b>${G.quests.length?G.quests.map(q=>`<div class="q ${q.done?'done':''}">Q${q.lvl} · ${esc(q.txt)}</div>`).join(''):'<div class="sm">—</div>'}
@@ -1862,7 +1982,7 @@ function questBoard(){
 function moveOpt(id){if(!CUR||!['action','freemove'].includes(CUR.kind))return null;return CUR.opts.find(o=>o.v==='mv:'+id||(CUR.kind==='freemove'&&o.v===id))||null;}
 const TILEIC=id=>id==='A8'?'⚓':id==='B7'?'☠':'';
 function drawMap(){
- let h='<div class="grid">';
+ let h=(typeof clockHTML==='function'?clockHTML():'')+'<div class="grid">';
  for(const r of ['D','C','B','A'])for(const c of [5,6,7,8]){const id=r+c;const T=TILES[id],t=G.tiles[id];
   if(!T){h+='<div class="gt void"></div>';continue;}
   const ps=G.players.filter(p=>p.tile===id);const can=moveOpt(id);const here=CUR&&CUR.p&&CUR.p.tile===id&&CUR.kind==='action';
@@ -1914,11 +2034,11 @@ function drawCombat(){
  el.style.display='block';
  const foes=C.units.filter(u=>u.side==='m'&&u.hp>0);
  let h=`<div class="cbanner">⚔ การต่อสู้! <b>${esc(C.title)}</b> · Round ${C.round}${C.limit?'/'+C.limit:''} · Combat T${C.tier}<div class="creason">สาเหตุ: ${esc(C.reason||'')}${C.cardTxt?' · '+esc(C.cardTxt):''}</div></div>${turnBarHTML(C)}
- <div class="foes">${foes.filter(u=>u.kind==='elite').map(foeCard).join('')}${foes.filter(u=>u.kind!=='elite').map(foeCard).join('')}</div><div class="bfv">`;
+ <div class="foes">${foes.filter(u=>u.kind==='elite').map(foeCard).join('')}${foes.filter(u=>u.kind!=='elite').map(foeCard).join('')}</div>${typeof rngBarHTML==='function'?rngBarHTML():''}<div class="bfv">`;
  for(let i=0;i<=5;i++){
   const ss=C.parts.filter(q=>q.pos===i&&q.hp>0),as=C.units.filter(u=>u.side==='s'&&u.pos===i&&u.hp>0),ms=C.units.filter(u=>u.side==='m'&&u.pos===i&&u.hp>0),n=ss.length+as.length+ms.length;
   const sz=n<=1?150:n<=2?104:n<=4?74:n<=6?58:46;
-  h+=`<div class="cell ${i<2?'hz':''}"><div class="cn">${i+1}${i<2?' <small>Hero</small>':''}${C.shield[i]?' 🛡'+C.shield[i]:''}</div><div class="toks">`+ss.map(q=>tokenHTML(q,'s',sz)).join('')+as.map(a=>tokenHTML(a,'a',sz)).join('')+ms.map(u=>tokenHTML(u,'m',sz)).join('')+`</div></div>`;}
+  h+=`<div class="cell ${i<2?'hz':''}" data-cell="${i}"><div class="cn">${i+1}${i<2?' <small>Hero</small>':''}${C.shield[i]?' 🛡'+C.shield[i]:''}</div><div class="toks">`+ss.map(q=>tokenHTML(q,'s',sz)).join('')+as.map(a=>tokenHTML(a,'a',sz)).join('')+ms.map(u=>tokenHTML(u,'m',sz)).join('')+`</div></div>`;}
  h+=`</div><div class="cards">`;
  for(const q of C.parts.filter(q=>q.hp>0))h+=`<div class="unit s ${G.cur===q?'cur':''}"><img class="uimg" src="${artOf(q.id)}"><b>${esc(q.name)}</b> <small>ช่อง ${q.pos+1} ${q.face>0?'▲':'▼'}</small><br>${hpBar(q,q.maxhp)}<small>Sp ${q.curSp??q.h.sp}${C.shield[q.pos]?' · 🛡'+C.shield[q.pos]:''}</small>${statusChips(q)}${q.slot?`<div class="slots">${Object.entries(q.slot).filter(e=>e[1]).map(([k,v])=>k.toUpperCase()+':'+v).join(' ')}${Object.keys(q.ready||{}).length?' ★'+Object.keys(q.ready).length+' skill':''}${q.charge?' ⏸'+q.charge.v:''}</div>`:''}</div>`;
  el.innerHTML=h+'</div>';
@@ -1932,9 +2052,9 @@ const TUT=[
  {sel:'#top',t:'แถบสถานะ',x:'วันที่ (Day limit 8⚠) · ช่วง เช้า/บ่าย/กลางคืน (ทุกคน 1 Action ต่อช่วง) · 🍖 อาหาร · 🪙 เหรียญ (ใช้ที่ร้านค้า) · 🌫 Soot = ความยากของการต่อสู้ (T1–T4) · ✦ Check Points (CP). ปุ่ม 📖 วิธีเล่น เปิดกฎได้ทุกเมื่อ'},
  {sel:'#party',t:'แผงฮีโร่ (Hero panel)',x:'ด้านซ้าย = การ์ดฮีโร่: รูปใหญ่, HP, แถวบนสุด = ลูกเต๋า + Stats (STR DEX INT CHA HP Sp Move), ข้างล่าง = HP bar, Skill 4 ช่อง, Item 3 ช่อง. ชี้เมาส์ที่อะไรก็ได้เพื่อดูรายละเอียด'},
  {sel:'#map',t:'แผนที่ & คิวบ์',x:'กระดานใหญ่ตรงกลาง: คิวบ์ ■เขียว Forage ■เหลือง Explore ■ฟ้า Talk · ช่องขอบ<b>ส้ม</b> = เดินไปได้ (คลิก = 1 Action) · ขอบขาว = ที่คุณยืน · ชี้ช่องเพื่อดูรายละเอียด'},
- {when:()=>CUR&&CUR.kind==='action',sel:'#choices',t:'เลือก 1 Action',x:'ปุ่มไอคอนใหญ่จะเด้ง<b>ข้างช่องที่คุณยืน</b>: 🌿 Forage 🔦 Explore 💬 Talk ⚔ Hunt 💤 Rest · ชิป ➜ = เดิน · ปุ่มจาง = ทำไม่ได้ (ชี้ดูเหตุผล)'},
+ {when:()=>CUR&&CUR.kind==='action',sel:'#choices',t:'เลือก 1 Action',x:'ปุ่มไอคอนใหญ่จะเด้ง<b>ข้างช่องที่คุณยืน</b>: 🌿 Forage 🔦 Explore 💬 Talk 💤 Rest · ชิป ➜ = เดิน · ปุ่มจาง = ทำไม่ได้ (ชี้ดูเหตุผล)'},
  {when:()=>TRAY.pending,sel:'#tray',t:'ทอยลูกเต๋าเอง 🎲',x:'ทุกครั้งที่ต้องทอย (Combat / Challenge / D6 ของ Scene) ปุ่ม <b>ROLL</b> จะขึ้นใน Dice Tray นี้ — กดเพื่อทอย ผลจะค้างแสดงไว้ให้ดูเสมอ'},
- {when:()=>CUR&&(CUR.kind==='place'||CUR.kind==='skilldice'),sel:'#choices',t:'วางลูกเต๋าบนการ์ด Ability 🃏',x:'แถบล่างคือ<b>การ์ด Ability</b> (แบบ SpellRogue): ⚔ Attack · Skill ✧ · 💨 Speed · 👣 Move · 🛡 Guard · ⏸ Charge — <b>ลากลูกเต๋า</b> (เมาส์หรือนิ้ว) ไปวางบนช่องของการ์ด · แถบขาวบนการ์ด Skill = เงื่อนไขลูกเต๋า (เช่น 3-6) · ระหว่างลากจะเห็นค่าที่จะได้ก่อนปล่อย · ลากลูกที่วางแล้วออก/ย้ายการ์ดได้ · <b>ไม่มีปุ่มจอง</b> — วางครบแล้วยืนยันอัตโนมัติ'},
+ {when:()=>CUR&&(CUR.kind==='place'||CUR.kind==='skilldice'),sel:'#choices',t:'วางลูกเต๋าบนการ์ด Ability 🃏',x:'แถบล่างคือ<b>การ์ด Ability</b> (แบบ SpellRogue): ⚔ Attack · Skill ✧ · 💨 Speed · 👣 Move · 🛡 Guard · ⏸ Charge — <b>ลากลูกเต๋า</b> (เมาส์หรือนิ้ว) ไปวางบนช่องของการ์ด · แถบขาวบนการ์ด Skill = เงื่อนไขลูกเต๋า (เช่น 3-6) · ระหว่างลากจะเห็นค่าที่จะได้ก่อนปล่อย · ลากลูกที่วางแล้วออก/ย้ายการ์ดได้ · <b>ไม่มีปุ่มจอง</b> — วางเสร็จแล้วกด <b>✔ Confirm Action</b> (วางไม่ครบก็ยืนยันได้)'},
  {when:()=>G.combat&&CUR&&!['place','skilldice'].includes(CUR.kind),sel:'#combat',t:'สนามรบ',x:'สนามรบแนวนอน 6 ช่อง: ฮีโร่อยู่ช่อง 1–2 (ซ้าย) ศัตรูมาจากขวา · ศัตรูขอบแดง = ตีได้ → <b>คลิกที่ตัวศัตรูเพื่อโจมตี</b> (ชี้ดูดาเมจที่คาด) · การ์ดฟ้า = Skill · ปุ่มส้ม <b>END TURN</b> = จบเทิร์น'},
  {when:()=>G.combat&&document.querySelector('.tok .intent'),sel:'.bfv',t:'Intent — ศัตรูจะทำอะไร 🔮',x:'ป้ายเหนือหัวศัตรู (⚔ ตัวเลข → เป้าหมาย) = สิ่งที่ศัตรูจะทำในเทิร์นนี้ ใช้วางแผนว่าจะวางลูกเต๋าลง HP (กันดาเมจ) หรือ STR/INT (ตีให้ตายก่อน)'},
  {sel:'#top',t:'ร้านค้า · Check Points · ชนะ/แพ้',x:'🛒 ร้านค้าเปิดหลัง Scene B7-1 (ซื้อเป็น Free action ที่ B7) — แสดงเป็นการ์ดสินค้าพร้อมราคา. หลังจบการต่อสู้จะมีหน้าสรุปรางวัล (VICTORY). ✦ Check Points ได้จากเนื้อเรื่อง/Quest. <b>ชนะ</b> = ชนะบอสกระสือ. <b>แพ้</b> = หมดวันที่ 8⚠ ก่อนชนะ หรือแพ้ Scene ที่บอกว่า "แพ้แล้วเกมจบ". จบบทเรียน — เล่นต่อได้เลย! (เปิดซ้ำได้ที่ปุ่ม 🎓 Tutorial)'}];
@@ -1962,6 +2082,22 @@ window.ASH={newGame,runGame,IO,CFG,HEROES,ASSUMPTIONS,setRng:r=>{RNG=r},get G(){
   const out={win:0,loss:0,errors:0};const ids=HEROES.map(h=>h.id);
   for(let i=0;i<n;i++){try{const k=1+i%4;newGame({players:shuffle(ids.slice()).slice(0,k).map(id=>({hero:id,bot:true}))});const r=await runGame();out[r.r]++;}catch(e){out.errors++;out.last=e.message;}}
   Object.assign(IO,save);G=null;return out;}};
+
+/* v0.8.9 Scene / Quest popup */
+let SCENE_SEEN=0,SCENE_T=null;
+function drawScenePop(){let el=document.getElementById('scenePop');const sp=G&&G.scenePop;const asking=CUR&&CUR.kind==='scene';
+ if(!sp||(!asking&&SCENE_SEEN>=sp.seq)){if(el)el.remove();return;}
+ const key=sp.seq+(asking?'a':'n');if(el&&el.dataset.k===key)return;
+ if(!el){el=document.createElement('div');el.id='scenePop';document.body.appendChild(el);}el.dataset.k=key;el.className=asking?'ask':'peek';
+ const qs=(sp.quests||[]).map(q=>`<li><b class="qlv">Q${q.lvl}</b> <span class="qid">[${esc(q.id)}]</span> ${esc(q.txt)}</li>`).join('');
+ el.innerHTML=`<div class="spbox ${sp.stage}"><div class="spk">${sp.stage==='quest'?'📜 QUEST ใหม่':'🎬 SCENE REVEALED'}</div>
+ <h3>Scene ${esc(sp.k)} <small>· ${esc(sp.tile)} ${esc(sp.place)}</small></h3>
+ <p class="sptx">${esc(sp.txt)}</p>
+ <div class="spq"><div class="spqh">Quest${sp.qlv?' · '+esc(sp.qlv):''}</div>${qs?`<ul>${qs}</ul>`:`<div class="sm">${sp.stage==='open'?(sp.qlv?'Quest ของ Scene นี้จะถูกเพิ่มลงรายการหลังเหตุการณ์ใน Scene':'Scene นี้ไม่มี Quest ใหม่'):'—'}</div>`}</div>
+ <div class="spwho">${esc(sp.who||'')}</div>
+ <button id="sceneOk" class="planok">${asking?'รับทราบ — ไปต่อ':'ปิด'}<small>${asking?'Continue':'Close'}</small></button></div>`;
+ el.querySelector('#sceneOk').onclick=()=>{SCENE_SEEN=sp.seq;if(CUR&&CUR.kind==='scene'){CUR.res(1);}else{el.remove();}};
+ clearTimeout(SCENE_T);if(!asking)SCENE_T=setTimeout(()=>{if(G.scenePop&&G.scenePop.seq===sp.seq&&!(CUR&&CUR.kind==='scene')){SCENE_SEEN=sp.seq;const e=document.getElementById('scenePop');if(e)e.remove();}},window.FAST?1500:7000);}
 
 /* ===== v0.8.1 drag-only dice PLAN board + Ability Cards bar =====
    No buttons/clicks place dice: the player drags dice (pointer events: mouse + touch) onto ability cards.
@@ -2021,11 +2157,11 @@ function planRender(){const box=$('#choices');if(!box||!PLAN||!PLAN.pending)retu
  <div class="pwrap">
  <div class="abar">${PLAN.socks.filter(S=>S.kind==='skill').map(cardHTML).join('')||'<span class="sm">ไม่มี Skill</span>'}</div>${PLAN.socks.some(S=>S.kind==='stat'&&!S.sv)?`<div class="aoth">${PLAN.socks.filter(S=>S.kind==='stat'&&!S.sv).map(cardHTML).join('')}</div>`:''}</div><div class="pstat" id="pstat"></div>`;
  planBind();const ok=planDone(),ps=$('#pstat');
- if(ok){const ms=window.FAST?300:1200;ps.innerHTML=`✓ วางครบ — ยืนยันอัตโนมัติใน ${(ms/1000).toFixed(1)} วิ <small>(ลากลูกเต๋าเพื่อแก้ไข)</small><i class="pbar" style="animation-duration:${ms}ms"></i>`;ps.className='pstat go';PLAN.timer=setTimeout(planCommit,ms);}
- else ps.innerHTML=free.length?`เหลือ ${free.length} ลูก — ลากไปวางบนการ์ด · ช่องบนการ์ด = เงื่อนไขลูกเต๋า`:'การ์ด Skill บางใบยังใส่ลูกไม่ครบ';
+ const bad=PLAN.socks.filter(S=>S.kind==='skill'&&!planSkOK(S)).length;
+ ps.innerHTML=`<span class="pmsg">${ok?'✓ วางครบแล้ว — ตรวจแล้วกด <b>Confirm Action</b> (ไม่ยืนยันอัตโนมัติ)':(free.length?`เหลือ ${free.length} ลูก — วางต่อ หรือกด Confirm ได้เลย (ลูกที่ไม่ได้วาง = ไม่ใช้ ⚠)`:'')+(bad?` · การ์ด Skill ${bad} ใบใส่ลูกไม่ครบ → ลูกบนการ์ดนั้นจะไม่ถูกใช้ ⚠`:'')}</span><button id="planOk" class="planok" onclick="planCommit()" data-tip="ยืนยันการวางลูกเต๋าและเริ่ม Action — กดได้ทั้งตอนวางครบหรือยังไม่ครบ">✔ Confirm Action<small>ยืนยันแอกชัน</small></button>`;ps.className='pstat'+(ok?' go':'');
  render();tutCheck&&tutCheck();;{const pt=box.querySelector('.ptop');if(pt)box.style.setProperty('--ptopH',pt.offsetHeight+'px');}}
 function planBind(){document.querySelectorAll('#choices .pdie').forEach(el=>{el.onpointerdown=e=>planDrag(e,el);});}
-function planDrag(e,el){if(e.button>0)return;e.preventDefault();clearTimeout(PLAN.timer);const ps=$('#pstat');if(ps&&ps.classList.contains('go')){ps.className='pstat';ps.textContent='แก้ไข…';}
+function planDrag(e,el){if(e.button>0)return;e.preventDefault();clearTimeout(PLAN.timer);
  const di=+el.dataset.di,r=el.getBoundingClientRect(),g=el.cloneNode(true);g.id='dragGhost';Object.assign(g.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});document.body.appendChild(g);
  const ox=e.clientX-r.left,oy=e.clientY-r.top;document.body.classList.add('dragging');el.classList.add('lifted');let over=null;
  const mv=ev=>{g.style.left=(ev.clientX-ox)+'px';g.style.top=(ev.clientY-oy)+'px';const t=document.elementFromPoint(ev.clientX,ev.clientY);const c=t&&t.closest?(t.closest('.acard[data-s]')||t.closest('.ppool')):null;
@@ -2038,16 +2174,16 @@ function planDrag(e,el){if(e.button>0)return;e.preventDefault();clearTimeout(PLA
   if(ch){PLAN.hist=PLAN.hist||[];PLAN.hist.push(prevAt);SFX.play('place');}planRender();if(ch){const n=document.querySelector(`#choices .acard[data-s="${PLAN.at[di]}"]`);if(n)n.classList.add('snap');}};
  document.addEventListener('pointermove',mv);document.addEventListener('pointerup',up);document.addEventListener('pointercancel',up);}
 function planUndo(){if(!PLAN||!PLAN.pending||PLAN.committed||!PLAN.hist||!PLAN.hist.length)return;clearTimeout(PLAN.timer);PLAN.at=PLAN.hist.pop();SFX.play('undo');planRender();}
-function planCommit(){if(!PLAN||!PLAN.pending||!planDone())return;PLAN.committed=true;const P=PLAN.pending;PLAN.pending=null;P.done(planAnswer(P.kind,P.prompt,P.opts,P.bi));}
+function planCommit(){if(!PLAN||!PLAN.pending)return;PLAN.committed=true;const P=PLAN.pending;PLAN.pending=null;P.done(planAnswer(P.kind,P.prompt,P.opts,P.bi));}
 function planAnswer(kind,prompt,opts,bi){const p=planP();
  if(kind==='skilldice'){const sk=(p.skills||[]).filter(s=>prompt.includes(s.name)).sort((a,b)=>b.name.length-a.name.length)[0];if(!sk)return opts[bi].v;
-  const S=planSock('sk:'+skKey(sk));const ds=S?planIn(S.id).filter(i=>!PLAN.used[i]):[];if(!ds.length)return -1;
+  const S=planSock('sk:'+skKey(sk));const ds=S&&planSkOK(S)?planIn(S.id).filter(i=>!PLAN.used[i]):[];if(!ds.length)return -1;
   if(sk.cost.type==='collect'){const d=pdie(ds[0]);const o=opts.find(o=>o.v>=0&&o.l.includes(`สะสมลูก ${d.t}${d.v} `));if(o){PLAN.used[ds[0]]=1;return o.v;}console.warn('⚠ plan: collect die not offered');return -1;}
   const key=ds.map(i=>pdie(i).v).sort().join(',');const o=opts.find(o=>{const m=/\[([\d,]+)\]$/.exec(o.l);return m&&m[1].split(',').map(Number).sort().join(',')===key;});
   if(o){ds.forEach(i=>PLAN.used[i]=1);return o.v;}console.warn('⚠ plan: subset not offered',key);return -1;}
  if(kind==='place'){const cur=G.tray.cur;let i=G.tray.dice.indexOf(cur);
   const cand=PLAN.pool.filter(j=>!PLAN.used[j]&&PLAN.at[j]&&!PLAN.at[j].startsWith('sk:')&&cur&&pdie(j).t===cur.t&&pdie(j).v===cur.v);
-  if(!cand.includes(i))i=cand.find(j=>opts.some(o=>o.v===PLAN.at[j]));if(i==null){console.warn('⚠ plan: die not planned');return opts[bi].v;}
+  if(!cand.includes(i))i=cand.find(j=>opts.some(o=>o.v===PLAN.at[j]));if(i==null){const nn=opts.find(o=>o.v==='none');if(nn)return nn.v;console.warn('⚠ plan: die not planned');return opts[bi].v;}
   PLAN.used[i]=1;const o=opts.find(o=>o.v===PLAN.at[i]);return o?o.v:opts[bi].v;}
  return opts[bi].v;}
 /* hook from buildAsk: returns true when handled */
@@ -2082,6 +2218,50 @@ function abarCombat(p,box,opts){const bar=document.createElement('div');bar.clas
  bar.querySelectorAll('.achips button').forEach(b=>{b.title=b.textContent.trim();if(b._o&&b._o.u){const uid=b._o.u.uid;b.onmouseenter=()=>document.querySelectorAll(`[data-uid="${uid}"]`).forEach(e=>e.classList.add('tgt'));b.onmouseleave=()=>document.querySelectorAll('.tgt').forEach(e=>e.classList.remove('tgt'));}});
  const pr=box.querySelector('.bigrow');if(pr)pr.before(bar);else box.appendChild(bar);bar.before(srow);if(pr&&!pr.children.length)pr.remove();
  const e=box.querySelector('.endturn');if(e)box.appendChild(e);}
+
+/* v0.8.9 Range overlay: ระยะโจมตี Survivor / Skill / Ally / Monster (แสดงผลเท่านั้น) */
+const RV={enemy:false,hover:null};
+function rngBarHTML(){return `<div class="rngbar" id="rngBar"><span class="rbt">RANGE</span><button class="rbtn ${RV.enemy?'on':''}" id="rngEnemy" onclick="RV.enemy=!RV.enemy;render()" data-tip="แสดง/ซ่อน ระยะโจมตีของศัตรูทุกตัว (ทึบ = ตีได้จากที่ยืน · ลาย = ถ้าเดินก่อน)">☠ ระยะศัตรู</button><span class="rleg"><i class="lg me"></i>ฉัน/ฮีโร่ <i class="lg sk"></i>Skill <i class="lg al"></i>Ally <i class="lg mon"></i>ศัตรู <i class="lg mv"></i>ถ้าเดิน</span><span class="rcap" id="rngCap">${esc(RV.hover?RV.hover.cap:rngBaseCap())}</span></div>`;}
+function rngUnit(uid){const C=G&&G.combat;if(!C)return null;uid=String(uid);return C.parts.find(q=>String(q.uid)===uid)||C.units.find(u=>String(u.uid)===uid)||null;}
+const RDIR=f=>f>0?'ขวา ▶':'ซ้าย ◀';
+const RC=a=>a.length?a.map(c=>c+1).join(', '):'—';
+function rngOfUnit(u){if(!u)return null;
+ if(u.h){const r=heroRange(u),cs=heroAtkCells(u);return {cls:'r-hov me',cells:cs,cap:`⚔ ${u.name.split(' (')[0]} · Basic Attack ระยะ ${r[0]}–${r[1]} ช่อง (หัน${RDIR(u.face)}) → ช่อง ${RC(cs)}`};}
+ if(u.side==='s'){const r=u.rng||[0,1],cs=allyAtkCells(u);return {cls:'r-hov al',cells:cs,cap:`🐾 ${u.name.split(' (')[0]} · Ally Atk ${u.atk||0} ระยะ ${r[0]}–${r[1]} ช่อง → ช่อง ${RC(cs)} · Move ${u.mv||0}`};}
+ const t=monThreat(u);if(!t.rng)return {cls:'r-hov mon',cells:[],cap:`☠ ${u.name.split(' (')[0]} · ไม่มีการโจมตี`};
+ return {cls:'r-hov mon',cells:t.hit,cells2:t.reach,cap:`☠ ${u.name.split(' (')[0]} · ระยะโจมตี ${t.rng[0]}–${t.rng[1]} ช่อง → ตีได้ช่อง ${RC(t.hit)}${t.mv?` · ถ้าเดินก่อน (Move ${t.mv}) +ช่อง ${RC(t.reach)} ⚠`:' · ไม่เดิน'}`};}
+function rngOfSkill(q,k){const C=G.combat;if(!q||!C)return null;
+ if(k==='ult'){const r=ultCells(q,C);return {cls:'r-hov sk',cells:r.cells,cap:`☄ Ultimate ${q.h.ult?q.h.ult.name:''} → ช่อง ${RC(r.cells)} ⚠`};}
+ const s=(q.skills||[]).find(s=>skKey(s)===k);if(!s)return null;const r=skillCells(q,C,s);
+ return {cls:'r-hov sk',cells:r.cells,cap:`✧ ${s.name} → ${r.n?'ช่องที่ถึงได้ตอนนี้: '+RC(r.cells)+(r.self&&r.cells.length===1?' (ตัวเอง/ช่องที่ยืน)':''):'ยังไม่มีเป้าหมายในระยะ'} ⚠`};}
+function rngBaseCap(){const C=G&&G.combat;if(!C||!CUR)return 'ชี้/แตะ ตัวละคร · ศัตรู · การ์ด Skill เพื่อดูระยะ';
+ if(CUR.kind==='combat'&&CUR.p&&CUR.p.h){const r=rngOfUnit(CUR.p);return r?r.cap:'';}
+ if(CUR.kind==='ally'&&C.allyCtl!=null){const r=rngOfUnit(rngUnit(C.allyCtl));return r?r.cap:'';}
+ return 'ชี้/แตะ ตัวละคร · ศัตรู · การ์ด Skill เพื่อดูระยะ';}
+function rngApply(){const C=G&&G.combat;const cells=[...document.querySelectorAll('#combat .bfv .cell[data-cell]')];if(!C||!cells.length)return;
+ const K=['r-me','r-sk','r-al','r-mon','r-mv','r-hov','me','sk','al','mon'];cells.forEach(c=>{c.classList.remove(...K);c.querySelectorAll('.rbadge').forEach(b=>b.remove());});
+ const add=(arr,cls)=>arr.forEach(i=>{const c=cells[i];if(c)c.classList.add(...cls.split(' '));});
+ if(CUR&&CUR.kind==='combat'&&CUR.p&&CUR.p.h)add(heroAtkCells(CUR.p),'r-me');
+ if(CUR&&CUR.kind==='ally'&&C.allyCtl!=null){const a=rngUnit(C.allyCtl);if(a)add(allyAtkCells(a),'r-al');}
+ if(RV.enemy){const n={};for(const u of liveM(C)){const t=monThreat(u);t.hit.forEach(i=>n[i]=(n[i]||0)+1);add(t.hit,'r-mon');add(t.reach,'r-mv');}
+  for(const i in n){const b=document.createElement('span');b.className='rbadge';b.textContent='☠'+n[i];const cn=cells[i]&&(cells[i].querySelector('.cn')||cells[i]);cn&&cn.appendChild(b);}}
+ const h=RV.hover;if(h){add(h.cells2||[],'r-mv');add(h.cells,h.cls);}
+ const cap=document.getElementById('rngCap');if(cap)cap.textContent=h?h.cap:rngBaseCap();}
+function rngHoverFrom(t){if(!G||!G.combat||!t||!t.closest)return null;
+ const sk=t.closest('#choices button.skb,#choices button.cardb,#choices button.ultb');if(sk&&sk._o&&sk._o.v){const o=sk._o;const q=CUR&&CUR.p;return rngOfSkill(q,o.ult||o.v.a==='ult'?'ult':o.v.k);}
+ const ac=t.closest('#choices .acard[data-s^="sk:"]');if(ac){const q=typeof planP==='function'&&PLAN?planP():(CUR&&CUR.p);return rngOfSkill(q,ac.dataset.s.slice(3));}
+ if(t.closest('#choices button.allyatk'))return CUR&&G.combat.allyCtl!=null?rngOfUnit(rngUnit(G.combat.allyCtl)):null;
+ if(t.closest('#choices button.atkb'))return CUR&&CUR.p&&CUR.p.h?rngOfUnit(CUR.p):null;
+ const u=t.closest('#combat [data-uid]');if(u&&u.dataset.uid!=='')return rngOfUnit(rngUnit(u.dataset.uid));
+ return null;}
+document.addEventListener('pointerover',e=>{const r=rngHoverFrom(e.target);const k=r?r.cap:null,o=RV.hover?RV.hover.cap:null;if(k!==o){RV.hover=r;rngApply();}});
+document.addEventListener('pointerout',e=>{if(!RV.hover)return;const to=e.relatedTarget;if(to&&rngHoverFrom(to))return;RV.hover=null;rngApply();});
+window.rngTest=()=>{const C=G&&G.combat;if(!C)return null;const g=k=>[...document.querySelectorAll('#combat .bfv .cell.'+k)].map(c=>+c.dataset.cell);return {me:g('r-me'),al:g('r-al'),mon:g('r-mon'),mv:g('r-mv'),hov:g('r-hov'),cap:(document.getElementById('rngCap')||{}).textContent||''};};
+/* v0.8.9 Map clock: วัน + ช่วงเวลา + ลำดับผู้เล่นในช่วงนี้ */
+function clockHTML(){if(!G)return '';const ph=G.phase|0,ti=G.turnIdx|0,left=CFG.dayLimit-G.day;
+ const seg=PHASES.map((k,i)=>`<span class="cseg ${i<ph?'past':i===ph?'now':''} ph${i}" data-tip="${esc(PHASE_TH[k])}${i===2?' — สิ้นช่วงนี้ทุกคนต้องพักอย่างน้อย 1 หน่วย':''}">${PH_IC[i]} ${esc(PHASE_TH[k])}</span>`).join('<i class="carr">›</i>');
+ const pips=G.players.map((p,i)=>{const st=G.cur===p&&!G.combat?'now':i<ti?'done':i===ti&&G.cur===p?'now':'wait';return `<span class="cpip ${st}" data-tip="${esc(p.name)} — ${st==='done'?'ทำ Action ช่วงนี้แล้ว':st==='now'?'กำลังเล่น':'รอคิว'}"><img src="${artOf(p.id)}"><small>${esc(p.name.split(' ')[0])}</small></span>`;}).join('');
+ return `<div class="mclock ph${ph}" id="mclock"><span class="cday"><small>DAY</small><b>${G.day}</b><small>/ ${CFG.dayLimit} ⚠</small></span><span class="csegs">${seg}</span><span class="cpips">${pips}</span><span class="cleft ${left<=1?'warn':''}">${left>0?'เหลือ '+left+' วัน':'วันสุดท้าย!'}</span></div>`;}
 
 /* ================= v0.8 Online co-op (same Wi-Fi/LAN) — PeerJS WebRTC, host-authoritative ================= */
 const NET={on:false,host:false,key:null,name:'',code:'',peer:null,conn:null,conns:new Map(),seats:[],started:false,seq:0,ask:null,askSeq:null,logs:[],
