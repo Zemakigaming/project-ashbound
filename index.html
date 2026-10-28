@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
-<title>Project Ashbound v0.8.9 — Prototype</title><style>
+<title>Project Ashbound v0.9.0 — Prototype</title><style>
 *{box-sizing:border-box}body{margin:0;background:#08080a;color:#cfc8bd;font-family:"Sarabun","Noto Sans Thai",Tahoma,sans-serif;font-size:14px}
 body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 30%,transparent 40%,#000 100%),repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0 1px,transparent 1px 3px);z-index:50}
 h1,.ttl{font-family:Georgia,serif;letter-spacing:.3em;color:#b33a2f;text-shadow:0 0 12px #600}
@@ -379,9 +379,18 @@ body.dragging .slotbox .sock{border-color:#ffb04a}
 #map .cpip img{width:22px;height:22px;border-radius:50%;object-fit:cover}#map .cpip small{font-size:11px}#map .cpip.done{opacity:.45}#map .cpip.done small::after{content:' ✔'}#map .cpip.now{border-color:#3ec7b0;color:#fff;box-shadow:0 0 8px #3ec7b066}
 #map .cleft{font-weight:700;color:#c9b}#map .cleft.warn{color:#ff5a4a}
 #map .mclock~.grid{height:calc(100% - 82px)!important}
+#banslot.phase b,#banslot.phase em{display:block;margin-left:0} /* v0.9.0: มือถือ ข้อความวัน/เหลือกี่วัน ไม่ซ้อนกัน */
 #banslot.phase .phb{font-size:30px;line-height:1}#banslot.phase.ph2{background:linear-gradient(90deg,#0b0d2ccc,#0008 70%,transparent)}#banslot .phnext{display:block;font-style:normal;font-size:12px;color:#3ec7b0}
 #choices.k-passive .bigrow,#choices.k-reroll .bigrow,#choices.k-jack .bigrow{display:flex!important;flex-wrap:wrap!important;gap:10px!important;justify-content:center!important;align-items:stretch!important;height:auto!important;grid-template-columns:none!important}
 #choices.k-passive .bigrow>button,#choices.k-reroll .bigrow>button,#choices.k-jack .bigrow>button{flex:0 1 280px!important;width:auto!important;min-height:72px!important;height:auto!important;max-height:none!important;aspect-ratio:auto!important;padding:10px 14px!important}
+#evPop{position:fixed;inset:0;z-index:119;display:flex;align-items:center;justify-content:center;background:#000a;backdrop-filter:blur(2px)}
+#evPop .evbox{width:min(520px,92vw);max-height:86vh;overflow:auto;background:linear-gradient(180deg,#14161a,#0b0c0e);border:1px solid #8a6a1a;border-radius:12px;box-shadow:0 0 40px #ffc83a22,inset 0 0 30px #0009;padding:16px 18px;color:#e8dcd2;text-align:left;display:flex;flex-direction:column;gap:8px}
+#evPop .evk{font-size:11px;letter-spacing:.2em;color:#ffd24a}#evPop h3{margin:0;font-size:20px;color:#fff;line-height:1.3}#evPop h3 small{display:block;font-size:13px;color:#b9a;font-weight:400}
+#evPop .evtx{font-size:14px;line-height:1.55;margin:0;color:#f0e6dc;white-space:pre-wrap}#evPop .evwarn{font-size:12px;color:#ffb37a;background:#3a1a0a88;border:1px dashed #a5552a;border-radius:6px;padding:4px 8px}
+#evPop .evsec{background:#0007;border:1px solid #3a332a;border-radius:8px;padding:8px 10px}#evPop .evh{font-size:12px;color:#ffd27a;font-weight:700;margin-bottom:4px}#evPop ul{margin:0;padding-left:18px;font-size:13px;line-height:1.45}
+#evPop li.good{color:#9fe39f}#evPop li.bad{color:#ff9a8a}#evPop .evwho{font-size:11px;color:#998}#evPop .planok{align-self:flex-end}
+body:has(#reward.show) #evPop{visibility:hidden} /* v0.9.0: สรุปผลการต่อสู้ขึ้นก่อน แล้วหน้าต่างเหตุการณ์ค่อยแสดง */
+#evPop.peek{inset:auto;top:72px;right:16px;background:none;backdrop-filter:none;pointer-events:none;animation:spIn .25s ease-out}#evPop.peek .evbox{pointer-events:auto;width:min(380px,90vw);max-height:60vh}
 #scenePop{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;background:#000a;backdrop-filter:blur(2px)}
 #scenePop .spbox{width:min(520px,92vw);max-height:86vh;overflow:auto;background:linear-gradient(180deg,#1a1416,#0d0b0d);border:1px solid #6b2a1a;border-radius:12px;box-shadow:0 0 40px #ff3a0033,inset 0 0 30px #0009;padding:16px 18px;color:#e8dcd2;text-align:left}
 #scenePop .spk{font-size:11px;letter-spacing:.2em;color:#ff8a3d}#scenePop h3{margin:4px 0 8px;font-size:20px;color:#fff}#scenePop h3 small{font-size:13px;color:#b9a}
@@ -516,11 +525,11 @@ button.shopexit{width:auto!important;max-width:220px;margin:6px auto!important;d
 <div class="tlinks"><button onclick="start(true)">👁 ดู Bot เล่น</button><button onclick="showHow()">📖 วิธีเล่น</button><button onclick="toggleAsm()">⚠ Assumptions</button><button onclick="showNew(true)">✨ มีอะไรใหม่</button></div></div>
 <div class="tsel"><div class="tselh">เลือก SURVIVOR <span>(สูงสุด 4 · ชี้เมาส์ดูรายละเอียด)</span></div><p id="selInfo"></p><div id="heroGrid"></div>
 <details class="trules"><summary>กติกาโดยย่อ</summary><div class="rules">เมืองอาชา (Achar) · Act 1: THE SURVIVORS — ผนึก 666 ปีแตก เถ้าต้องสาปปกคลุมเมือง<br>
-<b>Prototype v0.8.9</b> (Rulebook V1.3 + ชีต " ASHBOUND ") · Co-op 1–4 Survivors · เริ่มที่ท่าเรือ A8 · แผนที่ Act 1 12 ช่อง (A5–D8)<br>
+<b>Prototype v0.9.0</b> (Rulebook V1.3 + ชีต " ASHBOUND ") · Co-op 1–4 Survivors · เริ่มที่ท่าเรือ A8 · แผนที่ Act 1 12 ช่อง (A5–D8)<br>
 วันละ 3 ช่วง เช้า/บ่าย/กลางคืน · ทุกคน 1 Action ต่อช่วง: Forage ■ / Explore ■ / Talk ■ / <b>เดินไปช่องติดกัน = 1 Action</b><br>
 Main Quest: Scene B7-1 (มอลล์) เปิดร้านค้า → B7-2 ส่งเสบียง 5 ชุด → B7-3 ทุกคนรวมตัวที่ B7 ต่อสู้ <b>กระสือ (Krasue)</b> · แพ้การต่อสู้ไม่แพ้เกม — แพ้เมื่อหมดเวลา Act (8 วัน ⚠)<br>
 Combat: Start Up (รีเซ็ต Sp มอน + ทอย Buff) → Player phase (ทอย/วางลูกเต๋า) → Resolve (ตาม Sp) · สนาม 6 ช่องแนวนอน ฮีโร่เริ่ม 2 ช่องล่าง · Soot T1–T4 · ⚠ = ค่าสมมติ (ดูปุ่ม Assumptions)<br>Survivor ที่เลือก = ผู้เล่นควบคุมเอง · ทุกตัวเลือกมีปุ่ม 🤖 Auto · กรอบทอง = Bot แนะนำ</div></details></div>
-</div><div id="whatsnew"></div></div><div id="verbadge">v0.8.9</div>
+</div><div id="whatsnew"></div></div><div id="verbadge">v0.9.0</div>
 <div id="netbar"></div><div id="lobby"></div><div id="game"><div id="top"></div><div id="party"></div><div id="mid"><div id="banslot"></div><div id="map"></div><div id="combat"></div></div><div id="right"><div id="phasebar"></div><div id="tray"></div><div id="choices"></div><div id="log"></div><div id="chat"><input id="chatIn" maxlength="200" placeholder="💬 แชทถึงทุกคน…"><button id="chatSend" onclick="chatSend()">ส่ง</button></div></div></div>
 <div id="overlay"></div><div id="asm"></div><div id="confirm" class="modal"></div><div id="tut"></div><div id="howto" class="modal"><div class="mbox"><button class="mx" onclick="hideHow()">✕ ปิด</button><h2>📖 วิธีเล่น ASHBOUND (Act 1)</h2>
 <h3>🎯 เป้าหมาย</h3><p>Co-op 1–4 คน เริ่มที่ท่าเรือ A8. ไปมอลล์ <b>B7</b> → Scene B7-1 เปิดร้านค้า → B7-2 ส่งเสบียง 5 ชุด (Main Quest) → B7-3 ทุกคนรวมตัวที่ B7 แล้วชนะ <b>รินา กระสือ (Cursed Seer)</b> = ชนะเกม</p>
@@ -547,7 +556,7 @@ Object.assign(FIG,{"dog": "data:image/webp;base64,UklGRvIZAABXRUJQVlA4WAoAAAAQAA
 const PETART={"ally:dog": "data:image/webp;base64,UklGRuwCAABXRUJQVlA4IOACAAAwHgCdASqAAIAAPm0skkYkIqGhLxiLEIANiWkA1UXG5mGN+Em1tUZxM2435BUMrrtXU+0v8nThP8YQtQoUjztK7fUgmFgqcxXLr4p79O7NPIlAH3Ecr7EleBqcESF+B8ePmDa1+RldWcyg6BsylGMU5ybX/LbrFL4lNlQEAapr7KoLslIIyl3KL2pOW4CPSAEvNF1aQprYfd4TubzrTQGrUW5GvfzZfayyhh0P8RXPFC7GIbWH9B5jCyF9o1vs3659sN93ZzbrdYXMjKu3IiNe0PRW/MPi7dvFNzYECShdCVWZro0ygwTrx0zMFWsOxfgr2CAz9bdBIEHgAP75ZlNbZSaz97zIA+EjrwsQoRGLB8Kt/9ExhVaQtW/223tt+uQ2Ik0EXuCJzqlFpos1zxFKdtu4FUUnmEO6MOkb/w1LSaqgi+vsHzRO/kMsjzDWIlV8XevVrabdhN7nUd1z7iJHT4VXxnqnKWgocuV7/ILuPtsz6MnRJQQ64SUKUwz3UgWVMDUc9ozrU5L5xYOV9drNGA7cqGCb4EhiCJdI6Oilhp2rKkeorDyjjKhHCopq7EcLNPRjXrvjrsavUf1A3m9ziX4CgwWbFNNtQQUSXglqH7L01LPfAPb6gdm5g4UUHlFbEnBzDxmU53Quwj0aVzzc0sUHIOOX7qYGTO5IfKca21+BuUPwbuluNcSsGOdKEu+zKq8MjHVyTl3V4ZzPpjfJKZ/u6TOsaBdOu6oEliN/bXKrcwb7h/tZB5nK0c6n5NY+6N7M7tGyi1BZH94vXSGDhxwD1915u259Bo674rP7WAgE/AowwFO5hb+HPNHahdt9ePcEHl87BUXqCkrgqTljqVJkTTsZLTTwq82UwO1etHbLfbku5/8TaPCyGZ/BLRqXGxDN6ecESHiGgd0JvRoerVElHzsXY+w6Zn/nXiAMVPbRpwAAhCZ+ch74OQA1gDU0orFI9+aIU5oTwIE+AAAA", "ally:cat": "data:image/webp;base64,UklGRkYDAABXRUJQVlA4IDoDAABwHgCdASqAAIAAPm0wk0YkIyGhKhWdEIANiWkA1Qu5QOKULe4utpMEK+icgyj0drvlz14oVxqiyUcV13XHDIqXhlC7vRaO8APeFSD2TZtFA9qEpDhu6ebcsnsTFPcKA+OspeTefmvFq4o255lmi0LJ8b4Yf4cvpbwUKEEWFOr2uXP8ABYmnuIEEmEZC+LNqjmsoXc65lH5sY4ievoRk7yDfisuSpWBY95GslML4j8mageAFGqwH2ba3oWYivUD9Y10ht1GzSioUDCiPUlfpbLHdVzVGiZ4hbqcAyAb0z4IsJSMAgBK+/itVCPzrEhXr+VeF5Qe2svEsfsVfAAA/vozJ3WF8KNvNADEXSvIPH8gEuG729xSrlDP4AWh22304keZ54Q9iPEZ+WDQ1JsEz3HZyzaMStps/UnDtHEKKl0OxpyFX1ALqroSH+KKpaKqXbDdYlNSz2AR4eyjrJR9G/tbceNeaegDoQcwQyKlSsrYew1q56WD0WR8ZdARsSu96u5m2DAiVWrwLafXFVoxm22DuyS1NefOhtPtLR7PnAfMu9CP8dmwhzzVN98k3fgsditzzRFe1gzBzv49L2dzI9wX8g1t+zG2zYYoZLGli5wd3cB4adyA1AgbRWbLFN1Tjp2m2HYiFu5aqk19DqlLoA4w/aquurVkvzvoCyAMv8eeGPEbCkcHHhAzeGUmKWhOKh+2q6emATatLkZoa7sDoUbRxXFvNKeNs2AP0M3YCJdHRLb8qWDeieUz2obVH2T8rL9APHq88jq4oS2kXmWpux3YEOsNRSymOo1GHAIUwXsvq1f7NDKmIFRmOcCQqngOxZaXznOTmUGDWtu2XHe/MdhCdrEtyMt5YBMuyXNd/CRB2Y7uBy6XpOihBxLO7aCXO4CDA7rc77p3d5w2MbyMN/CTjTmv8uc9rTSfn7JTs3fKeiyalpDKxKrUHU8jluln/8GvJpL1kpVfH/UK+YgzuIax6A7RMmwcVfT6xapOjBKGmxl+UbS8oXz9YGC3aU52Y1CCR8FQj8iwOpURZAyLX6V6eDceK4oL1RLSpk8VwsSU/Eu2FVdteSUdG47hq0JbenmsEIkEr1SrugAA"};
 
 // ===== Project Ashbound v0.6.1 engine — Rulebook + sheet " ASHBOUND " + World Building (update 2026-10-24) =====
-const VERSION='v0.8.9';
+const VERSION='v0.9.0';
 let RNG=Math.random;
 const rnd=n=>Math.floor(RNG()*n);
 const pick=a=>a[rnd(a.length)];
@@ -585,7 +594,10 @@ const ASSUMPTIONS=['⚠ v0.8.9 Confirm Action: เต๋าที่ไม่ไ
  'ไอเท็มสวมใส่ใช้ 3 ช่อง; ไอเท็มใช้งาน/เควสอยู่กระเป๋ารวม; พลุไฟ (เรียกร้านค้า) ยังไม่มีแหล่งได้รับใน Act 1',
  'ร้านค้า (Scene B7-1): ซื้อที่ B7 ได้ฟรีไม่เสีย Action; การ์ดคุย B7 = ซื้อ 1 ชิ้นลด 50%',
  'ร่วมต่อสู้ของเพื่อน: เสียอาหาร = ระยะทาง (Bicycle −1, Dixon Upg1 ฟรีวันละครั้ง)',
- 'Explore: การ์ดสำรวจทั่วไป (กองกลาง) ไม่มีข้อมูลในชีต → D6: 1-2 ซุ่มโจมตี, 3-4 ได้ 1 เหรียญ, 5-6 ว่าง; Cube เหลืองลูกสุดท้าย = การ์ดประจำ Area (Rulebook)',
+ 'Explore v0.9.0: การ์ดสำรวจทั่วไป (กองกลาง) = ชีตแท็บ สำรวจ แถว 13–24 สับเป็นกอง (หมดแล้วสับใหม่ ⚠); Cube เหลืองลูกสุดท้าย = การ์ดประจำ Area (Rulebook)',
+ 'Explore ⚠: ข้อความการ์ดแสดงตามชีตทุกตัวอักษร (รวมคำพิมพ์ผิด); การ์ดที่ชีตไม่มีคำบรรยาย แสดงชื่อ+ผล พร้อมป้าย ⚠ ไม่มีเนื้อเรื่องในชีต',
+ 'Explore ⚠: ชุดพยาบาล (#15,#19) = ชุดพยาบาล IT-013; เครื่องราง (#14) = IT-025; พลุไฟ (#20) = IT-011b; เสีย Hp ขั้นต่ำ 1; เสบียงไม่พอ = เหลือ 0',
+ 'Explore ⚠: #22 ทิ้ง Ally ของผู้สำรวจเอง; #23 "ข้ามแอกชั่นของวันนี้ทั้งหมด" = ข้าม Action ที่เหลือของวันนั้น (ไม่ได้ Rest คืนนั้น)',
  'การ์ดคุยที่หมดแล้ว = "ไม่มีเรื่องใหม่"',
  'v0.8.9: นำ Action Hunt (ล่ามอนสเตอร์) ออกแล้ว — เป็น Action เสริมของต้นแบบที่ไม่มีใน Rulebook V1.3 (เดิม: ชนะได้ Food +1). Combat ยังเกิดจาก Scene / Explore (D6) / Ally ตาม Rulebook ⚠',
  'Opening fight = Scene A8-1 ที่ A8',
@@ -858,7 +870,7 @@ function stepToward(a,b){let best=null,bd=99;for(const n of adj(a)){if(G.tiles[n
 // ---------------- State ----------------
 let G=null;
 const IO={ask:null,log:()=>{},render:()=>{},sleep:async()=>{},onEnd:()=>{}};
-function log(m,cls){G.log.push({m,cls});if(G.log.length>500)G.log.shift();IO.log(m,cls);}
+function log(m,cls){G.log.push({m,cls});if(G.evCap&&!G.combat)G.evCap.push({m,cls});if(G.log.length>500)G.log.shift();IO.log(m,cls);}
 const tier=()=>G.soot<=5?1:G.soot<=8?2:G.soot<=11?3:4;
 const alive=()=>G.players.filter(p=>p.hp>0);
 const bagN=k=>G.bag[k]||0;
@@ -1071,6 +1083,72 @@ async function tileEvents(p){
   if(c==='boots'){giveWear(p,'boots');}else{bagAdd('statue');log('ได้รูปปั้น (Statue)','good');}}
 }
 function giveWear(p,k){const tgt=p.wear.length<3?p:G.players.find(q=>q.wear.length<3);if(tgt){tgt.wear.push(k);log(`${tgt.name} สวมใส่ ${ITEMS[k].name} (${ITEMS[k].txt})`,'good');}else{bagAdd(k);log(`ได้ ${ITEMS[k].name} (ช่องเต็ม เก็บในกระเป๋า)`,'good');}}
+// v0.9.0: ข้อมูลการ์ดสำรวจจากชีต " ASHBOUND " แท็บ "สำรวจ" (คัดลอกข้อความตามชีต ไม่แต่งเพิ่ม)
+// [No, รหัสการ์ด, ประเภท, ระดับเควส, ข้อความการ์ด, ผลลัพธ์1, ผลลัพธ์ช่อง1, ผลลัพธ์2, ผลลัพธ์ช่อง2]
+const SHEET_EXPLORE=[
+ [1,'A5','Event','','“ค้นพบ[กุญแจ] B5” “ต่อสู้ 1 Combat”','','','',''],
+ [2,'A6','Event','','ปั๊มน้ำมันถูกโจมตีทำให้เกิดไฟไหม้ “ต่อสู้ 1 combat ให้จบก่อนปั๊มระเบิดใน 4 รอบ”','สำเร็จ','เปิด Scene A6-1','ไม่สำเร็จ','ปั๊มระเบิด ผู้เล่นทุกคนโดน 8 Dmg เปิด Scene A6-1'],
+ [3,'A7','Event','','ในระหว่างที่สำรวจป้ายบาร์ ได้ตกลงมาใส่คุณ “challenge Dex ≥ 5”','สำเร็จ','หลบได้ และพบ Energy Drink 2 ขวด','ไม่สำเร็จ','ได้รับ 5 Dmg'],
+ [4,'A8','Event','','“ได้รับกล่องเหล็ก 1 ชุด”','','','',''],
+ [5,'B5','Quest','3','พบเจอห้องลับในโบกส์ “พาช่างมาเพื่อช่วยปลดล็อคห้องลับ”','','ได้รับเงิน 6 เหรียญ','',''],
+ [6,'B6','Quest','3','พบช่างถูกตู้เหล็กทับอยู่ “Challenge Str ≥ 6” จ่าย 1 Action เพื่อ Challenge','','ได้รับ ช่างเข้าร่วมกลุ่ม','',''],
+ [7,'B7','Event','','“ได้รับ Energy Drink 1 ขวด”','','','',''],
+ [8,'B8','Quest','3','คุณเจอจักรยานถูกทับอยู่ แต่มันยังมีสภาพดีมาก “Challenge Str ≥ 4” จ่าย 1 Action เพื่อ Challenge','','ได้รับ จักรยาน','',''],
+ [9,'C7','Event','','นักโทษที่เริ่มกลายร่างกำลังแหกคุกออกมา ตำรวจต้องการกำลังเสริม “ต่อสู้ 1 combat โดยไม่ได้รับบาดเจ็บ” (มีตำรวจช่วยสู้)','','ได้รับตำรวจเข้ากลุ่ม','',''],
+ [10,'C8','Quest','3','ตามหารูปปั้นสะสมของลูกนายอำเภอ “ส่งรูปปั้น”','','ได้รับ ลูกนายอำเภอ','',''],
+ [11,'D7','Event','','คุณพบตัวนักโทษหลบหนี แต่ในขณะนั้นเอง ปีศาจเขม่าก็เข้าสู้โจม “ต่อสู้ 1 Combat โดยนับว่านักโทษเป็นผู้ติดตามในกลุ่ม”','','คุณจับตัวนักโทษสำเร็จ','',''],
+ [12,'D8','Event','','“ได้รับชุดพยาบาลเล็ก 2 ชุด”','','','',''],
+ [13,'-','Event','','เลือกระหว่าง เสีย 2 Hp หรือต่อสู้ 1 Combat','','','',''],
+ [14,'-','Event','','Challenge Str ≥ 3','สำเร็จ','ได้รับเครื่อง ราง 1 ชิ้น','ไม่สำเร็จ','ตอสู้ 1 Combat'],
+ [15,'-','Event','','Challenge Str ≥ 4','สำเร็็จ','ได้รับชุดพยาบาล 1 ชุด','ไม่สำเร็จ','เสีย 1 เสบียง'],
+ [16,'-','Event','','ได้รับ 1 เหรียญ','','','',''],
+ [17,'-','Event','','เสีย 2 Hp','','','',''],
+ [18,'-','Event','','ตอสู้ 1 Combat','','','',''],
+ [19,'-','Event','','สามารถจ่าย 2 เสเบียง ได้รับ ชุดพยาบาล 1 ชุด','','','',''],
+ [20,'-','Event','','ได้รับพลุไฟ 1 ชุด','','','',''],
+ [21,'-','Event','','Challenge Int ≥ 3','สำเร็็จ','ได้รับ Energy Drink 1 ชิ้น','ไม่สำเร็จ','เสีย 1 เสเบียง'],
+ [22,'-','Event','','สามารถทิ้ง Ally 1 คน เพื่อได้รับ 5 เสบียงและ 2 เหรียญ','','','',''],
+ [23,'-','Event','','ฟื้นฟู 3 Hp สามารถที่จะข้ามแอกชั่นของวันนี้ทั้งหมดเพื่อฟื้นฟู Hp เต็มแทน','','','',''],
+ [24,'-','Event','','สามารถจ่าย 2 เสเบียง ได้รับ 3 เหรียญ','','','',''],
+];
+// มีเนื้อเรื่อง = มีคำบรรยายนอกเหนือจากเงื่อนไข/ผลในเครื่องหมายคำพูด (การ์ดกองกลางในชีตมีแต่ผล → ⚠ ไม่มีเนื้อเรื่อง)
+function exStory(r){if(r[1]==='-')return false;const s=r[4].replace(/“[^”]*”/g,'').replace(/\([^)]*\)/g,'').trim();return s.length>0;}
+function exMeta(r){return {no:r[0],code:r[1],type:r[2],qlv:r[3],txt:r[4],story:exStory(r),outs:[[r[5],r[6]],[r[7],r[8]]].filter(o=>o[0]||o[1]).map(o=>({l:o[0],r:o[1]}))};}
+const EX_MISSING=SHEET_EXPLORE.filter(r=>!exStory(r)).map(r=>r[0]+(r[1]!=='-'?' ('+r[1]+')':''));
+const lose=(p,n,why)=>{p.hp=Math.max(1,p.hp-n);log(`${p.name} ${why||''} −${n} HP (ขั้นต่ำ 1 ⚠)`,'bad');};
+const foodLose=n=>{const a=Math.min(G.food,n);G.food-=a;log(`เสบียง −${n}${a<n?' (มีไม่พอ เหลือ 0)':''}`,'bad');};
+// การ์ดสำรวจทั่วไป (กองกลาง) แถว 13–24
+const EXPLORE_GEN={
+ 13:async p=>{const c=await ask(p,'card','การ์ดสำรวจ #13: เลือกระหว่าง',[{v:'hp',l:'เสีย 2 Hp'},{v:'fight',l:'ต่อสู้ 1 Combat'}],p.hp>4?0:1);if(c==='hp')lose(p,2,'เลือกเสีย');else await startCombat(p,{reason:'สำรวจ #13: เลือกต่อสู้ 1 Combat'});},
+ 14:async p=>{if(await challenge(p,'str',3)){bagAdd('charm');log('ได้รับเครื่องราง 1 ชิ้น','good');}else await startCombat(p,{reason:'สำรวจ #14: Challenge Str ≥ 3 ไม่สำเร็จ — ต่อสู้ 1 Combat'});},
+ 15:async p=>{if(await challenge(p,'str',4)){bagAdd('medS');log('ได้รับชุดพยาบาล 1 ชุด','good');}else foodLose(1);},
+ 16:async()=>{G.coins++;log('ได้รับ 1 เหรียญ','good');},
+ 17:async p=>lose(p,2,'สำรวจ #17'),
+ 18:async p=>{await startCombat(p,{reason:'สำรวจ #18: ต่อสู้ 1 Combat'});},
+ 19:async p=>{const o=[{v:false,l:'ไม่จ่าย'}];if(G.food>=2)o.unshift({v:true,l:'จ่าย 2 เสบียง → ชุดพยาบาล 1 ชุด'});const c=await ask(p,'card','การ์ดสำรวจ #19: จ่าย 2 เสบียง ได้รับชุดพยาบาล 1 ชุด?',o,o.length>1&&G.food>=CFG.mainFood+2?0:o.length-1);if(c){G.food-=2;bagAdd('medS');log('จ่าย 2 เสบียง → ได้รับชุดพยาบาล 1 ชุด','good');}else log('ไม่จ่าย');},
+ 20:async()=>{bagAdd('flare');log('ได้รับพลุไฟ 1 ชุด','good');},
+ 21:async p=>{if(await challenge(p,'int',3)){bagAdd('energy');log('ได้รับ Energy Drink 1 ชิ้น','good');}else foodLose(1);},
+ 22:async p=>{const o=p.allies.map((a,i)=>({v:i,l:`ทิ้ง ${ALLIES[a.k]?ALLIES[a.k].name:a.k} → +5 เสบียง +2 เหรียญ`}));o.push({v:-1,l:'ไม่ทิ้ง'});const c=await ask(p,'card','การ์ดสำรวจ #22: ทิ้ง Ally 1 คน เพื่อได้รับ 5 เสบียงและ 2 เหรียญ?',o,o.length-1);
+  if(c>=0&&p.allies[c]){const a=p.allies.splice(c,1)[0];G.food+=5;G.coins+=2;log(`${ALLIES[a.k]?ALLIES[a.k].name:a.k} ออกจากกลุ่ม → เสบียง +5 เหรียญ +2`,'good');}else log(p.allies.length?'ไม่ทิ้ง Ally':'ไม่มี Ally ให้ทิ้ง');},
+ 23:async p=>{const c=await ask(p,'card','การ์ดสำรวจ #23: ฟื้นฟู',[{v:'3',l:'ฟื้นฟู 3 Hp'},{v:'full',l:'ข้ามแอกชั่นที่เหลือของวันนี้ → ฟื้นฟู Hp เต็ม ⚠'}],p.hp<=p.maxhp/3?1:0);
+  if(c==='full'){p.hp=p.maxhp;p.skipDay=G.day;log(`${p.name} ฟื้นฟู Hp เต็ม — ข้ามแอกชั่นที่เหลือของวันที่ ${G.day} ⚠`,'good');}else{const b=p.hp;p.hp=Math.min(p.maxhp,p.hp+3);log(`${p.name} ฟื้นฟู ${p.hp-b} Hp`,'good');}},
+ 24:async p=>{const o=[{v:false,l:'ไม่จ่าย'}];if(G.food>=2)o.unshift({v:true,l:'จ่าย 2 เสบียง → 3 เหรียญ'});const c=await ask(p,'card','การ์ดสำรวจ #24: จ่าย 2 เสบียง ได้รับ 3 เหรียญ?',o,o.length>1&&G.food>=CFG.mainFood+3?0:o.length-1);if(c){G.food-=2;G.coins+=3;log('จ่าย 2 เสบียง → ได้รับ 3 เหรียญ','good');}else log('ไม่จ่าย');},
+};
+// หน้าต่างเหตุการณ์สำรวจ: เปิด (เรื่อง/เงื่อนไข/ทางเลือก) → ทำผล → ผลลัพธ์ (ทุกเครื่องเห็นผ่าน G.evPop)
+async function evPop(p,info){G.evPop={...info,seq:(G.evPop?G.evPop.seq:0)+1,who:p&&p.name,wait:!!(p&&!p.bot&&IO.ask)};G.stats.evPops=(G.stats.evPops||0)+1;
+ if(G.evPop.wait){await ask(p,'event',info.stage==='result'?`🔍 ผลการสำรวจ ${info.tile}`:`🔍 สำรวจ ${info.tile}`,[{v:1,l:info.stage==='result'?'รับทราบ — ไปต่อ':'ดำเนินการ'}],0);G.evPop.wait=false;G.evPop.ack=true;}
+ IO.render();}
+async function exploreEvent(p,row,run){const T=TILES[p.tile]||{},m=exMeta(row);
+ const base={...m,tile:p.tile,place:T.name||'',deck:row[1]==='-'?'gen':'area'};G.stats.explores=(G.stats.explores||0)+1;if(!m.story)G.stats.exNoStory=(G.stats.exNoStory||0)+1;
+ log(`🔍 ${p.name} สำรวจ ${p.tile} — ${base.deck==='gen'?'การ์ดสำรวจทั่วไป #'+m.no:'การ์ดสำรวจประจำ Area '+m.code}: ${m.txt}`,'story');
+ await evPop(p,{...base,stage:'open'});if(G.over)return;
+ const q0=G.quests.map(q=>q.id),lc0=G.lastCombat,h0=p.hp;G.evCap=[];
+ await run(p);
+ const cap=G.evCap||[];G.evCap=null;
+ if(G.lastCombat!==lc0&&G.lastCombat)cap.unshift({m:`⚔ ต่อสู้: ${G.lastCombat.res==='win'?'ชนะ':G.lastCombat.res==='loss'?'แพ้':G.lastCombat.res}`,cls:G.lastCombat.res==='win'?'good':'bad'});
+ const nq=G.quests.filter(q=>!q0.includes(q.id)).map(q=>({lvl:q.lvl,id:q.id,txt:q.txt}));
+ if(!cap.length&&!nq.length)cap.push({m:'ไม่มีผลเพิ่มเติม',cls:''});
+ if(!G.over)await evPop(p,{...base,stage:'result',res:cap.slice(-10),quests:nq});}
 // ---------------- Game loop (Rulebook 4.1) ----------------
 async function runGame(){
  if(!G.setupDone){
@@ -1089,6 +1167,7 @@ async function runGame(){
    if(G.over)break;
    G.turnIdx=pi;G.uid=UID;G.cur=p;if(IO.checkpoint)IO.checkpoint();IO.render();await IO.sleep(1);
    G.stats.turns++;
+   if(p.skipDay===G.day){log(`${p.name} ข้าม Action (การ์ดสำรวจ #23: ฟื้นฟู Hp เต็ม) ⚠`);continue;}
    if(p.skipNext){p.skipNext=false;log(`${p.name} ข้าม Action (ไปช่วยต่อสู้ในรอบก่อน)`);continue;}
    await playerTurn(p,ph);
   }
@@ -1176,9 +1255,9 @@ async function doAction(p,a,ph){
    const c=await ask(jk,'peek',`Jack Upg2: การ์ดเสบียงบนสุด = #${top+1} «${FORAGE[top].txt}»`,[{v:'keep',l:'วางไว้ที่เดิม'},{v:'bottom',l:'วางใต้กอง'}],bad?1:0);if(c==='bottom'){G.forageDeck.pop();G.forageDeck.unshift(top);log('Jack Upg2: ย้ายการ์ดเสบียงบนสุดไปใต้กอง');}}const i=G.forageDeck.pop(),c=FORAGE[i];
   log(`${p.name} Forage — การ์ดอาหาร #${i+1}: ${c.txt}`,'story');await c.run(p);return;}
  if(a==='explore'){t.cubes.explore--;
-  if(t.cubes.explore<=0&&!t.explored){t.explored=true;const c=EXPLORE[p.tile];log(`${p.name} Explore ${p.tile} — Cube เหลืองลูกสุดท้าย → การ์ดประจำ Area: ${c.txt}`,'story');await c.run(p);return;}
-  const d=await hd6(p,'Explore D6');log(`${p.name} Explore ${p.tile} — การ์ดสำรวจทั่วไป (⚠ ไม่มีข้อมูลการ์ด) D6 = ${d}`);
-  if(d<=2)await startCombat(p,{reason:`สำรวจ ${p.tile}: ถูกซุ่มโจมตี (D6 ${d}) ⚠`});else if(d<=4){G.coins++;log('พบเหรียญ 1 เหรียญ','good');}else log('ไม่พบอะไรนอกจากเถ้าถ่าน…');return;}
+  if(t.cubes.explore<=0&&!t.explored){t.explored=true;const c=EXPLORE[p.tile];const row=SHEET_EXPLORE.find(r=>r[1]===p.tile);await exploreEvent(p,row,c.run);return;}
+  if(!G.exploreDeck||!G.exploreDeck.length)G.exploreDeck=shuffle(Object.keys(EXPLORE_GEN).map(Number));
+  const n=G.exploreDeck.pop(),row=SHEET_EXPLORE.find(r=>r[0]===n);await exploreEvent(p,row,EXPLORE_GEN[n]);return;}
  if(a==='talk'){t.cubes.talk--;const cards=TALK[p.tile];const c=cards[t.talkIdx++];
   if(!c){log(`${p.name} คุยกับชาวบ้าน — ไม่มีเรื่องใหม่ ⚠`);return;}
   log(`${p.name} คุย NPC ${p.tile}: ${c.txt}`,'story');await c.run(p);return;}
@@ -1719,7 +1798,7 @@ function deser(str){const R=SROOTS(),ids=[];
 function shash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return (h>>>0).toString(16);}
 function snapG(){G.uid=UID;return ser(G);}
 function loadG(str){G=deser(str);UID=G.uid||UID;return G;}
-if(typeof module!=='undefined'&&typeof window==='undefined')Object.assign(module.exports,{ser,deser,shash,snapG,loadG});
+if(typeof module!=='undefined'&&typeof window==='undefined')Object.assign(module.exports,{ser,deser,shash,snapG,loadG,SHEET_EXPLORE,EXPLORE_GEN,EXPLORE,exploreEvent,EX_MISSING,exMeta});
 
 let FX_PHK=null,FX_PHHOLD=0;const PH_IC=['🌅','☀️','🌙'];
 /* ===== v0.7 UX layer: intents, previews, floating numbers, tooltips, banners, rewards (style ref: UX_REFERENCE.md) ===== */
@@ -1824,7 +1903,7 @@ function setupScreen(){
  $('#selInfo').innerHTML=sel.length?`เลือกแล้ว <b>${sel.length}/4</b> — ${sel.map(id=>esc(HEROES.find(h=>h.id===id).name)).join(', ')}`:'คลิกการ์ด Survivor เพื่อเลือก (สูงสุด 4) · ไม่เลือก = สุ่ม 1 ตัว · ชี้เมาส์ดูรายละเอียด';
  showNew();
 }
-const WHATSNEW=['v0.8.9: นำระบบ Hunt (ล่ามอนสเตอร์) ออก — Combat เกิดจาก Scene / Explore / Ally ตาม Rulebook','นาฬิกาบนแผนที่: วันที่ X/8 · เช้า › บ่าย › กลางคืน · ใครเล่นไปแล้ว/ตาใคร + แถบประกาศเมื่อเปลี่ยนช่วงเวลา/วันใหม่','Passive (Zemaki Reroll / Jack ทิ้ง-ปรับเต๋า) เลือกเองว่าจะใช้ก่อนหลัง หรือไม่ใช้ แล้วค่อยไปวางเต๋า','แสดงระยะโจมตี: ชี้/แตะตัวละคร · ศัตรู · การ์ด Skill / Ultimate เพื่อไฮไลต์ช่องในสนาม · ปุ่ม ☠ ระยะศัตรู','ปุ่ม ✔ Confirm Action — วางเต๋าครบแล้วไม่ออกแอกชันเอง ต้องกดยืนยัน และกดยืนยันได้แม้ยังวางไม่ครบ','เปิด Scene จะมีหน้าต่างบอกว่าเจอ Scene อะไร ที่ไหน และ Quest ที่เกี่ยวข้อง/ได้รับใหม่','ควบคุม Ally ได้เอง: เลือกเดิน ◀ ▶ และเลือกเป้าที่จะตี (บอทยังใช้ AI)','— v0.8.8 —','v0.8.8: Sp เท่ากัน ตาม Rulebook V1.3 — Survivor เท่ากันผู้เล่นตกลงกันเอง, Monster เท่ากันผู้เล่นเลือกตัวที่เล่นก่อน (แตะในแถบ TURN ORDER) · ป้าย "ตาของ X" ย้ายเป็นแถบคงที่ด้านบน ไม่ทับการ์ดศัตรูแล้ว','v0.8.7: แถบ TURN ORDER ด้านบนสนามรบ (รูป+Sp, ตาตอนนี้/ถัดไป, คนที่เล่นแล้วจาง) · แก้ตัวหนังสือซ้อนกัน — ป้าย COMMON หลุดไปอยู่บนการ์ด Stat (STR/DEX/INT/HP/MOV) · ตรวจข้อความซ้อน/ล้นทุกหน้าจอทั้งเดสก์ท็อปและมือถือ','v0.8.6: 🔊 เสียง SFX+บรรยากาศ (ปุ่มปิดเสียงมุมล่างซ้าย) · Intent ใหญ่ขึ้น+กรอบแดงฮีโร่ที่จะโดนตี+เส้นชี้เป้าเมื่อชี้ศัตรู · เต๋ากลิ้งก่อนออกผล · ↶ Undo การวางเต๋า · เลขดาเมจใหญ่/hit-stop/แฟลช/HP bar 2 ชั้น/ศัตรูพุ่งตี · Keyword สี+tooltip+Glossary ในวิธีเล่น · ร้านค้าใหม่+ไอคอน SVG · ช่องว่างในแผงฮีโร่กะทัดรัด','v0.8.5: แถวลูกเต๋า+Stat ติดด้านบน (sticky) ตอนเลื่อนบอร์ด — แก้ปัญหาลากลูกเต๋าไปการ์ดสกิลด้านล่างไม่ได้เมื่อการ์ดเยอะ; สัตว์เลี้ยง Troika ใช้ภาพแมวดำ/หมาดำจากภาพตัวละคร (แทน emoji)','v0.8.4: หน้า COMBAT ใช้ภาพเต็มตัว (ตัดพื้นหลังโปร่งใส) — ฮีโร่ซ้ายหันขวา ศัตรูขวาหันซ้าย, HP/สถานะอยู่เหนือหัว, ไฮไลต์เป้าหมาย + สั่นเมื่อโดนตี (Token บนแผนที่ยังกลมเหมือนเดิม)','v0.8.3: กล่องลูกเต๋าอยู่แถวเดียวกับช่อง Stat แคบๆ (ขนาดเท่าลูกเต๋า) ด้านบน · การ์ดที่มีคำอธิบายยาว (Skill/Ultimate/Attack/Move/Charge/ทิ้งลูก) อยู่แถวล่างแบบกว้าง อ่านง่าย','v0.8.2: จัดเลย์เอาต์ใหม่ — ค่า Stat (STR/DEX/INT/HP/Move…) เรียงเป็นแถวเดียวด้านบน ทั้งช่องวางเต๋าตอนต่อสู้และแผงฮีโร่ · ด้านล่าง = ลูกเต๋า, การ์ด Skill/Ultimate/ท่าพื้นฐาน, Charge/ทิ้งลูก (ยังลากอย่างเดียวเหมือนเดิม)','v0.8.1: ไม่มีปุ่มจอง/เลือกลูกเต๋าแล้ว — ลากลูกเต๋า (เมาส์/นิ้ว) ไปวางบนการ์ดอย่างเดียว · ลากออกหรือย้ายได้','v0.8.1: Skill / Ultimate / Attack / Move เป็นการ์ด Ability แถบล่าง มีช่องเงื่อนไขลูกเต๋า, พรีวิวค่าระหว่างลาก, สถานะ READY / ใช้แล้ว / ล็อก','หน้าจอใหม่ทั้งหมด: Title / แผนที่เต็มจอ / สนามรบแนวนอนแบบ SpellRogue','ศัตรูตัวใหญ่ + Intent เหนือหัว · คลิกศัตรูเพื่อโจมตี · ปุ่มส้ม END TURN','Skill draft / ร้านค้า / ทางเลือกการ์ด = การ์ดใหญ่ "เลือก 1"','ปุ่ม Action ขึ้นข้างช่องที่ยืนอยู่ · Log ย้ายไปลิ้นชัก 📜'];
+const WHATSNEW=['v0.9.0: กดสำรวจ (Explore) แล้วเปิดหน้าต่างเหตุการณ์ทุกครั้ง — ชื่อการ์ด โซน ข้อความการ์ดจากชีต ทางเลือก และผลลัพธ์; เพิ่มกองการ์ดสำรวจทั่วไป 12 ใบจากชีต (แทน D6 ชั่วคราว); การ์ดที่ชีตไม่มีเนื้อเรื่องติดป้าย ⚠','v0.8.9: นำระบบ Hunt (ล่ามอนสเตอร์) ออก — Combat เกิดจาก Scene / Explore / Ally ตาม Rulebook','นาฬิกาบนแผนที่: วันที่ X/8 · เช้า › บ่าย › กลางคืน · ใครเล่นไปแล้ว/ตาใคร + แถบประกาศเมื่อเปลี่ยนช่วงเวลา/วันใหม่','Passive (Zemaki Reroll / Jack ทิ้ง-ปรับเต๋า) เลือกเองว่าจะใช้ก่อนหลัง หรือไม่ใช้ แล้วค่อยไปวางเต๋า','แสดงระยะโจมตี: ชี้/แตะตัวละคร · ศัตรู · การ์ด Skill / Ultimate เพื่อไฮไลต์ช่องในสนาม · ปุ่ม ☠ ระยะศัตรู','ปุ่ม ✔ Confirm Action — วางเต๋าครบแล้วไม่ออกแอกชันเอง ต้องกดยืนยัน และกดยืนยันได้แม้ยังวางไม่ครบ','เปิด Scene จะมีหน้าต่างบอกว่าเจอ Scene อะไร ที่ไหน และ Quest ที่เกี่ยวข้อง/ได้รับใหม่','ควบคุม Ally ได้เอง: เลือกเดิน ◀ ▶ และเลือกเป้าที่จะตี (บอทยังใช้ AI)','— v0.8.8 —','v0.8.8: Sp เท่ากัน ตาม Rulebook V1.3 — Survivor เท่ากันผู้เล่นตกลงกันเอง, Monster เท่ากันผู้เล่นเลือกตัวที่เล่นก่อน (แตะในแถบ TURN ORDER) · ป้าย "ตาของ X" ย้ายเป็นแถบคงที่ด้านบน ไม่ทับการ์ดศัตรูแล้ว','v0.8.7: แถบ TURN ORDER ด้านบนสนามรบ (รูป+Sp, ตาตอนนี้/ถัดไป, คนที่เล่นแล้วจาง) · แก้ตัวหนังสือซ้อนกัน — ป้าย COMMON หลุดไปอยู่บนการ์ด Stat (STR/DEX/INT/HP/MOV) · ตรวจข้อความซ้อน/ล้นทุกหน้าจอทั้งเดสก์ท็อปและมือถือ','v0.8.6: 🔊 เสียง SFX+บรรยากาศ (ปุ่มปิดเสียงมุมล่างซ้าย) · Intent ใหญ่ขึ้น+กรอบแดงฮีโร่ที่จะโดนตี+เส้นชี้เป้าเมื่อชี้ศัตรู · เต๋ากลิ้งก่อนออกผล · ↶ Undo การวางเต๋า · เลขดาเมจใหญ่/hit-stop/แฟลช/HP bar 2 ชั้น/ศัตรูพุ่งตี · Keyword สี+tooltip+Glossary ในวิธีเล่น · ร้านค้าใหม่+ไอคอน SVG · ช่องว่างในแผงฮีโร่กะทัดรัด','v0.8.5: แถวลูกเต๋า+Stat ติดด้านบน (sticky) ตอนเลื่อนบอร์ด — แก้ปัญหาลากลูกเต๋าไปการ์ดสกิลด้านล่างไม่ได้เมื่อการ์ดเยอะ; สัตว์เลี้ยง Troika ใช้ภาพแมวดำ/หมาดำจากภาพตัวละคร (แทน emoji)','v0.8.4: หน้า COMBAT ใช้ภาพเต็มตัว (ตัดพื้นหลังโปร่งใส) — ฮีโร่ซ้ายหันขวา ศัตรูขวาหันซ้าย, HP/สถานะอยู่เหนือหัว, ไฮไลต์เป้าหมาย + สั่นเมื่อโดนตี (Token บนแผนที่ยังกลมเหมือนเดิม)','v0.8.3: กล่องลูกเต๋าอยู่แถวเดียวกับช่อง Stat แคบๆ (ขนาดเท่าลูกเต๋า) ด้านบน · การ์ดที่มีคำอธิบายยาว (Skill/Ultimate/Attack/Move/Charge/ทิ้งลูก) อยู่แถวล่างแบบกว้าง อ่านง่าย','v0.8.2: จัดเลย์เอาต์ใหม่ — ค่า Stat (STR/DEX/INT/HP/Move…) เรียงเป็นแถวเดียวด้านบน ทั้งช่องวางเต๋าตอนต่อสู้และแผงฮีโร่ · ด้านล่าง = ลูกเต๋า, การ์ด Skill/Ultimate/ท่าพื้นฐาน, Charge/ทิ้งลูก (ยังลากอย่างเดียวเหมือนเดิม)','v0.8.1: ไม่มีปุ่มจอง/เลือกลูกเต๋าแล้ว — ลากลูกเต๋า (เมาส์/นิ้ว) ไปวางบนการ์ดอย่างเดียว · ลากออกหรือย้ายได้','v0.8.1: Skill / Ultimate / Attack / Move เป็นการ์ด Ability แถบล่าง มีช่องเงื่อนไขลูกเต๋า, พรีวิวค่าระหว่างลาก, สถานะ READY / ใช้แล้ว / ล็อก','หน้าจอใหม่ทั้งหมด: Title / แผนที่เต็มจอ / สนามรบแนวนอนแบบ SpellRogue','ศัตรูตัวใหญ่ + Intent เหนือหัว · คลิกศัตรูเพื่อโจมตี · ปุ่มส้ม END TURN','Skill draft / ร้านค้า / ทางเลือกการ์ด = การ์ดใหญ่ "เลือก 1"','ปุ่ม Action ขึ้นข้างช่องที่ยืนอยู่ · Log ย้ายไปลิ้นชัก 📜'];
 function showNew(force){const w=$('#whatsnew');if(!w)return;if(!force&&localStorage.getItem('ash_seen_ver')===VERSION){w.style.display='none';return;}
  w.innerHTML=`<div class="wnh">✨ มีอะไรใหม่ใน ${VERSION}</div><ul>${WHATSNEW.map(x=>`<li>${esc(x)}</li>`).join('')}</ul><button id="wnOk" onclick="hideNew()">รับทราบ</button>`;w.style.display='block';}
 function hideNew(){localStorage.setItem('ash_seen_ver',VERSION);const w=$('#whatsnew');if(w)w.style.display='none';}
@@ -1904,6 +1983,7 @@ function buildAsk(p,kind,prompt,opts,bi,res,noAuto){
  const MODALK=['shop','skill','card','deck','gain','replace','join','peek','jack','dixonpay','eat','drink','reroll','passive'];
  box.className=MODALK.includes(kind)?'modalk k-'+kind:(kind==='action'&&!G.combat)?'pop':G.combat&&(kind==='combat'||kind==='ally')?'cbk':'';
  if((kind==='place'||kind==='skilldice')&&typeof planAsk==='function'&&planAsk(p,kind,prompt,opts,bi,done))return;
+ if(kind==='event'){CUR={p,kind,opts,bi,res:done};box.innerHTML='';box.className='';render();return;}
  if(kind==='scene'){CUR={p,kind,opts,bi,res:done};box.innerHTML='';box.className='';render();return;}
  CUR={p,kind,opts,bi,res:done};
  let h=(kind==='shop'?`<div class="event"><div><b>🛒 ร้านค้าเด็กสาวลึกลับ</b><br><small>มอลล์ B7 · ราคาจากแท็บ Items${G.promo?" · โปรโมชั่น 50% ชิ้นถัดไป":""}</small></div></div>`:'')+`<div class="prompt">${MODALK.includes(kind)?'<small>เลือก 1</small>':''}${esc(G.combat?prompt.replace(/ขึ้น ▲/g,'ขวา ▶').replace(/ลง ▼/g,'ซ้าย ◀'):prompt)}</div>`;
@@ -1973,7 +2053,7 @@ function render(){
   <div class="mrow">${[0,1,2,3].map(i=>skillCard(p,p.skills[i],i)).join('')}</div>
   <div class="mrow">${[0,1,2].map(i=>itemCard(p.wear[i],i)).join('')}</div>
   ${p.allies.length?`<div class="sm">Ally: ${p.allies.map(allyChip).join(' ')}</div>`:''}</div>`).join('')+questBoard();
- drawPhase();drawTray();drawMap();drawCombat();if(typeof rngApply==='function')rngApply();drawScenePop();posPop();tutPos();try{fxAfterRender();}catch(e){console.warn(e);}
+ drawPhase();drawTray();drawMap();drawCombat();if(typeof rngApply==='function')rngApply();drawScenePop();drawEvPop();posPop();tutPos();try{fxAfterRender();}catch(e){console.warn(e);}
 }
 function questBoard(){
  return `<div class="qb"><b>📜 Quest</b>${G.quests.length?G.quests.map(q=>`<div class="q ${q.done?'done':''}">Q${q.lvl} · ${esc(q.txt)}</div>`).join(''):'<div class="sm">—</div>'}
@@ -2083,6 +2163,26 @@ window.ASH={newGame,runGame,IO,CFG,HEROES,ASSUMPTIONS,setRng:r=>{RNG=r},get G(){
   for(let i=0;i<n;i++){try{const k=1+i%4;newGame({players:shuffle(ids.slice()).slice(0,k).map(id=>({hero:id,bot:true}))});const r=await runGame();out[r.r]++;}catch(e){out.errors++;out.last=e.message;}}
   Object.assign(IO,save);G=null;return out;}};
 
+/* v0.9.0 Explore event window */
+let EV_SEEN=0,EV_T=null;
+function drawEvPop(){let el=document.getElementById('evPop');const ev=G&&G.evPop;const asking=CUR&&CUR.kind==='event';
+ if(!ev||(!asking&&(EV_SEEN>=ev.seq||document.getElementById('scenePop')))){if(el)el.remove();return;}
+ const key=ev.seq+(asking?'a':'n');if(el&&el.dataset.k===key)return;
+ if(!el){el=document.createElement('div');el.id='evPop';document.body.appendChild(el);}el.dataset.k=key;el.className=asking?'ask':'peek';
+ const head=ev.deck==='gen'?`การ์ดสำรวจทั่วไป #${ev.no}`:`การ์ดสำรวจประจำ Area ${esc(ev.code)}`;
+ const typ=ev.type==='Quest'?`QUEST${ev.qlv?' · Q'+esc(ev.qlv):''}`:'EVENT';
+ const outs=(ev.outs||[]).map(o=>`<li>${o.l?'<b>'+esc(o.l)+'</b>: ':''}${esc(o.r)}</li>`).join('');
+ const res=(ev.res||[]).map(r=>`<li class="${esc(r.cls||'')}">${esc(r.m)}</li>`).join('')+(ev.quests||[]).map(q=>`<li class="good">📜 Quest ใหม่ Q${q.lvl} [${esc(q.id)}] ${esc(q.txt)}</li>`).join('');
+ el.innerHTML=`<div class="evbox ${ev.stage}"><div class="evk">🔍 EXPLORE · ${typ}${ev.stage==='result'?' · ผลลัพธ์':''}</div>
+ <h3>${head}<small>โซน ${esc(ev.tile)} · ${esc(ev.place)}</small></h3>
+ ${ev.story?'':'<div class="evwarn">⚠ ชีตยังไม่มีเนื้อเรื่องสำหรับการ์ดนี้ — แสดงชื่อและผลตามชีต</div>'}
+ <p class="evtx">${esc(ev.txt)}</p>
+ ${outs?`<div class="evsec"><div class="evh">ทางเลือก / ผลตามการ์ด</div><ul>${outs}</ul></div>`:''}
+ ${ev.stage==='result'?`<div class="evsec evres"><div class="evh">ผลที่เกิดขึ้น</div><ul>${res}</ul></div>`:''}
+ <div class="evwho">${esc(ev.who||'')}</div>
+ <button id="evOk" class="planok">${asking?(ev.stage==='result'?'รับทราบ — ไปต่อ':'ดำเนินการ'):'ปิด'}<small>${asking?(ev.stage==='result'?'Continue':'Resolve'):'Close'}</small></button></div>`;
+ el.querySelector('#evOk').onclick=()=>{EV_SEEN=ev.seq;if(CUR&&CUR.kind==='event'){CUR.res(1);}else{el.remove();}};
+ clearTimeout(EV_T);if(!asking)EV_T=setTimeout(()=>{if(G.evPop&&G.evPop.seq===ev.seq&&!(CUR&&CUR.kind==='event')){EV_SEEN=ev.seq;const e=document.getElementById('evPop');if(e)e.remove();}},window.FAST?1500:7000);}
 /* v0.8.9 Scene / Quest popup */
 let SCENE_SEEN=0,SCENE_T=null;
 function drawScenePop(){let el=document.getElementById('scenePop');const sp=G&&G.scenePop;const asking=CUR&&CUR.kind==='scene';
