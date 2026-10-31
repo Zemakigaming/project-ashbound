@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
-<title>Project Ashbound v0.9.1 — Prototype</title><style>
+<title>Project Ashbound v0.9.2 — Prototype</title><style>
 *{box-sizing:border-box}body{margin:0;background:#08080a;color:#cfc8bd;font-family:"Sarabun","Noto Sans Thai",Tahoma,sans-serif;font-size:14px}
 body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 30%,transparent 40%,#000 100%),repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0 1px,transparent 1px 3px);z-index:50}
 h1,.ttl{font-family:Georgia,serif;letter-spacing:.3em;color:#b33a2f;text-shadow:0 0 12px #600}
@@ -200,9 +200,6 @@ body{background:#07060a}
 .hst{display:flex;gap:6px;margin:6px 0 4px}.hst span{background:#000a;border:1px solid #4a3a40;border-radius:6px;padding:1px 6px;font-size:12px}
 .hsk{font-size:11px;color:#ffcf8a}.hsk i{color:#9a8a7a}
 .trules{margin-top:14px;color:#b9a993;font-size:13px}.trules summary{cursor:pointer;color:#ff9a4a}
-#whatsnew{display:none;position:fixed;right:18px;bottom:30px;z-index:60;width:340px;background:#141017f2;border:1px solid var(--or);border-radius:12px;padding:12px 16px;box-shadow:0 10px 40px #000c;font-size:13px}
-.wnh{font:800 16px system-ui;color:#ffb070;margin-bottom:6px}#whatsnew ul{margin:0 0 8px 18px;padding:0}#whatsnew li{margin:3px 0}
-#wnOk{background:var(--or)!important;color:#000!important;font-weight:800}
 @media (max-width:900px){.tin{grid-template-columns:1fr}.tsel{grid-column:1;grid-row:auto}#heroGrid{grid-template-columns:repeat(2,1fr)}.hcard{height:240px}}
 /* game grid */
 #game{grid-template-columns:250px 1fr!important;grid-template-rows:auto 1fr auto!important;grid-template-areas:"top top" "party mid" "party dock"!important;height:100vh!important;gap:0!important;padding:0!important}
@@ -580,18 +577,28 @@ button.shopexit{width:auto!important;max-width:220px;margin:6px auto!important;d
 .tok.narrow .tint .intent em{display:none}.tok.fig .tpo{top:16px!important}
 .tok .tnm{white-space:normal!important;width:100%;text-align:center;line-height:1.1;word-break:break-word}
 .scard .suse,.ptop .scard .suse{white-space:normal!important;overflow:visible!important;text-overflow:clip!important;line-height:1.15;text-align:center;word-break:break-word}
+/* v0.9.2 monster cards left under hero */
+#monside{margin-top:8px}#game:not(.incombat) #monside{display:none}.msh{font:800 14px system-ui;color:#ff8a70;margin:4px 0 6px;border-bottom:1px solid #4a2020;padding-bottom:4px}.msh small{display:block;font-weight:400;color:#a99;font-size:11px}
+#monside .mcard{display:block;width:auto!important;border:1px solid #5a2a2a;border-radius:10px;background:linear-gradient(#1a0f12,#120b0d);padding:7px 9px;margin-bottom:7px;font-size:12px;line-height:1.35;transition:box-shadow .15s,border-color .15s}
+#monside .mcard.elite{border-color:#a04040}#monside .mcard.boss{border-color:#ff4fd8}#monside .mcard.down{opacity:.55}
+#monside .mcard.acting{border-color:#ffd166;box-shadow:0 0 0 2px #ffd16688,0 0 18px #ffd16655}.actb{color:#ffd166;font-style:normal;font-weight:800}
+#monside .mcard.mlink,#combat .tok.mlink{outline:3px solid #6ee7ff;outline-offset:2px;box-shadow:0 0 16px #6ee7ffaa}
+.mch{display:flex;gap:8px;align-items:center}.mch img{width:42px;height:42px;object-fit:cover;border-radius:8px;flex:none}.mch b{display:block;font-size:13px}.mch small{color:#b9a}
+.mst{display:flex;flex-wrap:wrap;gap:4px;margin:5px 0}.mst span{background:#2a1517;border:1px solid #4a2525;border-radius:6px;padding:1px 6px;font-weight:700}
+.mrw{margin:2px 0;color:#ddd}.mrw b{color:#ffb070;margin-right:4px}.mk{color:#caa}.mint{margin-top:4px;padding:3px 6px;border-radius:6px;background:#26101a;color:#ffd0e0}.mint.move{background:#14202a;color:#bfe3ff}
+@media (max-width:760px){#choices #pstat{position:static!important;box-shadow:none}}
 </style></head><body>
 <div id="setup"><div id="tbg"></div><div class="tfog"></div><div class="tin">
 <div class="tlogo"><small>ACT 1 · THE SURVIVORS</small><h1>PROJECT<br>ASHBOUND</h1><div class="tsub">เมืองอาชา (Achar) — ผนึก 666 ปีแตก เถ้าต้องสาปปกคลุมเมือง</div></div>
 <div class="tmenu"><button class="obtn" onclick="start(false)">▶ เริ่มเกม <small>Start</small></button><button id="btnOnline" class="obtn" onclick="showLobby()">🌐 เล่นออนไลน์ <small>Wi-Fi เดียวกัน</small></button><button class="obtn" onclick="tutStart()">🎓 Tutorial <small>สอนเล่น</small></button>
-<div class="tlinks"><button onclick="start(true)">👁 ดู Bot เล่น</button><button onclick="showHow()">📖 วิธีเล่น</button><button onclick="toggleAsm()">⚠ Assumptions</button><button onclick="showNew(true)">✨ มีอะไรใหม่</button></div></div>
+<div class="tlinks"><button onclick="start(true)">👁 ดู Bot เล่น</button><button onclick="showHow()">📖 วิธีเล่น</button><button onclick="toggleAsm()">⚠ Assumptions</button></div></div>
 <div class="tsel"><div class="tselh">เลือก SURVIVOR <span>(สูงสุด 4 · ชี้เมาส์ดูรายละเอียด)</span></div><p id="selInfo"></p><div id="heroGrid"></div>
 <details class="trules"><summary>กติกาโดยย่อ</summary><div class="rules">เมืองอาชา (Achar) · Act 1: THE SURVIVORS — ผนึก 666 ปีแตก เถ้าต้องสาปปกคลุมเมือง<br>
-<b>Prototype v0.9.1</b> (Rulebook V1.3 + ชีต " ASHBOUND ") · Co-op 1–4 Survivors · เริ่มที่ท่าเรือ A8 · แผนที่ Act 1 12 ช่อง (A5–D8)<br>
+<b>Prototype v0.9.2</b> (Rulebook V1.3 + ชีต " ASHBOUND ") · Co-op 1–4 Survivors · เริ่มที่ท่าเรือ A8 · แผนที่ Act 1 12 ช่อง (A5–D8)<br>
 วันละ 3 ช่วง เช้า/บ่าย/กลางคืน · ทุกคน 1 Action ต่อช่วง: Forage ■ / Explore ■ / Talk ■ / <b>เดินไปช่องติดกัน = 1 Action</b><br>
 Main Quest: Scene B7-1 (มอลล์) เปิดร้านค้า → B7-2 ส่งเสบียง 5 ชุด → B7-3 ทุกคนรวมตัวที่ B7 ต่อสู้ <b>กระสือ (Krasue)</b> · แพ้การต่อสู้ไม่แพ้เกม — แพ้เมื่อหมดเวลา Act (8 วัน ⚠)<br>
 Combat: Start Up (รีเซ็ต Sp มอน + ทอย Buff) → Player phase (ทอย/วางลูกเต๋า) → Resolve (ตาม Sp) · สนาม 6 ช่องแนวนอน ฮีโร่เริ่ม 2 ช่องล่าง · Soot T1–T4 · ⚠ = ค่าสมมติ (ดูปุ่ม Assumptions)<br>Survivor ที่เลือก = ผู้เล่นควบคุมเอง · ทุกตัวเลือกมีปุ่ม 🤖 Auto · กรอบทอง = Bot แนะนำ</div></details></div>
-</div><div id="whatsnew"></div></div><div id="verbadge">v0.9.1</div>
+</div></div><div id="verbadge">v0.9.2</div>
 <div id="netbar"></div><div id="lobby"></div><div id="game"><div id="top"></div><div id="party"></div><div id="mid"><div id="banslot"></div><div id="map"></div><div id="combat"></div></div><div id="right"><div id="phasebar"></div><div id="tray"></div><div id="choices"></div><div id="log"></div><div id="chat"><input id="chatIn" maxlength="200" placeholder="💬 แชทถึงทุกคน…"><button id="chatSend" onclick="chatSend()">ส่ง</button></div></div></div>
 <div id="overlay"></div><div id="asm"></div><div id="confirm" class="modal"></div><div id="tut"></div><div id="howto" class="modal"><div class="mbox"><button class="mx" onclick="hideHow()">✕ ปิด</button><h2>📖 วิธีเล่น ASHBOUND (Act 1)</h2>
 <h3>🎯 เป้าหมาย</h3><p>Co-op 1–4 คน เริ่มที่ท่าเรือ A8. ไปมอลล์ <b>B7</b> → Scene B7-1 เปิดร้านค้า → B7-2 ส่งเสบียง 5 ชุด (Main Quest) → B7-3 ทุกคนรวมตัวที่ B7 แล้วชนะ <b>รินา กระสือ (Cursed Seer)</b> = ชนะเกม</p>
@@ -621,7 +628,7 @@ Object.assign(FIG,{"dog": "data:image/webp;base64,UklGRvIZAABXRUJQVlA4WAoAAAAQAA
 const PETART={"ally:dog": "data:image/webp;base64,UklGRuwCAABXRUJQVlA4IOACAAAwHgCdASqAAIAAPm0skkYkIqGhLxiLEIANiWkA1UXG5mGN+Em1tUZxM2435BUMrrtXU+0v8nThP8YQtQoUjztK7fUgmFgqcxXLr4p79O7NPIlAH3Ecr7EleBqcESF+B8ePmDa1+RldWcyg6BsylGMU5ybX/LbrFL4lNlQEAapr7KoLslIIyl3KL2pOW4CPSAEvNF1aQprYfd4TubzrTQGrUW5GvfzZfayyhh0P8RXPFC7GIbWH9B5jCyF9o1vs3659sN93ZzbrdYXMjKu3IiNe0PRW/MPi7dvFNzYECShdCVWZro0ygwTrx0zMFWsOxfgr2CAz9bdBIEHgAP75ZlNbZSaz97zIA+EjrwsQoRGLB8Kt/9ExhVaQtW/223tt+uQ2Ik0EXuCJzqlFpos1zxFKdtu4FUUnmEO6MOkb/w1LSaqgi+vsHzRO/kMsjzDWIlV8XevVrabdhN7nUd1z7iJHT4VXxnqnKWgocuV7/ILuPtsz6MnRJQQ64SUKUwz3UgWVMDUc9ozrU5L5xYOV9drNGA7cqGCb4EhiCJdI6Oilhp2rKkeorDyjjKhHCopq7EcLNPRjXrvjrsavUf1A3m9ziX4CgwWbFNNtQQUSXglqH7L01LPfAPb6gdm5g4UUHlFbEnBzDxmU53Quwj0aVzzc0sUHIOOX7qYGTO5IfKca21+BuUPwbuluNcSsGOdKEu+zKq8MjHVyTl3V4ZzPpjfJKZ/u6TOsaBdOu6oEliN/bXKrcwb7h/tZB5nK0c6n5NY+6N7M7tGyi1BZH94vXSGDhxwD1915u259Bo674rP7WAgE/AowwFO5hb+HPNHahdt9ePcEHl87BUXqCkrgqTljqVJkTTsZLTTwq82UwO1etHbLfbku5/8TaPCyGZ/BLRqXGxDN6ecESHiGgd0JvRoerVElHzsXY+w6Zn/nXiAMVPbRpwAAhCZ+ch74OQA1gDU0orFI9+aIU5oTwIE+AAAA", "ally:cat": "data:image/webp;base64,UklGRkYDAABXRUJQVlA4IDoDAABwHgCdASqAAIAAPm0wk0YkIyGhKhWdEIANiWkA1Qu5QOKULe4utpMEK+icgyj0drvlz14oVxqiyUcV13XHDIqXhlC7vRaO8APeFSD2TZtFA9qEpDhu6ebcsnsTFPcKA+OspeTefmvFq4o255lmi0LJ8b4Yf4cvpbwUKEEWFOr2uXP8ABYmnuIEEmEZC+LNqjmsoXc65lH5sY4ievoRk7yDfisuSpWBY95GslML4j8mageAFGqwH2ba3oWYivUD9Y10ht1GzSioUDCiPUlfpbLHdVzVGiZ4hbqcAyAb0z4IsJSMAgBK+/itVCPzrEhXr+VeF5Qe2svEsfsVfAAA/vozJ3WF8KNvNADEXSvIPH8gEuG729xSrlDP4AWh22304keZ54Q9iPEZ+WDQ1JsEz3HZyzaMStps/UnDtHEKKl0OxpyFX1ALqroSH+KKpaKqXbDdYlNSz2AR4eyjrJR9G/tbceNeaegDoQcwQyKlSsrYew1q56WD0WR8ZdARsSu96u5m2DAiVWrwLafXFVoxm22DuyS1NefOhtPtLR7PnAfMu9CP8dmwhzzVN98k3fgsditzzRFe1gzBzv49L2dzI9wX8g1t+zG2zYYoZLGli5wd3cB4adyA1AgbRWbLFN1Tjp2m2HYiFu5aqk19DqlLoA4w/aquurVkvzvoCyAMv8eeGPEbCkcHHhAzeGUmKWhOKh+2q6emATatLkZoa7sDoUbRxXFvNKeNs2AP0M3YCJdHRLb8qWDeieUz2obVH2T8rL9APHq88jq4oS2kXmWpux3YEOsNRSymOo1GHAIUwXsvq1f7NDKmIFRmOcCQqngOxZaXznOTmUGDWtu2XHe/MdhCdrEtyMt5YBMuyXNd/CRB2Y7uBy6XpOihBxLO7aCXO4CDA7rc77p3d5w2MbyMN/CTjTmv8uc9rTSfn7JTs3fKeiyalpDKxKrUHU8jluln/8GvJpL1kpVfH/UK+YgzuIax6A7RMmwcVfT6xapOjBKGmxl+UbS8oXz9YGC3aU52Y1CCR8FQj8iwOpURZAyLX6V6eDceK4oL1RLSpk8VwsSU/Eu2FVdteSUdG47hq0JbenmsEIkEr1SrugAA"};
 
 // ===== Project Ashbound v0.6.1 engine — Rulebook + sheet " ASHBOUND " + World Building (update 2026-10-24) =====
-const VERSION='v0.9.1';
+const VERSION='v0.9.2';
 let RNG=Math.random;
 const rnd=n=>Math.floor(RNG()*n);
 const pick=a=>a[rnd(a.length)];
@@ -1986,16 +1993,14 @@ function setupScreen(){
   d.onclick=()=>{const i=sel.indexOf(h.id);if(i>=0)sel.splice(i,1);else if(sel.length<4)sel.push(h.id);setupScreen();};
   grid.appendChild(d);});
  $('#selInfo').innerHTML=sel.length?`เลือกแล้ว <b>${sel.length}/4</b> — ${sel.map(id=>esc(HEROES.find(h=>h.id===id).name)).join(', ')}`:'คลิกการ์ด Survivor เพื่อเลือก (สูงสุด 4) · ไม่เลือก = สุ่ม 1 ตัว · ชี้เมาส์ดูรายละเอียด';
- showNew();
+ /* v0.9.2: ลบแผง What's New ออก (pt78u) */
 }
 const WHATSNEW=['v0.9.1: รวม Dice Tray ซ้ายกับกล่องลูกเต๋าในแผงฮีโร่เป็นถาดเดียว (แสดงผลรวม/สูงสุด) — หน้าจอ Combat กว้างขึ้น','v0.9.0: กดสำรวจ (Explore) แล้วเปิดหน้าต่างเหตุการณ์ทุกครั้ง — ชื่อการ์ด โซน ข้อความการ์ดจากชีต ทางเลือก และผลลัพธ์; เพิ่มกองการ์ดสำรวจทั่วไป 12 ใบจากชีต (แทน D6 ชั่วคราว); การ์ดที่ชีตไม่มีเนื้อเรื่องติดป้าย ⚠','v0.8.9: นำระบบ Hunt (ล่ามอนสเตอร์) ออก — Combat เกิดจาก Scene / Explore / Ally ตาม Rulebook','นาฬิกาบนแผนที่: วันที่ X/8 · เช้า › บ่าย › กลางคืน · ใครเล่นไปแล้ว/ตาใคร + แถบประกาศเมื่อเปลี่ยนช่วงเวลา/วันใหม่','Passive (Zemaki Reroll / Jack ทิ้ง-ปรับเต๋า) เลือกเองว่าจะใช้ก่อนหลัง หรือไม่ใช้ แล้วค่อยไปวางเต๋า','แสดงระยะโจมตี: ชี้/แตะตัวละคร · ศัตรู · การ์ด Skill / Ultimate เพื่อไฮไลต์ช่องในสนาม · ปุ่ม ☠ ระยะศัตรู','ปุ่ม ✔ Confirm Action — วางเต๋าครบแล้วไม่ออกแอกชันเอง ต้องกดยืนยัน และกดยืนยันได้แม้ยังวางไม่ครบ','เปิด Scene จะมีหน้าต่างบอกว่าเจอ Scene อะไร ที่ไหน และ Quest ที่เกี่ยวข้อง/ได้รับใหม่','ควบคุม Ally ได้เอง: เลือกเดิน ◀ ▶ และเลือกเป้าที่จะตี (บอทยังใช้ AI)','— v0.8.8 —','v0.8.8: Sp เท่ากัน ตาม Rulebook V1.3 — Survivor เท่ากันผู้เล่นตกลงกันเอง, Monster เท่ากันผู้เล่นเลือกตัวที่เล่นก่อน (แตะในแถบ TURN ORDER) · ป้าย "ตาของ X" ย้ายเป็นแถบคงที่ด้านบน ไม่ทับการ์ดศัตรูแล้ว','v0.8.7: แถบ TURN ORDER ด้านบนสนามรบ (รูป+Sp, ตาตอนนี้/ถัดไป, คนที่เล่นแล้วจาง) · แก้ตัวหนังสือซ้อนกัน — ป้าย COMMON หลุดไปอยู่บนการ์ด Stat (STR/DEX/INT/HP/MOV) · ตรวจข้อความซ้อน/ล้นทุกหน้าจอทั้งเดสก์ท็อปและมือถือ','v0.8.6: 🔊 เสียง SFX+บรรยากาศ (ปุ่มปิดเสียงมุมล่างซ้าย) · Intent ใหญ่ขึ้น+กรอบแดงฮีโร่ที่จะโดนตี+เส้นชี้เป้าเมื่อชี้ศัตรู · เต๋ากลิ้งก่อนออกผล · ↶ Undo การวางเต๋า · เลขดาเมจใหญ่/hit-stop/แฟลช/HP bar 2 ชั้น/ศัตรูพุ่งตี · Keyword สี+tooltip+Glossary ในวิธีเล่น · ร้านค้าใหม่+ไอคอน SVG · ช่องว่างในแผงฮีโร่กะทัดรัด','v0.8.5: แถวลูกเต๋า+Stat ติดด้านบน (sticky) ตอนเลื่อนบอร์ด — แก้ปัญหาลากลูกเต๋าไปการ์ดสกิลด้านล่างไม่ได้เมื่อการ์ดเยอะ; สัตว์เลี้ยง Troika ใช้ภาพแมวดำ/หมาดำจากภาพตัวละคร (แทน emoji)','v0.8.4: หน้า COMBAT ใช้ภาพเต็มตัว (ตัดพื้นหลังโปร่งใส) — ฮีโร่ซ้ายหันขวา ศัตรูขวาหันซ้าย, HP/สถานะอยู่เหนือหัว, ไฮไลต์เป้าหมาย + สั่นเมื่อโดนตี (Token บนแผนที่ยังกลมเหมือนเดิม)','v0.8.3: กล่องลูกเต๋าอยู่แถวเดียวกับช่อง Stat แคบๆ (ขนาดเท่าลูกเต๋า) ด้านบน · การ์ดที่มีคำอธิบายยาว (Skill/Ultimate/Attack/Move/Charge/ทิ้งลูก) อยู่แถวล่างแบบกว้าง อ่านง่าย','v0.8.2: จัดเลย์เอาต์ใหม่ — ค่า Stat (STR/DEX/INT/HP/Move…) เรียงเป็นแถวเดียวด้านบน ทั้งช่องวางเต๋าตอนต่อสู้และแผงฮีโร่ · ด้านล่าง = ลูกเต๋า, การ์ด Skill/Ultimate/ท่าพื้นฐาน, Charge/ทิ้งลูก (ยังลากอย่างเดียวเหมือนเดิม)','v0.8.1: ไม่มีปุ่มจอง/เลือกลูกเต๋าแล้ว — ลากลูกเต๋า (เมาส์/นิ้ว) ไปวางบนการ์ดอย่างเดียว · ลากออกหรือย้ายได้','v0.8.1: Skill / Ultimate / Attack / Move เป็นการ์ด Ability แถบล่าง มีช่องเงื่อนไขลูกเต๋า, พรีวิวค่าระหว่างลาก, สถานะ READY / ใช้แล้ว / ล็อก','หน้าจอใหม่ทั้งหมด: Title / แผนที่เต็มจอ / สนามรบแนวนอนแบบ SpellRogue','ศัตรูตัวใหญ่ + Intent เหนือหัว · คลิกศัตรูเพื่อโจมตี · ปุ่มส้ม END TURN','Skill draft / ร้านค้า / ทางเลือกการ์ด = การ์ดใหญ่ "เลือก 1"','ปุ่ม Action ขึ้นข้างช่องที่ยืนอยู่ · Log ย้ายไปลิ้นชัก 📜'];
-function showNew(force){const w=$('#whatsnew');if(!w)return;if(!force&&localStorage.getItem('ash_seen_ver')===VERSION){w.style.display='none';return;}
- w.innerHTML=`<div class="wnh">✨ มีอะไรใหม่ใน ${VERSION}</div><ul>${WHATSNEW.map(x=>`<li>${esc(x)}</li>`).join('')}</ul><button id="wnOk" onclick="hideNew()">รับทราบ</button>`;w.style.display='block';}
-function hideNew(){localStorage.setItem('ash_seen_ver',VERSION);const w=$('#whatsnew');if(w)w.style.display='none';}
+function showNew(){}function hideNew(){}
 function start(watch,ids0){
  let ids=ids0||sel.slice();if(!ids.length||watch)ids=shuffle(HEROES.map(h=>h.id)).slice(0,watch?3:1);
  newGame({players:ids.map(id=>({hero:id,bot:!!watch}))});
- $('#setup').style.display='none';$('#game').style.display='grid';{const w=$('#whatsnew');if(w)w.style.display='none';}$('#log').innerHTML='';
+ $('#setup').style.display='none';$('#game').style.display='grid';$('#log').innerHTML='';
  render();runGame().catch(e=>{console.error(e);logLine('ERROR: '+e.message,'loss');});
 }
 function logLine(m,cls){const L=$('#log');if(!L)return;const d=document.createElement('div');d.className='ll '+(cls||'');d.textContent=m;L.appendChild(d);while(L.children.length>300)L.removeChild(L.firstChild);L.scrollTop=L.scrollHeight;}
@@ -2210,7 +2215,7 @@ function drawCombat(){
  el.style.display='block';
  const foes=C.units.filter(u=>u.side==='m'&&u.hp>0);
  let h=`<div class="cbanner">⚔ การต่อสู้! <b>${esc(C.title)}</b> · Round ${C.round}${C.limit?'/'+C.limit:''} · Combat T${C.tier}<div class="creason">สาเหตุ: ${esc(C.reason||'')}${C.cardTxt?' · '+esc(C.cardTxt):''}</div></div>${turnBarHTML(C)}
- <div class="foes">${foes.filter(u=>u.kind==='elite').map(foeCard).join('')}${foes.filter(u=>u.kind!=='elite').map(foeCard).join('')}</div>${typeof rngBarHTML==='function'?rngBarHTML():''}<div class="bfv">`;
+ ${typeof rngBarHTML==='function'?rngBarHTML():''}<div class="bfv">`;
  for(let i=0;i<=5;i++){
   const ss=C.parts.filter(q=>q.pos===i&&q.hp>0),as=C.units.filter(u=>u.side==='s'&&u.pos===i&&u.hp>0),ms=C.units.filter(u=>u.side==='m'&&u.pos===i&&u.hp>0),n=ss.length+as.length+ms.length;
   const sz=n<=1?150:n<=2?104:n<=4?74:n<=6?58:46;
@@ -2218,6 +2223,7 @@ function drawCombat(){
  h+=`</div><div class="cards">`;
  for(const q of C.parts.filter(q=>q.hp>0))h+=`<div class="unit s ${G.cur===q?'cur':''}"><img class="uimg" src="${artOf(q.id)}"><b>${esc(q.name)}</b> <small>ช่อง ${q.pos+1} ${q.face>0?'▲':'▼'}</small><br>${hpBar(q,q.maxhp)}<small>Sp ${q.curSp??q.h.sp}${C.shield[q.pos]?' · 🛡'+C.shield[q.pos]:''}</small>${statusChips(q)}${q.slot?`<div class="slots">${Object.entries(q.slot).filter(e=>e[1]).map(([k,v])=>k.toUpperCase()+':'+v).join(' ')}${Object.keys(q.ready||{}).length?' ★'+Object.keys(q.ready).length+' skill':''}${q.charge?' ⏸'+q.charge.v:''}</div>`:''}</div>`;
  el.innerHTML=h+'</div>';
+ monSide(C,foes);
 }
 /* ---------- How to play ---------- */
 function showHow(){const o=$('#howto');o.style.display='flex';}
@@ -2295,6 +2301,31 @@ function drawScenePop(){let el=document.getElementById('scenePop');const sp=G&&G
  el.querySelector('#sceneOk').onclick=()=>{SCENE_SEEN=sp.seq;if(CUR&&CUR.kind==='scene'){CUR.res(1);}else{el.remove();}};
  clearTimeout(SCENE_T);if(!asking)SCENE_T=setTimeout(()=>{if(G.scenePop&&G.scenePop.seq===sp.seq&&!(CUR&&CUR.kind==='scene')){SCENE_SEEN=sp.seq;const e=document.getElementById('scenePop');if(e)e.remove();}},window.FAST?1500:7000);}
 setTimeout(()=>{const w=document.getElementById('welcome');if(w&&typeof KEYART!=='undefined')w.style.setProperty('--keyart','url('+KEYART+')');},0);
+
+/* v0.9.2: การ์ดมอนสเตอร์ฝั่งซ้าย ใต้การ์ดฮีโร่ — Move/รูปแบบเดิน, Dmg, วิธีโจมตี, Intent (ข้อมูลจากชีต Elite/Minion) */
+const MOVE_TH={walk:'เดิน — ก้าวทีละช่องเข้าหาเป้า · หันหน้าใช้ 1 Move',fly:'บิน — หันหน้าฟรี (ไม่เสีย Move)',swoop:'โฉบ (Swoop) — หันหน้าฟรี (ไม่เสีย Move)',block:'เดิน + ขวางทาง — ฝ่ายตรงข้ามเดินผ่านช่องนี้ไม่ได้',stationary:'อยู่กับที่ — ไม่เดิน'};
+function rngTxt(r){if(!r)return 'ไม่โจมตี';if(r[0]===0&&r[1]===0)return 'ระยะ 0 (ช่องเดียวกัน)';return `ระยะ ${r[0]}–${r[1]} ช่อง`+(r[0]>=2?' (ยิงไกล ถ้าใกล้เกินจะถอย)':'');}
+function monSide(C,foes){const P=$('#party');if(!P)return;let s=P.querySelector('#monside');if(!s){s=document.createElement('div');s.id='monside';P.appendChild(s);}
+ const tgUid=new Set();const cur=G.cur&&G.cur.side==='m'?G.cur:null;
+ const list=foes.filter(u=>u.kind==='elite').concat(foes.filter(u=>u.kind!=='elite'));
+ s.innerHTML=`<div class="msh">👹 มอนสเตอร์ในการต่อสู้ <small>${list.length} ตัว · ชี้/แตะการ์ด = ไฮไลต์ตัวบนสนาม</small></div>`+list.map(u=>{const d=u.d||{},el=u.kind==='elite',it=intentOf(u,C);
+  const dmg=d.dmg==='top'?'= ดาเมจสูงสุดของฮีโร่ (top)':d.dmg;const bon=el&&Math.floor((u.bonus||0)/2)&&d.dmg?` +${Math.floor(u.bonus/2)} (Bonus ${d.bonus||''}${u.bonus})`:'';
+  const fx=[d.poison?'☠ Poison '+d.poison:'',d.stun?'⚡ Stun':'',d.dearmor?'🛡✖ De-armor':'',d.shield?'🛡 Shield':'',d.healer?'✚ ฟื้นฟู Grove +2 ⚠':'',d.bomber?'💥 ระเบิด (W≥4) ⚠':'',d.tomb?'⚰ Tomb':''].filter(Boolean).join(' · ');
+  const how=!d.rng?'ไม่โจมตี':d.aoe==='all'?'โจมตี Survivor ทุกคน':d.aoe?'AoE — ทุกคนในช่องเป้าหมาย':'เป้าเดียว';
+  const acting=cur===u,tg=it.tg&&G.cur&&(it.tg===G.cur);
+  return `<div class="foe mcard ${el?'elite':'minion'} ${d.boss?'boss':''} ${acting?'acting':''} ${u.down?'down':''}" data-uid="${u.uid}" tabindex="0">
+  <div class="mch"><img src="${artOf(el?u.code:u.fam)}"><div><b>${esc(u.name)}</b><small>${esc(d.id||'⚠ ไม่มี ID')} · ${el?'Elite':'Minion'} · ช่อง ${u.pos+1} ${u.face>0?'▶':'◀'}${acting?' · <i class="actb">กำลังเล่น</i>':''}</small></div></div>
+  ${el?hpBar(u,u.maxhp):`<small class="mk">ฆ่าได้เมื่อ ≥ ${d.kill??'⚠'}${u.down?' · (ล้ม)':''}</small>`}
+  <div class="mst"><span title="Speed">💨 Sp ${u.sp??d.sp??'⚠'}</span><span title="Move">👣 Move ${d.mv??'⚠'}</span><span title="Damage">⚔ Dmg ${dmg??'⚠'}${bon}</span></div>
+  <div class="mrw"><b>การเดิน</b> ${esc(MOVE_TH[d.move]||(d.move?d.move+' ⚠':'⚠ ไม่ระบุ'))}</div>
+  <div class="mrw"><b>การโจมตี</b> ${esc(how)} · ${esc(rngTxt(d.rng))}${fx?' · '+esc(fx):''}</div>
+  <div class="mrw"><b>เลือกเป้า</b> Taunt ก่อน → ใกล้สุด → ไม่ใช่ Ally → HP น้อยสุด</div>
+  <div class="mint ${it.c}">🔮 ${esc(it.t)}</div></div>`;}).join('');
+}
+function monLink(uid,on){document.querySelectorAll('#combat .tok[data-uid],#monside .mcard').forEach(e=>{if(e.dataset.uid==String(uid))e.classList.toggle('mlink',on);else if(on)e.classList.remove('mlink');});}
+document.addEventListener('pointerover',e=>{const c=e.target.closest&&e.target.closest('#monside .mcard,#combat .tok.tm');if(c)monLink(c.dataset.uid,true);});
+document.addEventListener('pointerout',e=>{const c=e.target.closest&&e.target.closest('#monside .mcard,#combat .tok.tm');if(c&&!c.contains(e.relatedTarget))monLink(c.dataset.uid,false);});
+document.addEventListener('pointerdown',e=>{const c=e.target.closest&&e.target.closest('#monside .mcard');if(c)monLink(c.dataset.uid,true);});
 
 /* ===== v0.8.1 drag-only dice PLAN board + Ability Cards bar =====
    No buttons/clicks place dice: the player drags dice (pointer events: mouse + touch) onto ability cards.
