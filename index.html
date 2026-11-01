@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
-<title>Project Ashbound v0.9.4 — Prototype</title><style>
+<title>Project Ashbound v0.9.5 — Prototype</title><style>
 *{box-sizing:border-box}body{margin:0;background:#08080a;color:#cfc8bd;font-family:"Sarabun","Noto Sans Thai",Tahoma,sans-serif;font-size:14px}
 body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 30%,transparent 40%,#000 100%),repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0 1px,transparent 1px 3px);z-index:50}
 h1,.ttl{font-family:Georgia,serif;letter-spacing:.3em;color:#b33a2f;text-shadow:0 0 12px #600}
@@ -60,7 +60,7 @@ body{font-size:15px}#game{grid-template-columns:310px 1fr 400px}
 .bigdie b{font-size:30px;line-height:1}.bigdie i{font-size:10px;font-style:normal;opacity:.7}.bigdie.Y{background:#e8c440}.bigdie.R{background:#c02828;color:#fff}.bigdie.D6{background:#ddd0b8}
 .bigdie.anim{animation:shake .13s linear infinite}@keyframes shake{0%{transform:rotate(-12deg) translateY(-3px)}50%{transform:rotate(12deg) translateY(2px)}100%{transform:rotate(-12deg)}}
 .bigdie.used{opacity:.55}.bigdie.cur{outline:3px solid #ffd76a;outline-offset:3px;box-shadow:0 0 18px #ffb000;cursor:grab;opacity:1;animation:glow 1s ease-in-out infinite}@keyframes glow{50%{box-shadow:0 0 4px #ffb000}}
-.dtag{position:absolute;bottom:-9px;left:50%;transform:translateX(-50%);background:#000;color:#ffd76a;font-size:10px;padding:0 4px;border-radius:6px;white-space:nowrap;font-family:sans-serif}
+.dtag{position:absolute;bottom:-9px;left:50%;transform:translateX(-50%);background:#000;color:#ffd76a;font-size:10px;padding:0 4px;border-radius:6px;white-space:nowrap;font-family:sans-serif;max-width:100%;overflow:hidden;text-overflow:ellipsis;box-sizing:border-box}
 .tsum{margin-top:12px;font-size:13px;color:#cfc8bd}
 .rollbtn{display:block;width:100%;margin:8px 0 0;font-size:22px;font-weight:bold;padding:12px;background:linear-gradient(#8a1a10,#4a0a08);border:2px solid #e0a040;color:#fff;animation:glow 1s infinite}.rollbtn small{font-size:12px;font-weight:normal;display:block}
 .slotgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:6px;margin:6px 0}
@@ -688,18 +688,60 @@ body.dragging .acard.tcp.nogo .asock{box-shadow:inset 0 3px 8px #000,0 0 12px #f
 #choices.planb .ptop .acard.scard.tcp .asocks{bottom:-25px}
 @media (max-width:760px){.acard.tcp .asocks .asock{width:38px;height:42px}.acard.tcp .asock .bigdie{width:30px!important;height:30px!important}.acard.tcp .asocks{bottom:-25px;gap:4px}}
 .tut.waiting{top:52px!important;bottom:auto!important;left:auto!important;right:12px!important;transform:none!important;pointer-events:none;max-width:360px;font-size:11px}.tut.waiting button{pointer-events:auto}
+
+/* v0.9.5 mobile: only the compact dice pool is pinned; stat cards scroll with the board so per-die sockets under skill cards stay visible */
+@media (max-width:900px){
+#choices.planb>.ptop:not(.turn){display:contents}
+#choices.planb>.ptop:not(.turn)>.ppool{position:sticky;top:-8px;z-index:6;background:#111013;box-shadow:0 8px 10px -6px #000;padding:4px 6px;margin:0 0 6px;border-radius:8px;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+#choices.planb>.ptop:not(.turn)>.ppool{display:grid!important;grid-template-columns:minmax(0,auto) 1fr;column-gap:10px;row-gap:2px;align-items:center;max-width:none!important;width:auto!important}
+#choices.planb>.ptop:not(.turn)>.ppool .pth{margin:0;grid-column:1;grid-row:1;display:flex;gap:6px;align-items:center;white-space:nowrap}
+#choices.planb>.ptop:not(.turn)>.ppool .pth .undob{padding:3px 8px;margin:0}
+#choices.planb>.ptop:not(.turn)>.ppool .ptsum{grid-column:1;grid-row:2;margin:0;font-size:10.5px;max-width:42vw}
+#choices.planb>.ptop:not(.turn)>.ppool .pdice{grid-column:2;grid-row:1/3;justify-content:flex-end}
+#choices.planb>.ptop:not(.turn)>.pstats{margin:0 0 8px}
+}
+
+/* v0.9.5 online lobby */
+#lobby{max-width:980px!important;margin:24px auto!important;padding:20px 22px 26px!important;background:linear-gradient(180deg,#17110fee,#0c0a0cf2)!important;border:1px solid #6a3a24!important;border-radius:16px!important;box-shadow:0 20px 60px #000c,inset 0 1px 0 #ffffff10;position:relative;z-index:5;color:#eadfce}
+.lbhead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid #3a2620;padding-bottom:12px;margin-bottom:12px}
+.lbt{font:800 26px Georgia,serif;color:#ffb35a;text-shadow:0 2px 0 #000,0 0 18px #ff6a2a55}.lbt small,.lboh small,#lobby button small{display:block;font:600 12px system-ui;color:#b8a48c;letter-spacing:.04em;text-shadow:none}
+#lobby button{font:700 14px system-ui;padding:10px 16px;border-radius:10px;border:1px solid #6a4a34;background:linear-gradient(180deg,#2a1e1a,#1a1210);color:#f1e4d0;cursor:pointer;line-height:1.25;transition:transform .08s,filter .15s}#lobby button:hover:not(:disabled){filter:brightness(1.2)}#lobby button:active:not(:disabled){transform:translateY(1px)}
+#lobby button.rec{background:linear-gradient(180deg,#ff8a3a,#d4521a);border-color:#ffb36a;color:#1a0a04;box-shadow:0 4px 14px #ff6a2a55}#lobby button:disabled{opacity:.45;cursor:not-allowed;filter:grayscale(.6)}
+#lobby .lbbig{font-size:16px;padding:13px 22px;min-height:50px}#lobby .lbsec{background:#1e1a1e;border-color:#5a4a5a}
+.lbinfo{margin:0 0 14px;color:#cdbca6;font-size:14px;line-height:1.55}
+.lbpanel{background:#0b090bcc;border:1px solid #3a2a26;border-radius:12px;padding:14px}.lbgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.lbfield{display:flex;flex-direction:column;gap:6px;font-size:13px;color:#b8a48c}#lobby input{background:#050405!important;color:#f3e8d8!important;border:1px solid #5a3a30!important;padding:11px 12px!important;border-radius:9px!important;font-size:16px!important;min-width:0}
+.lbopt{display:flex;flex-direction:column;gap:10px}.lbopt p{margin:0;color:#aa9a88;font-size:13px}.lboh{font:800 19px Georgia,serif;color:#ffd08a}
+.lbjoin{display:flex;gap:8px}.lbjoin input{flex:1;text-transform:uppercase;letter-spacing:.35em;font:800 20px monospace!important;text-align:center}
+#lbStatus{min-height:22px;margin:12px 0 0;color:#9fe8c0;font-weight:600}#lbStatus.bad{color:#ff9a80}
+.lbroom{display:flex;gap:18px;align-items:center;flex-wrap:wrap}.lbcodebox{display:flex;flex-direction:column;align-items:center;gap:4px}.lbcl{font-size:12px;color:#b8a48c}
+#lobby .code{font:900 40px/1.1 monospace!important;letter-spacing:.22em;color:#ffd76a!important;background:#000!important;padding:8px 10px 8px 18px!important;border:2px solid #b8862a!important;border-radius:12px!important;box-shadow:0 0 24px #ffb04a33}
+.lbshare{flex:1;min-width:240px;display:flex;flex-direction:column;gap:8px}.lbshare input{width:100%;box-sizing:border-box;font-size:13px!important}.lbsbtn{display:flex;gap:8px;flex-wrap:wrap}.lbhint{margin:0;font-size:12.5px;color:#9a8a78}
+.lbsec2{font:800 15px system-ui;color:#ffcf8a;margin:18px 0 8px;letter-spacing:.03em}.lbsec2 span{color:#8a7a6a;font-weight:600;margin-left:6px}
+#lbSeats{display:grid!important;grid-template-columns:repeat(4,1fr);gap:10px}
+#lobby .seat{display:flex;gap:10px;align-items:center;background:#140f0f;border:1px solid #3a2a2a;border-radius:12px;padding:8px;min-width:0!important;width:auto!important}#lobby .seat.me{border-color:#ffd76a;box-shadow:0 0 0 1px #ffd76a55}#lobby .seat.ready{background:linear-gradient(180deg,#142016,#0e140f)}#lobby .seat.empty{opacity:.55;border-style:dashed}
+#lobby .seat img,#lobby .seat .noimg{flex:0 0 48px;width:48px;height:64px;border-radius:8px;object-fit:cover;object-position:top;background:#221a1a;display:flex;align-items:center;justify-content:center;font:800 22px system-ui;color:#6a5a4a}
+.sinf{display:flex;flex-direction:column;gap:3px;min-width:0;font-size:12.5px}.sinf b{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sinf em{font-style:normal;color:#ffd76a;font-weight:600}.sinf span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#bba}
+.srow{display:flex;gap:6px;flex-wrap:wrap}.lbv{font-size:11px;padding:1px 7px;border-radius:20px;border:1px solid}.lbv.p2p{color:#8fe8ff;border-color:#2a6a7a}.lbv.rl{color:#c8b0ff;border-color:#5a4a8a}.lbv.host{color:#ffd76a;border-color:#7a5a20}.lbv.off{color:#ff7a60;border-color:#7a2a20}.rdy{color:#6fe08a}.nrdy{color:#8a7a6a}
+#lbHeroes{display:grid!important;grid-template-columns:repeat(auto-fill,minmax(112px,1fr))!important;gap:10px!important}
+#lobby .lbh{position:relative;padding:0!important;overflow:hidden;display:flex;flex-direction:column;align-items:stretch;border-radius:12px!important;background:#120d0d!important}#lobby .lbh img{width:100%;height:120px;object-fit:cover;object-position:top}
+.lbhn{font-size:13px;padding:6px 6px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.lbhr{font:500 10.5px system-ui;color:#a89880;padding:0 6px 7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#lobby .lbh.on{outline:3px solid #ffd76a!important;box-shadow:0 0 22px #ffb04a77}.lbtk{position:absolute;top:44px;left:0;right:0;text-align:center;font:700 11px system-ui;background:#000c;color:#ff9a80;padding:3px 0}
+.lbbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:16px;padding:12px 0 2px;background:linear-gradient(180deg,#0c0a0c00,#0c0a0c 30%)}.lbbar .sm{color:#a89880;font-size:13px}
+@media (max-width:900px){#lobby{margin:8px!important;padding:14px!important}.lbgrid{grid-template-columns:1fr}#lbSeats{grid-template-columns:1fr 1fr}#lbHeroes{grid-template-columns:repeat(3,1fr)!important}#lobby .lbh img{height:96px}.lbt{font-size:21px}#lobby .code{font-size:32px!important}.lbroom{justify-content:center}.lbbar .lbbig{flex:1}}
+.acard .atx{line-height:1.45}.acard .atx .kw{display:inline-block;line-height:1.25}
 </style></head><body>
 <div id="setup"><div id="tbg"></div><div class="tfog"></div><div class="tin">
 <div class="tlogo"><small>ACT 1 · THE SURVIVORS</small><h1>PROJECT<br>ASHBOUND</h1><div class="tsub">เมืองอาชา (Achar) — ผนึก 666 ปีแตก เถ้าต้องสาปปกคลุมเมือง</div></div>
-<div class="tmenu"><button class="obtn" onclick="start(false)">▶ เริ่มเกม <small>Start</small></button><button id="btnOnline" class="obtn" onclick="showLobby()">🌐 เล่นออนไลน์ <small>Wi-Fi เดียวกัน</small></button><button class="obtn" onclick="tutStart()">🎓 Tutorial <small>สอนเล่น</small></button>
+<div class="tmenu"><button class="obtn" onclick="start(false)">▶ เริ่มเกม <small>Start</small></button><button id="btnOnline" class="obtn" onclick="showLobby()">🌐 เล่นออนไลน์ <small>Online Co-op</small></button><button class="obtn" onclick="tutStart()">🎓 Tutorial <small>สอนเล่น</small></button>
 <div class="tlinks"><button onclick="start(true)">👁 ดู Bot เล่น</button><button onclick="showHow()">📖 วิธีเล่น</button><button onclick="toggleAsm()">⚠ Assumptions</button></div></div>
 <div class="tsel"><div class="tselh">เลือก SURVIVOR <span>(สูงสุด 4 · ชี้เมาส์ดูรายละเอียด)</span></div><p id="selInfo"></p><div id="heroGrid"></div>
 <details class="trules"><summary>กติกาโดยย่อ</summary><div class="rules">เมืองอาชา (Achar) · Act 1: THE SURVIVORS — ผนึก 666 ปีแตก เถ้าต้องสาปปกคลุมเมือง<br>
-<b>Prototype v0.9.4</b> (Rulebook V1.3 + ชีต " ASHBOUND ") · Co-op 1–4 Survivors · เริ่มที่ท่าเรือ A8 · แผนที่ Act 1 12 ช่อง (A5–D8)<br>
+<b>Prototype v0.9.5</b> (Rulebook V1.3 + ชีต " ASHBOUND ") · Co-op 1–4 Survivors · เริ่มที่ท่าเรือ A8 · แผนที่ Act 1 12 ช่อง (A5–D8)<br>
 วันละ 3 ช่วง เช้า/บ่าย/กลางคืน · ทุกคน 1 Action ต่อช่วง: Forage ■ / Explore ■ / Talk ■ / <b>เดินไปช่องติดกัน = 1 Action</b><br>
 Main Quest: Scene B7-1 (มอลล์) เปิดร้านค้า → B7-2 ส่งเสบียง 5 ชุด → B7-3 ทุกคนรวมตัวที่ B7 ต่อสู้ <b>กระสือ (Krasue)</b> · แพ้การต่อสู้ไม่แพ้เกม — แพ้เมื่อหมดเวลา Act (8 วัน ⚠)<br>
 Combat: Start Up (รีเซ็ต Sp มอน + ทอย Buff) → Player phase (ทอย/วางลูกเต๋า) → Resolve (ตาม Sp) · สนาม 6 ช่องแนวนอน ฮีโร่เริ่ม 2 ช่องล่าง · Soot T1–T4 · ⚠ = ค่าสมมติ (ดูปุ่ม Assumptions)<br>Survivor ที่เลือก = ผู้เล่นควบคุมเอง · ทุกตัวเลือกมีปุ่ม 🤖 Auto · กรอบทอง = Bot แนะนำ</div></details></div>
-</div></div><div id="verbadge">v0.9.4</div>
+</div></div><div id="verbadge">v0.9.5</div>
 <div id="netbar"></div><div id="lobby"></div><div id="game"><div id="top"></div><div id="party"></div><div id="mid"><div id="banslot"></div><div id="map"></div><div id="combat"></div></div><div id="right"><div id="phasebar"></div><div id="tray"></div><div id="choices"></div><div id="log"></div><div id="chat"><input id="chatIn" maxlength="200" placeholder="💬 แชทถึงทุกคน…"><button id="chatSend" onclick="chatSend()">ส่ง</button></div></div></div>
 <div id="overlay"></div><div id="asm"></div><div id="confirm" class="modal"></div><div id="tut"></div><div id="howto" class="modal"><div class="mbox"><button class="mx" onclick="hideHow()">✕ ปิด</button><h2>📖 วิธีเล่น ASHBOUND (Act 1)</h2>
 <h3>🎯 เป้าหมาย</h3><p>Co-op 1–4 คน เริ่มที่ท่าเรือ A8. ไปมอลล์ <b>B7</b> → Scene B7-1 เปิดร้านค้า → B7-2 ส่งเสบียง 5 ชุด (Main Quest) → B7-3 ทุกคนรวมตัวที่ B7 แล้วชนะ <b>รินา กระสือ (Cursed Seer)</b> = ชนะเกม</p>
@@ -731,7 +773,7 @@ Object.assign(FIG,{"dog": "data:image/webp;base64,UklGRvIZAABXRUJQVlA4WAoAAAAQAA
 const PETART={"ally:dog": "data:image/webp;base64,UklGRuwCAABXRUJQVlA4IOACAAAwHgCdASqAAIAAPm0skkYkIqGhLxiLEIANiWkA1UXG5mGN+Em1tUZxM2435BUMrrtXU+0v8nThP8YQtQoUjztK7fUgmFgqcxXLr4p79O7NPIlAH3Ecr7EleBqcESF+B8ePmDa1+RldWcyg6BsylGMU5ybX/LbrFL4lNlQEAapr7KoLslIIyl3KL2pOW4CPSAEvNF1aQprYfd4TubzrTQGrUW5GvfzZfayyhh0P8RXPFC7GIbWH9B5jCyF9o1vs3659sN93ZzbrdYXMjKu3IiNe0PRW/MPi7dvFNzYECShdCVWZro0ygwTrx0zMFWsOxfgr2CAz9bdBIEHgAP75ZlNbZSaz97zIA+EjrwsQoRGLB8Kt/9ExhVaQtW/223tt+uQ2Ik0EXuCJzqlFpos1zxFKdtu4FUUnmEO6MOkb/w1LSaqgi+vsHzRO/kMsjzDWIlV8XevVrabdhN7nUd1z7iJHT4VXxnqnKWgocuV7/ILuPtsz6MnRJQQ64SUKUwz3UgWVMDUc9ozrU5L5xYOV9drNGA7cqGCb4EhiCJdI6Oilhp2rKkeorDyjjKhHCopq7EcLNPRjXrvjrsavUf1A3m9ziX4CgwWbFNNtQQUSXglqH7L01LPfAPb6gdm5g4UUHlFbEnBzDxmU53Quwj0aVzzc0sUHIOOX7qYGTO5IfKca21+BuUPwbuluNcSsGOdKEu+zKq8MjHVyTl3V4ZzPpjfJKZ/u6TOsaBdOu6oEliN/bXKrcwb7h/tZB5nK0c6n5NY+6N7M7tGyi1BZH94vXSGDhxwD1915u259Bo674rP7WAgE/AowwFO5hb+HPNHahdt9ePcEHl87BUXqCkrgqTljqVJkTTsZLTTwq82UwO1etHbLfbku5/8TaPCyGZ/BLRqXGxDN6ecESHiGgd0JvRoerVElHzsXY+w6Zn/nXiAMVPbRpwAAhCZ+ch74OQA1gDU0orFI9+aIU5oTwIE+AAAA", "ally:cat": "data:image/webp;base64,UklGRkYDAABXRUJQVlA4IDoDAABwHgCdASqAAIAAPm0wk0YkIyGhKhWdEIANiWkA1Qu5QOKULe4utpMEK+icgyj0drvlz14oVxqiyUcV13XHDIqXhlC7vRaO8APeFSD2TZtFA9qEpDhu6ebcsnsTFPcKA+OspeTefmvFq4o255lmi0LJ8b4Yf4cvpbwUKEEWFOr2uXP8ABYmnuIEEmEZC+LNqjmsoXc65lH5sY4ievoRk7yDfisuSpWBY95GslML4j8mageAFGqwH2ba3oWYivUD9Y10ht1GzSioUDCiPUlfpbLHdVzVGiZ4hbqcAyAb0z4IsJSMAgBK+/itVCPzrEhXr+VeF5Qe2svEsfsVfAAA/vozJ3WF8KNvNADEXSvIPH8gEuG729xSrlDP4AWh22304keZ54Q9iPEZ+WDQ1JsEz3HZyzaMStps/UnDtHEKKl0OxpyFX1ALqroSH+KKpaKqXbDdYlNSz2AR4eyjrJR9G/tbceNeaegDoQcwQyKlSsrYew1q56WD0WR8ZdARsSu96u5m2DAiVWrwLafXFVoxm22DuyS1NefOhtPtLR7PnAfMu9CP8dmwhzzVN98k3fgsditzzRFe1gzBzv49L2dzI9wX8g1t+zG2zYYoZLGli5wd3cB4adyA1AgbRWbLFN1Tjp2m2HYiFu5aqk19DqlLoA4w/aquurVkvzvoCyAMv8eeGPEbCkcHHhAzeGUmKWhOKh+2q6emATatLkZoa7sDoUbRxXFvNKeNs2AP0M3YCJdHRLb8qWDeieUz2obVH2T8rL9APHq88jq4oS2kXmWpux3YEOsNRSymOo1GHAIUwXsvq1f7NDKmIFRmOcCQqngOxZaXznOTmUGDWtu2XHe/MdhCdrEtyMt5YBMuyXNd/CRB2Y7uBy6XpOihBxLO7aCXO4CDA7rc77p3d5w2MbyMN/CTjTmv8uc9rTSfn7JTs3fKeiyalpDKxKrUHU8jluln/8GvJpL1kpVfH/UK+YgzuIax6A7RMmwcVfT6xapOjBKGmxl+UbS8oXz9YGC3aU52Y1CCR8FQj8iwOpURZAyLX6V6eDceK4oL1RLSpk8VwsSU/Eu2FVdteSUdG47hq0JbenmsEIkEr1SrugAA"};
 
 // ===== Project Ashbound v0.6.1 engine — Rulebook + sheet " ASHBOUND " + World Building (update 2026-10-24) =====
-const VERSION='v0.9.4';
+const VERSION='v0.9.5';
 let RNG=Math.random;
 const rnd=n=>Math.floor(RNG()*n);
 const pick=a=>a[rnd(a.length)];
@@ -2505,7 +2547,7 @@ function cardHTML(S){if(S.sv)return statCardHTML(S);const ds=planIn(S.id);let so
  return `<div class="acard tcp ${S.s?skRar(S.s):'com'} ${S.cls} ${S.state&&S.state!=='open'?S.state:''} ${ds.length?'filled':''}" data-s="${S.id}"><div class="tc-art art-${ak}"></div>${S.req?gemHTML(n):''}
  <div class="ahd"><span class="aic">${S.ic}</span><span class="anm">${esc(S.nm)}</span></div><div class="atx">${kwHL((S.tx||'').replace(/\s*\([^)]*die[^)]*\)\s*$/,'').slice(0,70))}</div>
  <div class="asocks">${socks}</div><div class="apv">${pv}</div>${st}</div>`;}
-function planRender(){const box=$('#choices');if(!box||!PLAN||!PLAN.pending)return;clearTimeout(PLAN.timer);PLAN.timer=null;
+function planRender(){const box=$('#choices');if(!box||!PLAN||!PLAN.pending)return;clearTimeout(PLAN.timer);PLAN.timer=null;{const _st=box.scrollTop,_k=PLAN.pending;queueMicrotask(()=>{if(PLAN&&PLAN.pending===_k&&box.scrollTop!==_st)box.scrollTop=_st;});}
  const p=planP(),free=PLAN.pool.filter(i=>!PLAN.at[i]);
  box.className='planb';
  box.innerHTML=`<div class="prompt">🎲 <b>${esc(p.name)}</b> — ลากลูกเต๋าไปวางบนการ์ด (ลากออก/ย้ายได้จนกว่าจะยืนยัน)</div>
@@ -2515,7 +2557,7 @@ function planRender(){const box=$('#choices');if(!box||!PLAN||!PLAN.pending)retu
  planBind();const ok=planDone(),ps=$('#pstat');
  const bad=PLAN.socks.filter(S=>S.kind==='skill'&&!planSkOK(S)).length;
  ps.innerHTML=`<span class="pmsg">${ok?'✓ วางครบแล้ว — ตรวจแล้วกด <b>Confirm Action</b> (ไม่ยืนยันอัตโนมัติ)':(free.length?`เหลือ ${free.length} ลูก — วางต่อ หรือกด Confirm ได้เลย (ลูกที่ไม่ได้วาง = ไม่ใช้ ⚠)`:'')+(bad?` · การ์ด Skill ${bad} ใบใส่ลูกไม่ครบ → ลูกบนการ์ดนั้นจะไม่ถูกใช้ ⚠`:'')}</span><button id="planOk" class="planok" onclick="planCommit()" data-tip="ยืนยันการวางลูกเต๋าและเริ่ม Action — กดได้ทั้งตอนวางครบหรือยังไม่ครบ">✔ Confirm Action<small>ยืนยันแอกชัน</small></button>`;ps.className='pstat'+(ok?' go':'');
- render();tutCheck&&tutCheck();;{const pt=box.querySelector('.ptop');if(pt)box.style.setProperty('--ptopH',pt.offsetHeight+'px');}}
+ render();tutCheck&&tutCheck();;{const pt=box.querySelector('.ptop'),pp=pt&&pt.querySelector('.ppool'),pin=pt&&getComputedStyle(pt).display==='contents'?pp:pt;if(pin)box.style.setProperty('--ptopH',pin.offsetHeight+'px');}}
 function planBind(){document.querySelectorAll('#choices .pdie').forEach(el=>{el.onpointerdown=e=>planDrag(e,el);});}
 function planDrag(e,el){if(e.button>0)return;e.preventDefault();clearTimeout(PLAN.timer);
  const di=+el.dataset.di,r=el.getBoundingClientRect(),g=el.cloneNode(true);g.id='dragGhost';Object.assign(g.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});document.body.appendChild(g);
@@ -2550,10 +2592,10 @@ function planAsk(p,kind,prompt,opts,bi,done){if(!G.tray||!p.h)return false;
  if(PLAN.committed){const v=planAnswer(kind,prompt,opts,bi);setTimeout(()=>done(v),0);return true;}
  PLAN.pending={kind,prompt,opts,bi,done};planRender();return true;}
 /* test helper (geometry only; tests still perform real pointer drags) */
-window.planTarget=function(mode){try{const R=_planTarget(mode);return R&&(R.from===null||R.to===null)?null:R;}catch(e){return null;}};function _planTarget(mode){if(!PLAN||!PLAN.pending)return null;const free=PLAN.pool.filter(i=>!PLAN.at[i]);const c=r=>{if(!r)return null;if(r&&r.classList&&r.classList.contains('placed'))uh(r);const b=r.getBoundingClientRect();return [b.x+b.width/2,b.y+b.height/2];};const uh=el=>{if(!el)return;const pt=document.querySelector('#choices .ptop'),ch=document.querySelector('#choices');if(!pt||!ch||pt.contains(el))return;const pb=pt.getBoundingClientRect().bottom,r=el.getBoundingClientRect();const cb=Math.min(ch.getBoundingClientRect().bottom,innerHeight);if(r.top<pb+4||r.bottom>cb-4){const mid=(pb+cb)/2,cy=el.classList.contains('placed')?r.top+r.height/2:Math.max(r.top+r.height/2,0);ch.scrollTop+=(r.height<cb-pb-16?(r.top+r.height/2)-mid:(r.top-pb-8));}};const cc=r=>{uh(r);const a=r&&r.querySelector&&r.querySelector(':scope>.tc-art');return c(a||r);};
+window.planTarget=function(mode){try{_planTarget(mode);const R=_planTarget(mode);return R&&(R.from===null||R.to===null)?null:R;}catch(e){return null;}};function _planTarget(mode){if(!PLAN||!PLAN.pending)return null;const free=PLAN.pool.filter(i=>!PLAN.at[i]);const c=r=>{if(!r)return null;if(r&&r.classList&&r.classList.contains('placed'))uh(r);const b=r.getBoundingClientRect();return [b.x+b.width/2,b.y+b.height/2];};const uh=el=>{if(!el)return;const pt0=document.querySelector('#choices .ptop'),ch=document.querySelector('#choices');const pt=pt0&&getComputedStyle(pt0).display==='contents'?pt0.querySelector('.ppool'):pt0;if(!pt||!ch||pt.contains(el))return;const pb=pt.getBoundingClientRect().bottom,r=el.getBoundingClientRect();const cb=Math.min(ch.getBoundingClientRect().bottom,innerHeight);if(r.top<pb+4||r.bottom>cb-4){const mid=(pb+cb)/2,cy=el.classList.contains('placed')?r.top+r.height/2:Math.max(r.top+r.height/2,0);ch.scrollTop+=(r.height<cb-pb-16?(r.top+r.height/2)-mid:(r.top-pb-8));}};const cc=r=>{uh(r);const a=r&&r.querySelector&&r.querySelector(':scope>.tc-art');return c(a||r);};
  const cardEl=id=>document.querySelector(`#choices .acard[data-s="${id}"]`),poolDie=i=>document.querySelector(`#choices .ppool .pdie[data-di="${i}"]`),placedDie=i=>document.querySelector(`#choices .acard .pdie[data-di="${i}"]`);
  const freeStat=()=>PLAN.socks.filter(S=>S.kind==='stat'&&S.cap===1&&!planIn(S.id).length);
- if(mode==='skill'){for(const S of PLAN.socks.filter(S=>S.kind==='skill'&&(!S.state||S.state==='open')&&planIn(S.id).length<S.cap))for(const i of free)if(planCanAdd(S,i)){const have=planIn(S.id).length;if(have+1<S.cap){const rest=free.filter(j=>j!==i);const pick=[i].concat(planIn(S.id));const ok=reqSubsets(S.s.cost,pick.concat(rest).map(pdie)).some(cc=>cc.length===S.cap&&cc.includes(0)&&(have===0||cc.includes(1)));if(!ok)continue;}cardEl(S.id)?.scrollIntoView({block:'nearest'});return {from:c(poolDie(i)),to:cc(cardEl(S.id)),s:S.id,di:i};}return null;}
+ if(mode==='skill'){for(const S of PLAN.socks.filter(S=>S.kind==='skill'&&(!S.state||S.state==='open')&&planIn(S.id).length<S.cap))for(const i of free)if(planCanAdd(S,i)){const have=planIn(S.id).length;if(have+1<S.cap){const rest=free.filter(j=>j!==i);const pick=[i].concat(planIn(S.id));const ok=reqSubsets(S.s.cost,pick.concat(rest).map(pdie)).some(cc=>cc.length===S.cap&&cc.includes(0)&&(have===0||cc.includes(1)));if(!ok)continue;}cardEl(S.id)?.scrollIntoView({block:'nearest'});{const T=cc(cardEl(S.id));return {from:c(poolDie(i)),to:T,s:S.id,di:i};}}return null;}
  if(mode==='back'){const i=PLAN.pool.find(i=>PLAN.at[i]);if(i!=null)placedDie(i)?.scrollIntoView({block:'center'});return i!=null?{from:c(placedDie(i)),to:c(document.querySelector('#choices .ppool')),di:i}:null;}
  if(mode==='move'){const i=PLAN.pool.find(i=>PLAN.at[i]&&!PLAN.at[i].startsWith('sk:'));const f=freeStat()[0];if(i!=null&&f)cardEl(f.id)?.scrollIntoView({block:'nearest'});if(i!=null)placedDie(i)?.scrollIntoView({block:'center'});return i!=null&&f?{from:c(placedDie(i)),to:cc(cardEl(f.id)),s:f.id,di:i}:null;}
  if(mode==='state')return {free:free.length,at:JSON.stringify(PLAN.at),btn:document.querySelectorAll('#choices button').length,done:planDone()};
@@ -2621,7 +2663,7 @@ function clockHTML(){if(!G)return '';const ph=G.phase|0,ti=G.turnIdx|0,left=CFG.
  const pips=G.players.map((p,i)=>{const st=G.cur===p&&!G.combat?'now':i<ti?'done':i===ti&&G.cur===p?'now':'wait';return `<span class="cpip ${st}" data-tip="${esc(p.name)} — ${st==='done'?'ทำ Action ช่วงนี้แล้ว':st==='now'?'กำลังเล่น':'รอคิว'}"><img src="${artOf(p.id)}"><small>${esc(p.name.split(' ')[0])}</small></span>`;}).join('');
  return `<div class="mclock ph${ph}" id="mclock"><span class="cday"><small>DAY</small><b>${G.day}</b><small>/ ${CFG.dayLimit} ⚠</small></span><span class="csegs">${seg}</span><span class="cpips">${pips}</span><span class="cleft ${left<=1?'warn':''}">${left>0?'เหลือ '+left+' วัน':'วันสุดท้าย!'}</span></div>`;}
 
-/* ================= v0.8 Online co-op (same Wi-Fi/LAN) — PeerJS WebRTC, host-authoritative ================= */
+/* ================= v0.9.5 Online co-op (any network) — PeerJS WebRTC P2P + public MQTT relay fallback, host-authoritative ================= */
 const NET={on:false,host:false,key:null,name:'',code:'',peer:null,conn:null,conns:new Map(),seats:[],started:false,seq:0,ask:null,askSeq:null,logs:[],
  lastHash:null,hostHash:null,myHash:null,bt:null,retry:null,leaving:false,msgs:0,
  seatOf(p){return this.seats.find(s=>s.key===p.owner)||null;}};
@@ -2635,51 +2677,91 @@ function loadPeerJS(){if(window.Peer)return Promise.resolve();
  return new Promise((ok,bad)=>{let i=0;const tryN=()=>{if(i>=urls.length){bad(new Error('โหลด PeerJS จาก CDN ไม่ได้ (unpkg / jsdelivr) — ตรวจว่าเครื่องต่ออินเทอร์เน็ตอยู่ แล้วลองใหม่'));return;}
   const s=document.createElement('script');s.src=urls[i++];const to=setTimeout(()=>{s.onerror=null;tryN();},9000);
   s.onload=()=>{clearTimeout(to);window.Peer?ok():tryN();};s.onerror=()=>{clearTimeout(to);tryN();};document.head.appendChild(s);};tryN();});}
-const PEERCFG={debug:0,config:{iceServers:[{urls:'stun:stun.l.google.com:19302'}]}};
+const PEERCFG={debug:0,config:{iceServers:[{urls:['stun:stun.l.google.com:19302','stun:stun1.l.google.com:19302','stun:stun2.l.google.com:19302']},{urls:'stun:stun.cloudflare.com:3478'}]}};
+/* ---------- relay transport (v0.9.5): free public MQTT-over-WebSocket brokers, no account. Used when direct WebRTC can't connect (different networks / strict NAT / mobile data). ---------- */
+const RELAYS=[{url:'wss://public.cloud.shiftr.io',username:'public',password:'public'},{url:'wss://broker.emqx.io:8084/mqtt'},{url:'wss://broker.hivemq.com:8884/mqtt'},{url:'wss://test.mosquitto.org:8081/mqtt'}];
+const QS=new URLSearchParams(location.search);const FORCE_RELAY=QS.get('relay')==='1'||!!window.FORCE_RELAY;
+const RTOP=c=>'ashbound/v095/'+c.toLowerCase();
+function loadMQTT(){if(window.mqtt)return Promise.resolve();const urls=['https://unpkg.com/mqtt@5.10.1/dist/mqtt.min.js','https://cdn.jsdelivr.net/npm/mqtt@5.10.1/dist/mqtt.min.js'];
+ return new Promise((ok,bad)=>{let i=0;const tryN=()=>{if(i>=urls.length){bad(new Error('relay lib load failed'));return;}const sc=document.createElement('script');sc.src=urls[i++];const to=setTimeout(()=>{sc.onerror=null;tryN();},9000);
+  sc.onload=()=>{clearTimeout(to);window.mqtt?ok():tryN();};sc.onerror=()=>{clearTimeout(to);tryN();};document.head.appendChild(sc);};tryN();});}
+function mkEm(o){o._h={};o.on=(e,f)=>{(o._h[e]=o._h[e]||[]).push(f);return o;};o.emit=(e,a)=>{(o._h[e]||[]).forEach(f=>{try{f(a);}catch(x){console.error(x);}});};return o;}
+async function relayClient(onMsg){await loadMQTT();for(const R of RELAYS){const url=R.url;const cl=await new Promise(res=>{let done=false;const c=mqtt.connect(url,{username:R.username,password:R.password,clientId:'ash_'+Math.random().toString(36).slice(2,10),connectTimeout:8000,reconnectPeriod:2000,keepalive:20,clean:true});
+  const to=setTimeout(()=>{if(!done){done=true;try{c.end(true);}catch(e){}res(null);}},9000);c.once('connect',()=>{if(done)return;done=true;clearTimeout(to);res(c);});c.once('error',()=>{});});
+  if(cl){cl._url=url;cl.on('message',(t,b)=>{let m;try{m=JSON.parse(b.toString());}catch(e){return;}onMsg(t,m);});return cl;}}
+ throw new Error('relay unreachable');}
+const RL={cl:null,conns:new Map(),hb:null};
+function relayPub(topic,o){if(RL.cl)RL.cl.publish(topic,JSON.stringify(o),{qos:1});}
+/* host side: every client key gets a pseudo-connection that behaves like a PeerJS DataConnection */
+async function relayHost(code){try{RL.cl=await relayClient((t,m)=>{if(!m||!m.k||m.k===NET.key)return;let c=RL.conns.get(m.k);
+   if(m.x==='bye'){if(c){c.open=false;RL.conns.delete(m.k);c.emit('close');}return;}
+   if(!c||!c.open){c=mkEm({open:true,via:'relay',_rk:m.k,seen:Date.now(),send:d=>relayPub(RTOP(code)+'/c/'+m.k,{x:'m',d}),close:()=>{if(!c.open)return;c.open=false;RL.conns.delete(m.k);relayPub(RTOP(code)+'/c/'+m.k,{x:'bye'});c.emit('close');}});RL.conns.set(m.k,c);hostWire(c);relayPub(RTOP(code)+'/c/'+m.k,{x:'p'});}
+   c.seen=Date.now();if(m.x==='m')c.emit('data',m.d);});
+  RL.cl.subscribe(RTOP(code)+'/h',{qos:1});NET.relayOk=true;if(!NET.on&&NET.code===code)hostOpen();
+  clearInterval(RL.hb);RL.hb=setInterval(()=>{for(const [k,c] of RL.conns){if(Date.now()-c.seen>16000){c.open=false;RL.conns.delete(k);c.emit('close');}else relayPub(RTOP(code)+'/c/'+k,{x:'p'});}},4000);
+  if(NET.on&&!NET.started)drawLobby();}catch(e){NET.relayOk=false;console.warn('relay host',e.message);}}
+/* client side */
+async function relayJoin(){const code=NET.code,me=RTOP(code)+'/c/'+NET.key,ht=RTOP(code)+'/h';
+ if(!RL.cl){RL.cl=await relayClient((t,m)=>{const c=NET.conn;if(!c||!c._relay||t!==me)return;c.seen=Date.now();
+   if(m.x==='bye'){c.open=false;c.emit('close');return;}if(!c.open){c.open=true;c.emit('open');}if(m.x==='m')c.emit('data',m.d);});
+  RL.cl.subscribe(me,{qos:1});}
+ const c=mkEm({open:false,_relay:true,via:'relay',seen:Date.now(),send:d=>relayPub(ht,{k:NET.key,x:'m',d}),close:()=>{c.open=false;relayPub(ht,{k:NET.key,x:'bye'});}});
+ clearInterval(RL.hb);RL.hb=setInterval(()=>{if(NET.conn!==c)return;relayPub(ht,{k:NET.key,x:'p'});if(c.open&&Date.now()-c.seen>16000){c.open=false;c.emit('close');}},4000);
+ relayPub(ht,{k:NET.key,x:'p'});return c;}
+window.addEventListener('pagehide',()=>{try{if(RL.cl){if(NET.host)for(const k of RL.conns.keys())relayPub(RTOP(NET.code)+'/c/'+k,{x:'bye'});else if(NET.code)relayPub(RTOP(NET.code)+'/h',{k:NET.key,x:'bye'});}}catch(e){}});
 function netStatus(m,bad){const e=$('#lbStatus');if(e){e.textContent=m;e.className=bad?'bad':'';}}
 function netBar(m){const b=$('#netbar');if(!b)return;b.style.display=m?'block':'none';b.innerHTML=m||'';}
 /* ---------- lobby UI ---------- */
 function showLobby(){$('#setup').style.display='none';$('#game').style.display='none';$('#lobby').style.display='block';drawLobby();}
 function hideLobby(){$('#lobby').style.display='none';}
 function savedHost(){const c=localStorage.getItem('ash_hostcode');if(!c)return null;try{const s=JSON.parse(localStorage.getItem('ash_save_'+c)||'null');return s?{code:c,s}:null;}catch(e){return null;}}
+function lbHeroCard(h,me,taken){return `<button class="lbh ${me&&me.hero===h.id?'on':''}" data-id="${h.id}" ${taken.has(h.id)?'disabled title="มีคนเลือกแล้ว · taken"':''} onclick="netPick('${h.id}')"><img src="${artOf(h.id)}" alt=""><span class="lbhn">${esc(h.name)}</span><span class="lbhr">${esc(h.role||'')}</span>${taken.has(h.id)?'<i class="lbtk">ถูกเลือกแล้ว</i>':''}</button>`;}
+function viaTag(s){if(!s.online)return '<span class="lbv off">● หลุด · offline</span>';if(s.via==='host')return '<span class="lbv host">👑 Host</span>';return s.via==='relay'?'<span class="lbv rl" title="ส่งผ่านเซิร์ฟเวอร์รีเลย์สาธารณะ (เมื่อต่อตรงไม่ได้)">☁ Relay</span>':'<span class="lbv p2p" title="ต่อตรงระหว่างเครื่อง (WebRTC)">⚡ P2P</span>';}
+function lbCopy(t,btn){const done=()=>{const o=btn.dataset.l||btn.innerHTML;btn.dataset.l=o;btn.innerHTML='✓ คัดลอกแล้ว';setTimeout(()=>btn.innerHTML=o,1500);};try{navigator.clipboard.writeText(t).then(done,done);}catch(e){done();}}
+function lbShare(link){if(navigator.share)navigator.share({title:'Ashbound — ห้อง '+NET.code,text:'มาเล่น Ashbound co-op ด้วยกัน! รหัสห้อง '+NET.code,url:link}).catch(()=>{});else lbCopy(link,$('#lbCopyLink'));}
 function drawLobby(){const L=$('#lobby');const nm=esc(NET.name||localStorage.getItem('ash_name')||'');
  if(!NET.on){const sv=savedHost();const qc=new URLSearchParams(location.search).get('room')||'';
-  L.innerHTML=`<h2>🌐 เล่นออนไลน์ Co-op (Wi-Fi เดียวกัน)</h2>
-  <p class="rules">⚠ <b>ทุกคนต้องต่อ Wi-Fi / LAN วงเดียวกัน</b> และต้องมีอินเทอร์เน็ต (ใช้ PeerJS broker ฟรีเพื่อจับคู่ตอนเริ่ม จากนั้นส่งข้อมูลตรงระหว่างเครื่องแบบ WebRTC) · เครื่อง Host เป็นคนรันเกม · 1–4 คน</p>
-  <div class="lbrow"><label>ชื่อของคุณ <input id="lbName" maxlength="16" value="${nm}" placeholder="เช่น ต้น"></label></div>
-  <div class="lbrow"><button id="lbCreate" class="rec" onclick="netCreate()">👑 สร้างห้อง (Host)</button>
-  <span class="or">หรือ</span><input id="lbCode" maxlength="5" placeholder="รหัสห้อง" value="${esc(qc)}" style="text-transform:uppercase;width:110px"><button id="lbJoin" onclick="netJoin()">🔗 เข้าร่วม</button></div>
-  ${sv?`<div class="lbrow"><button id="lbResume" onclick="netCreate('${sv.code}',true)">▶ เล่นต่อเกมที่บันทึกไว้ (ห้อง ${sv.code} · วันที่ ${sv.s.day||'?'})</button></div>`:''}
-  <p id="lbStatus"></p><button onclick="hideLobby();setupScreen()">← กลับ (เล่นเครื่องเดียว)</button>`;return;}
- const link=location.origin+location.pathname+'?v='+VERSION+'&room='+NET.code;const me=NET.seats.find(s=>s.key===NET.key);
+  L.innerHTML=`<div class="lbhead"><div class="lbt">🌐 เล่นออนไลน์ Co-op <small>Online Co-op · 1–4 Players</small></div><button class="lbback" onclick="hideLobby();setupScreen()">← กลับ <small>Back</small></button></div>
+  <p class="lbinfo">เล่นข้ามเครื่องได้ทุกเครือข่าย (Wi-Fi / 4G / 5G) — ไม่ต้องสมัครบัญชี · Play across any network, no sign-up. ต่อตรงแบบ P2P ก่อน ถ้าไม่ได้จะสลับไปใช้รีเลย์อัตโนมัติ</p>
+  <div class="lbpanel"><label class="lbfield"><span>ชื่อของคุณ · Your name</span><input id="lbName" maxlength="16" value="${nm}" placeholder="เช่น ต้น"></label></div>
+  <div class="lbgrid">
+   <div class="lbpanel lbopt"><div class="lboh">👑 สร้างห้อง <small>Host a room</small></div><p>คุณเป็น Host — เกมรันบนเครื่องคุณ แล้วส่งรหัสให้เพื่อน</p><button id="lbCreate" class="rec lbbig" onclick="netCreate()">สร้างห้อง · Create</button>
+    ${sv?`<button id="lbResume" class="lbsec" onclick="netCreate('${sv.code}',true)">▶ เล่นต่อเกมที่บันทึกไว้ <small>Resume ${sv.code} · Day ${sv.s.day||'?'}</small></button>`:''}</div>
+   <div class="lbpanel lbopt"><div class="lboh">🔗 เข้าร่วม <small>Join a room</small></div><p>ใส่รหัสห้อง 5 ตัวที่ได้จาก Host</p><div class="lbjoin"><input id="lbCode" maxlength="5" placeholder="ABCDE" value="${esc(qc)}" autocapitalize="characters" autocomplete="off" spellcheck="false"><button id="lbJoin" class="rec lbbig" onclick="netJoin()">เข้าร่วม · Join</button></div></div>
+  </div><p id="lbStatus"></p>`;return;}
+ const link=location.origin+location.pathname+'?room='+NET.code;const me=NET.seats.find(s=>s.key===NET.key);
  const taken=new Set(NET.seats.filter(s=>s.key!==NET.key&&s.hero).map(s=>s.hero));
  const okStart=NET.seats.length>=1&&NET.seats.every(s=>s.hero&&s.ready&&s.online);
- L.innerHTML=`<h2>🌐 ห้อง <span id="lbRoom" class="code">${NET.code}</span> ${NET.host?'(คุณคือ Host 👑)':''}</h2>
- <div class="lbrow">ลิงก์เชิญ: <input id="lbLink" readonly value="${esc(link)}" style="width:min(420px,70vw)"><button onclick="navigator.clipboard&&navigator.clipboard.writeText('${esc(link)}');this.textContent='คัดลอกแล้ว ✓'">📋 คัดลอก</button></div>
- <p class="rules">ให้เพื่อนที่ต่อ <b>Wi-Fi เดียวกัน</b> เปิดลิงก์นี้ หรือกด "เล่นออนไลน์" แล้วใส่รหัส <b>${NET.code}</b></p>
- <div id="lbSeats">${NET.seats.map((s,i)=>{const h=HEROES.find(x=>x.id===s.hero);return `<div class="seat ${s.key===NET.key?'me':''}">${h?`<img src="${artOf(h.id)}">`:'<div class="noimg">?</div>'}<div><b>${i===0?'👑 ':''}${esc(s.name)}</b>${s.key===NET.key?' (คุณ)':''} <span class="${s.online?'on':'off'}">${s.online?'● ออนไลน์':'● หลุด'}</span><br>${h?esc(h.name)+' · '+h.role:'<i>ยังไม่เลือก Hero</i>'} · ${s.ready?'<b class="rdy">✓ พร้อม</b>':'ยังไม่พร้อม'}</div></div>`;}).join('')}</div>
- <h3>เลือก Hero ของคุณ</h3><div id="lbHeroes">${HEROES.map(h=>`<button class="lbh ${me&&me.hero===h.id?'on':''}" data-id="${h.id}" ${taken.has(h.id)?'disabled title="มีคนเลือกแล้ว"':''} onclick="netPick('${h.id}')"><img src="${artOf(h.id)}"><span>${esc(h.name)}</span></button>`).join('')}</div>
- <div class="lbrow"><button id="lbReady" class="${me&&me.ready?'':'rec'}" onclick="netReady()" ${me&&me.hero?'':'disabled'}>${me&&me.ready?'✖ ยกเลิกพร้อม':'✓ พร้อม (Ready)'}</button>
- ${NET.host?`<button id="lbStart" class="rec" onclick="netStart()" ${okStart?'':'disabled'}>▶ เริ่มเกม (${NET.seats.length} คน)</button><span class="sm">${okStart?'':'ทุกคนต้องเลือก Hero และกดพร้อม'}</span>`:'<span class="sm">รอ Host กดเริ่มเกม…</span>'}
- <button onclick="netLeave()">ออกจากห้อง</button></div><p id="lbStatus"></p>`;}
+ const seats=[0,1,2,3].map(i=>{const s=NET.seats[i];if(!s)return `<div class="seat empty"><div class="noimg">+</div><div class="sinf"><b>ว่าง</b><span>รอผู้เล่น · Waiting…</span></div></div>`;const h=HEROES.find(x=>x.id===s.hero);
+  return `<div class="seat ${s.key===NET.key?'me':''} ${s.ready?'ready':''}">${h?`<img src="${artOf(h.id)}" alt="">`:'<div class="noimg">?</div>'}<div class="sinf"><b>${i===0?'👑 ':''}${esc(s.name)}${s.key===NET.key?' <em>(คุณ)</em>':''}</b><span>${h?esc(h.name):'<i>ยังไม่เลือก Hero</i>'}</span><span class="srow">${viaTag(s)}${s.ready?'<b class="rdy">✓ พร้อม</b>':'<span class="nrdy">ยังไม่พร้อม</span>'}</span></div></div>`;}).join('');
+ L.innerHTML=`<div class="lbhead"><div class="lbt">🌐 ห้องออนไลน์ <small>Online Room ${NET.host?'· คุณคือ Host 👑':''}</small></div><button class="lbback" onclick="netLeave()">ออกจากห้อง <small>Leave</small></button></div>
+ <div class="lbpanel lbroom"><div class="lbcodebox"><span class="lbcl">รหัสห้อง · Room code</span><span id="lbRoom" class="code">${NET.code}</span></div>
+  <div class="lbshare"><input id="lbLink" readonly value="${esc(link)}" onfocus="this.select()"><div class="lbsbtn"><button onclick="lbCopy('${NET.code}',this)">📋 คัดลอกรหัส</button><button id="lbCopyLink" onclick="lbCopy('${esc(link)}',this)">🔗 คัดลอกลิงก์</button>${navigator.share?`<button onclick="lbShare('${esc(link)}')">📤 แชร์</button>`:''}</div>
+  <p class="lbhint">ส่งรหัสหรือลิงก์ให้เพื่อน — เล่นได้จากคนละเครือข่าย · Friends can join from any network</p></div></div>
+ <div class="lbsec2">ผู้เล่น · Players <span>${NET.seats.length}/4</span></div><div id="lbSeats">${seats}</div>
+ <div class="lbsec2">เลือก Hero ของคุณ · Choose your hero</div><div id="lbHeroes">${HEROES.map(h=>lbHeroCard(h,me,taken)).join('')}</div>
+ <div class="lbbar"><button id="lbReady" class="${me&&me.ready?'lbsec':'rec'} lbbig" onclick="netReady()" ${me&&me.hero?'':'disabled'}>${me&&me.ready?'✖ ยกเลิกพร้อม · Unready':'✓ พร้อม · Ready'}</button>
+ ${NET.host?`<button id="lbStart" class="rec lbbig" onclick="netStart()" ${okStart?'':'disabled'}>▶ เริ่มเกม · Start (${NET.seats.length})</button><span class="sm">${okStart?'':'ทุกคนต้องเลือก Hero และกดพร้อม'}</span>`:'<span class="sm">⏳ รอ Host กดเริ่มเกม… · Waiting for host</span>'}</div><p id="lbStatus"></p>`;}
 function netName(){const n=(($('#lbName')||{}).value||'').trim()||'ผู้เล่น';NET.name=n.slice(0,16);localStorage.setItem('ash_name',NET.name);return NET.name;}
 function netAuto(){const c=new URLSearchParams(location.search).get('room').toUpperCase();showLobby();
  if(localStorage.getItem('ash_hostcode')===c){netCreate(c,!!savedHost());return;}
  if(localStorage.getItem('ash_name'))netJoin(c);}
 /* ---------- host ---------- */
-async function netCreate(code,resume){netName();netStatus('กำลังโหลด PeerJS…');
+let HRESUME=false;function hostOpen(){if(NET.on){drawLobby();return;}NET.on=true;history.replaceState(null,'','?v='+VERSION+'&room='+NET.code);
+ if(HRESUME&&savedHost()){netResume();return;}
+ if(!NET.seats.length)NET.seats=[{key:NET.key,name:NET.name,hero:null,ready:false,online:true,via:'host'}];drawLobby();netStatus('✅ ห้องพร้อม — ส่งรหัสหรือลิงก์ให้เพื่อน · Room ready — share the code');}
+async function netCreate(code,resume){HRESUME=!!resume;netName();netStatus('กำลังโหลด PeerJS…');
  try{await loadPeerJS();}catch(e){netStatus('❌ '+e.message,1);return;}
  code=code||Array.from({length:5},()=>CODECH[Math.floor(Math.random()*CODECH.length)]).join('');
- NET.host=true;NET.code=code;localStorage.setItem('ash_hostcode',code);
+ NET.host=true;NET.code=code;localStorage.setItem('ash_hostcode',code);relayHost(code);
  let tries=0;const open=()=>{netStatus('กำลังสร้างห้อง '+code+'…');const peer=new Peer(pidOf(code),PEERCFG);NET.peer=peer;
-  peer.on('open',()=>{NET.on=true;history.replaceState(null,'','?v='+VERSION+'&room='+code);
-   if(resume&&savedHost()){netResume();return;}
-   if(!NET.seats.length)NET.seats=[{key:NET.key,name:NET.name,hero:null,ready:false,online:true}];drawLobby();netStatus('✅ ห้องพร้อม — แชร์รหัสหรือลิงก์ให้เพื่อน (Wi-Fi เดียวกัน)');});
-  peer.on('connection',c=>{c.on('data',d=>hostMsg(c,d));c.on('close',()=>hostDrop(c));c.on('error',()=>hostDrop(c));});
+  peer.on('open',()=>{NET.p2pOk=true;hostOpen();});
+  peer.on('connection',c=>{c.via='p2p';hostWire(c);});
   peer.on('disconnected',()=>{if(!NET.leaving)setTimeout(()=>{try{peer.reconnect();}catch(e){}},1500);});
   peer.on('error',e=>{if(e.type==='unavailable-id'&&tries++<20){peer.destroy();netStatus('รหัสห้องยังถูกจองอยู่ (เพิ่งรีเฟรช?) กำลังลองใหม่… '+tries);setTimeout(open,2500);return;}
-   if(e.type==='peer-unavailable')return;netStatus('❌ PeerJS: '+(e.type||'')+' '+e.message+(e.type==='network'||e.type==='server-error'?' — ติดต่อ PeerJS broker ไม่ได้ (ต้องมีอินเทอร์เน็ต)':''),1);});};
+   if(e.type==='peer-unavailable')return;if(NET.relayOk){hostOpen();return;}netStatus('❌ '+(e.type||'')+' '+e.message+(e.type==='network'||e.type==='server-error'?' — ต่อเซิร์ฟเวอร์จับคู่ไม่ได้ (ต้องมีอินเทอร์เน็ต) · cannot reach matchmaking server':''),1);});};
  open();}
+function hostWire(c){c.on('data',d=>hostMsg(c,d));c.on('close',()=>hostDrop(c));c.on('error',()=>hostDrop(c));}
 function hostSend(c,m){try{if(c&&c.open)c.send(m);}catch(e){}}
 function hostAll(m){for(const c of NET.conns.values())hostSend(c,m);}
 function lobbyMsg(){return {t:'lobby',code:NET.code,seats:NET.seats.map(({conn,...s})=>s),started:NET.started};}
@@ -2690,7 +2772,7 @@ function hostMsg(c,d){NET.msgs++;if(!d||!d.t)return;
    if(NET.seats.length>=4){hostSend(c,{t:'reject',m:'ห้องเต็ม (4 คน)'});return;}
    s={key:d.key,name:String(d.name||'ผู้เล่น').slice(0,16),hero:null,ready:false,online:true};NET.seats.push(s);}
   const old=NET.conns.get(d.key);if(old&&old!==c)try{old.close();}catch(e){}
-  NET.conns.set(d.key,c);c._key=d.key;s.online=true;
+  NET.conns.set(d.key,c);c._key=d.key;s.online=true;s.via=c.via||'p2p';
   hostSend(c,lobbyMsg());if(NET.started){hostSend(c,{t:'logs',a:NET.logs.slice(-150)});logNet(`🔌 ${s.name} เชื่อมต่อ${NET.started?'กลับเข้าเกม':''}`,'sys');hostBcast(true);}
   hostLobby();return;}
  const s=NET.seats.find(x=>x.key===c._key);if(!s)return;
@@ -2707,7 +2789,7 @@ function netReady(){const me=NET.seats.find(s=>s.key===NET.key);if(!me)return;if
 function netStart(){if(!NET.host||NET.started)return;NET.started=true;NET.logs=[];
  newGame({players:NET.seats.map(s=>({hero:s.hero,bot:false}))});G.players.forEach((p,i)=>p.owner=NET.seats[i].key);
  hostLobby();enterGame();runGame().catch(e=>{console.error(e);logLine('ERROR: '+e.message,'loss');});}
-function netResume(){const sv=savedHost();NET.started=true;loadG(sv.s.g);NET.seats=sv.s.seats.map(s=>({...s,online:s.key===NET.key,ready:true}));NET.logs=sv.s.logs||[];
+function netResume(){const sv=savedHost();NET.started=true;loadG(sv.s.g);NET.seats=sv.s.seats.map(s=>({...s,online:s.key===NET.key,ready:true,via:s.key===NET.key?'host':s.via}));NET.logs=sv.s.logs||[];
  enterGame();NET.logs.forEach(l=>logLine(l.m,l.c));hostLobby();runGame().catch(e=>{console.error(e);logLine('ERROR: '+e.message,'loss');});}
 function enterGame(){hideLobby();$('#setup').style.display='none';$('#game').style.display='grid';$('#log').innerHTML='';$('#chat').style.display='flex';render();}
 function logNet(m,c){if(NET.host){NET.logs.push({m,c});if(NET.logs.length>300)NET.logs.shift();hostAll({t:'log',m,c});}logLine(m,c);}
@@ -2721,6 +2803,7 @@ IO.ask=(p,kind,prompt,opts,bi)=>{if(!remoteHere(p)){if(NET.on)NET.local={seq:'L'
 IO.roll=(p,label,dice)=>{if(!remoteHere(p))return IO0.roll(p,label,dice);return new Promise(res=>{TRAY.pending={p,label,dice,res,remote:true,seq:++NET.seq};render();});};
 IO.log=(m,c)=>{if(NET.on&&NET.host){NET.logs.push({m,c});if(NET.logs.length>300)NET.logs.shift();hostAll({t:'log',m,c});}IO0.log(m,c);};
 IO.checkpoint=()=>{if(!(NET.on&&NET.host))return;try{localStorage.setItem('ash_save_'+NET.code,JSON.stringify({g:snapG(),day:G.day,seats:NET.seats.map(({conn,online,...s})=>s),logs:NET.logs.slice(-80),t:Date.now()}));}catch(e){console.warn('save failed',e.message);}};
+setInterval(()=>{try{if(NET.on&&NET.host&&NET.started&&typeof G!=="undefined"&&G)IO.checkpoint();}catch(e){}},4000);addEventListener("pagehide",()=>{try{if(NET.on&&NET.host&&NET.started)IO.checkpoint();}catch(e){}});
 IO.onEnd=r=>{if(NET.on&&NET.host){localStorage.removeItem('ash_save_'+NET.code);hostBcast(true);}IO0.onEnd(r);};
 let NETWAIT=null;
 function waitBox(p){const s=NET.seatOf(p);$('#choices').innerHTML=`<div class="prompt">⏳ ตาของ <b>${esc(p.name)}</b> — ${esc(s?s.name:'')} ${s&&!s.online?'<span class="bad">(หลุดการเชื่อมต่อ)</span>':''} กำลังเลือก…</div>${NET.host?`<button class="auto" id="botTake" onclick="netBotTake()">🤖 ให้ Bot เล่นแทน ${esc(p.name)}</button>`:''}`;}
@@ -2736,17 +2819,21 @@ function hostBcast(){clearTimeout(NET.bt);NET.bt=null;if(!G||!NET.started)return
 async function netJoin(code){netName();code=(code||($('#lbCode')||{}).value||'').trim().toUpperCase();if(!/^[A-Z0-9]{5}$/.test(code)){netStatus('ใส่รหัสห้อง 5 ตัว',1);return;}
  netStatus('กำลังโหลด PeerJS…');try{await loadPeerJS();}catch(e){netStatus('❌ '+e.message,1);return;}
  NET.host=false;NET.code=code;history.replaceState(null,'','?v='+VERSION+'&room='+code);netStatus('กำลังเชื่อมต่อห้อง '+code+'…');
- const peer=new Peer(PEERCFG);NET.peer=peer;let first=true;
- peer.on('open',()=>clientConnect());
+ if(FORCE_RELAY){NET.useRelay=true;clientConnect();return;}
+ const peer=new Peer(PEERCFG);NET.peer=peer;let first=true;const pto=setTimeout(()=>{if(!NET.on&&!NET.conn){NET.useRelay=true;clientConnect();}},9000);
+ peer.on('open',()=>{clearTimeout(pto);if(!NET.conn)clientConnect();});
  peer.on('disconnected',()=>{if(!NET.leaving)setTimeout(()=>{try{peer.reconnect();}catch(e){}},1500);});
- peer.on('error',e=>{if(e.type==='peer-unavailable'){const m=NET.started?'⚠ Host ออกจากห้อง/หลุด — เกมถูกบันทึกไว้ที่เครื่อง Host · รอ Host เปิดลิงก์เดิมอีกครั้ง (กำลังเชื่อมใหม่อัตโนมัติ…)':'ไม่พบห้อง '+code+' — ตรวจรหัส หรือ Host ยังไม่ได้สร้างห้อง (กำลังลองใหม่…)';netStatus(m,1);netBar(NET.started?m:'');clientRetry();return;}
-  netStatus('❌ PeerJS: '+(e.type||'')+' '+e.message,1);});}
-function clientConnect(){const c=NET.peer.connect(pidOf(NET.code),{reliable:true});NET.conn=c;
- const to=setTimeout(()=>{if(!c.open){try{c.close();}catch(e){}clientRetry();}},12000);
- c.on('open',()=>{clearTimeout(to);NET.on=true;netBar('');c.send({t:'hello',key:NET.key,name:NET.name});netStatus('✅ เชื่อมต่อแล้ว');});
- c.on('data',d=>clientMsg(d));
- c.on('close',()=>{clearTimeout(to);if(NET.leaving||NET.conn!==c)return;netBar(NET.started?'⚠ หลุดการเชื่อมต่อกับ Host (Host ออก/รีเฟรช?) — เกมถูกบันทึกที่เครื่อง Host · กำลังเชื่อมใหม่อัตโนมัติ…':'');netStatus('หลุดการเชื่อมต่อ — กำลังเชื่อมใหม่…',1);clientRetry();});}
-function clientRetry(){if(NET.retry||NET.leaving)return;NET.retry=setTimeout(()=>{NET.retry=null;if(NET.peer&&!NET.peer.destroyed){if(NET.peer.disconnected){try{NET.peer.reconnect();}catch(e){}NET.retry=setTimeout(()=>{NET.retry=null;clientConnect();},1500);}else clientConnect();}},3000);}
+ peer.on('error',e=>{if(e.type==='peer-unavailable'){if(NET.conn&&NET.conn.via==='p2p'&&!NET.conn.open){clearTimeout(NET.retry);NET.retry=null;NET.useRelay=true;clientRetry(300);return;}const m=NET.started?'⚠ Host ออกจากห้อง/หลุด — เกมถูกบันทึกไว้ที่เครื่อง Host · รอ Host เปิดลิงก์เดิมอีกครั้ง (กำลังเชื่อมใหม่อัตโนมัติ…)':'ไม่พบห้อง '+code+' — ตรวจรหัส หรือ Host ยังไม่ได้สร้างห้อง (กำลังลองใหม่…)';netStatus(m,1);netBar(NET.started?m:'');clientRetry();return;}
+  if(!NET.on){NET.useRelay=true;clientRetry(300);}});}
+function clientConnect(){if(NET.leaving)return;const viaRelay=FORCE_RELAY||NET.useRelay||!NET.peer||NET.peer.destroyed||NET.peer.disconnected&&NET.peerFail>2;
+ if(viaRelay){netStatus('กำลังเชื่อมต่อผ่านรีเลย์… · Connecting via relay…');relayJoin().then(c=>clientWireConn(c,15000,()=>{if(!FORCE_RELAY)NET.useRelay=false;netStatus((NET.started?'⚠ Host ไม่ตอบ — รอ Host กลับมา… · Waiting for host…':'ไม่พบห้อง '+NET.code+' — ตรวจรหัส หรือรอ Host สร้างห้อง (กำลังลองใหม่…) · Room not found, retrying…'),1);if(NET.started)netBar('⚠ Host ออกจากห้อง/หลุด — เกมถูกบันทึกที่เครื่อง Host · รอ Host เปิดลิงก์เดิม (เชื่อมใหม่อัตโนมัติ…) · Host left, auto-reconnecting');})).catch(e=>{netStatus('❌ ต่อรีเลย์ไม่ได้ · relay unreachable — '+e.message,1);NET.useRelay=false;clientRetry();});return;}
+ const c=NET.peer.connect(pidOf(NET.code),{reliable:true});c.via='p2p';clientWireConn(c,8000,()=>{NET.useRelay=true;});}
+function clientWireConn(c,ms,onTimeout){NET.conn=c;
+ const to=setTimeout(()=>{if(!c.open&&NET.conn===c){try{c.close();}catch(e){}onTimeout&&onTimeout();NET.retry=null;clientRetry(400);}},ms);
+ c.on('open',()=>{clearTimeout(to);if(NET.conn!==c)return;NET.on=true;NET.via=c.via;netBar('');c.send({t:'hello',key:NET.key,name:NET.name});netStatus('✅ เชื่อมต่อแล้ว · Connected ('+(c.via==='relay'?'Relay ☁':'P2P ⚡')+')');});
+ c.on('data',d=>{if(NET.conn===c)clientMsg(d);});
+ c.on('close',()=>{clearTimeout(to);if(NET.leaving||NET.conn!==c)return;netBar(NET.started?'⚠ หลุดการเชื่อมต่อกับ Host — กำลังเชื่อมใหม่อัตโนมัติ… · Reconnecting to host…':'');netStatus('หลุดการเชื่อมต่อ — กำลังเชื่อมใหม่… · Reconnecting…',1);if(c.via==='relay')NET.useRelay=false;clientRetry();});}
+function clientRetry(ms){if(NET.retry||NET.leaving)return;NET.retry=setTimeout(()=>{NET.retry=null;if(NET.peer&&!NET.peer.destroyed&&NET.peer.disconnected&&!NET.useRelay){NET.peerFail=(NET.peerFail||0)+1;try{NET.peer.reconnect();}catch(e){}NET.retry=setTimeout(()=>{NET.retry=null;clientConnect();},1500);}else clientConnect();},ms||3000);}
 function clientSend(m){try{if(NET.conn&&NET.conn.open)NET.conn.send(m);}catch(e){}}
 function clientMsg(d){NET.msgs++;if(!d||!d.t)return;
  if(d.t==='reject'){netStatus('❌ '+d.m,1);NET.leaving=true;return;}
@@ -2768,7 +2855,7 @@ function clientMsg(d){NET.msgs++;if(!d||!d.t)return;
   render();
   if(d.over&&$('#overlay').style.display!=='flex')IO0.onEnd(d.over);}}
 let SPIN=null;function clientSpin(){if(SPIN)return;let n=0;SPIN=setInterval(()=>{document.querySelectorAll('#tray .bigdie.anim b').forEach(b=>b.textContent=1+Math.floor(Math.random()*6));if(++n>12||!TRAY.anim){clearInterval(SPIN);SPIN=null;}},65);}
-function netLeave(){NET.leaving=true;try{NET.peer&&NET.peer.destroy();}catch(e){}if(NET.host)localStorage.removeItem('ash_hostcode');location.href=location.pathname+'?v='+VERSION;}
+function netLeave(){NET.leaving=true;try{if(RL.cl){if(NET.host)for(const k of RL.conns.keys())relayPub(RTOP(NET.code)+'/c/'+k,{x:'bye'});else relayPub(RTOP(NET.code)+'/h',{k:NET.key,x:'bye'});}}catch(e){}try{NET.peer&&NET.peer.destroy();}catch(e){}if(NET.host)localStorage.removeItem('ash_hostcode');location.href=location.pathname+'?v='+VERSION;}
 window.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.activeElement&&document.activeElement.id==='chatIn')chatSend();});
 Object.assign(window.ASH,{NET,ser,deser,shash,snapG,netCreate,netJoin,netStart,netPick,netReady});
 Object.defineProperty(window.ASH,'hash',{get(){return NET.host?NET.lastHash:NET.myHash}});Object.defineProperty(window.ASH,'hostHash',{get(){return NET.hostHash}});
