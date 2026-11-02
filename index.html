@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
-<title>Project Ashbound v0.9.6 — Prototype</title><style>
+<title>Project Ashbound v0.9.7 — Prototype</title><style>
 *{box-sizing:border-box}body{margin:0;background:#08080a;color:#cfc8bd;font-family:"Sarabun","Noto Sans Thai",Tahoma,sans-serif;font-size:14px}
 body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 30%,transparent 40%,#000 100%),repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0 1px,transparent 1px 3px);z-index:50}
 h1,.ttl{font-family:Georgia,serif;letter-spacing:.3em;color:#b33a2f;text-shadow:0 0 12px #600}
@@ -689,7 +689,7 @@ body.dragging .acard.tcp.nogo .asock{box-shadow:inset 0 3px 8px #000,0 0 12px #f
 @media (max-width:760px){.acard.tcp .asocks .asock{width:38px;height:42px}.acard.tcp .asock .bigdie{width:30px!important;height:30px!important}.acard.tcp .asocks{bottom:-25px;gap:4px}}
 .tut.waiting{top:52px!important;bottom:auto!important;left:auto!important;right:12px!important;transform:none!important;pointer-events:none;max-width:360px;font-size:11px}.tut.waiting button{pointer-events:auto}
 
-/* v0.9.6 mobile: only the compact dice pool is pinned; stat cards scroll with the board so per-die sockets under skill cards stay visible */
+/* v0.9.7 mobile: only the compact dice pool is pinned; stat cards scroll with the board so per-die sockets under skill cards stay visible */
 @media (max-width:900px){
 #choices.planb>.ptop:not(.turn){display:contents}
 #choices.planb>.ptop:not(.turn)>.ppool{position:sticky;top:-8px;z-index:6;background:#111013;box-shadow:0 8px 10px -6px #000;padding:4px 6px;margin:0 0 6px;border-radius:8px;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
@@ -701,7 +701,7 @@ body.dragging .acard.tcp.nogo .asock{box-shadow:inset 0 3px 8px #000,0 0 12px #f
 #choices.planb>.ptop:not(.turn)>.pstats{margin:0 0 8px}
 }
 
-/* v0.9.6 online lobby */
+/* v0.9.7 online lobby */
 #lobby{max-width:980px!important;margin:24px auto!important;padding:20px 22px 26px!important;background:linear-gradient(180deg,#17110fee,#0c0a0cf2)!important;border:1px solid #6a3a24!important;border-radius:16px!important;box-shadow:0 20px 60px #000c,inset 0 1px 0 #ffffff10;position:relative;z-index:5;color:#eadfce}
 .lbhead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid #3a2620;padding-bottom:12px;margin-bottom:12px}
 .lbt{font:800 26px Georgia,serif;color:#ffb35a;text-shadow:0 2px 0 #000,0 0 18px #ff6a2a55}.lbt small,.lboh small,#lobby button small{display:block;font:600 12px system-ui;color:#b8a48c;letter-spacing:.04em;text-shadow:none}
@@ -752,18 +752,42 @@ body.dragging .acard.tcp.nogo .asock{box-shadow:inset 0 3px 8px #000,0 0 12px #f
 .vnn{font:800 20px sans-serif;color:#ffd27a;margin-bottom:6px}.vnn small{font-size:13px;color:#9fd3ff;font-weight:600}.vnx{font-size:19px;line-height:1.6}
 .vn .planok{display:block;margin:12px auto 0;font-size:20px;padding:10px 40px}
 @media(max-width:600px){.vnx{font-size:16px}.vnp{width:70px;height:90px}.lmbox{flex-direction:column}.lmbox img{width:100%;max-height:220px}}
+
+.hl{font-style:normal;font-size:11px;color:#B0A898;margin-left:4px}
+.meters{display:inline-flex;gap:4px}.mchip{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:999px;background:#1c1610;border:1px solid #6b5230;font-size:14px;white-space:nowrap}.mchip.bond b{color:#ff9fc0}.mchip.truth b{color:#9fd3ff}.mchip.ash b{color:#b9a0ff}
+.meters.big{display:flex;justify-content:center;gap:10px;margin:10px 0}.meters.big .mchip{font-size:17px;padding:6px 12px}
+#vnChoice{position:fixed;inset:0;z-index:9000;background:#000c;display:flex;align-items:center;justify-content:center;padding:10px}
+.vnopts{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+.vnopt{flex:1 1 300px;max-width:460px;text-align:left;padding:14px 18px;border-radius:12px;border:2px solid #c9a66b;background:#3a2812;color:#f6ecd6;cursor:pointer;font-size:19px;line-height:1.5}
+.vnopt:hover{background:#5a3d1a;box-shadow:0 0 14px #ffcf6e88}.vnopt small{display:block;font-size:15px;color:#D8D2C4;margin-top:6px}
+.vnbtns{display:flex;justify-content:center;gap:12px;align-items:center;margin-top:12px}.vnbtns .planok{margin:0!important}
+.vnskip{background:#222;color:#B0A898;border:1px solid #555;border-radius:10px;padding:10px 16px;font-size:15px;cursor:pointer}
+.paths{max-width:760px;margin:14px auto;text-align:left;background:#0b0805cc;border:1px solid #c9a66b;border-radius:12px;padding:12px 18px}
+.paths li{font-size:17px;line-height:1.6;margin:4px 0}.paths li.cl{opacity:.55}.paths li.op b{color:#ffd27a}
+
+#choices.modalk .bigrow{gap:22px!important}#choices.modalk .bigrow>*{margin:0!important;rotate:0deg!important;transform:none}
+#choices.modalk .bigrow>*:hover{transform:translateY(-6px)}
+#choices.modalk>button.auto{position:static!important;width:auto!important;max-width:320px;margin-top:22px;opacity:.75}
+.hcard{padding-bottom:34px!important}.selwarn{animation:selw 1s 2}@keyframes selw{50%{box-shadow:0 0 0 3px #ffcf6e}}
+.tchip{width:58px!important;height:58px!important}
+.endturn{position:sticky!important;bottom:10px;z-index:30;opacity:1!important;filter:none!important;background:linear-gradient(180deg,#ff8a2a,#b34a0a)!important;box-shadow:0 0 18px #ff9a3c99}
+#planOk{margin-bottom:18px!important}
+body.overworld #tray{display:none!important}
+.mapleg,.legend{font-size:14px!important}
+.tutp{margin-top:6px;padding:8px 12px;border-radius:10px;background:#1d3a2acc;border:1px solid #4fc08d;color:#D8D2C4;font-size:15px;line-height:1.5}
+@media(max-width:820px){#top .hl{display:none}#top .mchip{padding:2px 5px;font-size:12px}}
 </style></head><body>
 <div id="setup"><div id="tbg"></div><div class="tfog"></div><div class="tin">
 <div class="tlogo"><small>ACT 1 · THE SURVIVORS</small><h1>PROJECT<br>ASHBOUND</h1><div class="tsub">เมืองอาชา (Achar) — ผนึก 666 ปีแตก เถ้าต้องสาปปกคลุมเมือง</div></div>
-<div class="tmenu"><button class="obtn" onclick="start(false)">▶ เริ่มเกม <small>Start</small></button><button id="btnOnline" class="obtn" onclick="showLobby()">🌐 เล่นออนไลน์ <small>Online Co-op</small></button><button class="obtn" onclick="tutStart()">🎓 Tutorial <small>สอนเล่น</small></button>
+<div class="tmenu"><button class="obtn" onclick="startBtn()">▶ เริ่มเกม <small>Start</small></button><button id="btnOnline" class="obtn" onclick="showLobby()">🌐 เล่นออนไลน์ <small>Online Co-op</small></button><button class="obtn" onclick="tutStart()">🎓 Tutorial <small>สอนเล่น</small></button>
 <div class="tlinks"><button onclick="start(true)">👁 ดู Bot เล่น</button><button onclick="showHow()">📖 วิธีเล่น</button><button onclick="toggleAsm()">⚠ Assumptions</button></div></div>
 <div class="tsel"><div class="tselh">เลือก SURVIVOR <span>(สูงสุด 4 · ชี้เมาส์ดูรายละเอียด)</span></div><p id="selInfo"></p><div id="heroGrid"></div>
 <details class="trules"><summary>กติกาโดยย่อ</summary><div class="rules">เมืองอาชา (Achar) · Act 1: THE SURVIVORS — ผนึก 666 ปีแตก เถ้าต้องสาปปกคลุมเมือง<br>
-<b>Prototype v0.9.6</b> (Rulebook V1.3 + ชีต " ASHBOUND ") · Co-op 1–4 Survivors · เริ่มที่ท่าเรือ A8 · แผนที่ Act 1 12 ช่อง (A5–D8)<br>
+<b>Prototype v0.9.7</b> (Rulebook V1.3 + ชีต " ASHBOUND ") · Co-op 1–4 Survivors · เริ่มที่ท่าเรือ A8 · แผนที่ Act 1 12 ช่อง (A5–D8)<br>
 วันละ 3 ช่วง เช้า/บ่าย/กลางคืน · ทุกคน 1 Action ต่อช่วง: Forage ■ / Explore ■ / Talk ■ / <b>เดินไปช่องติดกัน = 1 Action</b><br>
 Main Quest: Scene B7-1 (มอลล์) เปิดร้านค้า → B7-2 ส่งเสบียง 5 ชุด → B7-3 ทุกคนรวมตัวที่ B7 ต่อสู้ <b>กระสือ (Krasue)</b> · แพ้การต่อสู้ไม่แพ้เกม — แพ้เมื่อหมดเวลา Act (8 วัน ⚠)<br>
 Combat: Start Up (รีเซ็ต Sp มอน + ทอย Buff) → Player phase (ทอย/วางลูกเต๋า) → Resolve (ตาม Sp) · สนาม 6 ช่องแนวนอน ฮีโร่เริ่ม 2 ช่องล่าง · Soot T1–T4 · ⚠ = ค่าสมมติ (ดูปุ่ม Assumptions)<br>Survivor ที่เลือก = ผู้เล่นควบคุมเอง · ทุกตัวเลือกมีปุ่ม 🤖 Auto · กรอบทอง = Bot แนะนำ</div></details></div>
-</div></div><div id="verbadge">v0.9.6</div>
+</div></div><div id="verbadge">v0.9.7</div>
 <div id="netbar"></div><div id="lobby"></div><div id="game"><div id="top"></div><div id="party"></div><div id="mid"><div id="banslot"></div><div id="map"></div><div id="combat"></div></div><div id="right"><div id="phasebar"></div><div id="tray"></div><div id="choices"></div><div id="log"></div><div id="chat"><input id="chatIn" maxlength="200" placeholder="💬 แชทถึงทุกคน…"><button id="chatSend" onclick="chatSend()">ส่ง</button></div></div></div>
 <div id="overlay"></div><div id="asm"></div><div id="confirm" class="modal"></div><div id="tut"></div><div id="howto" class="modal"><div class="mbox"><button class="mx" onclick="hideHow()">✕ ปิด</button><h2>📖 วิธีเล่น ASHBOUND (Act 1)</h2>
 <h3>🎯 เป้าหมาย</h3><p>Co-op 1–4 คน เริ่มที่ท่าเรือ A8. ไปมอลล์ <b>B7</b> → Scene B7-1 เปิดร้านค้า → B7-2 ส่งเสบียง 5 ชุด (Main Quest) → B7-3 ทุกคนรวมตัวที่ B7 แล้วชนะ <b>รินา กระสือ (Cursed Seer)</b> = ชนะเกม</p>
@@ -795,7 +819,7 @@ Object.assign(FIG,{"dog": "data:image/webp;base64,UklGRvIZAABXRUJQVlA4WAoAAAAQAA
 const PETART={"ally:dog": "data:image/webp;base64,UklGRuwCAABXRUJQVlA4IOACAAAwHgCdASqAAIAAPm0skkYkIqGhLxiLEIANiWkA1UXG5mGN+Em1tUZxM2435BUMrrtXU+0v8nThP8YQtQoUjztK7fUgmFgqcxXLr4p79O7NPIlAH3Ecr7EleBqcESF+B8ePmDa1+RldWcyg6BsylGMU5ybX/LbrFL4lNlQEAapr7KoLslIIyl3KL2pOW4CPSAEvNF1aQprYfd4TubzrTQGrUW5GvfzZfayyhh0P8RXPFC7GIbWH9B5jCyF9o1vs3659sN93ZzbrdYXMjKu3IiNe0PRW/MPi7dvFNzYECShdCVWZro0ygwTrx0zMFWsOxfgr2CAz9bdBIEHgAP75ZlNbZSaz97zIA+EjrwsQoRGLB8Kt/9ExhVaQtW/223tt+uQ2Ik0EXuCJzqlFpos1zxFKdtu4FUUnmEO6MOkb/w1LSaqgi+vsHzRO/kMsjzDWIlV8XevVrabdhN7nUd1z7iJHT4VXxnqnKWgocuV7/ILuPtsz6MnRJQQ64SUKUwz3UgWVMDUc9ozrU5L5xYOV9drNGA7cqGCb4EhiCJdI6Oilhp2rKkeorDyjjKhHCopq7EcLNPRjXrvjrsavUf1A3m9ziX4CgwWbFNNtQQUSXglqH7L01LPfAPb6gdm5g4UUHlFbEnBzDxmU53Quwj0aVzzc0sUHIOOX7qYGTO5IfKca21+BuUPwbuluNcSsGOdKEu+zKq8MjHVyTl3V4ZzPpjfJKZ/u6TOsaBdOu6oEliN/bXKrcwb7h/tZB5nK0c6n5NY+6N7M7tGyi1BZH94vXSGDhxwD1915u259Bo674rP7WAgE/AowwFO5hb+HPNHahdt9ePcEHl87BUXqCkrgqTljqVJkTTsZLTTwq82UwO1etHbLfbku5/8TaPCyGZ/BLRqXGxDN6ecESHiGgd0JvRoerVElHzsXY+w6Zn/nXiAMVPbRpwAAhCZ+ch74OQA1gDU0orFI9+aIU5oTwIE+AAAA", "ally:cat": "data:image/webp;base64,UklGRkYDAABXRUJQVlA4IDoDAABwHgCdASqAAIAAPm0wk0YkIyGhKhWdEIANiWkA1Qu5QOKULe4utpMEK+icgyj0drvlz14oVxqiyUcV13XHDIqXhlC7vRaO8APeFSD2TZtFA9qEpDhu6ebcsnsTFPcKA+OspeTefmvFq4o255lmi0LJ8b4Yf4cvpbwUKEEWFOr2uXP8ABYmnuIEEmEZC+LNqjmsoXc65lH5sY4ievoRk7yDfisuSpWBY95GslML4j8mageAFGqwH2ba3oWYivUD9Y10ht1GzSioUDCiPUlfpbLHdVzVGiZ4hbqcAyAb0z4IsJSMAgBK+/itVCPzrEhXr+VeF5Qe2svEsfsVfAAA/vozJ3WF8KNvNADEXSvIPH8gEuG729xSrlDP4AWh22304keZ54Q9iPEZ+WDQ1JsEz3HZyzaMStps/UnDtHEKKl0OxpyFX1ALqroSH+KKpaKqXbDdYlNSz2AR4eyjrJR9G/tbceNeaegDoQcwQyKlSsrYew1q56WD0WR8ZdARsSu96u5m2DAiVWrwLafXFVoxm22DuyS1NefOhtPtLR7PnAfMu9CP8dmwhzzVN98k3fgsditzzRFe1gzBzv49L2dzI9wX8g1t+zG2zYYoZLGli5wd3cB4adyA1AgbRWbLFN1Tjp2m2HYiFu5aqk19DqlLoA4w/aquurVkvzvoCyAMv8eeGPEbCkcHHhAzeGUmKWhOKh+2q6emATatLkZoa7sDoUbRxXFvNKeNs2AP0M3YCJdHRLb8qWDeieUz2obVH2T8rL9APHq88jq4oS2kXmWpux3YEOsNRSymOo1GHAIUwXsvq1f7NDKmIFRmOcCQqngOxZaXznOTmUGDWtu2XHe/MdhCdrEtyMt5YBMuyXNd/CRB2Y7uBy6XpOihBxLO7aCXO4CDA7rc77p3d5w2MbyMN/CTjTmv8uc9rTSfn7JTs3fKeiyalpDKxKrUHU8jluln/8GvJpL1kpVfH/UK+YgzuIax6A7RMmwcVfT6xapOjBKGmxl+UbS8oXz9YGC3aU52Y1CCR8FQj8iwOpURZAyLX6V6eDceK4oL1RLSpk8VwsSU/Eu2FVdteSUdG47hq0JbenmsEIkEr1SrugAA"};
 
 // ===== Project Ashbound v0.6.1 engine — Rulebook + sheet " ASHBOUND " + World Building (update 2026-10-24) =====
-const VERSION='v0.9.6';
+const VERSION='v0.9.7';
 let RNG=Math.random;
 const rnd=n=>Math.floor(RNG()*n);
 const pick=a=>a[rnd(a.length)];
@@ -975,6 +999,7 @@ const ITEMS={
 const SHOP=['bicycle','charm','licharm','boots','gloves','journal','jacket'];
 const ALLIES={
  homeless:{name:'คนไร้บ้าน (Homeless)',hp:4,food:1,txt:'จบการต่อสู้ที่เขาอยู่ เสบียงหาย 1'},
+ eric:{name:'อีริก (Eric)',hp:4,food:1,txt:'พ่อค้าขี้ระแวง ไม่ยอมออกสู้ — มีรถ (ต้องเติมน้ำมัน)'},
  mechanic:{name:'ช่าง (Mechanic)',hp:4,str:1,dex:1,int:2,food:1,txt:'1 Action: craft ของ 1 อย่าง (⚠ = ชุดพยาบาลเล็ก)'},
  prisoner:{name:'นักโทษ (Prisoner)',hp:4,food:0,dieMinus:'W',txt:'Dice −1 W (ลูกเต๋า W ของเจ้าของ −1)'},
  sheriffkid:{name:"ลูกนายอำเภอ (Sheriff's child)",hp:6,cha:2,food:1,die:'Y',atk:1,rng:[0,3],txt:'Atk 1 (◎●●●), ลูกเต๋า Y'},
@@ -1266,18 +1291,20 @@ const TALK={
  B8:[{txt:'ชาวบ้านเล่าเรื่องราวของเมือง',run:async()=>log('(ข้อมูล) เมืองอาชาถูกผนึกมา 666 ปี…','story')},
   {txt:'ชาวบ้านแบ่งของให้ เลือก เสบียง 1 ชุด / ชุดพยาบาล 1 ชุด',run:async p=>{const c=await ask(p,'card','ชาวบ้านแบ่งของให้:',[{v:'food',l:'ช่อง 1: เสบียง 1 ชุด'},{v:'med',l:'ช่อง 2: ชุดพยาบาลเล็ก 1 ชุด'}],G.food<3?0:1);if(c==='food'){G.food++;log('อาหาร +1','good');}else{bagAdd('medS');log('ได้ชุดพยาบาลเล็ก','good');}}}],
  C7:[{txt:'นักโทษหลบหนีขโมยของล้ำค่า "จับนักโทษกลับมา" (Q3)',run:async()=>addQuest('TK-C7',3,'จับนักโทษ (Explore D7) แล้วกลับมาที่ C7: ส่งตำรวจ → รองเท้าบูต / ปล่อยตัว → รูปปั้น')}],
- C8:[{txt:'เล่าประวัติรูปปั้นของสะสมของนายอำเภอ',run:async()=>log('(ข้อมูล) รูปปั้นของสะสมหายไป','story')}],
- D7:[{txt:'พรานเล่าตำนานป่าดำ',run:async()=>log('(ข้อมูล) ตำนานป่าดำ (Blackwood)…','story')}],
- D8:[{txt:'หมอเล่าผลการชันสูตรปีศาจเขม่า',run:async()=>log('(ข้อมูล) ปีศาจเขม่าเคยเป็นมนุษย์','story')}],
+ C8:[{txt:'เล่าประวัติรูปปั้นของสะสมของนายอำเภอ',run:async()=>{meter('truth',1,'ข้อมูลจาก NPC');log('(ข้อมูล) รูปปั้นของสะสมหายไป','story')}}],
+ D7:[{txt:'พรานเล่าตำนานป่าดำ',run:async()=>{meter('truth',1,'ข้อมูลจาก NPC');log('(ข้อมูล) ตำนานป่าดำ (Blackwood)…','story')}}],
+ D8:[{txt:'หมอเล่าผลการชันสูตรปีศาจเขม่า',run:async()=>{meter('truth',1,'ข้อมูลจาก NPC');log('(ข้อมูล) ปีศาจเขม่าเคยเป็นมนุษย์','story')}}],
 };
 const SCENES={
  'A6-1':{tile:'A6',txt:'แรงระเบิดจากปั๊มทำลายรั้วอู่รถ — ปลดล็อค B6',run:async()=>{G.tiles.B6.locked=false;log('ปลดล็อกอู่รถ (B6) 🔓','good');doneScene('A6-1');}},
- 'A7-1':{tile:'A7',txt:'คนไร้บ้าน: "พาข้าไปส่งที่โบสถ์ก่อนได้ไหม" (Q2)',run:async p=>{if(addAlly(p,'homeless')){addQuest('SC-A7',2,'พาคนไร้บ้านไปส่งโบสถ์ B5 → เปิด Scene B5-1');doneScene('A7-1');openScene('B5-1');}}},
- 'A8-1':{tile:'A8',txt:'"ต่อสู้ 1 Combat"',run:async p=>{const r=await startCombat(p,{reason:'Scene A8-1 (บทนำ/ tutorial fight): ต่อสู้ 1 Combat ที่ท่าเรือ',title:'บทนำ: ท่าเรือ A8',tierCap:1});
-   doneScene('A8-1');openScene('A8-2');}},
+ 'A7-1':{tile:'A7',txt:'คนไร้บ้าน: "พาข้าไปส่งที่โบสถ์ก่อนได้ไหม" (Q2)',run:async p=>{const c=await vnChoice(p,{who:'คนไร้บ้าน',img:'homeless',txt:'“พาข้าไปส่งที่โบสถ์ก่อนได้ไหม… ข้าไม่มีที่ไปแล้ว” ✎',opts:[{v:1,l:'พาเขาไปโบสถ์',hint:'+1 ความผูกพัน · ได้ผู้ติดตาม (แต่กินเสบียง)'},{v:2,l:'ปฏิเสธ',hint:'ไม่มีภาระ · แต่เขาอาจพาปีศาจมาหาคุณ'}]},0);
+  if(c===2){meter('ash',1,'ทิ้งคนไร้บ้าน');log('คนไร้บ้านเดินหายไปในเถ้า… แล้วเสียงคำรามก็ดังขึ้น ✎','bad');doneScene('A7-1');openMQ1();await startCombat(p,{reason:'คนไร้บ้านพาปีศาจมาหาคุณ ✎',extra:2});return;}
+  meter('bond',1,'ช่วยคนไร้บ้าน');if(addAlly(p,'homeless')){addQuest('SC-A7',2,'พาคนไร้บ้านไปส่งโบสถ์ B5 → เปิด Scene B5-1');doneScene('A7-1');openScene('B5-1');}}},
+ 'A8-1':{tile:'A8',txt:'"ต่อสู้ 1 Combat"',run:async p=>{const r=await startCombat(p,{reason:'ปีศาจโผล่จากใต้ท่าเรือ — ต้องรอดให้ได้ก่อน',tut:1,title:'บทนำ: ท่าเรือ A8',tierCap:1});
+   doneScene('A8-1');openScene('A8-2');await ericScene(p);}},
  'A8-2':{tile:'A8',txt:'เจ้าของเรือแจกชุดพยาบาลเล็กทุกคน ชวนออกจากเกาะ "หาน้ำมันมาได้ 2 ชุด" (Q2)',run:async()=>{bagAdd('medS',G.players.length);log(`ได้ชุดพยาบาลเล็ก ×${G.players.length}`,'good');addQuest('SC-A8',2,'นำน้ำมัน 2 ถังมาที่ท่าเรือ A8 → 1 CP');G.scenes['A8-2']='quest';}},
  'A8-3':{tile:'A8',txt:'เรือชนกันที่ท่าเรือ — ได้ข้อมูลว่ามอลล์และบ้านนายอำเภอมีการตั้งแคมป์',run:async()=>{doneScene('A8-3');openMQ1();}},
- 'B5-1':{tile:'B5',need:()=>hasAlly('homeless'),txt:'"ต่อสู้ 1 Combat" คนไร้บ้านหายตัวไป',run:async p=>{removeAlly('homeless');finishQuest('SC-A7');doneScene('B5-1');openMQ1();
+ 'B5-1':{tile:'B5',need:()=>hasAlly('homeless'),txt:'"ต่อสู้ 1 Combat" คนไร้บ้านหายตัวไป',run:async p=>{removeAlly('homeless');finishQuest('SC-A7');doneScene('B5-1');openMQ1();meter('truth',1,'แผนที่อุโมงค์ที่คนไร้บ้านทิ้งไว้ ✎');
    const r=await startCombat(p,{reason:'Scene B5-1: ต่อสู้ 1 Combat ที่โบสถ์'});if(r==='win'){G.food=Math.max(0,G.food-2);log('เสบียงหายไป 2 ชุด','bad');await checkpoint('Scene B5-1');}}},
  'B7-1':{tile:'B7',txt:'เด็กสาวประหลาดชวนซื้อขาย "เปิดระบบร้านค้า"',run:async()=>{G.shopOpen=true;log('🛒 เปิดระบบร้านค้า (Shop) ที่มอลล์ B7','good');doneScene('B7-1');openScene('B7-2');}},
  'B7-2':{tile:'B7',txt:'"หาเสบียง 5 ชุด" (Q1 Main Quest)',run:async()=>{addQuest('MAIN',1,`ส่งเสบียง ${CFG.mainFood} ชุดที่มอลล์ B7 → เปิด Scene B7-3`);G.scenes['B7-2']='quest';}},
@@ -1285,7 +1312,7 @@ const SCENES={
  'B8-1':{tile:'B8',txt:'เด็กสาววิ่งหนีปีศาจเขม่า "ช่วยพาเด็กสาวไปหาแม่" (Q2)',run:async p=>{if(addAlly(p,'ava')){addQuest('SC-B8',2,'พา AVA (เด็กสาว) ไปหาแม่ที่อนามัย D8');doneScene('B8-1');openScene('D8-1');}}},
  'C8-1':{tile:'C8',txt:'แคมป์ชาวเกาะ "หาผู้ติดตามมาครบ 2 คน" (Q2)',run:async()=>{addQuest('SC-C8',2,'มี Ally (ไม่นับสัตว์เลี้ยง) ครบ 2 คน แล้วมาที่ C8 → 1 CP');G.scenes['C8-1']='quest';}},
  'D8-1':{tile:'D8',need:()=>hasAlly('ava'),txt:'พา AVA มาที่อนามัย (D8) — เจรจากับจอห์น (ทอย D6)',run:async p=>{finishQuest('SC-B8');doneScene('D8-1');
-  const d=await hd6(p,'D8 เจรจากับจอห์น (4.1/4.2)');log(`เจรจา D6 = ${d} → ข้อ ${d<=3?'4.1':'4.2'}`,'story');
+  let d=await hd6(p,'D8 เจรจากับจอห์น (4.1/4.2)');if(G.johnTrust){const d0=d;d=Math.max(1,Math.min(6,d+(G.johnTrust>0?2:-2)));log(`จอห์น${G.johnTrust>0?'ไว้ใจ (ลูกสาวนายอำเภอยืนยันให้)':'ไม่ไว้ใจ (คุณขายรูปปั้น)'}: ${d0} → ${d} ✎`,'story');}log(`เจรจา D6 = ${d} → ข้อ ${d<=3?'4.1':'4.2'}`,'story');
   const fight=async(sec)=>{removeAlly('ava');const r=await startCombat(p,{elites:['AVA'],fam:'grove',minions:2,title:'AVA ปีศาจ (โทสะ) — อนามัย D8',reason:`Scene D8 ข้อ ${sec}: เด็กสาวกลายเป็นปีศาจ`});
    if(r!=='win'){endGame('loss',`แพ้ AVA ที่อนามัย D8 (ข้อ ${sec}: "หากแพ้ เกมจะจบ")`);return false;}return true;};
   if(d>=4){log('🎬 4.2: แม่ของ AVA หวาดกลัว… AVA กลายเป็นปีศาจ!','story');if(!await fight('4.2'))return;
@@ -1314,13 +1341,16 @@ async function scenePop(p,info){G.scenePop={...info,seq:(G.scenePop?G.scenePop.s
 async function tileEvents(p){
  for(const k in SCENES){if(G.over)return;const s=SCENES[k];if(s.tile!==p.tile||G.scenes[k]!=='open')continue;if(s.need&&!s.need())continue;await runScene(p,k);}
  // quest turn-ins
+ await ericDrive(p);
  if(p.tile==='A8'&&G.scenes['A8-2']==='quest'&&bagN('fuel')>=2){bagAdd('fuel',-2);finishQuest('SC-A8');doneScene('A8-2');log('ส่งน้ำมัน 2 ถังให้เจ้าของเรือ ○','good');await checkpoint('Scene A8-2');openScene('A8-3');await runScene(p,'A8-3');}
  if(p.tile==='C8'&&G.scenes['C8-1']==='quest'&&allAllies().filter(x=>!x.a.d.pet).length>=2){finishQuest('SC-C8');doneScene('C8-1');log('🎬 Scene C8-2: ปีศาจเขม่าบุกแคมป์บ้านนายอำเภอแตก ชาวเกาะหนีไปแคมป์ที่มอลล์','story');doneScene('C8-2');openMQ1();await checkpoint('Scene C8-2');}
  if(p.tile==='B5'&&questOpen('EX-B5')&&hasAlly('mechanic')){finishQuest('EX-B5');G.coins+=6;log('ช่างปลดล็อคห้องลับ ได้ 6 เหรียญ ○','good');}
  if(p.tile==='A5'&&questOpen('TK-A5')&&hasAlly('mechanic')){finishQuest('TK-A5');bagAdd('livingIron');log('ช่างได้พบพ่อ (สัปเหร่อ) — ได้ 1 เหล็กไหล ○','good');}
- if(p.tile==='C8'&&questOpen('EX-C8')&&bagN('statue')){bagAdd('statue',-1);finishQuest('EX-C8');addAlly(p,'sheriffkid','ส่งรูปปั้น');}
+ if(p.tile==='C8'&&questOpen('EX-C8')&&bagN('statue')){const c=await vnChoice(p,{who:'ลูกสาวนายอำเภอ',img:'sheriffkid',txt:'“นั่น… รูปปั้นของพ่อ! ได้โปรดคืนให้ฉันเถอะ มันคือของชิ้นสุดท้ายที่เหลืออยู่” ✎',opts:[{v:1,l:'คืนรูปปั้นให้เธอ',hint:'เธอเข้าร่วมทีม · +1 ความผูกพัน · จอห์นที่อนามัยยอมรับฟัง'},{v:2,l:'เก็บไว้ขาย',hint:'+4 เหรียญ · +1 เงาเถ้า · จอห์นไม่ไว้ใจคุณ'}]},0);
+  bagAdd('statue',-1);finishQuest('EX-C8');if(c===1){addAlly(p,'sheriffkid','คืนรูปปั้น');meter('bond',1,'คืนรูปปั้น');G.johnTrust=1;}else{G.coins+=4;meter('ash',1,'ขายรูปปั้น');G.johnTrust=-1;log('ขายรูปปั้นได้ 4 เหรียญ','good');}}
  if(p.tile==='C7'&&questOpen('TK-C7')&&G.caughtPrisoner){finishQuest('TK-C7');
-  const c=await ask(p,'card','จับนักโทษกลับมาแล้ว — เลือก',[{v:'boots',l:'ช่อง 1: ส่งตัวนักโทษให้ตำรวจ → รองเท้าบูต'},{v:'statue',l:'ช่อง 2: แอบปล่อยตัว แลกของล้ำค่า → รูปปั้น'}],questOpen('EX-C8')?1:0);
+  const c=await vnChoice(p,{who:'นักโทษหลบหนี',img:'prisoner',txt:'“ปล่อยข้าไปเถอะ… ข้าจะคืนของล้ำค่าที่ขโมยมา — แล้วสักวันข้าจะตอบแทน” ✎',opts:[{v:'boots',l:'ส่งตัวให้ตำรวจ',hint:'ได้รองเท้าบูต · +1 ความผูกพัน'},{v:'statue',l:'แอบปล่อยตัว แลกรูปปั้น',hint:'ได้รูปปั้น · +1 เงาเถ้า · เขาจะกลับมาช่วยตอนสู้บอส'}]},questOpen('EX-C8')?1:0);
+  if(c==='boots')meter('bond',1,'ส่งนักโทษให้ตำรวจ');else{meter('ash',1,'ปล่อยนักโทษ');G.prisonerFreed=true;}
   if(c==='boots'){giveWear(p,'boots');}else{bagAdd('statue');log('ได้รูปปั้น (Statue)','good');}}
 }
 function giveWear(p,k){const tgt=p.wear.length<3?p:G.players.find(q=>q.wear.length<3);if(tgt){tgt.wear.push(k);log(`${tgt.name} สวมใส่ ${ITEMS[k].name} (${ITEMS[k].txt})`,'good');}else{bagAdd(k);log(`ได้ ${ITEMS[k].name} (ช่องเต็ม เก็บในกระเป๋า)`,'good');}}
@@ -1410,6 +1440,7 @@ const EX_FLAV={
  24:'พ่อค้าเร่ที่ยังไม่ยอมทิ้งเมืองยื่นเหรียญให้ แลกกับเสบียงเพียงเล็กน้อย'};
 // ---------------- Game loop (Rulebook 4.1) ----------------
 async function runGame(){
+ G.meters=G.meters||{bond:0,truth:0,ash:0};
  if(!G.setupDone){
  try{await storyPop(null,'intro');}catch(e){}
  log(`เริ่มเกม Project Ashbound ${VERSION} — Act 1: THE SURVIVORS · เมืองอาชา (ท่าเรือ A8)`,'sys');
@@ -1586,7 +1617,11 @@ function botActionIdx(p,opts,ph){
 async function bossFight(p){
  G.stats.boss++;
  log('มอลล์เงียบงัน… ศีรษะหญิงพร้อมเครื่องในเรืองแสงลอยออกจากความมืด — กระสือ (Krasue)!','story');
- const r=await startCombat(p,{elites:['KRASUE'],fam:'grove',minions:2,boss:true,title:'รินา กระสือ (Cursed Seer) — Act 1 Boss (B7-3)',reason:'Scene B7-3: ผู้เล่นทุกคนรวมตัวที่ B7 ต่อสู้กับกระสือ'});
+ if(G.meters&&G.meters.truth>=2){const c=await vnChoice(p,{who:'รินา กระสือ (Cursed Seer)',img:'KRASUE',txt:'“เจ้ารู้ความจริงมากพอแล้ว… จะฟังคำทำนายของข้า หรือจะฆ่าข้าเหมือนที่มนุษย์เคยทำ?” ✎',opts:[{v:1,l:'ฟังคำทำนาย',hint:'ไม่ต้องสู้ · +1 ความจริง · รินาบอกที่อยู่เครื่องรางกะโหลกดำ'},{v:2,l:'ฆ่ามัน',hint:'สู้บอส · +1 เงาเถ้า'}]},1);
+  if(c===1){meter('truth',1,'ฟังคำทำนายของรินา');finishQuest('BOSS');doneScene('B7-3');G.cp+=1;G.seerAlly=true;log('🎬 รินาเผยว่า เครื่องรางแห่งกะโหลกดำซ่อนอยู่ในป่าทมิฬ — และเธอจะรอพวกเขาอยู่ที่นั่น ✎','story');endGame('win',`ฟังคำทำนายของรินา — ผ่าน Act 1 โดยไม่ต้องสู้ (วันที่ ${G.day}) ✎`);return 'win';}
+  meter('ash',1,'เลือกฆ่ารินา');}
+ if(G.prisonerFreed)log('นักโทษที่คุณเคยปล่อยกลับมาช่วยสู้! ✎','good');
+ const r=await startCombat(p,{elites:['KRASUE'],fam:'grove',minions:2,boss:true,guest:G.prisonerFreed?'prisoner':undefined,title:'รินา กระสือ (Cursed Seer) — Act 1 Boss (B7-3)',reason:'Scene B7-3: ผู้เล่นทุกคนรวมตัวที่ B7 ต่อสู้กับกระสือ'});
  if(r==='win'){finishQuest('BOSS');doneScene('B7-3');G.cp+=1;log('🎬 Scene MQ-2: ชนะกระสือ — ทางออกจากเมืองคือการตามหาเครื่องรางแห่งกะโหลกดำ (+1 CP) · จบ ACT 1','story');endGame('win',`ปราบกระสือสำเร็จ ผ่าน Act 1 (วันที่ ${G.day}) — CP ${G.cp}, เลือดที่จ่าย ${G.blood}`);}
  else log('พ่ายแพ้ต่อกระสือ — รวมตัวกันใหม่แล้วลองอีกครั้ง (ไม่แพ้เกม)','bad');
 }
@@ -1631,9 +1666,12 @@ async function startCombat(p,o={}){
  C.parts=parts;const n=parts.length;
  // enemies
  let groups;
+ if(o.extra||o.tut)C._mod={extra:o.extra||0,tut:!!o.tut};
  if(o.elites){groups=[o.elites.slice()];for(let i=0;i<(o.minions||0);i++)(groups[1]=groups[1]||[]).push(o.fam==='grove'?'G':'B');}
- else{const lv=Math.min(3,T);const raw=pick(COMBAT_RAW[lv]);C.cardTxt=`Combat Lv${lv}: ${raw}`;groups=parseCard(raw);
+ else{const lv=Math.min(3,T);const raw=pick(COMBAT_RAW[lv]);C.cardTxt=raw;groups=parseCard(raw);
   if(T===4){const fam=MCODE[groups.flat().find(x=>x.length>1)[0]];const ex=Object.keys(ELITES).filter(k=>ELITES[k].fam===fam&&ELITES[k].bonus==='W');groups[0].push(pick(ex));C.cardTxt+=' + Elite (T4 ⚠)';}}
+ if(o.extra){for(let i=0;i<o.extra;i++)(groups[0]=groups[0]||[]).push('B');}
+ if(o.tut){let n=0;groups=groups.map(g=>g.filter(()=>++n<=2)).filter(g=>g.length);}
  let minions=[];
  groups.forEach((g,i)=>{const pos=i<4?5-i:2;for(const c of g){if(MCODE[c]){const m=mkMinion(MCODE[c]);m.pos=pos;minions.push(m);}else{const e=mkElite(c,n);e.pos=pos;C.units.push(e);}}});
  const drop=n===1?2:n===2?1:0;minions=minions.slice(0,Math.max(0,minions.length-drop));C.units.push(...minions);
@@ -2077,6 +2115,23 @@ async function storyPop(p,kind,o={}){if(typeof window==='undefined'||window.NOST
  const ttl={intro:'บทนำ · Prologue',combat:o.boss?'บอส · Boss Encounter':'ก่อนการต่อสู้ · Encounter',quest:'Quest',end:'บทส่งท้าย Act 1 · Epilogue'}[kind]||'Story';
  const ask0=p&&!p.bot&&IO.ask?p:(G.players||[]).find(q=>!q.bot);
  await scenePop(ask0||p,{k:'story',stage:'story',sk:kind,ttl,tile:'',place:'',txt:'',lines,boss:!!o.boss});}
+
+// ===== v0.9.7 story branching (✎ design approved) =====
+function meter(k,n,why){G.meters=G.meters||{bond:0,truth:0,ash:0};G.meters[k]=(G.meters[k]||0)+n;const L={bond:'💞 ความผูกพัน',truth:'📜 ความจริง',ash:'🌑 เงาเถ้า'}[k];log(`${L} ${n>0?'+':''}${n}${why?' — '+why:''}`,'story');}
+function storyLine(){const ps=G.players||[];const f=p=>/Old Ridgefolk/.test(p.faction)?'bad':/Achans|Achan side/.test(p.faction)?(p.faction==='Achans'?'achans':'good'):'outsider';const c={};ps.forEach(p=>c[f(p)]=(c[f(p)]||0)+1);let best=ps[0]?f(ps[0]):'achans',bn=c[best]||0;for(const k in c)if(c[k]>bn){best=k;bn=c[k];}return best;}
+function storyVer(){return (G.players||[]).some(p=>p.faction==='Achans')?'A':'B';}
+const LINE_NAME={achans:'THE ACHANS',good:'GOOD RIDGEFOLK',bad:'BAD RIDGEFOLK',outsider:'THE OUTSIDER ✎'};
+function endPaths(){const m=G.meters||{bond:0,truth:0,ash:0},L=storyLine(),V=L==='achans'?'A':storyVer();const P=[];
+ if(V==='A'){P.push({n:'THE CYCLE — ผนึกคืนสู่ต้นไม้',open:true,need:'เปิดเสมอ'});P.push({n:'THE SACRIFICE — ทำลายด้านมืดไปพร้อมตัวเอง',open:m.bond>=3,need:'ความผูกพัน ≥ 3'});P.push({n:'THE ASCENSION — ยอมรับด้านมืด',open:m.ash>=3,need:'เงาเถ้า ≥ 3'});}
+ else{P.push({n:'THE REAL HERO — คนธรรมดาที่เลือกสู้',open:m.bond>=2,need:'ความผูกพัน ≥ 2'});P.push({n:'THE UNREAL HERO — หนีจากเมือง',open:true,need:'เปิดเสมอ'});}
+ if(L==='bad')P.push({n:'ทางแยก “บอกความจริง” เรื่องบาปบรรพบุรุษ',open:m.truth>=4,need:'ความจริง ≥ 4'});
+ return {L,V,P};}
+async function vnChoice(p,o,botIdx){const opts=o.opts.map(x=>({v:x.v,l:x.l+(x.hint?' — '+x.hint:'')}));G.vn={...o,seq:(G.vn?G.vn.seq:0)+1};const r=await ask(p,'card',o.who+': '+o.txt,opts,botIdx);G.vn=null;return r;}
+async function ericScene(p){if(G.ericDone)return;G.ericDone=1;const c=await vnChoice(p,{who:'อีริก (Eric) — พ่อค้าขายอาหารแถวท่าเรือ',img:'eric',txt:'(กระซิบ) “พวกคุณสู้กับพวกมันได้… ผมมีรถนะ ถ้าหาน้ำมันมาเติมให้ได้ เราหนีออกจากเมืองไปด้วยกัน — แต่ผมออกเดินทางแค่ตอนกลางคืนเท่านั้น”',opts:[{v:1,l:'ตกลง — จะหาน้ำมันมาให้',hint:'อีริกเข้าร่วม (ได้ชุดพยาบาล 1) · มีน้ำมัน 1 ถังที่ท่าเรือ = ลองขับออกจากเมือง'},{v:2,l:'ไม่ไว้ใจเขา',hint:'ไม่มีผลเพิ่ม'}]},1);
+ if(c===1){addAlly(p,'eric','ข้อเสนอของอีริก');bagAdd('medS',1);log('อีริกยื่นชุดพยาบาลให้ 1 ชุด','good');}else log('อีริกยิ้มเจื่อน ๆ แล้วหลบกลับเข้าร้าน','story');}
+async function ericDrive(p){if(G.ericDrove||p.tile!=='A8'||!hasAlly('eric')||bagN('fuel')<1)return;
+ const c=await vnChoice(p,{who:'อีริก (Eric)',img:'eric',txt:'“น้ำมันพอแล้ว! คืนนี้แหละ ขึ้นรถเร็ว!”',opts:[{v:1,l:'ขึ้นรถออกจากเมือง',hint:'ใช้น้ำมัน 1 ถัง · +1 ความจริง'},{v:2,l:'ยังก่อน เก็บน้ำมันไว้ให้เจ้าของเรือ',hint:'ไม่เสียน้ำมัน'}]},1);
+ if(c!==1)return;G.ericDrove=1;bagAdd('fuel',-1);log('🚗 รถแล่นออกไปในความมืด… ไม่นานไฟหน้ารถก็ส่องเห็นท่าเรือเดิม — ออกจากเมืองวนกลับมาที่เดิม','story');meter('truth',1,'ถนนวนกลับมาที่เดิม');}
 if(typeof module!=='undefined'&&typeof window==='undefined')Object.assign(module.exports,{ser,deser,shash,snapG,loadG,SHEET_EXPLORE,EXPLORE_GEN,EXPLORE,exploreEvent,EX_MISSING,exMeta});
 
 let FX_PHK=null,FX_PHHOLD=0;const PH_IC=['🌅','☀️','🌙'];
@@ -2201,7 +2256,7 @@ function setupScreen(){
   d.querySelector('.hlore').onclick=e=>{e.stopPropagation();loreModal(h);};
   d.onclick=()=>{const i=sel.indexOf(h.id);if(i>=0)sel.splice(i,1);else if(sel.length<4)sel.push(h.id);setupScreen();};
   grid.appendChild(d);});
- $('#selInfo').innerHTML=sel.length?`เลือกแล้ว <b>${sel.length}/4</b> — ${sel.map(id=>esc(HEROES.find(h=>h.id===id).name)).join(', ')}`:'คลิกการ์ด Survivor เพื่อเลือก (สูงสุด 4) · ไม่เลือก = สุ่ม 1 ตัว · ชี้เมาส์ดูรายละเอียด';
+ $('#selInfo').innerHTML=sel.length?`เลือกแล้ว <b>${sel.length}/4</b> — ${sel.map(id=>esc(HEROES.find(h=>h.id===id).name)).join(', ')}`:'คลิกการ์ด Survivor เพื่อเลือก (สูงสุด 4) · เลือกอย่างน้อย 1 ตัวแล้วกดเริ่มเกม · ชี้เมาส์ดูรายละเอียด';
  /* v0.9.2: ลบแผง What's New ออก (pt78u) */
 }
 const WHATSNEW=['v0.9.1: รวม Dice Tray ซ้ายกับกล่องลูกเต๋าในแผงฮีโร่เป็นถาดเดียว (แสดงผลรวม/สูงสุด) — หน้าจอ Combat กว้างขึ้น','v0.9.0: กดสำรวจ (Explore) แล้วเปิดหน้าต่างเหตุการณ์ทุกครั้ง — ชื่อการ์ด โซน ข้อความการ์ดจากชีต ทางเลือก และผลลัพธ์; เพิ่มกองการ์ดสำรวจทั่วไป 12 ใบจากชีต (แทน D6 ชั่วคราว); การ์ดที่ชีตไม่มีเนื้อเรื่องติดป้าย ⚠','v0.8.9: นำระบบ Hunt (ล่ามอนสเตอร์) ออก — Combat เกิดจาก Scene / Explore / Ally ตาม Rulebook','นาฬิกาบนแผนที่: วันที่ X/8 · เช้า › บ่าย › กลางคืน · ใครเล่นไปแล้ว/ตาใคร + แถบประกาศเมื่อเปลี่ยนช่วงเวลา/วันใหม่','Passive (Zemaki Reroll / Jack ทิ้ง-ปรับเต๋า) เลือกเองว่าจะใช้ก่อนหลัง หรือไม่ใช้ แล้วค่อยไปวางเต๋า','แสดงระยะโจมตี: ชี้/แตะตัวละคร · ศัตรู · การ์ด Skill / Ultimate เพื่อไฮไลต์ช่องในสนาม · ปุ่ม ☠ ระยะศัตรู','ปุ่ม ✔ Confirm Action — วางเต๋าครบแล้วไม่ออกแอกชันเอง ต้องกดยืนยัน และกดยืนยันได้แม้ยังวางไม่ครบ','เปิด Scene จะมีหน้าต่างบอกว่าเจอ Scene อะไร ที่ไหน และ Quest ที่เกี่ยวข้อง/ได้รับใหม่','ควบคุม Ally ได้เอง: เลือกเดิน ◀ ▶ และเลือกเป้าที่จะตี (บอทยังใช้ AI)','— v0.8.8 —','v0.8.8: Sp เท่ากัน ตาม Rulebook V1.3 — Survivor เท่ากันผู้เล่นตกลงกันเอง, Monster เท่ากันผู้เล่นเลือกตัวที่เล่นก่อน (แตะในแถบ TURN ORDER) · ป้าย "ตาของ X" ย้ายเป็นแถบคงที่ด้านบน ไม่ทับการ์ดศัตรูแล้ว','v0.8.7: แถบ TURN ORDER ด้านบนสนามรบ (รูป+Sp, ตาตอนนี้/ถัดไป, คนที่เล่นแล้วจาง) · แก้ตัวหนังสือซ้อนกัน — ป้าย COMMON หลุดไปอยู่บนการ์ด Stat (STR/DEX/INT/HP/MOV) · ตรวจข้อความซ้อน/ล้นทุกหน้าจอทั้งเดสก์ท็อปและมือถือ','v0.8.6: 🔊 เสียง SFX+บรรยากาศ (ปุ่มปิดเสียงมุมล่างซ้าย) · Intent ใหญ่ขึ้น+กรอบแดงฮีโร่ที่จะโดนตี+เส้นชี้เป้าเมื่อชี้ศัตรู · เต๋ากลิ้งก่อนออกผล · ↶ Undo การวางเต๋า · เลขดาเมจใหญ่/hit-stop/แฟลช/HP bar 2 ชั้น/ศัตรูพุ่งตี · Keyword สี+tooltip+Glossary ในวิธีเล่น · ร้านค้าใหม่+ไอคอน SVG · ช่องว่างในแผงฮีโร่กะทัดรัด','v0.8.5: แถวลูกเต๋า+Stat ติดด้านบน (sticky) ตอนเลื่อนบอร์ด — แก้ปัญหาลากลูกเต๋าไปการ์ดสกิลด้านล่างไม่ได้เมื่อการ์ดเยอะ; สัตว์เลี้ยง Troika ใช้ภาพแมวดำ/หมาดำจากภาพตัวละคร (แทน emoji)','v0.8.4: หน้า COMBAT ใช้ภาพเต็มตัว (ตัดพื้นหลังโปร่งใส) — ฮีโร่ซ้ายหันขวา ศัตรูขวาหันซ้าย, HP/สถานะอยู่เหนือหัว, ไฮไลต์เป้าหมาย + สั่นเมื่อโดนตี (Token บนแผนที่ยังกลมเหมือนเดิม)','v0.8.3: กล่องลูกเต๋าอยู่แถวเดียวกับช่อง Stat แคบๆ (ขนาดเท่าลูกเต๋า) ด้านบน · การ์ดที่มีคำอธิบายยาว (Skill/Ultimate/Attack/Move/Charge/ทิ้งลูก) อยู่แถวล่างแบบกว้าง อ่านง่าย','v0.8.2: จัดเลย์เอาต์ใหม่ — ค่า Stat (STR/DEX/INT/HP/Move…) เรียงเป็นแถวเดียวด้านบน ทั้งช่องวางเต๋าตอนต่อสู้และแผงฮีโร่ · ด้านล่าง = ลูกเต๋า, การ์ด Skill/Ultimate/ท่าพื้นฐาน, Charge/ทิ้งลูก (ยังลากอย่างเดียวเหมือนเดิม)','v0.8.1: ไม่มีปุ่มจอง/เลือกลูกเต๋าแล้ว — ลากลูกเต๋า (เมาส์/นิ้ว) ไปวางบนการ์ดอย่างเดียว · ลากออกหรือย้ายได้','v0.8.1: Skill / Ultimate / Attack / Move เป็นการ์ด Ability แถบล่าง มีช่องเงื่อนไขลูกเต๋า, พรีวิวค่าระหว่างลาก, สถานะ READY / ใช้แล้ว / ล็อก','หน้าจอใหม่ทั้งหมด: Title / แผนที่เต็มจอ / สนามรบแนวนอนแบบ SpellRogue','ศัตรูตัวใหญ่ + Intent เหนือหัว · คลิกศัตรูเพื่อโจมตี · ปุ่มส้ม END TURN','Skill draft / ร้านค้า / ทางเลือกการ์ด = การ์ดใหญ่ "เลือก 1"','ปุ่ม Action ขึ้นข้างช่องที่ยืนอยู่ · Log ย้ายไปลิ้นชัก 📜'];
@@ -2279,6 +2334,11 @@ IO.ask=(p,kind,prompt,opts,bi)=>new Promise(res=>buildAsk(p,kind,prompt,opts,bi,
 function buildAsk(p,kind,prompt,opts,bi,res,noAuto){
  const box=$('#choices');
  const done=v=>{CUR=null;box.innerHTML='';box.className='';res(v);render();};
+ if(kind==='card'&&G.vn){const v=G.vn;let ov=document.getElementById('vnChoice');if(!ov){ov=document.createElement('div');ov.id='vnChoice';document.body.appendChild(ov);}
+  const fin=x=>{ov.remove();done(x);};CUR={p,kind,opts,bi,res:fin};box.innerHTML='';
+  ov.innerHTML=`<div class="vn"><div class="vnk">📜 ทางเลือก ✎</div><div class="vnb">${v.img?`<img class="vnp" src="${artOf(v.img)}" onerror="this.style.display='none'">`:''}<div class="vnt"><div class="vnn">${esc(v.who)}</div><div class="vnx">${esc(v.txt)}</div></div></div>
+  <div class="vnopts">${v.opts.map((o,i)=>`<button class="vnopt" data-i="${i}"><b>${esc(o.l)}</b>${o.hint?`<small>➜ ${esc(o.hint)}</small>`:''}</button>`).join('')}</div>${meterHUD(1)}</div>`;
+  ov.querySelectorAll('.vnopt').forEach(b=>b.onclick=()=>fin(opts[+b.dataset.i].v));return;}
  const MODALK=['shop','skill','card','deck','gain','replace','join','peek','jack','dixonpay','eat','drink','reroll','passive'];
  box.className=MODALK.includes(kind)?'modalk k-'+kind:(kind==='action'&&!G.combat)?'pop':G.combat&&(kind==='combat'||kind==='ally')?'cbk':'';
  if((kind==='place'||kind==='skilldice')&&typeof planAsk==='function'&&planAsk(p,kind,prompt,opts,bi,done))return;
@@ -2334,18 +2394,18 @@ function posPop(){const box=$('#choices');if(!box)return;
  if(CUR&&CUR.atkBtn)for(const [uid,{pv}] of Object.entries(CUR.atkBtn))document.querySelectorAll(`#combat [data-uid="${uid}"]`).forEach(e=>{e.classList.add('atkable');e.dataset.tip=esc('⚔ คลิกเพื่อโจมตี '+pv.u.name+'\nผลที่คาด: '+pv.txt);});}
 document.addEventListener('click',e=>{const f=e.target.closest&&e.target.closest('#combat .atkable[data-uid]');if(!f||!CUR||!CUR.atkBtn)return;const a=CUR.atkBtn[f.dataset.uid];if(a)a.b.click();});
 function toggleLog(){document.body.classList.toggle('logopen');}
-IO.onEnd=r=>{render();const o=$('#overlay');o.style.display='flex';o.innerHTML=`<div class="endbox ${r.r}"><h1>${r.r==='win'?'ACT 1 CLEARED':'YOU ARE BOUND TO THE ASH'}</h1><p>${esc(r.why)}</p>${(()=>{try{return storyLines('end',{win:r.r==='win'}).map(l=>`<div class="vnb nar" style="text-align:left;max-width:760px;margin:10px auto"><div class="vnt"><div class="vnn">📜 ${esc(l.who)}</div><div class="vnx">${esc(l.txt).replace(/\n/g,'<br>')}</div></div></div>`).join('')}catch(e){return ''}})()}
+IO.onEnd=r=>{render();const o=$('#overlay');o.style.display='flex';o.innerHTML=`<div class="endbox ${r.r}"><h1>${r.r==='win'?'ACT 1 CLEARED':'YOU ARE BOUND TO THE ASH'}</h1><p>${esc(r.why)}</p>${(()=>{try{return storyLines('end',{win:r.r==='win'}).map(l=>`<div class="vnb nar" style="text-align:left;max-width:760px;margin:10px auto"><div class="vnt"><div class="vnn">📜 ${esc(l.who)}</div><div class="vnx">${esc(devClean(l.txt)).replace(/\n/g,'<br>')}</div></div></div>`).join('')}catch(e){return ''}})()}${r.r==='win'?pathsHTML():''}
  <p>วันที่ ${Math.min(r.day,CFG.dayLimit)} · Combats ${G.stats.combats} (ชนะ ${G.stats.wins}) · CP ${G.cp} · Blood ${G.blood}</p><button onclick="location.reload()">เล่นใหม่</button></div>`;};
 IO.render=()=>render();
 function meTag(p){if(p.bot)return '🤖';if(window.NET&&NET.on){const s=NET.seatOf(p);return s&&s.key===NET.key?'(คุณ)':`(${esc(s?s.name:'?')}${s&&!s.online?' · หลุด':''})`;}return '(คุณ)';}
 const PCOL=['#3ec7b0','#55a0e0','#e0c040','#a070e0'];
 function allyChip(a){const im=allyArt(a.k);return `<span class="achip">${im?`<img src="${im}">`:`<i>${ALLY_ICON[a.k]||'★'}</i>`}${esc(a.name.split(' (')[0])} ${a.hp}HP</span>`;}
 function render(){
- if(!G)return;if(window.NET&&NET.on)NET.afterRender();
+ if(!G)return;try{document.body.classList.toggle('overworld',!G.combat&&!(typeof TRAY!=='undefined'&&TRAY.pending));}catch(e){}if(window.NET&&NET.on)NET.afterRender();
  $('#top').innerHTML=`<span class="ttl">ASHBOUND <small>${VERSION}</small></span><span class="chip day" data-tip="วันที่ / Day limit ${CFG.dayLimit} ⚠">☾ Day <b>${Math.min(G.day,CFG.dayLimit)}</b>/${CFG.dayLimit}⚠</span><span class="chip ph">${PHASE_TH[PHASES[G.phase]]}</span>
- <span class="chip res food" id="hudFood" data-tip="เสบียง (Food)"><span class="ri">🍖</span><b>${G.food}</b></span><span class="chip res gold" id="hudCoin" data-tip="เหรียญ (Coins) ใช้ที่ร้านค้า B7"><span class="ri">🪙</span><b>${G.coins}</b></span><span class="chip" data-tip="Soot = ระดับความยากการต่อสู้">🌫 <b>${G.soot}</b> T${tier()}</span><span class="chip" data-tip="Check Points">✦ <b>${G.cp}</b></span><span class="chip blood" data-tip="Blood">🩸 <b>${G.blood}</b></span>
+ <span class="chip res food" id="hudFood" data-tip="เสบียง (Food)"><span class="ri">🍖</span><b>${G.food}</b><i class="hl">เสบียง</i></span><span class="chip res gold" id="hudCoin" data-tip="เหรียญ (Coins) ใช้ที่ร้านค้า B7"><span class="ri">🪙</span><b>${G.coins}</b><i class="hl">เหรียญ</i></span><span class="chip" data-tip="Soot = ระดับความยากการต่อสู้">🌫 <b>${G.soot}</b><i class="hl">เขม่า · ระดับ ${tier()}</i></span><span class="chip" data-tip="Check Points — แต้มความคืบหน้า">✦ <b>${G.cp}</b><i class="hl">CP</i></span><span class="chip blood" data-tip="Blood">🩸 <b>${G.blood}</b><i class="hl">เลือด</i></span>${meterHUD()}
  <span class="chip bag" data-tip="${esc('🎒 กระเป๋ากลาง (Bag)\n'+(Object.entries(G.bag).map(([k,n])=>(ITEMS[k]?ITEMS[k].name:k)+' ×'+n+(ITEMS[k]?' — '+ITEMS[k].txt:'')).join('\n')||'ว่าง'))}">🎒 ${Object.entries(G.bag).map(([k,n])=>itemIcon(k)+'×'+n).join(' ')||'—'}</span>${G.shopOpen?'<span>🛒 ร้านค้าเปิด (B7)</span>':''}
- <button id="logBtn" onclick="toggleLog()">📜 Log</button><span class="spd">Speed <button onclick="SPEED=Math.max(0.5,SPEED/2)">−</button>${SPEED}× <button onclick="SPEED=Math.min(8,SPEED*2)">+</button></span><button onclick="showHow()">📖 วิธีเล่น</button><button onclick="tutStart(true)">🎓 Tutorial</button><button onclick="toggleAsm()">⚠ Assumptions</button>`;
+ <button id="logBtn" onclick="toggleLog()">📜 Log</button><span class="spd">Speed <button onclick="SPEED=Math.max(0.5,SPEED/2)">−</button>${SPEED}× <button onclick="SPEED=Math.min(8,SPEED*2)">+</button></span><button onclick="showHow()">📖 วิธีเล่น</button><button onclick="tutStart(true)">🎓 Tutorial</button>`;
  $('#party').innerHTML=G.players.map(p=>`<div class="pc pb ${G.cur===p?'cur':''} ${p.hp<=0?'dead':''}" data-uk="h:${p.id}" data-hp="${Math.max(0,p.hp)}"><div class="pport" style="--ring:${PCOL[p.i%4]}"><img class="pimg" src="${artOf(p.id)}"><div class="pnm"><b>${esc(p.name)}</b><small>${esc(p.h.role)} ${meTag(p)}</small></div><span class="ploc" data-tip="${esc('ตำแหน่ง: '+p.tile+' '+TILES[p.tile].name)}">📍${p.tile}</span></div>
   <div class="htop"><div class="pdice hd" data-tip="${esc('ลูกเต๋าที่มี · Passive Upg '+p.upg+'/3'+(p.corpses?' · Corpse '+p.corpses:'')+(p.weak?' · Weak':''))}">${p.dice.map(d=>`<span class="die ${d}">${d}</span>`).join('')}${p.weak?' <span class="bad">Weak</span>':''} <small>Upg ${p.upg}/3</small></div><div class="hstats"><span data-tip="Str (Phy atk)"><i>STR</i><b>${stat(p,'str')}</b></span><span data-tip="Dex"><i>DEX</i><b>${stat(p,'dex')}</b></span><span data-tip="Int (Mag atk)"><i>INT</i><b>${stat(p,'int')}</b></span><span data-tip="CHA"><i>CHA</i><b>${stat(p,'cha')}</b></span><span data-tip="HP"><i>HP</i><b>${Math.max(0,p.hp)}</b></span><span data-tip="Speed (ลำดับเล่น)"><i>Sp</i><b>${p.h.sp}</b></span><span data-tip="Move"><i>Move</i><b>${moveOf(p)}</b></span></div></div>
   ${hpBar(p,p.maxhp)}${statusChips(p)}
@@ -2400,7 +2460,7 @@ function tokenHTML(u,kind,sz){
 }
 function foeCard(u){const el=u.kind==='elite';const hpP=el?100*Math.max(0,u.hp)/u.maxhp:100;
  return `<div data-uid="${u.uid}" class="foe ${el?'elite':'minion'} ${u.d.boss?'boss':''} ${G.cur===u?'cur':''} ${u.down?'down':''}"><img src="${artOf(el?u.code:u.fam)}"><div class="fi"><b>${esc(u.name)}</b><small>${esc(u.d.id||'')} · ช่อง ${u.pos+1}</small>
- ${intentHTML(u,G.combat)}${el?`${hpBar(u,u.maxhp)}${statusChips(u)}<small>Sp ${u.sp} · Dmg ${u.d.dmg==='top'?'top':u.d.dmg}${u.bonus&&u.d.dmg?'+'+Math.floor(u.bonus/2):''} ${u.d.bonus?'['+u.d.bonus+u.bonus+']':''}${u.ev?' · Ev'+u.ev:''}${u.stun?' ⚡':''}</small>`:`<small>Minion · kill ≥ ${u.d.kill}${u.down?' (ล้ม)':''}</small>${statusChips(u)}`}</div></div>`;}
+ ${intentHTML(u,G.combat)}${el?`${hpBar(u,u.maxhp)}${statusChips(u)}<small title="ความเร็ว = ลำดับการเล่น (สูงเล่นก่อน)">💨 เร็ว ${u.sp} · ⚔ ดาเมจ ${u.d.dmg==='top'?'top':u.d.dmg}${u.bonus&&u.d.dmg?'+'+Math.floor(u.bonus/2):''} ${u.d.bonus?'['+u.d.bonus+u.bonus+']':''}${u.ev?' · Ev'+u.ev:''}${u.stun?' ⚡':''}</small>`:`<small>Minion · kill ≥ ${u.d.kill}${u.down?' (ล้ม)':''}</small>${statusChips(u)}`}</div></div>`;}
 function turnBarHTML(C){
  if(C.tie){const T=C.tie,art=u=>u.h?artOf(u.id):artOf(u.kind==='elite'?u.code:u.fam),nm=u=>esc(String(u.name).split(' (')[0]);
   const ch=T.done.map((u,k)=>`<div class="tchip ${T.side} done" data-tip="${nm(u)} · ลำดับ ${k+1}"><img src="${art(u)}"><span class="tsp">${T.sp}</span><em class="tlab">#${k+1}</em></div>`).join('')+T.rest.map((u,k)=>`<div class="tchip ${T.side} tie" data-tk="${k}" onclick="tiePick(${k})" data-tip="${nm(u)} · แตะเพื่อให้เล่นลำดับ ${T.done.length+1}"><img src="${art(u)}"><span class="tsp">${T.sp}</span><em class="tlab">แตะ</em></div>`).join('');
@@ -2423,7 +2483,7 @@ function drawCombat(){
  if(!C){el.style.display='none';return;}
  el.style.display='block';
  const foes=C.units.filter(u=>u.side==='m'&&u.hp>0);
- let h=`<div class="cbanner">⚔ การต่อสู้! <b>${esc(C.title)}</b> · Round ${C.round}${C.limit?'/'+C.limit:''} · Combat T${C.tier}<div class="creason">สาเหตุ: ${esc(C.reason||'')}${C.cardTxt?' · '+esc(C.cardTxt):''}</div></div>${turnBarHTML(C)}
+ let h=`<div class="cbanner">⚔ การต่อสู้! <b>${esc(C.title)}</b> · Round ${C.round}${C.limit?'/'+C.limit:''} · Combat T${C.tier}<div class="creason">${esc(devClean(C.reason||''))}</div>${C._mod&&C._mod.tut?`<div class="tutp">🎓 สอนเล่น: ① ลากลูกเต๋าจากถาดไปวางในช่องใต้การ์ดสกิล (หรือช่องค่าสถานะ) ② กด “ยืนยัน” ③ คลิกการ์ด Move เพื่อเดิน หรือการ์ดโจมตีแล้วคลิกศัตรูในช่องสีแดง ④ กด END TURN เมื่อเสร็จ · ศึกแรกนี้มีศัตรูไม่เกิน 2 ตัว</div>`:''}</div>${turnBarHTML(C)}
  ${typeof rngBarHTML==='function'?rngBarHTML():''}<div class="bfv">`;
  for(let i=0;i<=5;i++){
   const ss=C.parts.filter(q=>q.pos===i&&q.hp>0),as=C.units.filter(u=>u.side==='s'&&u.pos===i&&u.hp>0),ms=C.units.filter(u=>u.side==='m'&&u.pos===i&&u.hp>0),n=ss.length+as.length+ms.length;
@@ -2501,13 +2561,14 @@ function drawScenePop(){let el=document.getElementById('scenePop');const sp=G&&G
  const key=sp.seq+(asking?'a':'n');if(el&&el.dataset.k===key)return;
  if(!el){el=document.createElement('div');el.id='scenePop';document.body.appendChild(el);}el.dataset.k=key;el.className=asking?'ask':'peek';
  if(sp.stage==='story'){el.className+=' story';const bg=(typeof KEYART!=='undefined'?KEYART:'');
-  el.innerHTML=`<div class="vn" style="--bg:url(${bg})"><div class="vnk">📜 ${esc(sp.ttl||'Story')}</div><div class="vnl">${(sp.lines||[]).map(l=>`<div class="vnb ${l.nar?'nar':''}">${l.id?`<img class="vnp" src="${artOf(l.id)}">`:''}<div class="vnt"><div class="vnn">${esc(l.who||'')}${l.fac?` <small>⚑ ${esc(l.fac)}</small>`:''}</div><div class="vnx">${esc(l.txt||'').replace(/\n/g,'<br>')}</div></div></div>`).join('')}</div>
-  <button id="sceneOk" class="planok">${asking?'ไปต่อ':'ปิด'}<small>Continue</small></button></div>`;
+  el.innerHTML=`<div class="vn" style="--bg:url(${bg})"><div class="vnk">📜 ${esc(sp.ttl||'Story')}</div><div class="vnl">${(sp.lines||[]).map(l=>`<div class="vnb ${l.nar?'nar':''}">${l.id?`<img class="vnp" src="${artOf(l.id)}">`:''}<div class="vnt"><div class="vnn">${esc(l.who||'')}${l.fac?` <small>⚑ ${esc(l.fac)}</small>`:''}</div><div class="vnx">${esc(devClean(l.txt||'')).replace(/\n/g,'<br>')}</div></div></div>`).join('')}</div>
+  <div class="vnbtns"><button id="sceneSkip" class="vnskip">ข้ามเนื้อเรื่องทั้งหมด ⏭</button><button id="sceneOk" class="planok">${asking?'ไปต่อ':'ปิด'}<small>Continue</small></button></div></div>`;
+  el.querySelector('#sceneSkip').onclick=()=>{G.noStory=true;SCENE_SEEN=sp.seq;if(CUR&&CUR.kind==='scene'){CUR.res(1);}else{el.remove();}};
   el.querySelector('#sceneOk').onclick=()=>{SCENE_SEEN=sp.seq;if(CUR&&CUR.kind==='scene'){CUR.res(1);}else{el.remove();}};return;}
- const qs=(sp.quests||[]).map(q=>`<li><b class="qlv">Q${q.lvl}</b> <span class="qid">[${esc(q.id)}]</span> ${esc(q.txt)}</li>`).join('');
+ const qs=(sp.quests||[]).map(q=>`<li><b class="qlv">Q${q.lvl}</b> ${esc(devClean(q.txt))}</li>`).join('');
  el.innerHTML=`<div class="spbox ${sp.stage}"><div class="spk">${sp.stage==='quest'?'📜 QUEST ใหม่':'🎬 SCENE REVEALED'}</div>
- <h3>Scene ${esc(sp.k)} <small>· ${esc(sp.tile)} ${esc(sp.place)}</small></h3>
- <p class="sptx">${esc(sp.txt)}</p>
+ <h3>${esc(sp.place||sp.tile)}</h3>
+ <p class="sptx">${esc(devClean(sp.txt))}</p>
  <div class="spq"><div class="spqh">Quest${sp.qlv?' · '+esc(sp.qlv):''}</div>${qs?`<ul>${qs}</ul>`:`<div class="sm">${sp.stage==='open'?(sp.qlv?'Quest ของ Scene นี้จะถูกเพิ่มลงรายการหลังเหตุการณ์ใน Scene':'Scene นี้ไม่มี Quest ใหม่'):'—'}</div>`}</div>
  <div class="spwho">${esc(sp.who||'')}</div>
  <button id="sceneOk" class="planok">${asking?'รับทราบ — ไปต่อ':'ปิด'}<small>${asking?'Continue':'Close'}</small></button></div>`;
@@ -2523,13 +2584,13 @@ function monSide(C,foes){const P=$('#party');if(!P)return;let s=P.querySelector(
  const list=foes.filter(u=>u.kind==='elite').concat(foes.filter(u=>u.kind!=='elite'));
  s.innerHTML=`<div class="msh">👹 มอนสเตอร์ในการต่อสู้ <small>${list.length} ตัว · ชี้/แตะการ์ด = ไฮไลต์ตัวบนสนาม</small></div>`+list.map(u=>{const d=u.d||{},el=u.kind==='elite',it=intentOf(u,C);
   const dmg=d.dmg==='top'?'= ดาเมจสูงสุดของฮีโร่ (top)':d.dmg;const bon=el&&Math.floor((u.bonus||0)/2)&&d.dmg?` +${Math.floor(u.bonus/2)} (Bonus ${d.bonus||''}${u.bonus})`:'';
-  const fx=[d.poison?'☠ Poison '+d.poison:'',d.stun?'⚡ Stun':'',d.dearmor?'🛡✖ De-armor':'',d.shield?'🛡 Shield':'',d.healer?'✚ ฟื้นฟู Grove +2 ⚠':'',d.bomber?'💥 ระเบิด (W≥4) ⚠':'',d.tomb?'⚰ Tomb':''].filter(Boolean).join(' · ');
+  const fx=[d.poison?'☠ Poison '+d.poison:'',d.stun?'⚡ Stun':'',d.dearmor?'🛡✖ ทำลายเกราะ':'',d.shield?'🛡 Shield':'',d.healer?'✚ ฟื้นฟู Grove +2 ⚠':'',d.bomber?'💥 ระเบิด (W≥4) ⚠':'',d.tomb?'⚰ Tomb':''].filter(Boolean).join(' · ');
   const how=!d.rng?'ไม่โจมตี':d.aoe==='all'?'โจมตี Survivor ทุกคน':d.aoe?'AoE — ทุกคนในช่องเป้าหมาย':'เป้าเดียว';
   const acting=cur===u,tg=it.tg&&G.cur&&(it.tg===G.cur);
   return `<div class="foe mcard ${el?'elite':'minion'} ${d.boss?'boss':''} ${acting?'acting':''} ${u.down?'down':''}" data-uid="${u.uid}" tabindex="0">
   <div class="mch"><img src="${artOf(el?u.code:u.fam)}"><div><b>${esc(u.name)}</b><small>${esc(d.id||'⚠ ไม่มี ID')} · ${el?'Elite':'Minion'} · ช่อง ${u.pos+1} ${u.face>0?'▶':'◀'}${acting?' · <i class="actb">กำลังเล่น</i>':''}</small></div></div>
   ${el?hpBar(u,u.maxhp):`<small class="mk">ฆ่าได้เมื่อ ≥ ${d.kill??'⚠'}${u.down?' · (ล้ม)':''}</small>`}
-  <div class="mst"><span title="Speed">💨 Sp ${u.sp??d.sp??'⚠'}</span><span title="Move">👣 Move ${d.mv??'⚠'}</span><span title="Damage">⚔ Dmg ${dmg??'⚠'}${bon}</span></div>
+  <div class="mst"><span title="ความเร็ว: ค่าสูงได้เล่นก่อนในรอบ">💨 เร็ว ${u.sp??d.sp??'?'}</span><span title="ระยะเดิน (ช่อง)">👣 เดิน ${d.mv??'?'}</span><span title="ความเสียหาย">⚔ ดาเมจ ${dmg??'?'}${bon}</span></div>
   <div class="mrw"><b>การเดิน</b> ${esc(MOVE_TH[d.move]||(d.move?d.move+' ⚠':'⚠ ไม่ระบุ'))}</div>
   <div class="mrw"><b>การโจมตี</b> ${esc(how)} · ${esc(rngTxt(d.rng))}${fx?' · '+esc(fx):''}</div>
   <div class="mrw"><b>เลือกเป้า</b> Taunt ก่อน → ใกล้สุด → ไม่ใช่ Ally → HP น้อยสุด</div>
@@ -2544,6 +2605,15 @@ function loreModal(h){const L=LORE[h.id]||{};let el=document.getElementById('lor
  el.innerHTML=`<div class="lmbox"><img src="${artOf(h.id)}"><div class="lmtx"><div class="spk">📖 HERO STORY · ${esc(h.role)}</div><h2>${esc(h.name)}</h2><div class="lmfac">⚑ ฝ่าย: ${esc(h.faction||'')}</div>
  <h4>ภูมิหลัง · Backstory</h4><p>${esc(L.bg||'')}</p><h4>บทบาทในเรื่อง</h4><p>${esc(L.nar||'')}</p><h4>อาวุธ</h4><p>${esc(L.wep||'')}</p><h4>แรงจูงใจ · Motivation ✎</h4><p>${esc(L.mot||'')}</p>
  <button class="planok" id="loreOk">ปิด<small>Close</small></button></div></div>`;el.querySelector('#loreOk').onclick=()=>el.remove();el.onclick=e=>{if(e.target===el)el.remove();};}
+
+function meterHUD(big){const m=(G&&G.meters)||{bond:0,truth:0,ash:0};return `<span class="meters${big?' big':''}"><span class="mchip bond" data-tip="ความผูกพัน (Bond): ช่วยเหลือผู้คน → เปิดฉากจบ Sacrifice / Real Hero">💞 <b>${m.bond}</b><i class="hl">ผูกพัน</i></span><span class="mchip truth" data-tip="ความจริง (Truth): ค้นพบความลับของเมือง → ฟังคำทำนายของรินา, ทางแยกบอกความจริง">📜 <b>${m.truth}</b><i class="hl">ความจริง</i></span><span class="mchip ash" data-tip="เงาเถ้า (Ash): เลือกทางมืด → เปิดฉากจบ Ascension">🌑 <b>${m.ash}</b><i class="hl">เงาเถ้า</i></span></span>`;}
+function pathsHTML(){try{const e=endPaths();return `<div class="paths"><h3>เส้นทางที่เปิดอยู่ (ตัวอย่าง Act 2–3) ✎</h3><div class="sm">เนื้อเรื่อง: <b>${esc(LINE_NAME[e.L])}</b> · Version ${e.V}</div>${meterHUD(1)}<ul>${e.P.map(p=>`<li class="${p.open?'op':'cl'}">${p.open?'🔓':'🔒'} <b>${esc(p.n)}</b> <small>(${esc(p.need)})</small></li>`).join('')}</ul><div class="sm">Act 2 และ 3 ยังไม่เปิดให้เล่น — นี่คือภาพรวมเส้นทางจากการเลือกของคุณ</div></div>`;}catch(x){return ''}}
+
+function devClean(t){return String(t||'').replace(/\s*\(World Building[^)]*\)/g,'').replace(/\s*\[[A-Z]{2,4}-[A-Z0-9-]+\]/g,'').replace(/Scene [A-D]\d-\d\s*(\([^)]*\))?\s*:?\s*/g,'').replace(/Scene MQ-\d:?\s*/g,'').replace(/\s*\(Q\d[^)]*\)/g,'').replace(/Combat Lv\d:[^·]*/g,'').replace(/ ⚠/g,'').replace(/\s*\(บทนำ\/ tutorial fight\)/g,'');}
+
+function startBtn(){if(sel.length)return start(false);const t=document.querySelector('#setup h2,#setup .hsel,#setup .tsel')||null;document.querySelectorAll('.hcard').forEach(c=>{c.classList.remove('selwarn');void c.offsetWidth;c.classList.add('selwarn');});
+ let m=document.getElementById('selMsg');if(!m){m=document.createElement('div');m.id='selMsg';m.style.cssText='position:fixed;left:50%;top:14px;transform:translateX(-50%);z-index:9999;background:#3a2812;color:#ffe2a0;border:2px solid #c9a66b;border-radius:12px;padding:10px 18px;font-size:17px';document.body.appendChild(m);}
+ m.textContent='👉 เลือก Survivor อย่างน้อย 1 ตัวก่อนเริ่มเกม (คลิกการ์ดตัวละครด้านขวา)';clearTimeout(m._t);m._t=setTimeout(()=>m.remove(),3500);}
 
 /* ===== v0.8.1 drag-only dice PLAN board + Ability Cards bar =====
    No buttons/clicks place dice: the player drags dice (pointer events: mouse + touch) onto ability cards.
