@@ -3525,4 +3525,23 @@ html body #game #choices .acard .asock .areq{white-space:nowrap!important;overfl
 html body #game #choices .acard .asock{overflow:hidden!important}
 html body #game #choices .acard .apv{margin-top:2px!important;line-height:1.2}`;document.head.appendChild(s);})();
 
+/* v0.9.15 */
+(function(){const s=document.createElement('style');s.id='v915';s.textContent=`
+html body #game #choices .acard.tcp .asock .areq{flex-direction:row!important;gap:3px;white-space:nowrap!important;font-size:14px!important;letter-spacing:0!important}
+html body #game #choices .acard.tcp .asock:has(.areq){width:auto!important;min-width:34px;padding:0 4px}
+html body #game #choices .acard.tcp .asocks{margin-top:auto!important;flex-wrap:nowrap!important}
+html body #game #choices .acard .apv:empty{display:none!important}
+html body #game #choices.planb .abar .acard:not(.scard) .atx{-webkit-line-clamp:2!important;max-height:2.9em!important;line-height:1.4!important;flex:0 0 auto!important;margin-bottom:4px!important}
+html body #game #choices .abar .acard:not(.scard) .apv,html body #game #choices .abar .acard:not(.scard) .ast{display:none!important}
+html body #game #choices .acard:not(.scard) .atx{display:-webkit-box!important;-webkit-box-orient:vertical!important;-webkit-line-clamp:1!important;overflow:hidden!important;max-height:1.5em!important;flex-shrink:0}
+html body #game .mrow .mcard .mnm{font-size:11px!important;line-height:1.15!important;overflow-wrap:anywhere;max-width:100%}
+html body #game #choices .acard .bigdie{flex-shrink:0;margin-bottom:4px}
+html body #tut.v914tut.v914col{font-size:0!important;color:transparent!important;max-height:none}
+html body #tut.v914tut.v914col .v914tab,html body #tut.v914tut.v914col #tutNext{font-size:14px!important;color:#fff!important}
+`;document.head.appendChild(s);
+setInterval(()=>{document.querySelectorAll('#choices .abar .acard:not(.scard)').forEach(c=>{const pv=c.querySelector('.apv'),st=c.querySelector('.ast');const t=[st&&st.textContent.trim(),pv&&pv.textContent.trim()].filter(Boolean).join(' · ');if(c.title!==t)c.title=t;const rq=c.querySelector('.asock .areq');if(rq&&pv&&/สะสม/.test(rq.textContent)&&/\d+\/\d+/.test(pv.textContent)){const m=pv.textContent.match(/[\d+]+\/\d+/)[0];if(rq.textContent!=='สะสม '+m)rq.textContent='สะสม '+m;}});},300);
+/* explore popup: result stage auto-continues -> shown as non-blocking peek (single click) */
+setInterval(()=>{try{if(typeof CUR!=='undefined'&&CUR&&CUR.kind==='event'&&G.evPop&&G.evPop.stage==='result'&&!G.combat){if(window.V915S===G.evPop.seq)return;window.V915S=G.evPop.seq;CUR.res(1);}}catch(e){}},150);
+})();
+
 </script></body></html>
