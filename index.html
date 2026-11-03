@@ -3308,4 +3308,58 @@ setInterval(()=>{try{if(G&&!G.combat){document.querySelectorAll('#combat .cbhead
 })();
 (function(){const s=document.createElement('style');s.textContent='.mrow .mcard{min-width:0!important;overflow:hidden}.mrow .mnm{overflow-wrap:anywhere;word-break:break-word;max-width:100%}';document.head.appendChild(s);})();
 
+/* v0.9.12 */
+/* 7: combat layout — dock capped at 46vh, battlefield fills the rest */
+(function(){const s=document.createElement('style');s.id='v912lay';s.textContent=`@media(min-width:761px){
+html body #game.incombat #right{max-height:46vh!important;min-height:0!important;overflow:hidden!important}
+html body #game.incombat #phasebar{display:none!important}
+html body #game.incombat #choices{min-height:0!important;max-height:100%!important}
+html body #choices.planb>.prompt{display:none!important}
+html body #v910hint{padding:2px 8px!important;margin:2px 0!important}
+html body #game.incombat #choices .acard .tc-art{display:none!important}
+html body #game.incombat #choices .acard{min-height:0!important}
+html body #choices.planb #pstat{padding:2px 8px!important}
+html body #choices.planb #pstat>*:not(button):not(.cfrow){font-size:14px!important;margin:0!important}
+html body #game.incombat .cbanner .tutp,html body #game.incombat .cbanner .creason{display:none!important}
+html body #game.incombat .cbanner{padding-top:4px!important;padding-bottom:4px!important}
+html body #game.incombat #turnBar{padding-top:2px!important;padding-bottom:2px!important}
+html body #game.incombat #turnBar .tchip img{height:38px!important;width:auto!important}
+html body #game.incombat #combat{display:flex!important;flex-direction:column!important;min-height:0!important;overflow:hidden!important;height:100%}
+html body #game.incombat #combat>*{flex:0 0 auto}
+html body #game.incombat #combat .bfv{flex:1 1 auto!important;height:auto!important;min-height:150px!important}
+html body #game.incombat .bfv .toks{height:auto!important}
+html body #game.incombat .bfv .tok.fig img.fimg{max-height:calc(54vh - 230px)!important;width:auto!important}
+html body #game.incombat .bfv .tok.fig{height:auto!important}
+}`;document.head.appendChild(s);})();
+(function(){const s=document.createElement('style');s.id='v912lay2';s.textContent=`@media(min-width:761px){
+html body #game.incombat #banslot{display:none!important}
+html body #game.incombat #combat{display:grid!important;grid-template-columns:minmax(0,auto) minmax(0,1fr)!important;grid-template-rows:auto auto minmax(0,1fr)!important;gap:4px!important}
+html body #game.incombat #combat>*{grid-column:1/-1}
+html body #game.incombat #combat>#turnBar{grid-column:1!important;grid-row:2}
+html body #game.incombat #combat>#rngBar{grid-column:2!important;grid-row:2;flex-wrap:wrap}
+html body #game.incombat #combat>.bfv{grid-row:3;min-height:0!important;height:100%!important}
+html body #game.incombat #combat .cbanner{margin:0!important}
+html body #game.incombat .bfv .cell{min-height:0!important}
+html body #choices.planb{flex-wrap:nowrap!important;flex-direction:column!important}
+html body #choices.planb .ptop,html body #choices.planb .pwrap{flex:0 0 auto!important}
+html body #choices.planb>.v912row{display:flex;gap:8px;align-items:flex-start;flex-wrap:nowrap}
+html body #game.incombat #choices .pstats .acard{width:84px!important;min-width:0!important}
+html body #game.incombat #choices .abar .acard{width:150px!important;min-width:0!important}
+}`;document.head.appendChild(s);
+/* put pool+stats and skills on one row */
+0&&setInterval(()=>{try{const ch=document.querySelector('#choices.planb');if(!ch)return;const t=ch.querySelector(':scope>.ptop'),w=ch.querySelector(':scope>.pwrap');if(!t||!w)return;const r=document.createElement('div');r.className='v912row';t.before(r);r.appendChild(t);r.appendChild(w);}catch(e){}},200);})();
+(function(){const s=document.createElement('style');s.id='v912lay3';s.textContent=`@media(min-width:761px){
+html body #game.incombat .bfv .cell{display:flex!important;flex-direction:column!important;overflow:hidden}
+html body #game.incombat .bfv .toks{flex:1 1 auto!important;min-height:0!important;height:auto!important}
+html body #game.incombat .bfv .tok.fig{height:100%!important;max-height:100%!important}
+html body #game.incombat .bfv .tok.fig img.fimg{max-height:100%!important;height:100%!important;width:auto!important}
+html body #choices.planb{display:flex!important;flex-direction:column!important;overflow:hidden!important}
+html body #choices.planb>.v912row{flex:1 1 auto;min-height:0;overflow-x:auto;overflow-y:hidden}
+html body #choices.planb>#pstat{flex:0 0 auto!important;position:static!important}
+}
+@media(min-width:761px) and (max-width:1500px){html body #game.incombat #choices .pstats .acard{width:70px!important}html body #game.incombat #choices .abar .acard{width:128px!important}html body #choices.planb .ppool{width:150px!important;min-width:0!important}}`;document.head.appendChild(s);})();
+(function(){const s=document.createElement('style');s.id='v912lay4';s.textContent=`@media(min-width:761px){html body #choices.planb>*:not(.v912row){flex:0 0 auto!important}html body #choices.planb>#v910hint{max-height:2.6em;overflow:hidden;padding:3px 8px!important}html body #choices.planb>#pstat{padding:3px!important}html body #choices.planb>#pstat button{padding:6px 14px!important;min-height:0!important}}`;document.head.appendChild(s);})();
+(function(){const s=document.createElement('style');s.id='v912lay5';s.textContent=`@media(min-width:761px){html body #choices.planb{display:grid!important;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto;column-gap:8px}
+html body #choices.planb>*{grid-column:1/-1}html body #choices.planb>.ptop{grid-column:1;grid-row:2;min-height:0}html body #choices.planb>.pwrap{grid-column:2;grid-row:2;min-width:0;min-height:0;overflow-x:auto;overflow-y:hidden}html body #choices.planb>#pstat{grid-row:3}}`;document.head.appendChild(s);})();
+
 </script></body></html>
