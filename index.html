@@ -916,10 +916,10 @@ const ASSUMPTIONS=['⚠ v0.8.9 Confirm Action: เต๋าที่ไม่ไ
 // ---------------- Heroes (sheet Survivor tab; names = World Building) ----------------
 const HEROES=[
  {id:'zemaki',name:'Zemaki',role:'Warrior',faction:'Achans',hp:12,sp:3,mv:2,str:1,dex:3,int:1,cha:0,atk:'phy',range:[0,0],
-  passive:{name:'Reroll',txt:'ทอยลูกใหม่กี่ลูกก็ได้ (1 ครั้ง/รอบ)'},
-  ups:['Basic Attack ระยะ 1 ช่อง (Melee 1)','หลังใช้สกิล นำลูกเต๋าที่ใช้แล้วไปใช้สกิลอื่นที่ยังไม่ใช้ได้','Passive ทอยได้ 2 ครั้ง และทุกลูกที่ทอยใหม่ +1 สเตตัส (Str)'],
-  skill:{name:'Oni Splash',req:{type:'range',n:1,min:3,max:6,lbl:'เต๋า 1 ลูก หน้า 3-6'},txt:'ทำ 6 ดาเมจใส่ศัตรู Splash (เต๋า 1 ลูก หน้า 3-6)'},
-  ult:{name:'HIGH RISK: Oni Frenzy',cost:3,txt:'เสีย 3 Hp: รอบนี้ Str +4 และ Move +2 (1/การต่อสู้)'}},
+  passive:{name:'Oni Reroll',txt:'สามารถทอยลูกใหม่กี่ลูกก็ได้ 1 ครั้ง (Re-Roll)'},
+  ups:['เปลี่ยน Basic Attack เป็น Close Malee All Target 1 ครั้ง/การต่อสู้','ทุกครั้งที่ทำการ Re-Roll จะได้เต๋าขาวเพิ่ม 1 ลูก ในขณะ Re-Roll เต๋าที่ได้เพิ่มจะหายไปตอนจบรอบ','สามารถ Re-Roll ได้เพิ่มอีก 1 ครั้ง'],
+  skill:{name:'Oni Echo',req:{type:'any',n:1,lbl:'N'},txt:'ทำดาเมจ และ เอฟเฟคทุกอย่าง เหมือน Basic Attack ครั้งล่าสุด แตแรงขึ้น +(N/2) ดาเมจ (Malee 1 Target)'},
+  ult:{name:'HIGH RISK: Oni Frenzy',cost:'maxHp 1',txt:'เสีย Hp สูงสุด 1 หน่วยถาวร เพื่อแลกกับในรอบนี้ Zemaki จะได้รับ +4 Str +2 Move และ ทุกครั้งที่ทำลายศัตรูได้ จะได้ Re-Roll 1 ครั้งจนจบรอบการเล่นของตนเอง (ใช้ได้ 1 ครั้งต่อการต่อสู้)'}},
  {id:'damon',name:'Damon Cross',role:'Necromancer',faction:'Achans',hp:10,sp:2,mv:2,str:0,dex:2,int:2,cha:2,atk:'mag',range:[0,2],
   passive:{name:'Corpse',txt:'สังหารศัตรู ได้ Corpse token 1 (สูงสุด 3)'},
   ups:['จบการต่อสู้ ให้ศัตรู (ไม่ใช่บอส) มาเป็น Ally ได้ (max 1, ไม่ทับ Ally ปกติ)','อัญเชิญซอมบี้ได้สูงสุด 3 ตัว','ซอมบี้มี Atk/Sp เท่า Damon'],
@@ -936,10 +936,10 @@ const HEROES=[
   skill:{name:'Hearth Brew',req:{type:'collect',total:7,lbl:'ลงทีละ 1 ลูก สะสมรวม 7'},txt:'ฟื้นฟู 2 Hp Survivor ทั้งหมดในช่อง (Up to 1 die, รวม 7, สะสมได้)'},
   ult:{name:'HIGH RISK: Cauldron',cost:'x',txt:'เสีย x Hp: ฟื้นฟู Survivor อื่นรวม x Hp (1/การต่อสู้)'}},
  {id:'sora',name:'Sora Han',role:'Rogue',faction:'Ridgefolk (Achan side)',hp:10,sp:4,mv:2,str:1,dex:4,int:0,cha:0,atk:'phy',range:[0,1],
-  passive:{name:'Backstab',txt:'Basic Attack จากด้านหลังศัตรู +Dex÷2 (ปัดลง)'},
-  ups:['1 ครั้ง/วัน ย้ายสถานที่โดยไม่เสีย Action','สังหารศัตรูแล้วย้ายไปหลังศัตรูช่องข้าง ๆ ได้','Backstab = Dex เต็ม'],
-  skill:{name:'Rainbow Warp',req:{type:'collect',total:5,lbl:'ลงทีละ 1 ลูก สะสมรวม 5'},txt:'วาร์ปไปด้านหลังศัตรูหรือ Survivor 1 คน (Up to 1 die, รวม 5, สะสมได้)'},
-  ult:{name:'HIGH RISK: Rainbow Dash',cost:3,txt:'เสีย 3 Hp: Move ≤3 ศัตรูที่ผ่าน/อยู่ช่องเดียวกันรับดาเมจ = Dex + เลือดไหล (1/การต่อสู้)'}},
+  passive:{name:'Backstab',txt:'เมื่อโจมตีปกติจากด้านหลังของศัตรูจะทำดาเมจตามค่า (Dex/2)'},
+  ups:['ใช้ได้ 1 ครั้ง/ต่อวัน สามารถเคลื่อนที่ไปยังสถานที่อื่นได้โดยที่ไม่ต้องเสีย Action','เมื่อสังหารศัตรูสามารถเคลื่อนที่ไปด้านหลังของศัตรูในช่องติดกันกับศัตรูที่ถูกสังหารได้','ได้รับ 1 Dex ชั่วคราว / การเดิน 1 ช่อง (Dex ชั่วคราวจะหายไปตอนจบรอบการเล่นของตนเอง)'],
+  skill:{name:'Rainbow Warp',req:{type:'collect',total:5,lbl:'Charge (5)'},txt:'วาร์ไปด้านหลังของ ศัตรู หรือ ผู้เล่น 1 คน ในระยะ 3 ช่อง (Rang 1-3)'},
+  ult:{name:'HIGH RISK: Rainbow Dash',cost:'Dex 1',txt:'เสีย Dex สูงสุด 1 หน่วยถาวร เพื่อแลกกับในรอบนี้ได้รับเพิ่ม +3 Dex, +3 Move ทุกครั้งที่ทำลายศัตรูได้ จะ+2 Dex ชั่วคราว จนจบรอบการเล่นของตนเอง (ใช้ได้ 1 ครั้งต่อการต่อสู้)'}},
  {id:'mina',name:'Mina',role:'Buffer',faction:'Ridgefolk (Achan side)',hp:10,sp:2,mv:2,str:0,dex:2,int:1,cha:3,atk:'mag',range:[0,2],
   passive:{name:'Rainbow Yantra',txt:'Survivor อื่นในช่องเดียวกัน Sp +1'},
   ups:['Passive Sp +2','สกิลเลือก Survivor 1 คนเล่นได้อีก 1 แอกชัน (สกิลพร้อมใช้อีกครั้ง)','สกิลเปลี่ยนลูกเต๋า 2 ลูก'],
@@ -955,11 +955,11 @@ const HEROES=[
   ups:['1 ครั้ง/วัน เข้าร่วมการต่อสู้โดยไม่เสียเสบียง','(ว่างในชีต)','(ว่างในชีต)'],
   skill:{name:'Wrath Pact',req:{type:'range',n:1,min:4,max:6,lbl:'1 die High (4-6)'},txt:'เลือก 1 สกิล จ่าย 2 Hp ต่อลูกเต๋าแทนหน้าลูกเต๋าของสกิลนั้น (1/รอบ) (1 die High)'},
   ult:null},
- {id:'jack',name:'Jack Blackwood',role:'Archer',faction:'Outsider',hp:12,sp:3,mv:2,str:1,dex:3,int:0,cha:1,atk:'phy',range:[1,3],
-  passive:{name:'Investigator',txt:'ทิ้งลูกเต๋า 1 ลูก แล้วเพิ่ม/ลดอีก 1 ลูก 2 แต้ม'},
-  ups:['สกิลเลือก 3 เป้าหมาย ซ้ำได้','1 ครั้ง/วัน ดูการ์ดบนสุดกองเสบียง/สำรวจ วางไว้ที่เดิมหรือใต้กอง','(ว่างในชีต)'],
-  skill:{name:'Twin Bolt',req:{type:'any',n:1,lbl:'เต๋า 1 ลูก หน้าใดก็ได้'},txt:'ดาเมจตามหน้าเต๋าใส่ศัตรู 2 เป้าหมาย (ไม่ซ้ำ) (1 die any)'},
-  ult:null},
+ {id:'jack',name:'Jack Hartmere',role:'Archer',faction:'Outsider',hp:12,sp:3,mv:2,str:1,dex:3,int:0,cha:1,atk:'phy',range:[1,3],
+  passive:{name:'Investigator',txt:'ทิ้งลูกเต๋า 1 ลูกจากนั้นเพิ่มหรือลดแต้มหน้าเต๋า 1 ลูก 2 แต้ม'},
+  ups:['Skill ประจำตัวของ Jack จะ +1 ดาเมจ ในทุกเป้าหมาย และสามารถเลือกเป้าหมายเดิมซ้ำได้','ใช้ได้ 1 ครั้ง / วัน สามารถดูการ์ด 2 ใบบนสุดของ กองการ์ด เสเบียง หรือ สำรวจ แล้วเลือก 1 ใบวางไว้บนสุด ส่วนอีกใบวางไว้ใต้กอง','ครั้งแรกที่ใช้ Skill แล้วทำลาย ศัตรูได้จะได้ เต๋าจาก Skill นั้นคืนทั้งหมดแล้วสามารถนำไปใช้ต่อได้ทันที (แต่ใช้กับ Skill ที่ใช้แล้วไม่ได้)'],
+  skill:{name:'Volley',req:{type:'any',n:1,lbl:'N'},txt:'ยิงโจมตีทำความเสียหายเท่ากับ Basic Attack (ยิงซ้ำเป้าหมายเดิมไม่ได้) (Rang 2-4, ((Dex+N) / 2) Target)'},
+  ult:{name:'HIGH RISK: Dead Eye',cost:'Dex 1',txt:'เสีย Dex สูงสุด 1 หน่วยถาวร เพื่อแลกกับในรอบนี้ +4 Str และทำให้ทั้ง Skill และ Basic Attack ของ Jack ทั้งหมดไม่มีขีดจำกัดระยะการใช้งาน จนจบรอบการเล่นของตนเอง (ใช้ได้ 1 ครั้งต่อการต่อสู้)'}},
  {id:'ronan',name:'Ronan Seaborn',role:'Ordinary',faction:'Outsider',hp:10,sp:2,mv:2,str:0,dex:2,int:0,cha:3,atk:'phy',range:[0,1],
   passive:{name:'Good Company',txt:'มี Ally ได้อีก 1 คน; เริ่มเกมได้ Ally แบบสุ่ม 1 คน'},
   ups:['(ข้อความในชีตไม่ครบ: "เมื่อเปิดการ์ด Npc จะสามารถ…")','(ว่างในชีต)','(ว่างในชีต)'],
@@ -1061,7 +1061,7 @@ function mkSkill(no,lv){const S=SKILL_DATA.find(s=>s.no===no),L=lv===2?S.l2:S.l1
  return {no,lv,deck:S.deck,et:S.et,name:`${S.name?S.name:'สกิล'}${lv===2?' Lv2':''}`,cost:L.cost,txt:L.txt,mods:L.m||{},area:L.area};}
 function skMod(p,s){let v=0;for(const k of p.skills)if(!k.orig&&k.mods&&k.mods[s])v+=k.mods[s];return v;}
 function recalcMax(p){const old=p.maxhp;p.maxhp=Math.max(1,p.h.hp+skMod(p,'hp')+(p.permHp||0));if(p.maxhp>old)p.hp+=p.maxhp-old;p.hp=Math.min(p.hp,p.maxhp);}
-function sTot(q,s){return Math.max(0,stat(q,s)+((q.slot&&q.slot[s])||0)+(s==='dex'?(q.dexAdd||0):0)+(s==='int'?(q.intAdd||0):0));}
+function sTot(q,s){return Math.max(0,stat(q,s)+((q.slot&&q.slot[s])||0)+(s==='dex'?(q.dexAdd||0):0)+(s==='int'?(q.intAdd||0):0)+(s==='dex'?(q.tDex||0):0));}
 const cTot=(q,s)=>Math.max(1,s.cost.total-(q.chargeCut||0));
 const half=x=>Math.floor(x/2);
 function statusN(x){return (x.poison||0)+(x.stun||0)+(x.dearm||0)+(x.bleed||0)+(x.mb||0);}
@@ -1174,7 +1174,7 @@ const allySlots=p=>CFG.allySlot+(p.id==='ronan'?1:0);
 const upg=(p,n)=>p.upg>=n;
 function stat(p,s){let v=p.base[s]+skMod(p,s);
  if(s==='str'&&p.wear.includes('gloves'))v++;if(s==='int'&&p.wear.includes('journal'))v++;if((s==='str'||s==='int')&&p.wear.includes('knife'))v++;
- if(p.drinkS===s)v+=2;if(p.anthemS===s)v+=3;if(p.ultStr&&s==='str')v+=p.ultStr;return Math.max(0,v);}
+ if(p.drinkS===s)v+=2;if(p.anthemS===s)v+=3;if(p.ultStr&&s==='str')v+=p.ultStr;if(p.ultDex&&s==='dex')v+=p.ultDex;return Math.max(0,v);}
 const moveOf=p=>Math.max(0,p.h.mv+(p.wear.includes('boots')?1:0)+skMod(p,'move')+(p.ultMv||0));
 async function ask(p,kind,prompt,opts,botIdx){
  if(!opts.length)throw new Error('no options for '+kind);
@@ -1734,7 +1734,7 @@ async function startCombat(p,o={}){
  const fams=[...new Set(liveM(C).map(u=>u.fam))];
  C.title=o.title||`${fams.map(f=>FAM_TH[f]).join(' + ')} — ระดับเถ้า ${T}`;
  // heroes: bottom 2 cells (1-2) facing up
- parts.forEach((q,i)=>{Object.assign(q,{pos:i%2,face:1,wtemp:0,poison:0,stun:0,dearm:0,charge:null,lydia6:false,chargeCut:0,intAdd:0,lydDisc:0,lydR:null,ultUsed:false,movedLast:false,jacketUsed:false,licharmUsed:false,bonusW:0,extraAtk:0,mb:0,bleed:0,traps:0,dbl:false,dblNext:false,bomb50:0,curSp:stat(q,'dex')});});
+ parts.forEach((q,i)=>{Object.assign(q,{pos:i%2,face:1,wtemp:0,poison:0,stun:0,dearm:0,charge:null,lydia6:false,chargeCut:0,zemAll:false,jk3:false,lastBA:null,intAdd:0,lydDisc:0,lydR:null,ultUsed:false,movedLast:false,jacketUsed:false,licharmUsed:false,bonusW:0,extraAtk:0,mb:0,bleed:0,traps:0,dbl:false,dblNext:false,bomb50:0,curSp:stat(q,'dex')});});
  for(const q of parts){for(const a of q.allies)if(a.atk&&a.hp>0)C.units.push({uid:UID++,side:'s',ally:true,owner:q,ref:a,name:a.name,code:a.k,hp:a.hp,maxhp:a.maxhp,atk:a.atk,mv:a.d.mv||2,rng:a.d.rng||[0,1],pos:q.pos,face:1,poison:0,stun:0,dearm:0});}
  if(o.guest){const a=mkAlly(o.guest);C.units.push({uid:UID++,side:'s',ally:true,guest:true,owner:p,ref:a,name:a.name+' (ช่วยสู้)',code:a.k,hp:a.hp,maxhp:a.hp,atk:a.atk||0,mv:2,pos:0,face:1,poison:0,stun:0,dearm:0});}
  G.combat=C;G.stats.combats++;if(G.stats.firstCombatTurn==null)G.stats.firstCombatTurn=G.stats.turns;
@@ -1805,7 +1805,7 @@ async function placeDice(q,C){
  // v0.8.9: Passive ที่กดใช้ได้ (Zemaki Reroll / Jack Investigator) — ผู้เล่นเลือกเองว่าจะใช้อะไร ใช้ก่อนหลัง หรือไม่ใช้ และเลือกลูกเต๋าเอง; Bot ใช้ตรรกะเดิม
  const human=!q.bot&&!!IO.ask;
  const pv={rr:q.id==='zemaki'?(upg(q,3)?2:1):0,jack:q.id==='jack'};
- const doReroll=async rr=>{if(!rr.length)return false;rr.forEach(d=>d.v=roll(d.t));G.tray.dice=vals.slice();if(!q.bot&&IO.roll)await IO.roll(q,'Zemaki Reroll',rr);if(upg(q,3))q.zemB=(q.zemB||0)+rr.length;log(`Zemaki ทอยใหม่ → ${vals.map(d=>d.v).join(', ')}`);return true;};
+ const doReroll=async rr=>{if(!rr.length)return false;rr.forEach(d=>d.v=roll(d.t));G.tray.dice=vals.slice();if(!q.bot&&IO.roll)await IO.roll(q,'Zemaki Reroll',rr);if(upg(q,2)){const w={t:'W',v:roll('W')};vals.push(w);G.tray.dice=vals.slice();log('Zemaki Upg2: +1 เต๋าขาว (หายตอนจบรอบ)');}log(`Zemaki ทอยใหม่ → ${vals.map(d=>d.v).join(', ')}`);return true;};
  const doJack=(lo,hi,c)=>{hi.v=Math.max(1,Math.min(6,hi.v+c));lo.tag='ทิ้ง (Jack)';vals.splice(vals.indexOf(lo),1);log(`Jack · Investigator: ทิ้งลูก ${lo.v} · ปรับอีกลูก → ${hi.v}`);};
  if(!human){
   for(let r=0;r<pv.rr;r++){const low=vals.filter(d=>d.v<=2&&!d.charged);
@@ -1884,7 +1884,7 @@ async function placeDice(q,C){
 }
 const atkType=q=>q.h.atk;
 function atkVal(q){return (q.h.atk==='mag'?sTot(q,'int'):sTot(q,'str'))+(q.zemB||0);}
-function heroRange(q){return q.id==='zemaki'&&!upg(q,1)?[0,0]:q.h.range;}
+function heroRange(q){return q.jackUlt?[0,5]:q.id==='zemaki'?[0,0]:q.h.range;}
 function frontOK(q,u){const dd=(u.pos-q.pos)*q.face;return u.pos===q.pos||dd>0;}
 function inRange(q,u,rng){const d=Math.abs(u.pos-q.pos);return d>=rng[0]&&d<=rng[1]&&frontOK(q,u);}
 function canHit(u,type){if(u.d&&u.d.immuneAll)return false;if(u.d&&u.d.immunePhy&&type!=='mag')return false;if(u.d&&u.d.immuneMag&&(type==='mag'||type==='skill'||type==='skillmag'))return false;return true;}
@@ -1939,7 +1939,7 @@ function counter(C,q,u){if(!u||u.hp<=0||q.hp<=0||u.side!=='m')return;const melee
 async function combatRound(C){
  log(`— Round ${C.round}${C.limit?' / '+C.limit:''} · Start Up —`,'phase');
  C.bastion=false;C.shield={};C.huddle={};C.noEnter={};C.traps={};C.acted=[];C.resolving=false;C.hult=null;C.replay=null;
- for(const q of C.parts){Object.assign(q,{blk:0,anthem:false,taunt:false,iron:0,pguard:0,veil:false,extraAtk:0,zemB:0,warped:null,b19:false,b29:null,ramp:0,rampN:0,b38:null,movedN:0,baMove:0,_mv:0,_noMove:false,swaps:0,c28:null,c46:false,reflect:0,killChain:0,steal:0,b58:false,hit58:[],b59:0,dexAdd:0,endTurn:false,ultStr:0,ultMv:0,anthemS:null,drinkS:null,traps:0,dbl:!!q.dblNext,dblNext:false});}
+ for(const q of C.parts){Object.assign(q,{blk:0,anthem:false,taunt:false,iron:0,pguard:0,veil:false,extraAtk:0,zemB:0,ultDex:0,zUlt:false,zemRR:0,jackUlt:false,warped:null,b19:false,b29:null,ramp:0,rampN:0,b38:null,movedN:0,baMove:0,_mv:0,_noMove:false,swaps:0,c28:null,c46:false,reflect:0,killChain:0,steal:0,b58:false,hit58:[],b59:0,dexAdd:0,endTurn:false,ultStr:0,ultMv:0,anthemS:null,drinkS:null,traps:0,dbl:!!q.dblNext,dblNext:false});}
  for(const q of liveS(C))if(q.bomb50){const v=q.bomb50;q.bomb50=0;log(`${q.name}: ระเบิด (Skill #50) ${v} ดาเมจ`,'good');liveM(C).filter(u=>Math.abs(u.pos-q.pos)<=1).forEach(u=>damageM(C,u,v,q.name+' (#50)','skillmag'));}
  for(const u of liveM(C)){u.sp=u.d.sp;if(u.kind==='elite'&&u.d.bonus)u.bonus=roll(u.d.bonus);}
  for(const q of liveS(C))if(q.wear.includes('charm')){const h=heal(q,1);if(h)log(`${q.name}: เครื่องราง +1 HP`);}
@@ -2007,8 +2007,10 @@ async function heroTurn(q,C){
   if(!(C._mod&&C._mod.tut?liveM(C):liveE(C)).length||q.endTurn||q.hp<=0)break;
   if(q._mv){mv+=q._mv;q._mv=0;}if(q._noMove)mv=0;if(q.ultMv){mv+=q.ultMv;q.ultMv=0;}
   const opts=[],ms=liveM(C),av=atkVal(q),tp=atkType(q);
-  if(attacks>0||q.extraAtk>0)for(const u of tgtsIn(q,C,heroRange(q),tp)){const bs=(backAtk(q,u)?(upg(q,3)?stat(q,'dex'):Math.floor(stat(q,'dex')/2)):0)+baBonus(q,C);
+  if(attacks>0||q.extraAtk>0)for(const u of tgtsIn(q,C,heroRange(q),tp)){const bs=(backAtk(q,u)?Math.floor(sTot(q,'dex')/2):0)+baBonus(q,C);
    opts.push({v:{a:'atk',u,d:av+bs},l:`Basic Attack ${u.name}${u.kind==='minion'?(u.down?' (ล้มอยู่)':''):` (${u.hp} HP)`} — ${av+bs} ดาเมจ ${tp==='mag'?'Mag':'Phy'}${bs?' (+'+bs+')':''}`,u});}
+  if(q.id==='zemaki'&&upg(q,1)&&!q.zemAll&&(attacks>0||q.extraAtk>0)){const tt=tgtsIn(q,C,[0,0],tp);if(tt.length>1)opts.push({v:{a:'zemall',tt},l:`Basic Attack Close Malee All Target (${tt.length} ตัว, 1/การต่อสู้) — ${av} ดาเมจ`});}
+  if(q.zemRR>0)for(const k of ['str','dex','move'])if(q.slot[k])opts.push({v:{a:'zemrr',k},l:`Re-Roll (Ultimate) ลูก ${k.toUpperCase()} ${q.slot[k]} — เหลือ ${q.zemRR}`,nb:true});
   if(q.swaps>0)for(const x of liveS(C))if(x!==q&&x.pos!==q.pos)opts.push({v:{a:'swap',x},l:`สลับตำแหน่งกับ ${x.name} (ช่อง ${x.pos+1}) — เหลือ ${q.swaps}`,nb:true});
   for(const s of q.skills){const k=skKey(s);if(q.ready[k]&&!q.used[k])for(const o of skillOpts(q,C,s))opts.push(o);}
   if(q.h.ult&&!q.ultUsed)for(const o of ultOpts(q,C))if(o.cost<q.hp)opts.push(o);
@@ -2018,10 +2020,12 @@ async function heroTurn(q,C){
   opts.push({v:{a:'end'},l:'จบเทิร์น (End turn)'});
   const c=await ask(q,'combat',`${q.name} (Sp ${q.curSp}) — ช่อง ${q.pos+1} หัน${q.face>0?'ขึ้น ▲':'ลง ▼'}`,opts,botHeroIdx(q,C,opts,mv));
   if(c.a==='end')break;
-  if(c.a==='fwd'){q.pos+=q.face;mv--;moved=true;q.movedN=(q.movedN||0)+1;continue;}
+  if(c.a==='fwd'){q.pos+=q.face;mv--;moved=true;q.movedN=(q.movedN||0)+1;if(q.id==='sora'&&upg(q,3)){q.tDex=(q.tDex||0)+1;log('Sora Upg3: +1 Dex ชั่วคราว');}continue;}
+  if(c.a==='zemrr'){q.zemRR--;q.slot[c.k]=roll('W');log(`Zemaki Re-Roll ${c.k.toUpperCase()} → ${q.slot[c.k]}`);continue;}
+  if(c.a==='zemall'){if(attacks>0)attacks--;else q.extraAtk--;q.zemAll=true;q.lastBA=av;for(const u of c.tt)if(damageM(C,u,outDmg(q,av),q.name,tp))zKill(q);continue;}
   if(c.a==='swap'){const p0=q.pos;q.pos=c.x.pos;c.x.pos=p0;q.swaps--;log(`${q.name} สลับตำแหน่งกับ ${c.x.name}`);continue;}
   if(c.a==='turn'){q.face*=-1;mv--;continue;}
-  if(c.a==='atk'){if(attacks>0)attacks--;else q.extraAtk--;const u=c.u,d=outDmg(q,c.d);const k=damageM(C,u,d,q.name,tp);
+  if(c.a==='atk'){if(attacks>0)attacks--;else q.extraAtk--;const u=c.u,d=outDmg(q,c.d);q.lastBA=c.d;const k=damageM(C,u,d,q.name,tp);if(k)zKill(q);
    if(q.steal&&d>0){const h=heal(q,Math.floor(d*q.steal));if(h)log(`${q.name} ดูดเลือด +${h}`);}
    if(q.b59&&u.hp>0)u.poison+=q.b59;
    {const W=q.wear||(q.p&&q.p.wear)||[];if(W.includes('knife')&&u.hp>0)u.knifeW=2;}
@@ -2030,7 +2034,7 @@ async function heroTurn(q,C){
    if(q.baMove){mv+=q.baMove;q.baMove=0;}
    if(k&&q.killChain>0){q.killChain--;q.extraAtk++;}
    if(q.b58&&u.hp>0&&statusN(u)&&!q.hit58.includes(u.uid)){q.hit58.push(u.uid);q.extraAtk++;}
-   if(k&&q.id==='sora'&&upg(q,2)){const nb=liveM(C).find(u=>Math.abs(u.pos-q.pos)<=1);if(nb){q.pos=nb.pos;q.face=nb.face;q.warped=nb.uid;log('Sora Upg2: ย้ายไปหลังศัตรูข้าง ๆ');}}}
+   if(k&&q.id==='sora'&&upg(q,2)){const nb=liveM(C).find(x=>Math.abs(x.pos-u.pos)<=1);if(nb){q.pos=nb.pos;q.face=nb.face;q.warped=nb.uid;log('Sora Upg2: ย้ายไปหลังศัตรูข้าง ๆ');}}}
   if(c.a==='skill'){q.used[c.k]=true;if(c.k!=='orig'||!(q.id==='zemaki'&&upg(q,2)))q.acc[c.k]=0;else q.acc[c.k]=0;
    log(`${q.name} ใช้สกิล ${c.name}`,'good');c.run();if(q.id==='lydia'&&upg(q,3)){q.intAdd=(q.intAdd||0)+1;log('Lilith Upg3: +1 Int ชั่วคราว');}
    if(C.allyAgain){const aa=C.allyAgain;C.allyAgain=null;await allyTurn(aa,C);G.cur=q;}
@@ -2038,8 +2042,9 @@ async function heroTurn(q,C){
   if(c.a==='ult'){q.ultUsed=true;const x=c.cost||0;if(x){q.hp-=x;G.blood+=x;}log(`${q.name} จ่ายเลือด ${x} HP — ${q.h.ult.name}!`,'blood');c.run();}
   IO.render();await IO.sleep(1);
  }
- q.movedLast=moved;q.intAdd=0;
+ q.movedLast=moved;q.intAdd=0;q.tDex=0;q.zemRR=0;q.jackUlt=false;
 }
+function zKill(q){if(q.zUlt&&q.id==='zemaki'){q.zemRR++;log('Zemaki Ultimate: +1 Re-Roll');}if(q.zUlt&&q.id==='sora'){q.tDex=(q.tDex||0)+2;log('Sora Ultimate: +2 Dex ชั่วคราว');}}
 function backAtk(q,u){return q.id==='sora'&&((u.face===q.face&&u.pos===q.pos)||q.warped===u.uid);}
 function skillOpts(q,C,s){
  const o=[],k=skKey(s),N=q.skN[k]||1,ms=liveM(C),ss=liveS(C);
@@ -2047,16 +2052,18 @@ function skillOpts(q,C,s){
  const dmgCell=(p,d,src,type)=>ms.filter(u=>u.pos===p).forEach(u=>damageM(C,u,d,src,type));
  const single=(rng,type,dmgF,lab)=>{for(const u of tgtsIn(q,C,rng,type))S(`${lab||''}${dmgF(u)} ดาเมจ → ${u.name}`,()=>damageM(C,u,dmgF(u),s.name,type));};
  if(s.orig)switch(q.id){
-  case 'zemaki':for(const p of cellsIn(q,C,[0,1],'skill'))S(`6 ดาเมจ Splash ศัตรูทั้งช่อง ${p+1}`,()=>dmgCell(p,6,'Oni Splash','skill'));break;
+  case 'zemaki':if(q.lastBA!=null)for(const u of tgtsIn(q,C,[0,0],'phy')){const d=q.lastBA+Math.floor(N/2);S(`${d} ดาเมจ (Basic ล่าสุด +${Math.floor(N/2)}) → ${u.name}`,()=>{if(damageM(C,u,outDmg(q,d),s.name,'phy'))zKill(q);if(q.b59&&u.hp>0)u.poison+=q.b59;});}break;
   case 'damon':{const zs=liveA(C).filter(a=>a.zombie).length;if(zs<(upg(q,2)?3:2))S(`อัญเชิญซอมบี้ (${zs+1}/${upg(q,2)?3:2})`,()=>{C.units.push({uid:UID++,side:'s',ally:true,zombie:true,owner:q,ref:{hp:1,maxhp:1,d:{}},name:'ซอมบี้ (Zombie)',code:'zombie',hp:1,maxhp:1,atk:1,mv:1,pos:q.pos,face:1,poison:0,stun:0,dearm:0});});break;}
   case 'hartmann':S(`ได้รับ Block ${N}`,()=>{q.blk=(q.blk||0)+N;});break;
   case 'troika':{const cells=[q.pos].concat(upg(q,2)?[q.pos-1,q.pos+1].filter(x=>x>=0&&x<=5):[]);for(const p of cells)S(`ฟื้นฟู 2 HP Survivor ทั้งหมดในช่อง ${p+1}`,()=>{for(const x of liveS(C))if(x.pos===p)heal(x,2);});break;}
-  case 'sora':for(const u of ms)S(`วาร์ปไปด้านหลัง ${u.name}`,()=>{q.pos=u.pos;q.face=u.face;q.warped=u.uid;});break;
+  case 'sora':for(const u of ms.filter(u=>Math.abs(u.pos-q.pos)<=3))S(`วาร์ปไปด้านหลัง ${u.name}`,()=>{q.pos=u.pos;q.face=u.face;q.warped=u.uid;});for(const x of ss.filter(x=>x!==q&&Math.abs(x.pos-q.pos)<=3))S(`วาร์ปไปด้านหลัง ${x.name}`,()=>{q.pos=x.pos;q.face=x.face;});break;
   case 'mina':S(`Encore: Survivor ในช่อง ${q.pos+1} เปลี่ยนลูกโจมตีเป็น 6${upg(q,3)?' + Dex 6':''}`,()=>{for(const x of ss)if(x.pos===q.pos&&x!==q){const m=x.h.atk==='mag'?'int':'str';x.slot[m]=6;if(upg(q,3)){x.slot.dex=6;}}
    if(upg(q,2)){const t=ss.find(x=>x!==q&&Object.keys(x.used).length);if(t){t.used={};log(`Mina Upg2: ${t.name} ใช้สกิลได้อีกครั้ง`);}}});break;
   case 'lydia':for(const p of cellsIn(q,C,[1,3],'skillmag'))S(`Purge 8 ดาเมจ ศัตรูทั้งช่อง ${p+1}${upg(q,1)?' (+6 ช่องข้าง ๆ)':''}`,()=>{dmgCell(p,8,'Purge','skillmag');if(upg(q,1))[p-1,p+1].filter(x=>x>=0&&x<=5).forEach(x=>dmgCell(x,6,'Purge (Upg1)','skillmag'));});break;
   case 'dixon':break; // passive pact handled in placement
-  case 'jack':{const ts=tgtsIn(q,C,[0,3],'skill');if(ts.length)S(`${N} ดาเมจ ใส่ ${upg(q,1)?3:2} เป้าหมาย`,()=>{const tt=ts.sort((a,b)=>(b.kind==='elite')-(a.kind==='elite')||a.hp-b.hp);const n=upg(q,1)?3:2;for(let i=0;i<n;i++){const u=upg(q,1)?tt.find(x=>x.hp>0):tt[i];if(u)damageM(C,u,N,'Twin Bolt','skill');}});break;}
+  case 'jack':{const ts=tgtsIn(q,C,q.jackUlt?[0,5]:[1,3],'phy');const n=Math.max(1,Math.floor((sTot(q,'dex')+N)/2));if(ts.length)S(`ยิง ${n} ครั้ง ครั้งละ ${atkVal(q)+(upg(q,1)?1:0)} ดาเมจ${upg(q,1)?' (ซ้ำเป้าได้)':''}`,()=>{const dmg=atkVal(q)+(upg(q,1)?1:0);let kill=false;const tt=ts.slice().sort((a,b)=>(b.kind==='elite')-(a.kind==='elite')||a.hp-b.hp);
+   for(let i=0;i<n;i++){const u=upg(q,1)?tt.find(x=>x.hp>0):tt[i];if(!u)break;if(damageM(C,u,outDmg(q,dmg),'Volley','phy'))kill=true;}
+   if(kill&&upg(q,3)&&!q.jk3){q.jk3=true;const g=q.skills.find(x=>!x.orig&&!q.ready[skKey(x)]&&!q.used[skKey(x)]);if(g){q.ready[skKey(g)]=true;q.skN[skKey(g)]=N;log(`Jack Upg3: ได้เต๋า ${N} คืน → ${g.name}`);}}});break;}
   case 'ronan':{const al=liveA(C).filter(a=>a.owner===q&&a.atk);for(const a of al)S(`${a.name} โจมตีอีกครั้ง`,()=>{C.allyAgain=a;});break;}
  }
  else return skill5Opts(q,C,s);
@@ -2066,11 +2073,12 @@ function ultOpts(q,C){
  const o=[],ms=liveM(C),U=(l,cost,run,u)=>o.push({v:{a:'ult',run,cost},cost,l:`[Ultimate −${cost} HP] ${q.h.ult.name}: ${l}`,ult:true,u});
  const xs=mx=>[1,2,3,4,5,6].filter(x=>x<=mx&&x<q.hp-1);
  switch(q.id){
-  case 'zemaki':U('Str +4 และ Move +2 รอบนี้',3,()=>{q.ultStr=4;q.ultMv=2;});break;
+  case 'zemaki':if(q.maxhp>1)o.push({v:{a:'ult',cost:0,run:()=>{q.permHp=(q.permHp||0)-1;q.maxhp--;q.hp=Math.min(q.hp,q.maxhp);q.ultStr=4;q.ultMv=2;q.zUlt=true;log(`${q.name} เสีย Hp สูงสุด 1 ถาวร`,'blood');}},cost:0,l:`[Ultimate −1 Hp สูงสุด] ${q.h.ult.name}: +4 Str +2 Move · ฆ่า = Re-Roll`,ult:true});break;
+  case 'jack':if(q.base.dex>0)o.push({v:{a:'ult',cost:0,run:()=>{q.base.dex--;q.ultStr=4;q.jackUlt=true;log(`${q.name} เสีย Dex สูงสุด 1 ถาวร`,'blood');}},cost:0,l:`[Ultimate −1 Dex สูงสุด] ${q.h.ult.name}: +4 Str ระยะไม่จำกัด`,ult:true});break;
   case 'damon':for(const x of xs(6).filter(x=>x>=2))U(`อัญเชิญ "ผู้ถูกกลืนกิน" HP ${x} (ATK ${atkVal(q)} ⚠)`,x,()=>{C.units.push({uid:UID++,side:'s',ally:true,owner:q,ref:{hp:x,maxhp:x,d:{}},name:'ผู้ถูกกลืนกิน (Devoured)',code:'devoured',hp:x,maxhp:x,atk:atkVal(q),mv:moveOf(q),rng:q.h.range,pos:q.pos,face:1,poison:0,stun:0,dearm:0});});break;
   case 'hartmann':if(q.maxhp>1)o.push({v:{a:'ult',cost:0,run:()=>{q.permHp=(q.permHp||0)-1;q.maxhp--;q.hp=Math.min(q.hp,q.maxhp);C.hartUlt={q,r:C.round};log(`${q.name} เสีย Hp สูงสุด 1 ถาวร (${q.maxhp})`,'blood');}},cost:0,l:`[Ultimate −1 Hp สูงสุด] ${q.h.ult.name}: Passive ×2 และส่งผลกับผู้เล่นในช่อง ${q.pos+1}`,ult:true});break;
   case 'troika':{const need=liveSA(C).filter(s=>s!==q).reduce((a,s)=>a+s.maxhp-s.hp,0);for(const x of xs(Math.min(6,need)))U(`ฟื้นฟู Survivor อื่นรวม ${x} HP`,x,()=>{let r=x;while(r>0){const t=liveSA(C).filter(s=>s!==q&&s.hp<s.maxhp).sort((a,b)=>(a.hp/a.maxhp)-(b.hp/b.maxhp))[0];if(!t)break;t.hp++;r--;}});break;}
-  case 'sora':{const d=sTot(q,'dex');for(const dir of [1,-1])for(let n=1;n<=3;n++){const np=q.pos+dir*n;if(np<0||np>5)break;const hit=ms.filter(u=>(u.pos-q.pos)*dir>=0&&Math.abs(u.pos-q.pos)<=n);if(hit.length)U(`พุ่ง${dir>0?'▲':'▼'} ${n} ช่อง ${d} ดาเมจ + เลือดไหล → ${hit.length} ตัว`,3,()=>{hit.forEach(u=>{damageM(C,u,d,'Rainbow Dash','skill');if(u.hp>0)u.bleed=(u.bleed||0)+1;});q.pos=np;q.face=dir;},hit.find(u=>u.kind==='elite'));}break;}
+  case 'sora':if(q.base.dex>0)o.push({v:{a:'ult',cost:0,run:()=>{q.base.dex--;q.ultDex=3;q.ultMv=3;q.curSp+=3;q.zUlt=true;log(`${q.name} เสีย Dex สูงสุด 1 ถาวร`,'blood');}},cost:0,l:`[Ultimate −1 Dex สูงสุด] ${q.h.ult.name}: +3 Dex +3 Move · ฆ่า = +2 Dex`,ult:true});break;
   case 'lydia':if(q.base.int>0)o.push({v:{a:'ult',cost:0,run:()=>{q.base.int--;q.chargeCut=3;log(`${q.name} เสีย Int สูงสุด 1 ถาวร — Charge ทุกสกิล −3 ในการต่อสู้นี้`,'blood');}},cost:0,l:`[Ultimate −1 Int สูงสุด] ${q.h.ult.name}: Charge (N) −3 จนจบการต่อสู้`,ult:true});break;
   case 'mina':U(`Survivor ในช่อง ${q.pos+1} สเตตัสหลัก +3 จนจบรอบ`,3,()=>{for(const s of liveS(C))if(s.pos===q.pos)s.anthemS=s.h.atk==='mag'?'int':'str';});break;
  }
