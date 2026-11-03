@@ -930,17 +930,17 @@ const HEROES=[
   ups:['Passive ลด 3 แทน 1','Passive ทำงานแม้เคลื่อนที่','บล็อคที่เหลือทำดาเมจศัตรูในช่องเดียวกัน; สกิลใช้ 2 ลูกเต๋าได้'],
   skill:{name:'Ash Wall',req:{type:'any',n:1,lbl:'เต๋า 1 ลูก หน้าใดก็ได้'},txt:'รอบนี้รับดาเมจลดลงตามหน้าเต๋า 1 ครั้ง (1 die any)'},
   ult:{name:'HIGH RISK: Bastion',cost:'x',txt:'เสีย ≤3 Hp: จนจบรอบ ตนเองและ Survivor ในช่องรับดาเมจลดลงเท่าที่จ่าย (1/การต่อสู้)'}},
- {id:'troika',name:'Troika',role:'Healer',faction:'Achans',hp:12,sp:2,mv:2,str:0,dex:2,int:1,cha:2,atk:'phy',range:[0,1],
+ {id:'troika',name:'Troika',role:'Healer',faction:'Achans',hp:10,sp:2,mv:2,str:0,dex:2,int:1,cha:2,atk:'phy',range:[0,1],
   passive:{name:'Cat & Black Dog',txt:'เริ่มมี Ally แมว (2Hp/Atk2/Move3) และหมาดำ (4Hp/Atk1/Move2), Sp เท่า Troika'},
   ups:['Ally ของเธอหมดสภาพ → ได้ลูกเต๋า W 1 ลูก','สกิลเลือกช่องข้าง ๆ ได้','พักผ่อนฟื้น 4 Hp และ Survivor อื่นในสถานที่เดียวกันได้ด้วย'],
   skill:{name:'Hearth Brew',req:{type:'collect',total:7,lbl:'ลงทีละ 1 ลูก สะสมรวม 7'},txt:'ฟื้นฟู 2 Hp Survivor ทั้งหมดในช่อง (Up to 1 die, รวม 7, สะสมได้)'},
   ult:{name:'HIGH RISK: Cauldron',cost:'x',txt:'เสีย x Hp: ฟื้นฟู Survivor อื่นรวม x Hp (1/การต่อสู้)'}},
- {id:'sora',name:'Sora Han',role:'Rogue',faction:'Ridgefolk (Achan side)',hp:12,sp:4,mv:2,str:1,dex:4,int:0,cha:0,atk:'phy',range:[0,1],
+ {id:'sora',name:'Sora Han',role:'Rogue',faction:'Ridgefolk (Achan side)',hp:10,sp:4,mv:2,str:1,dex:4,int:0,cha:0,atk:'phy',range:[0,1],
   passive:{name:'Backstab',txt:'Basic Attack จากด้านหลังศัตรู +Dex÷2 (ปัดลง)'},
   ups:['1 ครั้ง/วัน ย้ายสถานที่โดยไม่เสีย Action','สังหารศัตรูแล้วย้ายไปหลังศัตรูช่องข้าง ๆ ได้','Backstab = Dex เต็ม'],
   skill:{name:'Rainbow Warp',req:{type:'collect',total:5,lbl:'ลงทีละ 1 ลูก สะสมรวม 5'},txt:'วาร์ปไปด้านหลังศัตรูหรือ Survivor 1 คน (Up to 1 die, รวม 5, สะสมได้)'},
   ult:{name:'HIGH RISK: Rainbow Dash',cost:3,txt:'เสีย 3 Hp: Move ≤3 ศัตรูที่ผ่าน/อยู่ช่องเดียวกันรับดาเมจ = Dex + เลือดไหล (1/การต่อสู้)'}},
- {id:'mina',name:'Mina',role:'Buffer',faction:'Ridgefolk (Achan side)',hp:12,sp:2,mv:2,str:0,dex:2,int:1,cha:3,atk:'mag',range:[0,2],
+ {id:'mina',name:'Mina',role:'Buffer',faction:'Ridgefolk (Achan side)',hp:10,sp:2,mv:2,str:0,dex:2,int:1,cha:3,atk:'mag',range:[0,2],
   passive:{name:'Rainbow Yantra',txt:'Survivor อื่นในช่องเดียวกัน Sp +1'},
   ups:['Passive Sp +2','สกิลเลือก Survivor 1 คนเล่นได้อีก 1 แอกชัน (สกิลพร้อมใช้อีกครั้ง)','สกิลเปลี่ยนลูกเต๋า 2 ลูก'],
   skill:{name:'Encore',req:{type:'collect',total:7,lbl:'ลงทีละ 1 ลูก สะสมรวม 7'},txt:'Survivor กี่คนก็ได้ในช่องเดียวกัน เปลี่ยนลูกเต๋า 1 ลูกเป็นหน้าใดก็ได้ (Up to 1 die, รวม 7, สะสมได้)'},
@@ -960,7 +960,7 @@ const HEROES=[
   ups:['สกิลเลือก 3 เป้าหมาย ซ้ำได้','1 ครั้ง/วัน ดูการ์ดบนสุดกองเสบียง/สำรวจ วางไว้ที่เดิมหรือใต้กอง','(ว่างในชีต)'],
   skill:{name:'Twin Bolt',req:{type:'any',n:1,lbl:'เต๋า 1 ลูก หน้าใดก็ได้'},txt:'ดาเมจตามหน้าเต๋าใส่ศัตรู 2 เป้าหมาย (ไม่ซ้ำ) (1 die any)'},
   ult:null},
- {id:'ronan',name:'Ronan Seaborn',role:'Ordinary',faction:'Outsider',hp:12,sp:2,mv:2,str:0,dex:2,int:0,cha:3,atk:'phy',range:[0,1],
+ {id:'ronan',name:'Ronan Seaborn',role:'Ordinary',faction:'Outsider',hp:10,sp:2,mv:2,str:0,dex:2,int:0,cha:3,atk:'phy',range:[0,1],
   passive:{name:'Good Company',txt:'มี Ally ได้อีก 1 คน; เริ่มเกมได้ Ally แบบสุ่ม 1 คน'},
   ups:['(ข้อความในชีตไม่ครบ: "เมื่อเปิดการ์ด Npc จะสามารถ…")','(ว่างในชีต)','(ว่างในชีต)'],
   skill:{name:'Rally',req:{type:'range',n:1,min:3,max:6,lbl:'เต๋า 1 ลูก หน้า 3-6'},txt:'ใช้ความสามารถ/แอกชันของ Ally ได้อีก 1 ครั้ง (เต๋า 1 ลูก หน้า 3-6)'},
@@ -986,7 +986,7 @@ const ELITES={
  'U-Mg':{id:'ME-012',name:'Stemonitis splendens',fam:'mold',hp:12,sp:3,mv:1,move:'walk',dmg:3,rng:[2,5],aoe:true,bonus:'Y',mag:true,revive:true},
  'U-Sw':{id:'ME-005',name:'Fuligo septica',fam:'mold',hp:10,sp:5,mv:2,move:'walk',dmg:3,rng:[0,1],aoe:false,bonus:'W',revive:true},
  'U-Sy':{id:'ME-011',name:'Tubifera ferruginosa',fam:'mold',hp:12,sp:5,mv:2,move:'walk',dmg:4,rng:[0,1],aoe:false,bonus:'W',dearmor:1,revive:true},
- 'U-Sd':{id:'ME-018',name:'Physarum polycephalum',fam:'mold',hp:20,sp:10,mv:0,move:'stationary',dmg:'top',rng:[0,5],aoe:'all',bonus:'Y',immunePhy:true},
+ 'U-Sd':{id:'ME-018',name:'Physarum polycephalum',fam:'mold',hp:20,sp:10,mv:0,move:'stationary',dmg:'top',rng:[0,5],aoe:'all',bonus:'Y',immunePhy:true,immuneAll:true},
  'U-Ar':{id:'ME-006',name:'Lycogala epidendrum',fam:'mold',hp:8,sp:6,mv:2,move:'walk',dmg:2,rng:[2,4],aoe:false,bonus:'W',revive:true},
  'U-Cy':{id:'ME-017',name:'Comatricha',fam:'mold',hp:20,sp:4,mv:0,move:'stationary',dmg:4,rng:[3,5],aoe:true,bonus:'Y',mb:2,immuneMag:true},
  'GK':{id:'ME-024',name:'ราชาไม้เถ้าเพลิง (Grove King)',fam:'grove',hp:40,sp:6,mv:2,move:'walk',dmg:7,rng:[0,1],aoe:false,bonus:'R',grove:2,boss:true},
@@ -1007,6 +1007,7 @@ const ITEMS={
  bicycle:{id:'IT-024',name:'จักรยาน (Bicycle)',cat:'wear',price:5,txt:'ไปช่วยเพื่อน เสียเสบียงน้อยลง 1'},
  charm:{id:'IT-025',name:'เครื่องราง (Charm)',cat:'wear',price:8,txt:'ฟื้นฟู 1 HP ทุกรอบ'},
  licharm:{id:'IT-026',name:'เครื่องรางเหล็กไหล (Living Iron charm)',cat:'wear',price:7,txt:'เปลี่ยนเต๋าหน้า 1 เป็นหน้า 3 ได้ 1 ลูก (ทุกรอบ)'}
+ ,firstdie:{id:'IT-030b',name:'เต๋านำโชค ✎',cat:'wear',price:6,txt:'เมื่อเริ่มการต่อสู้ได้รับ ลูกเต๋า 1 ลูกใช้งานได้ในรอบแรกของการต่อสู้เท่านั้น'}
  ,knife:{id:'IT-030',name:'มีด Living Iron',cat:'wear',txt:'+1 Str / +1 Int · เมื่อโจมตี Basic ใส่ศัตรู ศัตรูที่ถูกโจมตีจะทำดาเมจลดลง 2 หน่วย'},
  boots:{id:'IT-016',name:'รองเท้าบูต (Boots)',cat:'wear',price:6,txt:'+1 Move'},
  gloves:{id:'IT-027',name:'ถุงมือหนัง (Leather gloves)',cat:'wear',price:5,txt:'+1 Str'},
@@ -1023,7 +1024,7 @@ const ITEMS={
  statue:{id:'IT-017',name:'รูปปั้น (Statue)',cat:'quest',txt:'ส่งให้ลูกนายอำเภอ (C8)'},
  keyB5:{id:'KEY',name:'กุญแจ B5',cat:'quest',txt:'ปลดล็อกโบสถ์ B5'},
 };
-const SHOP=['bicycle','charm','licharm','boots','gloves','journal','jacket'];
+const SHOP=['bicycle','charm','licharm','boots','gloves','journal','jacket','firstdie'];
 const ALLIES={
  homeless:{name:'คนไร้บ้าน (Homeless)',hp:4,food:1,txt:'จบการต่อสู้ที่เขาอยู่ เสบียงหาย 1'},
  eric:{name:'อีริก (Eric)',hp:4,food:1,txt:'พ่อค้าขี้ระแวง ไม่ยอมออกสู้ — มีรถ (ต้องเติมน้ำมัน)'},
@@ -1338,7 +1339,7 @@ const SCENES={
  'B7-3':{tile:'B7',txt:'คนในมอลล์ถูกฆ่าตายหมด "ผู้เล่นทุกคนมารวมตัวที่มอลล์" "ต่อสู้กับกระสือ"',run:async()=>{G.scenes['B7-3']='quest';addQuest('BOSS',1,'ผู้เล่นทุกคนรวมตัวที่ B7 แล้วต่อสู้กับกระสือ (Krasue)');}},
  'B8-1':{tile:'B8',txt:'เด็กสาววิ่งหนีปีศาจเขม่า "ช่วยพาเด็กสาวไปหาแม่" (Q2)',run:async p=>{if(addAlly(p,'ava')){addQuest('SC-B8',2,'พา AVA (เด็กสาว) ไปหาแม่ที่อนามัย D8');doneScene('B8-1');openScene('D8-1');}}},
  'C8-1':{tile:'C8',txt:'แคมป์ชาวเกาะ "หาผู้ติดตามมาครบ 2 คน" (Q2)',run:async()=>{addQuest('SC-C8',2,'มี Ally (ไม่นับสัตว์เลี้ยง) ครบ 2 คน แล้วมาที่ C8 → 1 CP');G.scenes['C8-1']='quest';}},
- 'D8-1':{tile:'D8',need:()=>hasAlly('ava'),txt:'พา AVA มาที่อนามัย (D8) — เจรจากับจอห์น (ทอย D6)',run:async p=>{finishQuest('SC-B8');doneScene('D8-1');
+ 'D8-1':{tile:'D8',need:()=>hasAlly('ava'),txt:'พา AVA มาที่อนามัย (D8) — เจรจากับจอห์น (ทอย D6)',run:async p=>{finishQuest('SC-B8');doneScene('D8-1');openMQ1();
   let d=await hd6(p,'D8 เจรจากับจอห์น (4.1/4.2)');if(G.johnTrust){const d0=d;d=Math.max(1,Math.min(6,d+(G.johnTrust>0?2:-2)));log(`จอห์น${G.johnTrust>0?'ไว้ใจ (ลูกสาวนายอำเภอยืนยันให้)':'ไม่ไว้ใจ (คุณขายรูปปั้น)'}: ${d0} → ${d} ✎`,'story');}log(`เจรจา D6 = ${d} → ข้อ ${d<=3?'4.1':'4.2'}`,'story');
   const fight=async(sec)=>{removeAlly('ava');const r=await startCombat(p,{elites:['AVA'],fam:'grove',minions:2,title:'AVA ปีศาจ (โทสะ) — อนามัย D8',reason:`Scene D8 ข้อ ${sec}: เด็กสาวกลายเป็นปีศาจ`});
    if(r!=='win'){endGame('loss',`แพ้ AVA ที่อนามัย D8 (ข้อ ${sec}: "หากแพ้ เกมจะจบ")`);return false;}return true;};
@@ -1408,6 +1409,8 @@ const SHEET_EXPLORE=[
  [22,'-','Event','','สามารถทิ้ง Ally 1 คน เพื่อได้รับ 5 เสบียงและ 2 เหรียญ','','','',''],
  [23,'-','Event','','ฟื้นฟู 3 Hp สามารถที่จะข้ามแอกชั่นของวันนี้ทั้งหมดเพื่อฟื้นฟู Hp เต็มแทน','','','',''],
  [24,'-','Event','','สามารถจ่าย 2 เสเบียง ได้รับ 3 เหรียญ','','','',''],
+[25,'-','Event','','Challenge Dex ≥ 3 หากสำเร็จได้รับ 3 เหรียญ','','','',''],
+[26,'-','Event','','ค้นพบเส้นทางลับ คุณสามารถเคลื่อนที่ยังสถานที่ต่อไปที่ติดกันได้ทันทีและ สามารถ ทำแอกชั่นอะไรก็ได้อีกครั้งที่ไม่ใช่การเคลื่อน','','','',''],
 ];
 // มีเนื้อเรื่อง = มีคำบรรยายนอกเหนือจากเงื่อนไข/ผลในเครื่องหมายคำพูด (การ์ดกองกลางในชีตมีแต่ผล → ⚠ ไม่มีเนื้อเรื่อง)
 function exStory(r){if(r[1]==='-')return false;const s=r[4].replace(/“[^”]*”/g,'').replace(/\([^)]*\)/g,'').trim();return s.length>0;}
@@ -1431,6 +1434,11 @@ const EXPLORE_GEN={
  23:async p=>{const c=await ask(p,'card','การ์ดสำรวจ #23: ฟื้นฟู',[{v:'3',l:'ฟื้นฟู 3 Hp'},{v:'full',l:'ข้ามแอกชั่นที่เหลือของวันนี้ → ฟื้นฟู Hp เต็ม ⚠'}],p.hp<=p.maxhp/3?1:0);
   if(c==='full'){p.hp=p.maxhp;p.skipDay=G.day;log(`${p.name} ฟื้นฟู Hp เต็ม — ข้ามแอกชั่นที่เหลือของวันที่ ${G.day} ⚠`,'good');}else{const b=p.hp;p.hp=Math.min(p.maxhp,p.hp+3);log(`${p.name} ฟื้นฟู ${p.hp-b} Hp`,'good');}},
  24:async p=>{const o=[{v:false,l:'ไม่จ่าย'}];if(G.food>=2)o.unshift({v:true,l:'จ่าย 2 เสบียง → 3 เหรียญ'});const c=await ask(p,'card','การ์ดสำรวจ #24: จ่าย 2 เสบียง ได้รับ 3 เหรียญ?',o,o.length>1&&G.food>=CFG.mainFood+3?0:o.length-1);if(c){G.food-=2;G.coins+=3;log('จ่าย 2 เสบียง → ได้รับ 3 เหรียญ','good');}else log('ไม่จ่าย');},
+ 25:async p=>{if(await challenge(p,'dex',3)){G.coins+=3;log('ได้รับ 3 เหรียญ','good');}else log('Challenge Dex ไม่สำเร็จ — ไม่ได้อะไร');},
+ 26:async p=>{const mo=movesOf(p);if(!mo.length){log('สำรวจ #26: ไม่มีทางไปต่อ');return;}
+  const c=await ask(p,'card','การ์ดสำรวจ #26: ค้นพบเส้นทางลับ — เคลื่อนที่ไปสถานที่ติดกันทันที',mo,0);if(!c)return;
+  await moveTo(p,c);if(G.over)return;await tileEvents(p);if(G.over)return;
+  log(`${p.name} ทำแอกชั่นได้อีก 1 ครั้ง (ไม่ใช่การเคลื่อนที่)`,'good');p.noMove26=true;try{await playerTurn(p,'day');}finally{p.noMove26=false;}}
 };
 // หน้าต่างเหตุการณ์สำรวจ: เปิด (เรื่อง/เงื่อนไข/ทางเลือก) → ทำผล → ผลลัพธ์ (ทุกเครื่องเห็นผ่าน G.evPop)
 async function evPop(p,info){G.evPop={...info,seq:(G.evPop?G.evPop.seq:0)+1,who:p&&p.name,wait:!!(p&&!p.bot&&IO.ask)};G.stats.evPops=(G.stats.evPops||0)+1;
@@ -1464,6 +1472,8 @@ const EX_FLAV={
  21:'สมุดบันทึกที่เขียนด้วยลายมือสั่นเทา บันทึกบางอย่างเกี่ยวกับต้นไม้กลางเมือง ต้องใช้สมาธิถอดความให้ออก',
  22:'ทางข้างหน้าแคบเกินกว่าจะพาทุกคนไปด้วย มีคนเสนอเสบียงและเงินให้ หากยอมให้ใครสักคนแยกทางไป',
  23:'ห้องเล็กที่ประตูยังลงกลอนได้ ที่นี่เงียบพอให้หลับตาได้สักพัก — ถ้ายอมเสียเวลาของวันนี้',
+ 25:'ซากรถติดอยู่บนราวสะพาน ในกระเป๋าคอนโซลมีเหรียญอยู่ — ต้องปีนให้ไวก่อนมันจะร่วง',
+ 26:'รอยแยกหลังกำแพงเผยทางเดินแคบ ๆ ที่ไม่มีใครรู้จัก',
  24:'พ่อค้าเร่ที่ยังไม่ยอมทิ้งเมืองยื่นเหรียญให้ แลกกับเสบียงเพียงเล็กน้อย'};
 // ---------------- Game loop (Rulebook 4.1) ----------------
 async function runGame(){
@@ -1546,11 +1556,11 @@ async function playerTurn(p,ph){
  await tileEvents(p);if(G.over)return;
  if(p.bot||!IO.ask)await freeActions(p);if(G.over)return;
  // Sora Upg1: free move once per day
- if(p.id==='sora'&&upg(p,1)&&!p.usedDay.free){const mo=movesOf(p);if(mo.length){
+ if(p.id==='sora'&&upg(p,1)&&!p.usedDay.free&&!p.noMove26){const mo=movesOf(p);if(mo.length){
   const c=await ask(p,'freemove','Sora · Upg1: ย้ายสถานที่ฟรี 1 ครั้ง/วัน?',[{v:null,l:'ไม่ใช้'}].concat(mo),botFreeMove(p,mo));
   if(c){p.usedDay.free=true;await moveTo(p,c);if(G.over)return;await tileEvents(p);if(G.over)return;}}}
  const t=G.tiles[p.tile];const opts=[];
- for(const m of movesOf(p))opts.push({v:'mv:'+m.v,l:m.l});
+ if(!p.noMove26)for(const m of movesOf(p))opts.push({v:'mv:'+m.v,l:m.l});
  if(t.cubes.food>0)opts.push({v:'forage',l:`Forage (หาอาหาร) ■เขียว ×${t.cubes.food}`});
  if(t.cubes.explore>0)opts.push({v:'explore',l:`Explore (สำรวจ) ■เหลือง ×${t.cubes.explore}`});
  if(t.cubes.talk>0)opts.push({v:'talk',l:`Talk (คุย NPC) ■ฟ้า ×${t.cubes.talk}`});
@@ -1758,6 +1768,7 @@ function rollPool(q,C){
  let types=q.dice.slice();
  for(const a of q.allies)if(a.d.die&&a.hp>0)types.push(a.d.die);
  for(let i=0;i<q.bonusW;i++)types.push('W');q.bonusW=0;
+ if(q.wear.includes('firstdie')&&C&&C.round===1){types.push('W');log(`${q.name}: เต๋านำโชค +1 ลูก (รอบแรกเท่านั้น)`);}
  for(const a of q.allies)if(a.d.dieMinus&&a.hp>0){const i=types.indexOf(a.d.dieMinus);if(i>=0&&types.length>1){types.splice(i,1);log(`${a.name}: ลูกเต๋า ${a.d.dieMinus} −1`,'bad');}}
  let lose=(q.weak?1:0)+(q.mb||0);q.mb=0;
  while(lose-->0&&types.length>1){types.sort((a,b)=>'WYR'.indexOf(a)-'WYR'.indexOf(b));types.shift();}
@@ -1874,7 +1885,7 @@ function atkVal(q){return (q.h.atk==='mag'?sTot(q,'int'):sTot(q,'str'))+(q.zemB|
 function heroRange(q){return q.id==='zemaki'&&!upg(q,1)?[0,0]:q.h.range;}
 function frontOK(q,u){const dd=(u.pos-q.pos)*q.face;return u.pos===q.pos||dd>0;}
 function inRange(q,u,rng){const d=Math.abs(u.pos-q.pos);return d>=rng[0]&&d<=rng[1]&&frontOK(q,u);}
-function canHit(u,type){if(u.d&&u.d.immunePhy&&type!=='mag')return false;if(u.d&&u.d.immuneMag&&(type==='mag'||type==='skill'||type==='skillmag'))return false;return true;}
+function canHit(u,type){if(u.d&&u.d.immuneAll)return false;if(u.d&&u.d.immunePhy&&type!=='mag')return false;if(u.d&&u.d.immuneMag&&(type==='mag'||type==='skill'||type==='skillmag'))return false;return true;}
 function damageM(C,u,dmg,src,type='phy',opt={}){
  if(u.hp<=0)return false;
  if(!canHit(u,type)){log(`${u.name} ไม่รับดาเมจประเภทนี้ (${src})`);return false;}
@@ -3581,5 +3592,8 @@ if(/lanetest/.test(location.search))setInterval(()=>{try{const C=G.combat;if(!C)
 })();
 /* v0.9.18 calm UI: kill every continuous/looping animation; one-shot event effects (finite) stay */
 (()=>{const k=()=>{try{for(const a of document.getAnimations()){const t=a.effect&&a.effect.getTiming&&a.effect.getTiming();if(t&&(t.iterations===Infinity||t.iterations>3)){a.cancel();const el=a.effect.target;if(el&&el.style)el.style.animation='none';}}}catch(e){}};setInterval(k,400);k();})();
+
+// v0.9.19: party-panel mini-card names clamp to 2 lines (no vertical spill into next slot)
+(function(){const s=document.createElement('style');s.textContent='html body #game .mrow .mcard .mnm{display:-webkit-box!important;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden!important;max-height:2.35em}';document.head.appendChild(s);})();
 
 </script></body></html>
