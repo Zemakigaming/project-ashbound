@@ -3544,4 +3544,9 @@ setInterval(()=>{document.querySelectorAll('#choices .abar .acard:not(.scard)').
 setInterval(()=>{try{if(typeof CUR!=='undefined'&&CUR&&CUR.kind==='event'&&G.evPop&&G.evPop.stage==='result'&&!G.combat){if(window.V915S===G.evPop.seq)return;window.V915S=G.evPop.seq;CUR.res(1);}}catch(e){}},150);
 })();
 
+(()=>{const s=document.createElement('style');s.id='v916';s.textContent=`
+#planOk small{display:none!important}
+@media (max-width:760px){html body #game #choices .acard:has(.bigdie) .atx{display:none!important}}
+`;document.head.appendChild(s);})();
+
 </script></body></html>
