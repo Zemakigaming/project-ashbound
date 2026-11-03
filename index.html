@@ -681,7 +681,7 @@ body.dragging .acard.tcp.cant .asock .areq{color:#c05a5a}
 body.dragging .acard.tcp.over .asock:not(.full){transform:translateY(2px) scale(1.06);box-shadow:inset 0 3px 8px #000,inset 0 0 16px #ffb04aaa,0 0 14px #ffc06a,0 0 30px #ff7a1acc}
 body.dragging .acard.tcp.nogo .asock{box-shadow:inset 0 3px 8px #000,0 0 12px #ff3a3a,0 0 26px #c01818cc;border-color:#ff6a6a #8a1a1a #4a0a0a #c04040!important}
 @keyframes sockpulse{to{box-shadow:inset 0 3px 8px #000,inset 0 0 14px #ff9a3a88,0 0 14px #ffb04a,0 0 26px #ff7a1abb}}
-.acard.tcp .asock .pdie.seat{animation:seat .45s cubic-bezier(.3,1.7,.5,1)}
+.acard.tcp .asock .pdie.dseat{animation:seat .45s cubic-bezier(.3,1.7,.5,1)}
 @keyframes seat{0%{transform:translateY(-26px) scale(1.3);opacity:.6}55%{transform:translateY(3px) scale(.92);opacity:1}78%{transform:translateY(-2px) scale(1.04)}100%{transform:none}}
 .acard.tcp .asock.seated{animation:sockthud .45s ease-out}@keyframes sockthud{45%{box-shadow:inset 0 3px 7px #000,inset 0 0 18px #ffb04acc,0 0 22px #ffb04a,0 4px 7px #000c}}
 #choices.planb .ptop .acard.scard.tcp{padding-bottom:22px!important;margin-bottom:28px!important}
@@ -1356,14 +1356,15 @@ const SCENES={
 async function runScene(p,k){const s=SCENES[k];log(`🎬 ${(TILES[s.tile]||{name:''}).name.replace(/ \(.*\)/,'')} — ${s.txt}`,'story');
  const T=TILES[s.tile]||{},qm=/\((Q\d)[^)]*\)/.exec(s.txt||'');
  const rel=G.quests.filter(q=>!q.done&&(q.txt||'').includes(k));
- try{await storyPop(p,'quest',{only:[p],place:T.name||s.tile});}catch(e){}
+ //v923: quest storyPop merged into scenePop
  await scenePop(p,{k,tile:s.tile,place:T.name||'',txt:s.txt,qlv:qm?qm[0].slice(1,-1):'',quests:rel.map(q=>({lvl:q.lvl,id:q.id,txt:q.txt})),stage:'open'});
  const q0=G.quests.map(q=>q.id);await s.run(p);
  const nq=G.quests.filter(q=>!q0.includes(q.id));
  if(nq.length&&!G.over)nq.forEach(q=>log('📜 ภารกิจใหม่: '+q.txt,'good'));if(false)await scenePop(p,{k,tile:s.tile,place:T.name||'',txt:s.txt,quests:nq.map(q=>({lvl:q.lvl,id:q.id,txt:q.txt})),stage:'quest'});
  IO.render();}
 // v0.8.9: หน้าต่าง Scene/Quest — ผู้เล่นคน = รอกดรับทราบ (ask 'scene'); Bot = แสดงแบบไม่บล็อก
-async function scenePop(p,info){G.scenePop={...info,seq:(G.scenePop?G.scenePop.seq:0)+1,who:p&&p.name,wait:!!(p&&!p.bot&&IO.ask)};G.stats.scenePops=(G.stats.scenePops||0)+1;
+async function scenePop(p,info){if(info&&info.stage==='open'){G.seenPops=G.seenPops||{};const tk='T:'+info.tile+':'+G.day+':'+(G.phase||'');if(G.seenPops['K:'+info.k]||G.seenPops[tk]){log('🎬 '+(info.place||'')+': '+String(info.txt||'').slice(0,80));G.seenPops['K:'+info.k]=1;return;}G.seenPops['K:'+info.k]=1;G.seenPops[tk]=1;}//v923 one popup per scene / per tile-turn
+G.scenePop={...info,seq:(G.scenePop?G.scenePop.seq:0)+1,who:p&&p.name,wait:!!(p&&!p.bot&&IO.ask)};G.stats.scenePops=(G.stats.scenePops||0)+1;
  if(G.scenePop.wait){await ask(p,'scene',info.stage==='quest'?`📜 ภารกิจใหม่`:`🎬 พบฉากใหม่`,[{v:1,l:'รับทราบ — ไปต่อ'}],0);G.scenePop.wait=false;G.scenePop.ack=true;}
  IO.render();}
 // auto-trigger open scenes on the player's tile; also quest turn-ins
@@ -1442,7 +1443,7 @@ const EXPLORE_GEN={
   log(`${p.name} ทำแอกชั่นได้อีก 1 ครั้ง (ไม่ใช่การเคลื่อนที่)`,'good');p.noMove26=true;try{await playerTurn(p,'day');}finally{p.noMove26=false;}}
 };
 // หน้าต่างเหตุการณ์สำรวจ: เปิด (เรื่อง/เงื่อนไข/ทางเลือก) → ทำผล → ผลลัพธ์ (ทุกเครื่องเห็นผ่าน G.evPop)
-async function evPop(p,info){G.evPop={...info,seq:(G.evPop?G.evPop.seq:0)+1,who:p&&p.name,wait:!!(p&&!p.bot&&IO.ask)};G.stats.evPops=(G.stats.evPops||0)+1;
+async function evPop(p,info){G.evPop={...info,seq:(G.evPop?G.evPop.seq:0)+1,who:p&&p.name,wait:!!(p&&!p.bot&&IO.ask&&info.stage==='result')};G.stats.evPops=(G.stats.evPops||0)+1;
  if(G.evPop.wait){await ask(p,'event',info.stage==='result'?`🔍 ผลการสำรวจ ${info.tile}`:`🔍 สำรวจ ${info.tile}`,[{v:1,l:info.stage==='result'?'รับทราบ — ไปต่อ':'ดำเนินการ'}],0);G.evPop.wait=false;G.evPop.ack=true;}
  IO.render();}
 async function exploreEvent(p,row,run){const T=TILES[p.tile]||{},m=exMeta(row);
@@ -1763,6 +1764,7 @@ async function startCombat(p,o={}){
  if(parts.some(q=>q.allies.some(a=>a.k==='homeless'))){G.food=Math.max(0,G.food-1);log('คนไร้บ้าน: เสบียงหาย 1','bad');}
  G.lastCombat={res,downed:C.downed,reason:C.reason};G.combatEndN=(G.combatEndN||0)+1;
  G.combat=null;IO.render();
+ if(IO.afterCombat)await IO.afterCombat(res);
  return res;
 }
 function rollPool(q,C){
@@ -2200,7 +2202,7 @@ function storyLines(kind,o){const ps=(G.players||[]).filter(p=>!o.only||o.only.i
  if(kind==='intro')return [{who:'ASHBOUND · องก์ 1 — ผู้รอดชีวิต',nar:1,txt:STORY_WORLD.join('\n\n')}].concat(ps.map(p=>({who:p.name,id:p.id,fac:p.faction,txt:(L(p.id).nar||L(p.id).bg||'')+'\n\n🎯 เป้าหมาย: '+(L(p.id).mot||'')+' ✎'})));
  if(kind==='combat'){const C=o.C||{};const first=!G.storyFirstFight;G.storyFirstFight=1;const why=C.reason||'การต่อสู้';const pl=C.tile||P.tile||'';
   if(o.boss)return [{who:'ผู้บรรยาย',nar:1,txt:'ลมหยุดนิ่ง… ดวงไฟริบหรี่ลอยต่ำเหนือหลังคามอลล์ เสียงหัวเราะแหลมดังมาจากความมืด — “รินา กระสือ” ผู้ทำนายต้องสาป ปรากฏตัวขวางทางออกจากเมือง (World Building: กระสือจะโผล่มาเมื่อเหล่าผู้รอดจะออกจากเมือง)\n\nทำไมต้องสู้: ถ้าไม่ปราบมัน เถ้าต้องสาปจะกลืนกินเมืองอาชาทั้งเมือง ✎'},{who:P.name,id:P.id,txt:'ถ้ามันคือสิ่งที่ขวางทางออก… เราก็ต้องผ่านมันไปให้ได้ ✎'}];
-  return [{who:'ผู้บรรยาย',nar:1,txt:(first?'ครั้งแรกที่เผชิญหน้า — ร่างบิดเบี้ยวคลานออกมาจากกองเถ้า ดวงตาว่างเปล่าที่เคยเป็นมนุษย์จ้องมาที่พวกเขา นี่คือ “ผู้ถูกกลืนกิน” ผู้คนของเมืองอาชาที่ถูกเถ้าต้องสาปกัดกินจิตใจ (World Building) ✎':'เถ้าต้องสาปหมุนวนรอบตัว… ผู้ถูกกลืนกินได้กลิ่นของผู้ที่ไม่ถูกคำสาปอีกครั้ง ✎')+'\n\nทำไมต้องสู้: '+why+(pl?' · '+pl:'')},{who:P.name,id:P.id,txt:(L(P.id).q||'มาเลย!')+' ✎'}];}
+  return [{who:'ผู้บรรยาย',nar:1,txt:(first?'ครั้งแรกที่เผชิญหน้า — ร่างบิดเบี้ยวคลานออกมาจากกองเถ้า ดวงตาว่างเปล่าที่เคยเป็นมนุษย์จ้องมาที่พวกเขา นี่คือ “ผู้ถูกกลืนกิน” ผู้คนของเมืองอาชาที่ถูกเถ้าต้องสาปกัดกินจิตใจ (World Building) ✎':'เถ้าต้องสาปหมุนวนรอบตัว… ผู้ถูกกลืนกินได้กลิ่นของผู้ที่ไม่ถูกคำสาปอีกครั้ง ✎')+'\n\nทำไมต้องสู้: '+String(why).replace(/[\s·]+$/,'')+(String(pl).trim()?' · '+String(pl).trim():'')},{who:P.name,id:P.id,txt:(L(P.id).q||'มาเลย!')+' ✎'}];}
  if(kind==='quest')return [{who:P.name,id:P.id,txt:(o.place?'บางที '+String(o.place).replace(/ \(.*\)/,'')+' ':'')+'อาจมีคำตอบว่าเราเป็นใคร — ลองดูกันเถอะ ✎'}];
  if(kind==='end')return o.win?[{who:'ผู้บรรยาย',nar:1,txt:'เสียงกรีดร้องของกระสือจางหายไปในเถ้า… แต่บนผิวของต้นไม้โบราณ รอยแยกใหม่เพิ่งเปิดออก ระหว่างทาง พวกเขาเริ่มพบหลักฐานของเหตุการณ์เมื่อ 1,332 ปีก่อน (World Building · Act 2 — THE TRUTH)\n\nAct 1 จบลง — แต่ความจริงเพิ่งเริ่มต้น ✎'}]:[{who:'ผู้บรรยาย',nar:1,txt:'เถ้าต้องสาปปกคลุมเมืองอาชาจนมิด… เสียงของผู้รอดชีวิตเงียบหายไปทีละคน และรากของต้นไม้โบราณก็ลุกไหม้สว่างขึ้นอีกครั้ง ✎'}];
  return [];}
@@ -2495,7 +2497,7 @@ const PCOL=['#3ec7b0','#55a0e0','#e0c040','#a070e0'];
 function allyChip(a){const im=allyArt(a.k);return `<span class="achip">${im?`<img src="${im}">`:`<i>${ALLY_ICON[a.k]||'★'}</i>`}${esc(a.name.split(' (')[0])} ${a.hp}HP</span>`;}
 function render(){
  if(!G)return;try{document.body.classList.toggle('overworld',!G.combat&&!(typeof TRAY!=='undefined'&&TRAY.pending));}catch(e){}if(window.NET&&NET.on)NET.afterRender();
- $('#top').innerHTML=`<span class="ttl">ASHBOUND</span><span class="chip day" data-tip="วันที่ / Day limit ${CFG.dayLimit} ⚠">☾ Day <b>${Math.min(G.day,CFG.dayLimit)}</b>/${CFG.dayLimit}⚠</span><span class="chip ph">${PHASE_TH[PHASES[G.phase]]}</span>
+ $('#top').innerHTML=`<span class="ttl">ASHBOUND</span><span class="chip day" data-tip="วันที่ / Day limit ${CFG.dayLimit} ⚠">☾ Day <b>${Math.min(G.day,CFG.dayLimit)}</b>/${CFG.dayLimit}⚠</span><span class="chip ph ph-${PHASES[G.phase]}">${PHASE_TH[PHASES[G.phase]]}${PHASES[G.phase]==='afternoon'?' ⚠ คืนนี้ศัตรูบุก':PHASES[G.phase]==='night'?' — ไม่มีแอคชัน ศัตรูบุก':''}</span>
  <span class="chip res food" id="hudFood" data-tip="เสบียง (Food)"><span class="ri">🍖</span><b>${G.food}</b><i class="hl">เสบียง</i></span><span class="chip res gold" id="hudCoin" data-tip="เหรียญ (Coins) ใช้ที่ร้านค้า B7"><span class="ri">🪙</span><b>${G.coins}</b><i class="hl">เหรียญ</i></span><span class="chip" data-tip="Soot = ระดับความยากการต่อสู้">🌫 <b>${G.soot}</b><i class="hl">เขม่า · ระดับ ${tier()}</i></span><span class="chip" data-tip="Check Points — แต้มความคืบหน้า">✦ <b>${G.cp}</b><i class="hl">CP</i></span><span class="chip blood" data-tip="Blood">🩸 <b>${G.blood}</b><i class="hl">เลือด</i></span>${meterHUD()}
  <span class="chip bag" data-tip="${esc('🎒 กระเป๋ากลาง (Bag)\n'+(Object.entries(G.bag).map(([k,n])=>(ITEMS[k]?ITEMS[k].name:k)+' ×'+n+(ITEMS[k]?' — '+ITEMS[k].txt:'')).join('\n')||'ว่าง'))}">🎒 ${Object.entries(G.bag).map(([k,n])=>itemIcon(k)+'×'+n).join(' ')||'—'}</span>${G.shopOpen?'<span>🛒 ร้านค้าเปิด (B7)</span>':''}
  <button id="logBtn" onclick="toggleLog()">📜 บันทึก</button><span class="spd">ความเร็ว <button onclick="SPEED=Math.max(0.5,SPEED/2)">−</button>${SPEED}× <button onclick="SPEED=Math.min(8,SPEED*2)">+</button></span><button onclick="showHow()">📖 วิธีเล่น</button><span class="sett"><button class="setb" onclick="this.nextElementSibling.hidden=!this.nextElementSibling.hidden">⚙ ตั้งค่า</button><span class="setm" hidden><button id="autoSet" onclick="window._autoCur&&window._autoCur()">🤖 ให้ Bot เล่นตัวนี้</button><small class="verx">${VERSION}</small></span></span><button onclick="tutStart(true)">🎓 Tutorial</button>`;
@@ -2510,7 +2512,7 @@ function render(){
 let _hudPrev=null,_banPrev=null;
 function hudFx(){try{if(!document.getElementById('welcome')||!window._keySet){const w=document.getElementById('welcome');if(w&&typeof KEYART!=='undefined'){w.style.setProperty('--keyart',`url(${KEYART})`);window._keySet=1;}}
  const cur={hudFood:G.food,hudCoin:G.coins};if(_hudPrev)for(const k in cur){const d=cur[k]-_hudPrev[k];if(d){const el=document.getElementById(k);if(el){el.classList.add('bump');const s=document.createElement('span');s.className='rdelta '+(d>0?'up':'dn');s.textContent=(d>0?'+':'')+d;el.appendChild(s);setTimeout(()=>{s.remove();el.classList.remove('bump');},1300);}}}_hudPrev=cur;
- const bk=G.day+'|'+G.phase;if(_banPrev!==null&&bk!==_banPrev&&!window.FAST){const o=document.getElementById('turnBan');if(o)o.remove();const b=document.createElement('div');b.id='turnBan';b.textContent=`DAY ${Math.min(G.day,CFG.dayLimit)} · ${PHASE_TH[PHASES[G.phase]]||''}`;document.body.appendChild(b);setTimeout(()=>b.remove(),1700);}_banPrev=bk;}catch(e){}}
+ const bk=G.day+'|'+G.phase;if(_banPrev!==null&&bk!==_banPrev&&!window.FAST){const o=document.getElementById('turnBan');if(o)o.remove();const b=document.createElement('div');b.id='turnBan';const nt=PHASES[G.phase]==='night',af=PHASES[G.phase]==='afternoon';b.textContent=`DAY ${Math.min(G.day,CFG.dayLimit)} · ${PHASE_TH[PHASES[G.phase]]||''}`+(nt?' — กลางคืน: ไม่มีแอคชัน ศัตรูบุก':af?' — ⚠ คืนนี้ศัตรูบุก (ไม่มีแอคชันตอนกลางคืน)':'');if(nt)b.classList.add('night');if(af)b.classList.add('aft');document.body.appendChild(b);setTimeout(()=>b.remove(),nt||af?3200:1700);}_banPrev=bk;}catch(e){}}
 function questBoard(){
  return `<div class="qb"><b>📜 Quest</b>${G.quests.length?G.quests.map(q=>`<div class="q ${q.done?'done':''}">${q.done?'✓':'•'} ${esc(devClean(q.txt))}</div>`).join(''):'<div class="sm">—</div>'}</div>`;
 }
@@ -2548,7 +2550,7 @@ function tokenHTML(u,kind,sz){
  const fk=kind==='s'?u.id:kind==='a'?u.code:(u.kind==='elite'?u.code:u.fam),fg=figOf(fk);
  const fflip=!!fg&&FIGFLIP.has(fk);
  const uk=kind==='s'?'h:'+u.id:(kind==='a'?'a:':'m:')+u.uid;
- return `<div data-uk="${uk}" data-hp="${kind==='m'&&u.kind!=='elite'?(u.down?1:2):Math.max(0,u.hp)}" data-uid="${u.uid??''}" class="tok ${fg?'fig':''} ${isS?'ts':'tm'} ${G.cur===u?'cur':''} ${u.down?'down':''} ${u.d&&u.d.boss?'boss':''}" style="width:${fg?Math.round(sz*1.1):sz}px;height:${fg?Math.round(sz*1.47):sz}px;--ring:${ring}" title="${esc(tip)}">${kind==='m'?`<span class="tint">${intentHTML(u,G.combat)}</span>`:''}${fg?`<img class="fimg ${fflip?'flip':''}" src="${fg}">`:img}<span class="thp" style="font-size:${fs}px">${hp}</span><span class="tface" style="font-size:${fs}px">${u.face>0?'▶':'◀'}</span>${kind!=='m'||u.kind==='elite'?`<span class="thb"><i style="width:${Math.max(0,100*u.hp/(u.maxhp||1))}%"></i></span>`:''}<span class="tnm">${esc(String(u.name).split(' (')[0])}</span>${u.stun?'<span class="tst">⚡</span>':''}${u.poison?`<span class="tpo">☠${u.poison}</span>`:''}</div>`;
+ return `<div data-uk="${uk}" data-hp="${kind==='m'&&u.kind!=='elite'?(u.down?1:2):Math.max(0,u.hp)}" data-uid="${u.uid??''}" class="tok ${fg?'fig':''} ${isS?'ts':'tm'} ${G.cur===u?'cur':''} ${u.down?'down':''} ${u.d&&u.d.boss?'boss':''}" style="width:${fg?Math.round(sz*1.1):sz}px;height:${fg?Math.round(sz*1.47):sz}px;--ring:${ring}" title="${esc(tip)}">${kind==='m'?`<span class="tint">${intentHTML(u,G.combat)}</span>`:''}${fg?`<img class="fimg ${fflip?'flip':''}" src="${fg}">`:img}<span class="thp" style="font-size:${fs}px">${hp}</span><span class="tface" style="font-size:${fs}px">${u.face>0?'▶':'◀'}</span><span class="thb ${kind==='m'?'mhb':''}" title="${kind==='m'&&u.kind!=='elite'?(u.down?'ล้มแล้ว 1/2 — อีก 1 ครั้งตาย':'ไมเนียน 2/2'):'ชีวิต '+Math.max(0,u.hp)+'/'+(u.maxhp||1)}"><i style="width:${kind==='m'&&u.kind!=='elite'?(u.down?50:100):Math.max(0,100*u.hp/(u.maxhp||1))}%"></i></span><span class="tnm">${esc(String(u.name).split(' (')[0])}</span>${u.stun?'<span class="tst">⚡</span>':''}${u.poison?`<span class="tpo">☠${u.poison}</span>`:''}</div>`;
 }
 function foeCard(u){const el=u.kind==='elite';const hpP=el?100*Math.max(0,u.hp)/u.maxhp:100;
  return `<div data-uid="${u.uid}" class="foe ${el?'elite':'minion'} ${u.d.boss?'boss':''} ${G.cur===u?'cur':''} ${u.down?'down':''}"><img src="${artOf(el?u.code:u.fam)}"><div class="fi"><b>${esc(u.name)}</b><small>${esc(u.d.id||'')} · ช่อง ${u.pos+1}</small>
@@ -2787,7 +2789,7 @@ function planDrag(e,el){if(e.button>0)return;e.preventDefault();clearTimeout(PLA
   document.body.classList.remove('dragging');g.remove();if(ev.type==='pointerup'&&Math.hypot(ev.clientX-sx,ev.clientY-sy)<6){el.classList.remove('lifted');document.querySelectorAll('#choices .acard.can,#choices .acard.cant,#choices .acard.over,#choices .acard.nogo').forEach(c=>c.classList.remove('over','nogo'));if(PLAN.sel===di){PLAN.sel=null;planRender();return;}PLAN.sel=di;document.querySelectorAll('#choices .pdie.picked').forEach(x=>x.classList.remove('picked'));el.classList.add('picked');return;}PLAN.sel=null;document.querySelectorAll('#choices .acard.can,#choices .acard.cant').forEach(c=>c.classList.remove('can','cant'));let ch=false;const prevAt={...PLAN.at};
   if(over&&over.dataset.s){const S=planSock(over.dataset.s),ok=planCanAdd(S,di);if(ok){if(ok==='swap'){const o=planIn(S.id).find(i=>i!==di);if(o!=null){if(PLAN.at[di])PLAN.at[o]=PLAN.at[di];else delete PLAN.at[o];}}PLAN.at[di]=S.id;ch=true;}}
   else if(over&&over.classList.contains('ppool')&&PLAN.at[di]){delete PLAN.at[di];ch=true;}
-  if(ch){PLAN.hist=PLAN.hist||[];PLAN.hist.push(prevAt);SFX.play('place');}planRender();if(ch){const n=document.querySelector(`#choices .acard[data-s="${PLAN.at[di]}"]`);if(n){n.classList.add('snap');const pd=n.querySelector(`.asock .pdie[data-di="${di}"]`);if(pd){pd.classList.add('seat');pd.closest('.asock').classList.add('seated');}}}};
+  if(ch){PLAN.hist=PLAN.hist||[];PLAN.hist.push(prevAt);SFX.play('place');}planRender();if(ch){const n=document.querySelector(`#choices .acard[data-s="${PLAN.at[di]}"]`);if(n){n.classList.add('snap');const pd=n.querySelector(`.asock .pdie[data-di="${di}"]`);if(pd){pd.classList.add('dseat');pd.closest('.asock').classList.add('seated');}}}};
  document.addEventListener('pointermove',mv);document.addEventListener('pointerup',up);document.addEventListener('pointercancel',up);}
 function planUndo(){if(!PLAN||!PLAN.pending||PLAN.committed||!PLAN.hist||!PLAN.hist.length)return;clearTimeout(PLAN.timer);PLAN.at=PLAN.hist.pop();SFX.play('undo');planRender();}
 function planCommit(){if(!PLAN||!PLAN.pending)return;PLAN.committed=true;const P=PLAN.pending;PLAN.pending=null;P.done(planAnswer(P.kind,P.prompt,P.opts,P.bi));}
@@ -2809,7 +2811,7 @@ function planAsk(p,kind,prompt,opts,bi,done){if(!G.tray||!p.h)return false;
  if(PLAN.committed){const v=planAnswer(kind,prompt,opts,bi);setTimeout(()=>done(v),0);return true;}
  PLAN.pending={kind,prompt,opts,bi,done};planRender();return true;}
 /* test helper (geometry only; tests still perform real pointer drags) */
-window.planTarget=function(mode){try{_planTarget(mode);const R=_planTarget(mode);return R&&(R.from===null||R.to===null)?null:R;}catch(e){return null;}};function _planTarget(mode){if(!PLAN||!PLAN.pending)return null;const free=PLAN.pool.filter(i=>!PLAN.at[i]);const c=r=>{if(!r)return null;if(r&&r.classList&&r.classList.contains('placed'))uh(r);const b=r.getBoundingClientRect();return [b.x+b.width/2,b.y+b.height/2];};const uh=el=>{if(!el)return;const pt0=document.querySelector('#choices .ptop'),ch=document.querySelector('#choices');const pt=pt0&&getComputedStyle(pt0).display==='contents'?pt0.querySelector('.ppool'):pt0;if(!pt||!ch||pt.contains(el))return;const pb=pt.getBoundingClientRect().bottom,r=el.getBoundingClientRect();const cb=Math.min(ch.getBoundingClientRect().bottom,innerHeight);if(r.top<pb+4||r.bottom>cb-4){const mid=(pb+cb)/2,cy=el.classList.contains('placed')?r.top+r.height/2:Math.max(r.top+r.height/2,0);ch.scrollTop+=(r.height<cb-pb-16?(r.top+r.height/2)-mid:(r.top-pb-8));}};const cc=r=>{uh(r);const a=r&&r.querySelector&&r.querySelector(':scope>.tc-art');return c(a||r);};
+window.planTarget=function(mode){try{_planTarget(mode);const R=_planTarget(mode);return R&&(R.from===null||R.to===null)?null:R;}catch(e){return null;}};function _planTarget(mode){if(!PLAN||!PLAN.pending)return null;const free=PLAN.pool.filter(i=>!PLAN.at[i]);const c=r=>{if(!r)return null;if(r&&r.classList&&r.classList.contains('placed'))uh(r);const b=r.getBoundingClientRect();return [b.x+b.width/2,b.y+b.height/2];};const uh=el=>{if(!el)return;const pt0=document.querySelector('#choices .ptop'),ch=document.querySelector('#choices');const pt=pt0&&getComputedStyle(pt0).display==='contents'?pt0.querySelector('.ppool'):pt0;if(!pt||!ch||pt.contains(el))return;const pb=pt.getBoundingClientRect().bottom,r=el.getBoundingClientRect();const cb=Math.min(ch.getBoundingClientRect().bottom,innerHeight);if(r.top<pb+4||r.bottom>cb-4){const mid=(pb+cb)/2,cy=el.classList.contains('placed')?r.top+r.height/2:Math.max(r.top+r.height/2,0);ch.scrollTop+=(r.height<cb-pb-16?(r.top+r.height/2)-mid:(r.top-pb-8));}};const cc=r=>{uh(r);const a=r&&r.querySelector&&r.querySelector(':scope>.tc-art');return c(a&&a.getBoundingClientRect().width>0?a:r);};
  const cardEl=id=>document.querySelector(`#choices .acard[data-s="${id}"]`),poolDie=i=>document.querySelector(`#choices .ppool .pdie[data-di="${i}"]`),placedDie=i=>document.querySelector(`#choices .acard .pdie[data-di="${i}"]`);
  const freeStat=()=>PLAN.socks.filter(S=>S.kind==='stat'&&S.cap===1&&!planIn(S.id).length);
  if(mode==='skill'){for(const S of PLAN.socks.filter(S=>S.kind==='skill'&&(!S.state||S.state==='open')&&planIn(S.id).length<S.cap))for(const i of free)if(planCanAdd(S,i)){const have=planIn(S.id).length;if(have+1<S.cap){const rest=free.filter(j=>j!==i);const pick=[i].concat(planIn(S.id));const ok=reqSubsets(S.s.cost,pick.concat(rest).map(pdie)).some(cc=>cc.length===S.cap&&cc.includes(0)&&(have===0||cc.includes(1)));if(!ok)continue;}cardEl(S.id)?.scrollIntoView({block:'nearest'});{const T=cc(cardEl(S.id));return {from:c(poolDie(i)),to:T,s:S.id,di:i};}}return null;}
@@ -2823,7 +2825,7 @@ function abarCombat(p,box,opts){const bar=document.createElement('div');bar.clas
  const mk=(cls,ic,nm,tx,sock,state)=>{const c=document.createElement('div');c.className='acard tcp '+(/ult/.test(cls)?'leg ':/chg|charge/.test(cls)?'rare ':'com ')+cls+' '+(state||'');const ak=/ult/.test(cls)?'ult':/mv|move/.test(cls)?'move':/chg|charge/.test(cls)?'charge':/atk/.test(cls)?(main==='int'?'int':'str'):/sk/.test(cls)?'dex':'event';c.innerHTML=`<div class="tc-art art-${ak}"></div><div class="ahd"><span class="aic">${ic}</span><span class="anm">${esc(nm)}</span></div><div class="atx">${kwHL(tx)}</div><div class="asocks">${sock}</div><div class="achips"></div>`;bar.appendChild(c);return c;};
  const sd=(v,l,k)=>v?`<div class="asock ${k||'any'} full"><div class="bigdie D6 placed"><b>${v}</b></div></div>`:`<div class="asock ${k||'any'}"><span class="areq">${l||'🎲'}</span></div>`;
  const sdk=s=>{const n=skCap(s),L=sockLbls(s.cost,n),k=sockKind(s.cost),v=p.ready&&p.ready[skKey(s)]?p.skN[skKey(s)]:0;return L.map((l,j)=>v?(j===0?sd(v,l,k):`<div class="asock ${k} full"><span class="areq ok">✓</span></div>`):sd(0,l,k)).join('');};
- const atk=[...box.querySelectorAll('button.atkb')];const ca=mk('atk','⚔',p.h.atk==='mag'?'Magic Attack':'Attack',atk.length?'คลิกศัตรูที่ขอบแดงบนสนาม หรือชิปเป้าหมาย':'ไม่มีเป้าหมายในระยะ',sd(p.slot&&p.slot[main],main.toUpperCase()),atk.length?'live':'locked');atk.forEach(b=>ca.querySelector('.achips').appendChild(b));
+ const atk=[...box.querySelectorAll('button.atkb')];const ca=mk('atk','⚔',p.h.atk==='mag'?'Magic Attack':'Attack',(()=>{let rg=[0,0];try{rg=heroRange(p)||rg;}catch(e){}const rs=rg[1]===0?'ระยะ 0 = ศัตรูต้องอยู่ช่องเดียวกับคุณ':`ระยะ ${rg[0]}–${rg[1]} ช่องจากคุณ`;return atk.length?'คลิกศัตรูที่ขอบแดงบนสนาม · '+rs:'ไม่มีเป้าหมายในระยะ — '+rs+(rg[1]===0?' (ใช้ เดิน เข้าไปก่อน)':'');})(),sd(p.slot&&p.slot[main],main.toUpperCase()),atk.length?'live':'locked');atk.forEach(b=>ca.querySelector('.achips').appendChild(b));
  for(const s of p.skills||[]){const k=skKey(s);const bs=[...box.querySelectorAll('button.skb')].filter(b=>b._o&&b._o.v.k===k);
   const st=p.used&&p.used[k]?'used':bs.length?'live':p.ready&&p.ready[k]?'wait':'locked';const lab=st==='used'?'✔ ใช้แล้ว — รีเซ็ตรอบหน้า':st==='locked'?(p.ready&&p.ready[k]?'🔒 ใช้ไม่ได้ตอนนี้ (ไม่มีเป้าหมาย)':'🔒 ไม่ได้จองลูกเต๋ารอบนี้'):'⚡ READY — เลือกเป้าหมาย';
   const c=mk('skill'+(s.orig?' orig':''),s.orig?'★':'✧',s.name,(s.sh?s.sh+' ✎':(s.txt||'').replace(/\s*\([^)]*die[^)]*\)\s*$/,'').slice(0,70)),sdk(s),st);if(s.txt)c.title=s.name+' — '+s.txt;
@@ -3664,7 +3666,83 @@ function loreBook(){let el=document.getElementById('loreBook');if(el)return;el=d
  /* auto-open once when the game screen first appears and no other modal is up */
  const auto=!/nostory/.test(location.search)&&!window.NOSTORY;let done=0;
  const iv=setInterval(()=>{if(done||!auto){clearInterval(iv);return;}const g=document.getElementById('game');if(!g||g.style.display==='none'||getComputedStyle(g).display==='none')return;
-  if(document.querySelector('.vn,#loreM')||[...document.querySelectorAll('#welcome,#tut,#howto,#confirm')].some(e=>e.getClientRects().length&&getComputedStyle(e).display!=='none')||(document.getElementById('overlay')&&document.getElementById('overlay').children.length&&getComputedStyle(document.getElementById('overlay')).display!=='none'))return;done=1;clearInterval(iv);loreBook();},700);
+  if((typeof G!=='undefined'&&G&&(G.combat||G.pending&&/combat|plan/.test(G.pending.kind||'')))||document.querySelector('#reward.show,#choices .acard')||document.querySelector('.vn,#loreM')||[...document.querySelectorAll('#welcome,#tut,#howto,#confirm')].some(e=>e.getClientRects().length&&getComputedStyle(e).display!=='none')||(document.getElementById('overlay')&&document.getElementById('overlay').children.length&&getComputedStyle(document.getElementById('overlay')).display!=='none'))return;done=1;clearInterval(iv);loreBook();},700);
+})();
+
+// v0.9.23 — UX review fixes (Art Director replay of v0.9.22)
+(function(){
+const st=document.createElement('style');st.id='v923css';st.textContent=`
+html body #party{padding-bottom:52px!important}
+html body #party .htop{flex-wrap:wrap!important;min-width:0!important}html body #party .hstats{flex-wrap:nowrap!important;min-width:0!important;max-width:100%!important;overflow:hidden!important;gap:1px!important;font-size:9px!important}html body #party .hstats>span{flex:1 1 0!important;min-width:0!important;padding:0 1px!important;white-space:nowrap!important}html body #party .hstats{display:grid!important;grid-template-columns:repeat(7,minmax(0,1fr))!important}html body #party .hstats>span{overflow:hidden!important;display:flex!important;flex-direction:column!important;align-items:center!important}html body #party .hstats i{font-size:7.5px!important;letter-spacing:-.4px;display:block!important;max-width:100%!important;overflow:hidden!important;text-overflow:clip!important}html body .mnm.v923fit{overflow-wrap:anywhere;word-break:break-word;hyphens:auto}html body .tok .tnm.v923fit{white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;display:block;max-width:100%}
+
+html,body{overflow-x:hidden!important;max-width:100vw}
+#game.incombat,#game.incombat #mid,#combat{overflow-x:hidden!important}
+#game.incombat #party{overflow-y:auto;scrollbar-width:none}
+#game.incombat #party::-webkit-scrollbar{display:none}
+.kw{padding:0!important;margin:0!important;letter-spacing:normal!important;word-spacing:normal!important}
+.tm .thb.mhb,.tok.tm .thb{display:block!important;visibility:visible!important;min-height:4px}
+.thb.mhb i{background:#e33!important}
+.cell .lnm,.cell .clbl,.bfv .cell>b,.bfv .cell>.cn{overflow:visible!important;text-overflow:clip!important;white-space:nowrap}
+.v923fit{text-overflow:clip!important;overflow:hidden!important}
+#turnBan.night{background:#0b1030f0!important;border-color:#6a7cff!important;color:#dfe4ff!important;font-size:22px!important}
+#turnBan.aft{border-color:#ffb040!important}
+.chip.ph-night{background:#1a1f4a!important;color:#dfe4ff!important;border-color:#6a7cff!important}
+.chip.ph-afternoon{border-color:#ffb040!important;color:#ffd890!important}
+#evPop.peek{display:none!important}
+#v923night{position:fixed;left:50%;top:64px;transform:translateX(-50%);z-index:9000;background:#0b1030f2;border:2px solid #6a7cff;color:#e6e9ff;padding:8px 18px;border-radius:10px;font-size:18px;font-weight:700;pointer-events:none;box-shadow:0 6px 24px #000c}
+`;document.head.appendChild(st);
+
+// 2) duplicate label copies: <small> that repeats the main label (after TH translation)
+const norm=t=>String(t||'').replace(/[\s▶◀⏭→—\-·:]+/g,'').toLowerCase();
+function dedupe(root){root.querySelectorAll('button small,.btn small,button .sub').forEach(sm=>{const b=sm.closest('button,.btn');if(!b)return;const st=norm(sm.textContent);if(!st)return;
+ let main='';b.childNodes.forEach(n=>{if(n!==sm&&!(n.nodeType===1&&n.contains(sm)))main+=n.textContent;});
+ // also when small is inside a wrapper
+ if(!main){const c=b.cloneNode(true);c.querySelectorAll('small,.sub').forEach(x=>x.remove());main=c.textContent;}
+ const mn=norm(main);if(mn&&(mn===st||mn.includes(st)||st.includes(mn)))sm.remove();});}
+
+// 5) Thai UI terms (official card/skill names untouched: skip .anm, .mnm, names)
+const TR=[[/\bMax\s*H[Pp]\b/g,'ชีวิตสูงสุด'],[/\bRe-?[Rr]oll\b/g,'ทอยใหม่'],[/\bHP\b/g,'ชีวิต'],[/\bHp\b/g,'ชีวิต'],[/^Free$/,'ฟรี'],[/\bFree action\b/gi,'แอคชันฟรี'],[/\bFree\b(?=[\s:·])/g,'ฟรี'],[/\(Action\)/g,'(แอคชัน)'],[/^Action$/,'แอคชัน'],[/📖 Lorebook/,'📖 คลังตำนาน']];
+const SKIP='.anm,.mnm,.tnm,.cname,.skname,script,style,textarea,input,#log';
+function trNode(n){let t=n.nodeValue,o=t;for(const [re,r] of TR)t=t.replace(re,r);t=t.replace(/\s·\s*$/,'');if(t!==o)n.nodeValue=t;}
+function trAttr(e,a){const v=e.getAttribute(a);if(!v)return;let t=v;for(const [re,r] of TR)t=t.replace(re,r);if(/^action$/i.test(t.trim()))t='แอคชัน — สิ่งที่ทำได้ 1 ครั้งต่อช่วงเวลา';if(t!==v)e.setAttribute(a,t);}
+function translate(root){const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{const p=n.parentElement;if(!p||p.closest(SKIP))return NodeFilter.FILTER_REJECT;return /Max|HP|Hp|Roll|roll|Free|Action|Lorebook|·\s*$/.test(n.nodeValue)?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_SKIP;}});const L=[];while(w.nextNode())L.push(w.currentNode);L.forEach(trNode);
+ root.querySelectorAll('[data-tip],[title]').forEach(e=>{if(e.closest('.anm'))return;trAttr(e,'data-tip');trAttr(e,'title');});
+ const lb=document.getElementById('lbBtn');if(lb&&lb.textContent!=='📖 คลังตำนาน'){lb.textContent='📖 คลังตำนาน';lb.title='เปิดคลังตำนาน (Lorebook) อีกครั้ง';}
+ const lt=document.querySelector('#loreBook h2,#loreBook .lbt');if(lt&&/Lorebook/.test(lt.textContent)&&!/คลังตำนาน/.test(lt.textContent))lt.textContent=lt.textContent.replace('Lorebook','คลังตำนาน (Lorebook)');}
+
+// 4) auto-shrink names that overflow
+function fit(root){root.querySelectorAll('.anm,.mnm,.mcard .mnm,.acard .anm,.lane .lnm,.cell .lnm,.tok .tnm,.cell .chd,.cell>.lbl').forEach(e=>{if(!e.getClientRects().length)return;const cs=getComputedStyle(e);if(e.dataset.fs0==null)e.dataset.fs0=parseFloat(cs.fontSize);
+ let fs=parseFloat(e.dataset.fs0);e.style.setProperty('font-size',fs+'px','important');e.classList.add('v923fit');let k=0;while((e.scrollWidth>e.clientWidth+1||e.scrollHeight>e.clientHeight+1)&&fs>6&&k++<20){fs-=0.75;e.style.setProperty('font-size',fs+'px','important');}
+ if(e.scrollWidth>e.clientWidth+1&&cs.whiteSpace==='nowrap'){e.style.whiteSpace='normal';e.style.lineHeight='1.05';}});}
+
+// 8) stale combat toast/tooltips
+function stale(){const inC=typeof G!=='undefined'&&G&&G.combat;const rw=document.querySelector('#reward.show');
+ if(!inC||rw){const t=document.getElementById('v910toast');if(t)t.remove();const tb=document.getElementById('tipbox');if(tb&&rw)tb.style.display='none';}}
+
+// 7) night banner
+let lastPh=null;function night(){try{if(typeof G==='undefined'||!G||!G.players)return;const ph=PHASES[G.phase];let b=document.getElementById('v923night');
+ if(ph==='night'&&!G.over&&!G.combat){if(!b){b=document.createElement('div');b.id='v923night';document.body.appendChild(b);}b.textContent='🌙 กลางคืน: ไม่มีแอคชัน ศัตรูบุก';}
+ else if(b)b.remove();lastPh=ph;}catch(e){}}
+
+let q=0;const run=()=>{q=0;try{const r=document.body;dedupe(r);translate(r);fit(r);stale();night();}catch(e){}};
+const mo=new MutationObserver(()=>{if(!q)q=setTimeout(run,70);});
+const go=()=>{mo.observe(document.body,{childList:true,subtree:true,characterData:true});run();};
+if(document.body)go();else addEventListener('DOMContentLoaded',go);
+addEventListener('resize',()=>{document.querySelectorAll('[data-fs0]').forEach(e=>delete e.dataset.fs0);run();});
+
+// 6) Lorebook ↔ coach: hide coach while lorebook open, resume after close
+const mo2=new MutationObserver(()=>{const lb=document.getElementById('loreBook'),tut=document.getElementById('tut');if(!tut)return;
+ if(lb&&!tut.dataset.v923h&&tut.style.display!=='none'){tut.dataset.v923h=tut.style.display||'x';tut.style.display='none';}
+ else if(!lb&&tut.dataset.v923h){const d=tut.dataset.v923h;delete tut.dataset.v923h;tut.style.display=d==='x'?'':d;try{if(typeof TS!=='undefined'&&TS>=0&&typeof tutShow==='function')tutShow();}catch(e){}}});
+const go2=()=>mo2.observe(document.body,{childList:true});if(document.body)go2();else addEventListener('DOMContentLoaded',go2);
+
+// 9) + 18) combat end: loss popup blocks until clicked; win summary is a short auto-closing toast
+if(typeof IO!=='undefined'){IO.afterCombat=res=>new Promise(ok=>{if(window.FAST||res==='win'){ok();return;}
+ const t0=Date.now();const iv=setInterval(()=>{const r=document.getElementById('reward');if(!r||!r.classList.contains('show')||Date.now()-t0>600000){clearInterval(iv);ok();}},120);});}
+if(typeof showReward==='function'){const _sr=showReward;window.showReward=showReward=function(a,b,res){_sr(a,b,res);const r=document.getElementById('reward');if(!r)return;const won=r.querySelector('.rwbox.win');
+ if(won){r.classList.add('v923win');clearTimeout(showReward.t2);showReward.t2=setTimeout(()=>{if(r.classList.contains('v923win'))r.className='';},2600);}else r.classList.remove('v923win');
+ const t=document.getElementById('v910toast');if(t)t.remove();};}
+const s2=document.createElement('style');s2.textContent=`#reward.v923win{background:transparent!important;pointer-events:none}#reward.v923win .rwbox{pointer-events:auto;transform:scale(.85);transform-origin:top center;position:fixed;top:70px;left:50%;margin-left:-160px;width:320px}#reward.v923win .rws{display:none}`;document.head.appendChild(s2);
 })();
 
 </script></body></html>
