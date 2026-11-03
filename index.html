@@ -811,17 +811,17 @@ body.dragging #tipbox{display:none!important}
 <div class="tsel"><div class="tselh">เลือก SURVIVOR <span>(สูงสุด 4 · ชี้เมาส์ดูรายละเอียด)<br><span class="hleg">❤ เลือด = พลังชีวิต · 💨 เร็ว (Sp) = ใครสูงกว่าได้เล่นก่อนในการต่อสู้ · 👣 เดิน = จำนวนช่องที่เดินได้</span></span></div><p id="selInfo"></p><div id="heroGrid"></div>
 <details class="trules"><summary>กติกาโดยย่อ</summary><div class="rules">เมืองอาชา · องก์ที่ 1: ผู้รอดชีวิต — ผนึก 666 ปีแตก เถ้าต้องสาปปกคลุมเมือง<br>
 <b>เกมเอาชีวิตรอดแบบร่วมมือ</b> · ผู้เล่น 1–4 คน · เริ่มที่ท่าเรือ · แผนที่องก์ที่ 1 มี 12 ช่อง<br>
-วันละ 3 ช่วง เช้า/บ่าย/กลางคืน · ทุกคนทำได้ 1 แอกชันต่อช่วง: หาอาหาร / สำรวจ / คุย / <b>เดินไปช่องติดกัน = 1 แอกชัน</b><br>
+วันละ 3 ช่วง · เช้า/บ่าย ทุกคนทำได้ 1 แอกชันต่อช่วง · <b>กลางคืน = ทำแอกชันไม่ได้ ต่อสู้ทันที</b>: หาอาหาร / สำรวจ / คุย / <b>เดินไปช่องติดกัน = 1 แอกชัน</b><br>
 ภารกิจหลัก: ห้างสรรพสินค้าเปิดร้านค้า → ส่งเสบียง 5 ชุด → ทุกคนรวมตัวที่ห้างเพื่อต่อสู้ <b>กระสือ</b> · แพ้การต่อสู้ไม่แพ้เกม — แพ้เมื่อหมดเวลาองก์ (8 วัน)<br>
 การต่อสู้: เริ่มรอบ (รีเซ็ตความเร็วมอนสเตอร์ + ทอยบัฟ) → ช่วงผู้เล่น (ทอย/วางลูกเต๋า) → ทำงานตามลำดับความเร็ว · สนาม 6 ช่อง · ระดับเถ้า 1–4<br>ผู้รอดชีวิตที่เลือก = ผู้เล่นควบคุมเอง · ทุกตัวเลือกมีปุ่ม 🤖 อัตโนมัติ · กรอบทอง = บอทแนะนำ</div></details></div>
 </div></div>
 <div id="netbar"></div><div id="lobby"></div><div id="game"><div id="top"></div><div id="party"></div><div id="mid"><div id="banslot"></div><div id="map"></div><div id="combat"></div></div><div id="right"><div id="phasebar"></div><div id="tray"></div><div id="choices"></div><div id="log"></div><div id="chat"><input id="chatIn" maxlength="200" placeholder="💬 แชทถึงทุกคน…"><button id="chatSend" onclick="chatSend()">ส่ง</button></div></div></div>
 <div id="overlay"></div><div id="asm"></div><div id="confirm" class="modal"></div><div id="tut"></div><div id="howto" class="modal"><div class="mbox"><button class="mx" onclick="hideHow()">✕ ปิด</button><h2>📖 วิธีเล่น ASHBOUND (องก์ 1)</h2>
 <h3>🎯 เป้าหมาย</h3><p>Co-op 1–4 คน เริ่มที่ท่าเรือ ท่าเรือ. ไปมอลล์ <b>มอลล์</b> → ฉากมอลล์ เปิดร้านค้า → มอลล์-2 ส่งเสบียง 5 ชุด (Main Quest) → มอลล์-3 ทุกคนรวมตัวที่ มอลล์ แล้วชนะ <b>รินา กระสือ (Cursed Seer)</b> = ชนะเกม</p>
-<h3>⏳ วันและช่วงเวลา</h3><p>วันละ 3 ช่วง: เช้า / บ่าย / กลางคืน. ทุกช่วง Survivor แต่ละคนได้ <b>1 แอกชัน</b>. จำกัด <b>8 วัน ⚠</b> (ค่าสมมติ) — หมดเวลาก่อนชนะบอส = แพ้</p>
+<h3>⏳ วันและช่วงเวลา</h3><p>วันละ 3 ช่วง: เช้า / บ่าย / กลางคืน. ช่วงเช้าและบ่าย Survivor แต่ละคนได้ <b>1 แอกชัน</b>. <b>กลางคืนทำแอกชันไม่ได้</b> — เปิดเรื่องแล้วเข้าสู่การต่อสู้ทันที จากนั้นกินเสบียง/พักอัตโนมัติ. จำกัด <b>8 วัน ⚠</b> (ค่าสมมติ) — หมดเวลาก่อนชนะบอส = แพ้</p>
 <h3>🚶 แอกชัน (เลือก 1 ต่อช่วง)</h3><ul><li><b>เดิน</b> ไปช่องติดกัน = 1 แอกชัน (คลิกช่องที่เรืองแสงบนแผนที่). 🔒 = ล็อก</li>
 <li><b>หาเสบียง</b> ■เขียว: จั่วการ์ดอาหาร · <b>สำรวจ</b> ■เหลือง: สำรวจ/จั่วการ์ด · <b>คุย</b> ■ฟ้า: คุย NPC (ได้ Ally/Quest) — ใช้คิวบ์ 1 อันจากช่องนั้น</li>
-<li><b>พัก</b>: พัก (กลางคืน = 1 พัก)</li>
+<li><b>พัก</b>: ไม่ทำอะไรในช่วงนั้น (กลางคืนได้พัก 1 อัตโนมัติหลังต่อสู้)</li>
 <li><b>Free action</b> (ไม่เสีย แอกชัน): ใช้ชุดพยาบาล, ร้านค้า (ที่ มอลล์ เมื่อเปิดแล้ว), สวมใส่ไอเท็ม (สูงสุด 3)</li></ul>
 <h3>🎲 ลูกเต๋า</h3><p>ลูกเต๋า W / Y / R มีหน้าต่างกัน. ทุกครั้งที่ต้องทอย ให้กดปุ่ม <b>🎲 ทอย</b> ใน ถาดลูกเต๋า (Bot ทอยเองอัตโนมัติ). <b>การทดสอบ</b>: ทอยลูกเต๋าทั้งหมด เลือกลูกสูงสุด + Stat ≥ ค่าที่กำหนด = ผ่าน. ฉาก บางอันทอย เต๋า 6 หน้า</p>
 <h3>⚔ การต่อสู้ (การต่อสู้)</h3><ol><li>Start Up: รีเซ็ต ความเร็ว มอนสเตอร์ + ทอย Buff</li><li>Player phase: ทอยลูกเต๋า → (จองลูกเต๋าให้ สกิล ⚡) → <b>วางลูกเต๋า</b> ลงช่อง STR (Phy atk) / DEX (+ความเร็ว) / INT (Mag atk) / MOVE (+½ เดิน) / HP (Temp HP) หรือ CHARGE (เก็บไว้รอบหน้า) — ลากหรือคลิก</li>
@@ -1481,6 +1481,12 @@ async function runGame(){
  while(!G.over){
   const ph=PHASES[G.phase];
   log(`— วันที่ ${G.day}/${CFG.dayLimit} · ${PHASE_TH[ph]} —`,'phase');
+  if(ph==='night'){ // v0.9.17 rule: no actions at Night — straight into combat
+   log('🌙 กลางคืน: ทำ Action ไม่ได้ — เถ้าต้องสาปบุกเข้ามา ต้องต่อสู้ทันที','phase');
+   const seen={};for(const p of G.players){if(G.over)break;if(seen[p.tile])continue;seen[p.tile]=1;G.cur=p;IO.render();
+    await startCombat(p,{reason:'กลางคืน: เถ้าต้องสาปบุกโจมตี'});}
+   for(const p of G.players)p.rests=Math.max(p.rests||0,p.id==='dixon'?2:1);
+   G.turnIdx=G.players.length;}
   for(let pi=G.turnIdx||0;pi<G.players.length;pi++){const p=G.players[pi];
    if(G.over)break;
    G.turnIdx=pi;G.uid=UID;G.cur=p;if(IO.checkpoint)IO.checkpoint();IO.render();await IO.sleep(1);
@@ -1553,7 +1559,7 @@ async function playerTurn(p,ph){
  if(p.tile==='B7'&&questOpen('MAIN')&&G.food>=CFG.mainFood)opts.push({v:'main',l:`★ Main Quest: ส่งเสบียง ${CFG.mainFood} ชุด (มี ${G.food})`});
  if(p.tile==='B7'&&questOpen('BOSS')&&G.players.every(q=>q.tile==='B7'))opts.push({v:'boss',l:'★ ต่อสู้กับรินา กระสือ (Cursed Seer) — ทุกคนอยู่ที่มอลล์'});
  if(p.allies.some(a=>a.k==='mechanic'))opts.push({v:'craft',l:'ช่าง: Craft ชุดพยาบาลเล็ก ⚠'});
- opts.push({v:'rest',l:ph==='night'?'Rest (พักผ่อนกลางคืน = 1 Rest)':'พัก (ไม่ทำอะไร)'});
+ opts.push({v:'rest',l:'พัก (ไม่ทำอะไร)'});
  let a;for(let g=0;g<12;g++){
   const fo=[];if(!p.bot&&IO.ask){if(bagN('medS')&&p.hp<p.maxhp)fo.push({v:'fa:medS',l:`⚡ ฟรี: ใช้ชุดพยาบาลเล็ก (+3 HP) — มี ${bagN('medS')}`});
    if(bagN('medL')&&p.hp<p.maxhp)fo.push({v:'fa:medL',l:'⚡ ฟรี: ใช้ชุดพยาบาลขนาดใหญ่ (+8 HP)'});
@@ -2543,7 +2549,7 @@ function hideHow(){$('#howto').style.display='none';}
 /* ---------- Tutorial ---------- */
 const TUT=[
  {sel:'#phasebar',t:'ยินดีต้อนรับสู่ ASHBOUND 🎓',x:'เป้าหมาย องก์ 1: ไปมอลล์ มอลล์ (เปิดร้านค้า) → ส่งเสบียง 5 ชุด → ทุกคนรวมที่ มอลล์ แล้วชนะ <b>กระสือ (Cursed Seer)</b> ให้ได้ภายใน 8 วัน⚠. แถบนี้บอกวัน / ช่วงเวลา / ตาของใคร และ 👉 <b>สิ่งที่ต้องทำต่อไป</b> เสมอ'},
- {sel:'#top',t:'แถบสถานะ',x:'วันที่ (จำกัด 8 วัน⚠) · ช่วง เช้า/บ่าย/กลางคืน (ทุกคน 1 แอกชัน ต่อช่วง) · 🍖 อาหาร · 🪙 เหรียญ (ใช้ที่ร้านค้า) · 🌫 เขม่า = ความยากของการต่อสู้ (T1–T4) · ✦ จุดเช็กพอยต์ (CP). ปุ่ม 📖 วิธีเล่น เปิดกฎได้ทุกเมื่อ'},
+ {sel:'#top',t:'แถบสถานะ',x:'วันที่ (จำกัด 8 วัน⚠) · ช่วง เช้า/บ่าย (ทุกคน 1 แอกชันต่อช่วง) · กลางคืน = ต่อสู้ทันที ไม่มีแอกชัน · 🍖 อาหาร · 🪙 เหรียญ (ใช้ที่ร้านค้า) · 🌫 เขม่า = ความยากของการต่อสู้ (T1–T4) · ✦ จุดเช็กพอยต์ (CP). ปุ่ม 📖 วิธีเล่น เปิดกฎได้ทุกเมื่อ'},
  {sel:'#party',t:'แผงฮีโร่',x:'ด้านซ้าย = การ์ดฮีโร่: รูปใหญ่, HP, แถวบนสุด = ลูกเต๋า + ค่าสถานะ (พลัง ไว ปัญญา เสน่ห์ HP เร็ว เดิน), ข้างล่าง = HP bar, สกิล 4 ช่อง, ไอเทม 3 ช่อง. ชี้เมาส์ที่อะไรก็ได้เพื่อดูรายละเอียด'},
  {sel:'#map',t:'แผนที่ & คิวบ์',x:'กระดานใหญ่ตรงกลาง: คิวบ์ ■เขียว หาเสบียง ■เหลือง สำรวจ ■ฟ้า คุย · ช่องขอบ<b>ส้ม</b> = เดินไปได้ (คลิก = 1 แอกชัน) · ขอบขาว = ที่คุณยืน · ชี้ช่องเพื่อดูรายละเอียด'},
  {when:()=>CUR&&CUR.kind==='action',sel:'#choices',t:'เลือก 1 แอกชัน',x:'ปุ่มไอคอนใหญ่จะเด้ง<b>ข้างช่องที่คุณยืน</b>: 🌿 หาเสบียง 🔦 สำรวจ 💬 คุย 💤 พัก · ชิป ➜ = เดิน · ปุ่มจาง = ทำไม่ได้ (ชี้ดูเหตุผล)'},
@@ -3178,7 +3184,7 @@ const v99TipG=e=>{const t=document.getElementById('tipbox');if(!t||t.style.displ
 /* overworld helpers */
 function v99Tut(){try{if(typeof TS==='undefined'||TS<0||!G)return;if(G.combat&&!(G.combat._mod&&G.combat._mod.tut)){tutEnd();return;}
  const b=document.getElementById('tut'),t=document.getElementById('tray');if(b&&t&&b.style.display!=='none'){const r=b.getBoundingClientRect(),q=t.getBoundingClientRect();if(r.left<q.right&&r.right>q.left&&r.top<q.bottom&&r.bottom>q.top){b.style.top='56px';b.style.bottom='auto';}}}catch(e){}}
-function v98Over(){try{v99Tut();if(!G||G.combat||G.over)return;const m=document.getElementById('map');if(!m)return;let h=m.querySelector('.v98day');const html=`<div class="v98day"><span class="acnt">⏱ แอกชัน ${G.phase+1}/3 ของวันนี้</span><span class="dexp">วันหนึ่งมี 3 ช่วง (เช้า · บ่าย · กลางคืน) — ฮีโร่แต่ละคนได้ 1 แอกชันต่อช่วง · จบกลางคืน = กินเสบียงคนละ 1 แล้วขึ้นวันใหม่ · เกิน ${CFG.dayLimit} วัน = แพ้</span></div>`;
+function v98Over(){try{v99Tut();if(!G||G.combat||G.over)return;const m=document.getElementById('map');if(!m)return;let h=m.querySelector('.v98day');const html=`<div class="v98day"><span class="acnt">${G.phase>=2?'🌙 กลางคืน: ต่อสู้ทันที':'⏱ แอกชัน '+(G.phase+1)+'/2 ของวันนี้'}</span><span class="dexp">วันหนึ่งมี 3 ช่วง — เช้า · บ่าย: ฮีโร่แต่ละคนได้ 1 แอกชันต่อช่วง · กลางคืน: ทำแอกชันไม่ได้ ต่อสู้ทันที · จบกลางคืน = กินเสบียงคนละ 1 แล้วขึ้นวันใหม่ · เกิน ${CFG.dayLimit} วัน = แพ้</span></div>`;
  if(!h){m.insertAdjacentHTML('afterbegin',html);}else if(h.outerHTML!==html)h.outerHTML=html;}catch(e){}}
 (function(){const r=window.render;if(typeof r==='function'){window.render=function(){r.apply(this,arguments);v98Over();try{const b=document.querySelector('#choices.modalk.k-skill .prompt small');if(b)b.textContent='จั่ว 3 ใบ เลือกเก็บ 1 ใบ (ที่เหลือกลับเข้ากอง)';}catch(e){}};render=window.render;}})();
 
@@ -3548,5 +3554,7 @@ setInterval(()=>{try{if(typeof CUR!=='undefined'&&CUR&&CUR.kind==='event'&&G.evP
 #planOk small{display:none!important}
 @media (max-width:760px){html body #game #choices .acard:has(.bigdie) .atx{display:none!important}}
 `;document.head.appendChild(s);})();
+
+setInterval(()=>{document.querySelectorAll('.mrow .mcard .mnm').forEach(n=>{const c=n.closest('.mcard');if(!c)return;n.style.maxWidth='100%';let f=parseFloat(getComputedStyle(n).fontSize),k=0;while(k++<6&&f>9&&(n.scrollWidth>c.clientWidth-2||n.getBoundingClientRect().right>c.getBoundingClientRect().right)){f-=1;n.style.fontSize=f+'px';}});},400);
 
 </script></body></html>
