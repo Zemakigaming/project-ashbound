@@ -807,7 +807,7 @@ body.dragging #tipbox{display:none!important}
 <div id="setup"><div id="tbg"></div><div class="tfog"></div><div class="tin">
 <div class="tlogo"><small>ACT 1 · THE SURVIVORS</small><h1>PROJECT<br>ASHBOUND</h1><div class="tsub">เมืองอาชา (Achar) — ผนึก 666 ปีแตก เถ้าต้องสาปปกคลุมเมือง</div></div>
 <div class="tmenu"><button class="obtn" onclick="startBtn()">▶ เริ่มเกม <small>Start</small></button><button id="btnOnline" class="obtn" onclick="showLobby()">🌐 เล่นออนไลน์ <small>Online Co-op</small></button><button class="obtn" onclick="tutStart()">🎓 Tutorial <small>สอนเล่น</small></button>
-<div class="tlinks"><button onclick="start(true)">👁 ดู Bot เล่น</button><button onclick="showHow()">📖 วิธีเล่น</button><button onclick="toggleAsm()">⚠ Assumptions</button></div></div>
+<div class="tlinks"><button onclick="start(true)">👁 ดู Bot เล่น</button><button onclick="showHow()">📖 วิธีเล่น</button></div></div>
 <div class="tsel"><div class="tselh">เลือก SURVIVOR <span>(สูงสุด 4 · ชี้เมาส์ดูรายละเอียด)<br><span class="hleg">❤ เลือด = พลังชีวิต · 💨 เร็ว (Sp) = ใครสูงกว่าได้เล่นก่อนในการต่อสู้ · 👣 เดิน = จำนวนช่องที่เดินได้</span></span></div><p id="selInfo"></p><div id="heroGrid"></div>
 <details class="trules"><summary>กติกาโดยย่อ</summary><div class="rules">เมืองอาชา (Achar) · Act 1: THE SURVIVORS — ผนึก 666 ปีแตก เถ้าต้องสาปปกคลุมเมือง<br>
 <b>เกมเอาชีวิตรอดแบบร่วมมือ</b> · ผู้เล่น 1–4 คน · เริ่มที่ท่าเรือ · แผนที่องก์ที่ 1 มี 12 ช่อง<br>
@@ -846,7 +846,7 @@ Object.assign(FIG,{"dog": "data:image/webp;base64,UklGRvIZAABXRUJQVlA4WAoAAAAQAA
 const PETART={"ally:dog": "data:image/webp;base64,UklGRuwCAABXRUJQVlA4IOACAAAwHgCdASqAAIAAPm0skkYkIqGhLxiLEIANiWkA1UXG5mGN+Em1tUZxM2435BUMrrtXU+0v8nThP8YQtQoUjztK7fUgmFgqcxXLr4p79O7NPIlAH3Ecr7EleBqcESF+B8ePmDa1+RldWcyg6BsylGMU5ybX/LbrFL4lNlQEAapr7KoLslIIyl3KL2pOW4CPSAEvNF1aQprYfd4TubzrTQGrUW5GvfzZfayyhh0P8RXPFC7GIbWH9B5jCyF9o1vs3659sN93ZzbrdYXMjKu3IiNe0PRW/MPi7dvFNzYECShdCVWZro0ygwTrx0zMFWsOxfgr2CAz9bdBIEHgAP75ZlNbZSaz97zIA+EjrwsQoRGLB8Kt/9ExhVaQtW/223tt+uQ2Ik0EXuCJzqlFpos1zxFKdtu4FUUnmEO6MOkb/w1LSaqgi+vsHzRO/kMsjzDWIlV8XevVrabdhN7nUd1z7iJHT4VXxnqnKWgocuV7/ILuPtsz6MnRJQQ64SUKUwz3UgWVMDUc9ozrU5L5xYOV9drNGA7cqGCb4EhiCJdI6Oilhp2rKkeorDyjjKhHCopq7EcLNPRjXrvjrsavUf1A3m9ziX4CgwWbFNNtQQUSXglqH7L01LPfAPb6gdm5g4UUHlFbEnBzDxmU53Quwj0aVzzc0sUHIOOX7qYGTO5IfKca21+BuUPwbuluNcSsGOdKEu+zKq8MjHVyTl3V4ZzPpjfJKZ/u6TOsaBdOu6oEliN/bXKrcwb7h/tZB5nK0c6n5NY+6N7M7tGyi1BZH94vXSGDhxwD1915u259Bo674rP7WAgE/AowwFO5hb+HPNHahdt9ePcEHl87BUXqCkrgqTljqVJkTTsZLTTwq82UwO1etHbLfbku5/8TaPCyGZ/BLRqXGxDN6ecESHiGgd0JvRoerVElHzsXY+w6Zn/nXiAMVPbRpwAAhCZ+ch74OQA1gDU0orFI9+aIU5oTwIE+AAAA", "ally:cat": "data:image/webp;base64,UklGRkYDAABXRUJQVlA4IDoDAABwHgCdASqAAIAAPm0wk0YkIyGhKhWdEIANiWkA1Qu5QOKULe4utpMEK+icgyj0drvlz14oVxqiyUcV13XHDIqXhlC7vRaO8APeFSD2TZtFA9qEpDhu6ebcsnsTFPcKA+OspeTefmvFq4o255lmi0LJ8b4Yf4cvpbwUKEEWFOr2uXP8ABYmnuIEEmEZC+LNqjmsoXc65lH5sY4ievoRk7yDfisuSpWBY95GslML4j8mageAFGqwH2ba3oWYivUD9Y10ht1GzSioUDCiPUlfpbLHdVzVGiZ4hbqcAyAb0z4IsJSMAgBK+/itVCPzrEhXr+VeF5Qe2svEsfsVfAAA/vozJ3WF8KNvNADEXSvIPH8gEuG729xSrlDP4AWh22304keZ54Q9iPEZ+WDQ1JsEz3HZyzaMStps/UnDtHEKKl0OxpyFX1ALqroSH+KKpaKqXbDdYlNSz2AR4eyjrJR9G/tbceNeaegDoQcwQyKlSsrYew1q56WD0WR8ZdARsSu96u5m2DAiVWrwLafXFVoxm22DuyS1NefOhtPtLR7PnAfMu9CP8dmwhzzVN98k3fgsditzzRFe1gzBzv49L2dzI9wX8g1t+zG2zYYoZLGli5wd3cB4adyA1AgbRWbLFN1Tjp2m2HYiFu5aqk19DqlLoA4w/aquurVkvzvoCyAMv8eeGPEbCkcHHhAzeGUmKWhOKh+2q6emATatLkZoa7sDoUbRxXFvNKeNs2AP0M3YCJdHRLb8qWDeieUz2obVH2T8rL9APHq88jq4oS2kXmWpux3YEOsNRSymOo1GHAIUwXsvq1f7NDKmIFRmOcCQqngOxZaXznOTmUGDWtu2XHe/MdhCdrEtyMt5YBMuyXNd/CRB2Y7uBy6XpOihBxLO7aCXO4CDA7rc77p3d5w2MbyMN/CTjTmv8uc9rTSfn7JTs3fKeiyalpDKxKrUHU8jluln/8GvJpL1kpVfH/UK+YgzuIax6A7RMmwcVfT6xapOjBKGmxl+UbS8oXz9YGC3aU52Y1CCR8FQj8iwOpURZAyLX6V6eDceK4oL1RLSpk8VwsSU/Eu2FVdteSUdG47hq0JbenmsEIkEr1SrugAA"};
 
 // ===== Project Ashbound v0.6.1 engine — Rulebook + sheet " ASHBOUND " + World Building (update 2026-10-24) =====
-const VERSION='v0.9.9';
+const VERSION='v0.9.10';
 let RNG=Math.random;
 const rnd=n=>Math.floor(RNG()*n);
 const pick=a=>a[rnd(a.length)];
@@ -1701,7 +1701,7 @@ async function startCombat(p,o={}){
  if(o.tut){let n=0;groups=groups.map(g=>g.filter(()=>++n<=2)).filter(g=>g.length);}
  let minions=[];
  groups.forEach((g,i)=>{const pos=i<4?5-i:2;for(const c of g){if(MCODE[c]){const m=mkMinion(MCODE[c]);m.pos=pos;minions.push(m);}else{const e=mkElite(c,n);e.pos=pos;C.units.push(e);}}});
- const drop=n===1?2:n===2?1:0;minions=minions.slice(0,Math.max(o.tut&&!C.units.length?1:0,minions.length-drop));if(o.tut)minions=minions.map((m,k)=>{const r=m.d.move==='stationary'?mkMinion('bloom'):m;r.pos=k?3:2;return r;});C.units.push(...minions);
+ const drop=n===1?2:n===2?1:0;minions=minions.slice(0,Math.max(o.tut&&!C.units.length?1:0,minions.length-drop));if(o.tut){C.units=C.units.filter(u=>u.side!=='m');const b=mkMinion('bloom');b.pos=2;minions=[b];}C.units.push(...minions);
  const fams=[...new Set(liveM(C).map(u=>u.fam))];
  C.title=o.title||`${fams.map(f=>FAM_TH[f]).join(' + ')} — ระดับเถ้า ${T}`;
  // heroes: bottom 2 cells (1-2) facing up
@@ -1710,7 +1710,7 @@ async function startCombat(p,o={}){
  if(o.guest){const a=mkAlly(o.guest);C.units.push({uid:UID++,side:'s',ally:true,guest:true,owner:p,ref:a,name:a.name+' (ช่วยสู้)',code:a.k,hp:a.hp,maxhp:a.hp,atk:a.atk||0,mv:2,pos:0,face:1,poison:0,stun:0,dearm:0});}
  G.combat=C;G.stats.combats++;if(G.stats.firstCombatTurn==null)G.stats.firstCombatTurn=G.stats.turns;
  log(`⚔ การต่อสู้เริ่มขึ้น! สาเหตุ: ${C.reason}`,'combat');
- log(`⚔ ${C.title} — ${liveE(C).map(u=>u.name+' ('+u.hp+' HP)').join(', ')} + ลูกสมุน ×${minions.length}`,'combat');
+ log(`⚔ ${C.title} — ${liveE(C).map(u=>u.name+' ('+u.hp+' HP)').join(', ')||liveM(C).map(u=>u.name).join(', ')}${liveE(C).length?' + ลูกสมุน ×'+minions.length:''}`,'combat');
  // Lydia Upg3
  const ly=parts.find(q=>q.id==='lydia'&&upg(q,3)&&!q.usedDay.purge);
  if(ly&&liveM(C).some(u=>u.kind==='minion')){ly.usedDay.purge=true;const d=await hd6(ly,'Lydia Upg3 D6'),k=d<=3?1:2;let c=0;for(const u of liveM(C))if(u.kind==='minion'&&c<k){u.hp=0;c++;}log(`Lydia Upg3: D6 = ${d} → กำจัด Minion ${c} ตัว`,'good');}
@@ -1920,7 +1920,7 @@ async function combatRound(C){
  C.order=order.map(o=>o.u);C.resolving=true;C.oSp=order.map(o=>o.sp);
  for(const o of order){
   const u=o.u;if(u.hp<=0)continue;
-  if(!liveE(C).length)return 'win';
+  if(!(C._mod&&C._mod.tut?liveM(C):liveE(C)).length)return 'win';
   if(!liveS(C).length)return 'loss';
   G.cur=u;IO.render();await IO.sleep(2);
   if(u.stun){u.stun=0;log(`${u.name} ติด Stun ข้ามเทิร์น`);continue;}
@@ -1933,7 +1933,7 @@ async function combatRound(C){
  for(const a of liveA(C))if(a.code==='avaElite'){const r=await hd6(a.owner,'AVA Splash D6');if(r>=4){log(`${a.name}: D6 ${r} → Splash 3 dmg ช่อง ${a.pos+1}`,'good');liveM(C).filter(u=>u.pos===a.pos).forEach(u=>damageM(C,u,3,a.name+' (Splash)','phy'));}}
  // Hartmann Upg3: leftover block hits
  const hm=liveS(C).find(q=>q.id==='hartmann'&&upg(q,3));if(hm&&C.shield[hm.pos]>0){const t=liveM(C).find(u=>u.pos===hm.pos);if(t)damageM(C,t,C.shield[hm.pos],'Ash Wall (Upg3)','phy');}
- if(!liveE(C).length)return 'win';
+ if(!(C._mod&&C._mod.tut?liveM(C):liveE(C)).length)return 'win';
  if(!liveS(C).length)return 'loss';
  return null;
 }
@@ -1947,7 +1947,7 @@ async function allyTurn(a,C,atkOnly){
 async function allyCtl(a,C,atkOnly){
  const rg=a.rng||[0,1];let mv=atkOnly?0:(a.mv||0);let atks=a.atk?(a.code==='avaElite'?2:1):0;
  const dmgOf=()=>a.atk+(a.zombie&&upg(a.owner,3)?atkVal(a.owner)-1:0);
- for(let g=0;g<30&&a.hp>0&&liveE(C).length;g++){
+ for(let g=0;g<30&&a.hp>0&&(C._mod&&C._mod.tut?liveM(C):liveE(C)).length;g++){
   const opts=[];
   if(atks>0)for(const t of liveM(C)){const d=Math.abs(t.pos-a.pos);if(d>=rg[0]&&d<=rg[1])opts.push({v:{a:'aatk',u:t},u:t,l:`Ally Attack ${t.name}${t.kind==='elite'?` (${t.hp} HP)`:''} — ${dmgOf()} dmg Phy`});}
   for(const dir of [1,-1]){const nx=a.pos+dir;if(mv>0&&nx>=0&&nx<=5&&!blocked(C,a.pos,nx))opts.push({v:{a:'amv',dir},l:`เดิน${dir>0?'ขึ้น ▲':'ลง ▼'} → ช่อง ${nx+1} (Move ${mv})`});}
@@ -1969,7 +1969,7 @@ function cellsIn(q,C,rng,type){return [...new Set(tgtsIn(q,C,rng,type).map(u=>u.
 async function heroTurn(q,C){
  let mv=q._noMove?0:moveOf(q)+Math.floor(q.slot.move/2);let attacks=1,moved=false;
  for(let guard=0;guard<40;guard++){
-  if(!liveE(C).length||q.endTurn||q.hp<=0)break;
+  if(!(C._mod&&C._mod.tut?liveM(C):liveE(C)).length||q.endTurn||q.hp<=0)break;
   if(q._mv){mv+=q._mv;q._mv=0;}if(q._noMove)mv=0;if(q.ultMv){mv+=q.ultMv;q.ultMv=0;}
   const opts=[],ms=liveM(C),av=atkVal(q),tp=atkType(q);
   if(attacks>0||q.extraAtk>0)for(const u of tgtsIn(q,C,heroRange(q),tp)){const bs=(backAtk(q,u)?(upg(q,3)?stat(q,'dex'):Math.floor(stat(q,'dex')/2)):0)+baBonus(q,C);
@@ -2371,7 +2371,7 @@ function buildAsk(p,kind,prompt,opts,bi,res,noAuto){
   ov.innerHTML=`<div class="vn"><div class="vnk">📜 ทางเลือก ✎</div><div class="vnb">${(()=>{const im=v.img&&(allyArt(v.img)||SA[v.img]||(ART[v.img]))||null;return im?`<img class="vnp" src="${im}" onerror="this.style.display='none'">`:`<div class="vnp vnic">${ALLY_ICON[v.img]||'👤'}</div>`;})()}<div class="vnt"><div class="vnn">${esc(v.who)}</div><div class="vnx">${esc(v.txt)}</div></div></div>
   <div class="vnopts">${v.opts.map((o,i)=>`<button class="vnopt" data-i="${i}"><b>${esc(o.l)}</b>${o.hint?`<small>➜ ${esc(o.hint)}</small>`:''}</button>`).join('')}</div>${meterHUD(1)}</div>`;
   ov.querySelectorAll('.vnopt').forEach(b=>b.onclick=()=>fin(opts[+b.dataset.i].v));return;}
- const MODALK=['shop','skill','card','deck','gain','replace','join','peek','jack','dixonpay','eat','drink','reroll','passive'];
+ const MODALK=['shop','skill','card','deck','gain','replace','join','peek','jack','dixonpay','eat','drink',];
  box.className=MODALK.includes(kind)?'modalk k-'+kind:(kind==='action'&&!G.combat)?'pop':G.combat&&(kind==='combat'||kind==='ally')?'cbk':'';
  if((kind==='place'||kind==='skilldice')&&typeof planAsk==='function'&&planAsk(p,kind,prompt,opts,bi,done))return;
  if(kind==='event'){CUR={p,kind,opts,bi,res:done};box.innerHTML='';box.className='';render();return;}
@@ -2405,7 +2405,7 @@ function buildAsk(p,kind,prompt,opts,bi,res,noAuto){
    else if(MODALK.includes(kind)&&kind!=='shop'){{const AK={card:'event',deck:'event',gain:'item',replace:'item',join:'ally',peek:'event',jack:'dex',dixonpay:'item',eat:'cha',drink:'cha',reroll:'int',passive:'ult'};const nm=String(o.l).split(/[(:—]/)[0].trim()||o.l;b.className+=' ccard tcb';b.innerHTML=tcard({art:AK[kind]||'event',name:nm.slice(0,40),type:({card:'Card',deck:'กองการ์ด',gain:'Reward',replace:'Replace',join:'Ally',peek:'Peek',passive:'Passive'})[kind]||'Choice',rar:kind==='passive'?'leg':'com',txt:o.l});}}
    if(o.dis){b.disabled=true;b.title='ใช้ไม่ได้ตอนนี้';}
    b._o=o;b.dataset.v=typeof o.v==='object'&&o.v?JSON.stringify(o.v.a||''):String(o.v);if(pv&&!o.dis)CUR.atkBtn[pv.u.uid]={b,pv};
-   b.onclick=async()=>{if(kind==='action'&&o.v==='rest'){if(!await confirmBox(`จบ Action ของ ${p.name} ช่วงนี้โดย "${o.l}" ใช่ไหม?`))return;}
+   b.onclick=async()=>{
     if(pv&&localStorage.getItem('ash_cfatk')==='1'){if(!await confirmBox(`ยืนยันโจมตี ${pv.u.name}?\nผลที่คาด: ${pv.txt}`))return;}
     document.querySelectorAll('.tgt').forEach(e=>e.classList.remove('tgt'));if(b.classList.contains('tcb')&&!b.classList.contains('mini'))pickZoom(b,()=>done(o.v));else done(o.v);};
    const isMv=mvrow&&String(o.v).startsWith('mv:');(isMv?mvrow:(sg&&(kind!=='shop'||o.v))?sg:box).appendChild(b);});
@@ -3132,7 +3132,7 @@ const RX=[[/\s#\d+\b/g,''],[/🎬?\s*Scene\s*:?\s*(?=(?:[A-D][5-8]|MQ)-\d)/g,'']
 [/\bBoss Encounter\b/g,'บอส'],[/\bEncounter\b/g,'การเผชิญหน้า'],[/\bSkill (\d)\b/g,'สกิล $1'],[/\bItem (\d)\b/g,'ไอเท็ม $1'],[/\bPASSIVE\b/g,'ติดตัว'],[/\bULTIMATE\b/g,'ไม้ตาย'],[/\bUltimate\b/g,'ไม้ตาย'],
 [/\bRound (\d+)/g,'รอบ $1'],[/\bStart Up\b/g,'เริ่มรอบ'],[/\bPlayer phase\b/g,'ช่วงผู้เล่น'],[/\bTURN ORDER\b/g,'ลำดับเทิร์น'],[/\bCP\b/g,'เช็กพอยต์'],[/\bSpeed\b/g,'ความเร็ว'],[/\bLog\b/g,'บันทึก'],
 [/\bRest\b/g,'พัก'],[/\bForage\b/g,'หาอาหาร'],[/\bExplore\b/g,'สำรวจ'],[/\bTalk\b/g,'คุย'],[/\bDice Tray\b/g,'ถาดลูกเต๋า'],[/\bACT 1 CLEARED\b/g,'ผ่านองก์ที่ 1 แล้ว'],[/\s*·?\s*Version [A-Z]\b/g,''],
-[/\bEND TURN\b/g,'จบเทิร์น'],[/\bBasic Attack\b/g,'โจมตีพื้นฐาน'],[/\bConfirm Action\b/g,'ยืนยันแอกชัน'],[/\bYOU ARE DEAD\b/gi,'พ่ายแพ้'],[/\bMinion\b/g,'ลูกสมุน'],[/\bElite\b/g,'หัวหน้า'],[/\bSetup\b/g,'เตรียมตัว'],[/\bDECK\b/g,'กองการ์ด'],[/\(\s*\)/g,'']];
+[/\bEND TURN\b/g,'จบเทิร์น'],[/\bBasic Attack\b/g,'โจมตีพื้นฐาน'],[/\bConfirm Action\b/g,'ยืนยันแอกชัน'],[/\bYOU ARE DEAD\b/gi,'พ่ายแพ้'],[/\bMinion\b/g,'ลูกสมุน'],[/\bElite\b/g,'หัวหน้า'],[/\bSetup\b/g,'เตรียมตัว'],[/\bDECK\b/g,'กองการ์ด'],[/\(\s*\)/g,''],[/ต่อสู้ (\d+) Combat/g,'ต่อสู้ $1 ครั้ง'],[/\bOnline Co-op\b/g,'ออนไลน์'],[/\bTutorial\b/g,'บทเรียน'],[/\bStart\b/g,'เริ่ม'],[/\bMain Quest\b/g,'ภารกิจหลัก'],[/\bQuest Tracker\b/g,'ติดตามภารกิจ'],[/\bQuests?\b/g,'ภารกิจ'],[/\bScenes?\b/g,'ฉาก'],[/\bCombat\b/g,'การต่อสู้'],[/\bAlly\b/g,'พันธมิตร'],[/\bRANGE\b/g,'ระยะ'],[/\bSkills?\b/g,'สกิล'],[/\bSp\b/g,'เร็ว'],[/\bMove\b/g,'เดิน'],[/\bSTR\b/g,'พลัง'],[/\bDEX\b/g,'ไว'],[/\bINT\b/g,'ปัญญา'],[/\bCHA\b/g,'เสน่ห์'],[/\bPassive\b/g,'ติดตัว'],[/\bConfirm\b/g,'ยืนยัน'],[/\bContinue\b/g,'ไปต่อ'],[/\bCombats\b/g,'การต่อสู้'],[/\bUndo\b/g,'ย้อน'],[/\bMOVE\b/g,'เดิน'],[/\bAttack\b/g,'โจมตี'],[/\bGuard\b/g,'ป้องกัน'],[/\bTutorial\b/gi,'บทเรียน'],[/\bHIGH RISK\b/g,'เสี่ยงสูง'],[/\bwins?\b/g,'ชนะ']];
 const SKIP={SCRIPT:1,STYLE:1,TEXTAREA:1,INPUT:1};
 function clean(s){let o=s;for(const [a,b] of RX)o=o.replace(a,b);return o;}
 window.v98clean=clean;
@@ -3164,7 +3164,7 @@ const v99TipG=e=>{const t=document.getElementById('tipbox');if(!t||t.style.displ
   if(tr.left<r.right&&tr.right>r.left&&tr.top<r.bottom&&tr.bottom>r.top){t.style.display='none';return;}}};window.addEventListener('mouseover',v99TipG);window.addEventListener('touchstart',v99TipG,{passive:true});
 })();
 /* overworld helpers */
-function v99Tut(){try{if(typeof TS==='undefined'||TS<0||!G)return;if((G.combatEndN||0)>=1&&!G.combat||G.combat&&!(G.combat._mod&&G.combat._mod.tut)){tutEnd();return;}
+function v99Tut(){try{if(typeof TS==='undefined'||TS<0||!G)return;if(G.combat&&!(G.combat._mod&&G.combat._mod.tut)){tutEnd();return;}
  const b=document.getElementById('tut'),t=document.getElementById('tray');if(b&&t&&b.style.display!=='none'){const r=b.getBoundingClientRect(),q=t.getBoundingClientRect();if(r.left<q.right&&r.right>q.left&&r.top<q.bottom&&r.bottom>q.top){b.style.top='56px';b.style.bottom='auto';}}}catch(e){}}
 function v98Over(){try{v99Tut();if(!G||G.combat||G.over)return;const m=document.getElementById('map');if(!m)return;let h=m.querySelector('.v98day');const html=`<div class="v98day"><span class="acnt">⏱ แอกชัน ${G.phase+1}/3 ของวันนี้</span><span class="dexp">วันหนึ่งมี 3 ช่วง (เช้า · บ่าย · กลางคืน) — ฮีโร่แต่ละคนได้ 1 แอกชันต่อช่วง · จบกลางคืน = กินเสบียงคนละ 1 แล้วขึ้นวันใหม่ · เกิน ${CFG.dayLimit} วัน = แพ้</span></div>`;
  if(!h){m.insertAdjacentHTML('afterbegin',html);}else if(h.outerHTML!==html)h.outerHTML=html;}catch(e){}}
@@ -3197,5 +3197,89 @@ function v98Over(){try{v99Tut();if(!G||G.combat||G.over)return;const m=document.
 @media (max-width:760px){#choices .ptop{position:static!important}}
 `;document.head.appendChild(s);})();
 document.addEventListener('pointerdown',e=>{try{if(e.target.closest('.pdie'))return;if(!document.querySelector('#choices .pdie'))return;const c=e.target.closest&&e.target.closest('#choices .acard');let best=null,bd=c?24:36;for(const d of (c||document).querySelectorAll(c?'.pdie':'#choices .ppool .pdie')){const r=d.getBoundingClientRect();const dd=Math.hypot(Math.max(r.left-e.clientX,0,e.clientX-r.right),Math.max(r.top-e.clientY,0,e.clientY-r.bottom));if(dd<bd){bd=dd;best=d;}}if(best&&typeof planDrag==='function'){e.preventDefault();e.stopPropagation();planDrag(e,best);}}catch(_){}},true);
+
+/* v0.9.10 fixes */
+(function(){
+/* 9: reroll rolls instantly (no '?' dice + second ROLL click) */
+try{const oR=IO.roll;if(typeof oR==='function'){IO.roll=function(p,label,dice){const pr=oR.apply(this,arguments);if(/reroll|ทอยใหม่/i.test(String(label))&&!(p&&p.bot)){setTimeout(()=>{try{if(TRAY.pending&&!TRAY.pending.remote)doRoll();}catch(e){}},30);}return pr;};}}catch(e){}
+/* 4: coach — only combat steps in combat; overworld steps after tutorial fight */
+window.V910={ts0:null};
+const oTS=window.tutShow;if(typeof oTS==='function'){window.tutShow=function(){try{if(TS>=0&&G&&G.combat){if(TS>8){const b=document.getElementById('tut');b.style.display='none';b.innerHTML='';return;}if(TS<5){if(V910.ts0===null)V910.ts0=TS;TS=5;}}else if(TS>=0&&G&&!G.combat&&V910.ts0!==null){TS=V910.ts0;V910.ts0=null;}}catch(e){}return oTS.apply(this,arguments);};tutShow=window.tutShow;}
+setInterval(()=>{try{if(TS<0||!G)return;const b=document.getElementById('tut');if(G.combat&&TS<5)tutShow();else if(G.combat&&TS>8&&b&&b.style.display!=='none')tutShow();else if(!G.combat&&V910.ts0!==null)tutShow();}catch(e){}},400);
+})();
+(function(){const css=`
+.planb{display:flex!important;flex-wrap:wrap;align-items:flex-start;column-gap:10px}
+.planb>.prompt,.planb>#pstat,.planb>.pstat{flex:1 1 100%}
+.planb .ptop{position:static!important;top:auto!important;flex:0 0 auto!important;width:auto!important}
+.planb .ptop .pstats{flex:0 0 auto!important}
+.planb .pwrap{display:flex!important;flex-wrap:nowrap;gap:8px;flex:0 1 auto;align-items:flex-start}
+.planb .pwrap>.abar,.planb .pwrap>.aoth{display:flex!important;flex-wrap:nowrap;gap:8px;height:auto!important;min-height:0!important;margin:0!important;padding-bottom:50px}
+@media(min-width:761px){html body #choices.planb #pstat{position:sticky!important;bottom:0!important;}}
+#pstat{z-index:6;background:#140e0b;box-shadow:0 -6px 12px #000a}
+#choices.planb{overflow-y:auto}
+`;const s=document.createElement('style');s.id='v910css';s.textContent=css;document.head.appendChild(s);})();
+(function(){const s=document.createElement('style');s.id='v910css2';s.textContent=`
+@media(min-width:761px){html body #choices.planb{display:flex!important;flex-wrap:wrap!important;align-items:flex-start!important;align-content:flex-start!important}html body #choices.planb .asocks{z-index:1}
+html body .planb .pwrap{flex:0 1 auto!important;width:auto!important;flex-wrap:nowrap!important}
+html body .planb .pwrap .abar,html body .planb .pwrap .aoth{flex:0 0 auto!important;width:auto!important}}`;document.head.appendChild(s);})();
+/* 4: teach attack in tutorial combat */
+(function(){const s=document.createElement('style');s.textContent=`.v910hl{outline:3px solid #ffcf4a!important;box-shadow:0 0 18px #ffcf4a!important;animation:v910p 1.2s infinite}@keyframes v910p{50%{box-shadow:0 0 4px #ffcf4a}}
+#v910hint{flex:1 1 100%;background:#3a2a08;border:1px solid #ffcf4a;color:#ffe9a8;border-radius:8px;padding:6px 10px;margin:4px 0;font-size:15px}
+#v910toast{position:fixed;left:50%;top:40%;transform:translateX(-50%);z-index:9999;background:#2a1d06;border:2px solid #ffcf4a;color:#fff3c8;padding:12px 16px;border-radius:10px;font-size:16px;max-width:520px;pointer-events:none}`;document.head.appendChild(s);
+const tutC=()=>{try{return G&&G.combat&&G.combat._mod&&G.combat._mod.tut}catch(e){return false}};
+const MSG='⚔ <b>โจมตี:</b> ลากลูกเต๋าใส่การ์ด <b>พลัง ⚔</b> (ไฮไลต์สีทอง) → ฮีโร่จะโจมตีศัตรูที่อยู่ <b>ช่องเดียวกัน</b> กับคุณ — ถ้าศัตรูอยู่ไกล ให้ใช้ <b>เดิน</b> เข้าไปช่องเดียวกับศัตรูก่อน';
+setInterval(()=>{try{if(!tutC()){document.querySelectorAll('.v910hl').forEach(e=>e.classList.remove('v910hl'));return;}
+const ch=document.querySelector('#choices.planb');if(!ch)return;const a=ch.querySelector('.acard.atk');if(a)a.classList.add('v910hl');
+if(!document.getElementById('v910hint')){const d=document.createElement('div');d.id='v910hint';d.innerHTML=MSG;const pr=ch.querySelector('.prompt');pr?pr.after(d):ch.prepend(d);}}catch(e){}},300);
+document.addEventListener('click',e=>{try{if(!tutC())return;const a=e.target.closest&&e.target.closest('.acard.atk');if(!a)return;let t=document.getElementById('v910toast');if(!t){t=document.createElement('div');t.id='v910toast';document.body.appendChild(t);}t.innerHTML=MSG;t.style.display='block';clearTimeout(t._h);t._h=setTimeout(()=>t.style.display='none',3500);}catch(_){}},true);
+})();
+/* 1: hide grid codes on map cells */
+(function(){const s=document.createElement('style');s.textContent=`#map .gid,.cell .gid,.tile .gid{display:none!important}`;document.head.appendChild(s);})();
+/* 5: map grid fits between header and legend; legend not over A-row; brighter lower rows */
+(function(){const s=document.createElement('style');s.textContent=`@media(min-width:761px){
+html body #game:not(.incombat) #map{display:flex!important;flex-direction:column!important;height:100%!important;box-sizing:border-box;overflow:hidden!important}
+html body #map>*{flex:0 0 auto}
+html body #map .grid,html body #map .mclock~.grid{flex:1 1 auto!important;height:auto!important;min-height:0!important;grid-template-rows:repeat(4,minmax(0,1fr))!important}
+html body #map .mleg{position:static!important;margin-top:6px}}
+#map .grid .cell,#map .grid>div{filter:none!important}
+#map .grid>div::after{opacity:.35}`;document.head.appendChild(s);})();
+/* 8: combat result (win/loss) shows first; next story/choice popup waits until it is closed */
+(function(){const s=document.createElement('style');s.textContent=`#reward.show{z-index:10050!important}`;document.head.appendChild(s);
+const busy=()=>!window.FAST&&!!document.querySelector('#reward.show');const sl=ms=>new Promise(r=>setTimeout(r,ms));
+const oA=IO.ask;if(typeof oA==='function'){IO.ask=async function(){if(busy()){const t0=Date.now();while(busy()&&Date.now()-t0<8000)await sl(120);}return oA.apply(this,arguments);};}
+/* hide coach over end screen */
+setInterval(()=>{try{if(G&&G.over){const b=document.getElementById('tut');if(b){b.style.display='none';b.innerHTML='';}}}catch(e){}},300);
+})();
+/* 11: real 14px floor for every visible text label (computed-style based) */
+(function(){let pend=false;const fix=()=>{pend=false;const all=document.body.getElementsByTagName('*');for(const e of all){if(e.tagName==='SCRIPT'||e.tagName==='STYLE'||e.closest('svg'))continue;let t=false;for(const n of e.childNodes)if(n.nodeType===3&&n.nodeValue.trim()){t=true;break;}if(!t)continue;const fs=parseFloat(getComputedStyle(e).fontSize);if(fs&&fs<14){e.style.setProperty('font-size','14px','important');e.style.setProperty('line-height','1.25','important');}}};
+const sch=()=>{if(!pend){pend=true;setTimeout(fix,60);}};new MutationObserver(sch).observe(document.documentElement,{subtree:true,childList:true,characterData:true});window.addEventListener('load',sch);setInterval(sch,1500);window.V910fontFix=fix;})();
+/* 4/7: in combat the coach only shows while its step applies; otherwise no box and no dimming highlight */
+(function(){const o=window.tutShow;const inapp=()=>{try{const s=TUT[TS];return G&&G.combat&&TS>=5&&TS<=8&&s&&s.when&&!s.when();}catch(e){return false}};
+window.tutShow=function(){if(inapp()){const b=document.getElementById('tut');b.style.display='none';b.innerHTML='';b.dataset.v910h='1';document.querySelectorAll('.tuthl').forEach(e=>e.classList.remove('tuthl'));return;}const b=document.getElementById('tut');if(b)b.dataset.v910h='';return o.apply(this,arguments);};tutShow=window.tutShow;
+const oc=window.tutCheck;window.tutCheck=function(){if(inapp()){tutShow();return;}const b=document.getElementById('tut');if(b&&b.dataset.v910h==='1'){tutShow();return;}return oc.apply(this,arguments);};tutCheck=window.tutCheck;
+setInterval(()=>{try{if(TS<0||!G||!G.combat)return;const b=document.getElementById('tut');if(inapp()&&b.style.display!=='none')tutShow();else if(!inapp()&&b.dataset.v910h==='1')tutShow();}catch(e){}},350);
+const s=document.createElement('style');s.textContent=`@media(min-width:761px){#right:has(#choices.cbk) #tray{display:none!important}#right:has(#choices.cbk) #choices{grid-column:1/-1!important}
+html body #game.incombat .bfv{min-height:220px!important;height:240px!important}}`;document.head.appendChild(s);})();
+/* 5/7: shell vignette (body:before, z50, to #000 at edges) darkened End Turn + lower map; make it subtle */
+(function(){const s=document.createElement('style');s.textContent='html body:before{background:radial-gradient(ellipse at 50% 40%,transparent 75%,rgba(0,0,0,.15) 100%)!important;z-index:1!important}';document.head.appendChild(s);})();
+/* 3: act phase – compact stat strip so tall cards (Oni Frenzy) fit above the fold */
+(function(){const s=document.createElement('style');s.textContent='@media(min-width:761px){html body #choices.cbk .ptop.turn{max-height:50px;overflow:hidden}html body #choices.cbk .ptop.turn .scard.mini{height:44px!important;min-height:0!important;flex-direction:row!important;gap:6px;align-items:center;justify-content:center;padding:2px 6px!important}html body #choices.cbk .ptop.turn .pth{display:none}html body #choices.cbk .ptop.turn .ppool,html body #choices.cbk .ptop.turn .pstats{height:48px;min-height:0!important;padding-top:2px!important;padding-bottom:2px!important}html body #choices.cbk .abar.turn{margin-top:0!important;padding-top:4px!important}}';document.head.appendChild(s);})();
+/* 3 @short screens (<=900px tall): drop card art strip in act phase so Oni Frenzy fits; keep portrait min-height */
+(function(){const s=document.createElement('style');s.textContent='@media(min-width:761px) and (max-height:900px){html body #choices.cbk .acard .tc-art{display:none!important}html body #choices.cbk .acard{min-height:200px!important}html body #choices.cbk .acard .asocks{position:static!important;margin-top:auto}}';document.head.appendChild(s);})();
+/* 3 @short screens: give the act dock enough height and keep the battle board scrolled into view */
+(function(){const s=document.createElement('style');s.textContent='@media(min-width:761px) and (max-height:900px){html body #right:has(#choices.cbk){min-height:484px!important}html body #choices.cbk{overflow:visible!important}}';document.head.appendChild(s);
+let k='';setInterval(()=>{try{if(innerHeight>900||innerWidth<761)return;const c=document.getElementById('combat'),b=c&&c.querySelector('.bfv');const ch=document.querySelector('#choices.cbk,#choices.planb');if(!b||!ch||!G.combat){k='';return}const nk=ch.className+G.combat.round;if(nk===k)return;k=nk;const t=b.offsetTop-(c.offsetTop||0)-34;let sc=c;while(sc&&sc.scrollHeight<=sc.clientHeight+2)sc=sc.parentElement;if(sc&&sc!==document.body&&sc!==document.documentElement)sc.scrollTop=Math.max(0,b.getBoundingClientRect().top-sc.getBoundingClientRect().top+sc.scrollTop-34);}catch(e){}},500);})();
+/* 7 @<=1500 wide: End Turn must not overlap the last card */
+(function(){const s=document.createElement('style');s.textContent='@media(min-width:761px) and (max-width:1500px){html body #choices.cbk{position:relative!important}html body #choices.cbk .abar.turn{padding-right:196px!important}html body #choices.cbk .endturn{position:absolute!important;right:10px!important;bottom:10px!important;width:180px!important;min-width:0!important;padding:10px 12px!important;font-size:18px!important;margin:0!important}}';document.head.appendChild(s);})();
+/* audit: overlaps/clips caused by the 14px font floor */
+(function(){const s=document.createElement('style');s.textContent=`#map .gt{display:flex!important;flex-wrap:wrap!important;align-items:center;gap:2px}#map .gt .gscn{position:static!important}#map .gt .gnm{flex:1 1 100%!important;min-width:0}
+.tok .thrb{transform:translateY(-6px)}
+#choices .acard .atx{height:auto!important;max-height:none!important;overflow:visible!important;flex:0 0 auto!important}
+.bigdie .dtag,.dtag{height:auto!important;max-height:none!important;overflow:visible!important}`;document.head.appendChild(s);})();
+/* audit: tray header vs die, card text vs coin footer */
+(function(){const s=document.createElement('style');s.textContent=`#tray .trh{position:static!important;margin-bottom:6px}#tray .dice{margin-top:14px!important}.tc-foot{position:static!important;margin-top:auto}`;document.head.appendChild(s);})();
+(function(){const s=document.createElement('style');s.textContent=`.tc-front{display:flex!important;flex-direction:column!important;height:auto!important;min-height:100%}.tc-front .tc-text{height:auto!important;max-height:none!important;overflow:visible!important;flex:0 0 auto!important}.tc-front .tc-foot{position:static!important;margin-top:auto!important}`;document.head.appendChild(s);})();
+(function(){const s=document.createElement('style');s.textContent=`@media(max-width:760px){html body #tray .bigdie b{font-size:20px!important}}html body #tray .tsum{margin-top:14px!important}.tok .tpo{transform:translateY(4px)}`;document.head.appendChild(s);})();
+(function(){const s=document.createElement('style');s.textContent='@media(min-width:761px) and (min-height:901px){html body #right:has(#choices.cbk){min-height:510px!important}}';document.head.appendChild(s);})();
 
 </script></body></html>
