@@ -3557,4 +3557,29 @@ setInterval(()=>{try{if(typeof CUR!=='undefined'&&CUR&&CUR.kind==='event'&&G.evP
 
 setInterval(()=>{document.querySelectorAll('.mrow .mcard .mnm').forEach(n=>{const c=n.closest('.mcard');if(!c)return;n.style.maxWidth='100%';let f=parseFloat(getComputedStyle(n).fontSize),k=0;while(k++<6&&f>9&&(n.scrollWidth>c.clientWidth-2||n.getBoundingClientRect().right>c.getBoundingClientRect().right)){f-=1;n.style.fontSize=f+'px';}});},400);
 
+(()=>{const P='html body #game.incombat .bfv';const s=document.createElement('style');s.id='v918';s.textContent=`
+${P} .toks{display:grid!important;grid-template-columns:minmax(0,1fr);grid-auto-rows:minmax(0,1fr);gap:4px!important;padding:2px 4px 4px!important;margin-bottom:20px!important;max-height:calc(100% - 44px)!important;align-content:stretch!important;justify-items:center;flex:1 1 auto!important;min-height:0!important;height:auto!important;overflow:hidden!important}
+${P} .toks:has(>.tok:nth-child(2)){grid-template-columns:repeat(2,minmax(0,1fr))}
+${P} .toks:has(>.tok:nth-child(5)){grid-template-columns:repeat(3,minmax(0,1fr))}
+${P} .toks>.tok{width:100%!important;max-width:110px!important;height:100%!important;max-height:min(100%,190px)!important;align-self:center;min-height:0!important;border-radius:8px!important;border:2px solid var(--ring)!important;background:linear-gradient(#2a2018,#120d0a)!important;box-shadow:0 2px 6px #000!important;display:flex!important;flex-direction:column!important;overflow:hidden!important;box-sizing:border-box;position:relative}
+${P} .toks>.tok.cur{outline:2px dashed #ffd76a!important;outline-offset:-2px!important}
+${P} .toks>.tok>img,${P} .toks>.tok>img.fimg{flex:1 1 0!important;min-height:0!important;width:100%!important;height:auto!important;max-height:none!important;object-fit:cover!important;object-position:50% 12%!important;border-radius:0!important;border:0!important;display:block}
+${P} .toks>.tok>div:not([class]){flex:1 1 0;min-height:0;height:auto!important;border-radius:0!important}
+${P} .toks>.tok .tnm{position:static!important;transform:none!important;display:block!important;font-size:11px!important;line-height:1.25!important;padding:1px 3px!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;text-align:center;background:#0009!important;max-width:100%;flex:none}
+${P} .toks>.tok .thb{position:static!important;transform:none!important;width:100%!important;height:4px!important;flex:none;margin:0!important;border-radius:0!important}
+${P} .toks>.tok .thp{position:absolute!important;top:2px!important;right:2px!important;left:auto!important;bottom:auto!important;transform:none!important;font-size:12px!important;min-width:18px;padding:0 3px!important;line-height:16px!important;height:16px!important;border-radius:4px!important}
+${P} .toks>.tok .tint{position:absolute!important;top:2px!important;left:2px!important;right:auto!important;bottom:auto!important;transform:none!important;z-index:2;max-width:calc(100% - 26px);overflow:hidden;font-size:11px!important}
+${P} .toks>.tok .tface{position:absolute!important;bottom:22px!important;right:2px!important;left:auto!important;top:auto!important;transform:none!important;font-size:10px!important}
+${P} .toks>.tok .tst,${P} .toks>.tok .tpo{position:absolute!important;bottom:22px!important;left:2px!important;top:auto!important;transform:none!important;font-size:10px!important}
+${P} .toks>.tok .thrb{display:none!important}
+html body #game .bfv .tok:not(.hit),html body #game .bfv .tok img,html body #game .bfv .tok .fimg,html body #tbg{animation:none!important}
+html body #game .bfv .tok img:not(.flip){transform:none!important;transition:none!important}html body #game .bfv .tok img.flip{transform:scaleX(-1)!important;transition:none!important}
+`;document.head.appendChild(s);
+if(/lanetest/.test(location.search))setInterval(()=>{try{const C=G.combat;if(!C)return;const cell=document.querySelector('.bfv .cell[data-cell="2"] .toks');if(!cell||cell.dataset.lt)return;const p=C.parts[0],H=HEROES.find(h=>h.id!==p.id),m=C.units.find(u=>u.side==='m');if(!p||!m)return;
+ const p2={...p,id:H.id,name:H.name,i:1,h:H},m2={...m,uid:(m.uid||0)+900,name:m.name};
+ cell.innerHTML=[tokenHTML(p,'s',74),tokenHTML(p2,'s',74),tokenHTML(m,'m',74),tokenHTML(m2,'m',74)].join('');cell.dataset.lt=1;}catch(e){console.log('lt',e.message)}},300);
+})();
+/* v0.9.18 calm UI: kill every continuous/looping animation; one-shot event effects (finite) stay */
+(()=>{const k=()=>{try{for(const a of document.getAnimations()){const t=a.effect&&a.effect.getTiming&&a.effect.getTiming();if(t&&(t.iterations===Infinity||t.iterations>3)){a.cancel();const el=a.effect.target;if(el&&el.style)el.style.animation='none';}}}catch(e){}};setInterval(k,400);k();})();
+
 </script></body></html>
