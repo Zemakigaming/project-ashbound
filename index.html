@@ -926,10 +926,10 @@ const HEROES=[
   skill:{name:'Raise Zombie',req:{type:'any',n:1,lbl:'เต๋า 1 ลูก หน้าใดก็ได้'},txt:'อัญเชิญ "ซอมบี้" Hp1/Sp1/Move1 ในช่องตนเอง (Max 2) (1 die any)'},
   ult:{name:'HIGH RISK: ผู้ถูกกลืนกิน',cost:'x',txt:'เสีย x Hp: อัญเชิญ "ผู้ถูกกลืนกิน" Hp x สเตตัสเท่า Damon (1/การต่อสู้)'}},
  {id:'hartmann',name:'Hartmann',role:'Shielder',faction:'Achans',hp:14,sp:2,mv:2,str:0,dex:2,int:1,cha:0,atk:'phy',range:[0,1],
-  passive:{name:'Bull Stance',txt:'ถ้ารอบที่แล้วไม่ได้เคลื่อนที่ ดาเมจที่ได้รับ −1'},
-  ups:['Passive ลด 3 แทน 1','Passive ทำงานแม้เคลื่อนที่','บล็อคที่เหลือทำดาเมจศัตรูในช่องเดียวกัน; สกิลใช้ 2 ลูกเต๋าได้'],
-  skill:{name:'Ash Wall',req:{type:'any',n:1,lbl:'เต๋า 1 ลูก หน้าใดก็ได้'},txt:'รอบนี้รับดาเมจลดลงตามหน้าเต๋า 1 ครั้ง (1 die any)'},
-  ult:{name:'HIGH RISK: Bastion',cost:'x',txt:'เสีย ≤3 Hp: จนจบรอบ ตนเองและ Survivor ในช่องรับดาเมจลดลงเท่าที่จ่าย (1/การต่อสู้)'}},
+  passive:{name:'Bull Stance',txt:'หากในรอบที่แล้วไม่ได้เคลื่อนที่ ดาเมจที่ได้รับจะลดลง 1 หน่วย'},
+  ups:['สกิล Passive จะป้องกันความเสียหายที่ได้รับเพิ่มขึ้น = Str/3 หน่วย','สกิล Passive สามารถแสดงผลได้แม้จะเคลื่อนที่','ทุกครั้งที่ถูกโจมตี Malee จะสะท้อนสร้างความเสียหาย 3 ใส่ผู้โจมตี'],
+  skill:{name:'Ash Wall',req:{type:'any',n:1,lbl:'เต๋า 1 ลูก (N)'},txt:'ได้รับ Block (รับความเสียหายแทน Hp) N หน่วย'},
+  ult:{name:'HIGH RISK: Bastion',cost:'maxHp 1',txt:'เสีย Hp สูงสุด 1 หน่วยถาวร เพื่อแลกกับในรอบนี้ความสามารถ Passive มีผลเป็น 2 เท่า และ ส่งผลกับผู้เล่นอื่นที่อยู่ช่องเดียวกัน จนวนกลับมารอบการเล่นของ Hartmann อีกครั้ง (ใช้ได้ 1 ครั้งต่อการต่อสู้)'}},
  {id:'troika',name:'Troika',role:'Healer',faction:'Achans',hp:10,sp:2,mv:2,str:0,dex:2,int:1,cha:2,atk:'phy',range:[0,1],
   passive:{name:'Cat & Black Dog',txt:'เริ่มมี Ally แมว (2Hp/Atk2/Move3) และหมาดำ (4Hp/Atk1/Move2), Sp เท่า Troika'},
   ups:['Ally ของเธอหมดสภาพ → ได้ลูกเต๋า W 1 ลูก','สกิลเลือกช่องข้าง ๆ ได้','พักผ่อนฟื้น 4 Hp และ Survivor อื่นในสถานที่เดียวกันได้ด้วย'],
@@ -945,11 +945,11 @@ const HEROES=[
   ups:['Passive Sp +2','สกิลเลือก Survivor 1 คนเล่นได้อีก 1 แอกชัน (สกิลพร้อมใช้อีกครั้ง)','สกิลเปลี่ยนลูกเต๋า 2 ลูก'],
   skill:{name:'Encore',req:{type:'collect',total:7,lbl:'ลงทีละ 1 ลูก สะสมรวม 7'},txt:'Survivor กี่คนก็ได้ในช่องเดียวกัน เปลี่ยนลูกเต๋า 1 ลูกเป็นหน้าใดก็ได้ (Up to 1 die, รวม 7, สะสมได้)'},
   ult:{name:'HIGH RISK: Yantra Anthem',cost:3,txt:'เสีย 3 Hp: Survivor ในช่องเดียวกัน +3 สเตตัส 1 อย่างจนจบรอบ (1/การต่อสู้)'}},
- {id:'lydia',name:'Lydia Ashbane',role:'Purifier',faction:'Old Ridgefolk',hp:10,sp:2,mv:2,str:0,dex:2,int:2,cha:1,atk:'mag',range:[0,2],
-  passive:{name:'Iron Prayer',txt:'ทิ้งลูกเต๋า 2 ลูก → รอบถัดไปลูกเต๋า 1 ลูกเป็นหน้าใดก็ได้ (6)'},
-  ups:['สกิลทำดาเมจช่องข้าง ๆ เป้าหมายด้วย','Passive ทิ้งแค่ 1 ลูก','1 ครั้ง/วัน เข้าต่อสู้ทอย D6: 1-3 กำจัด Minion 1, 4-6 กำจัด 2'],
-  skill:{name:'Purge',req:{type:'collect',total:10,lbl:'ลงทีละ 1 ลูก สะสมรวม 10'},txt:'8 ดาเมจศัตรูทั้งหมดใน 1 ช่อง (Up to 1 die, รวม 10, สะสมได้)'},
-  ult:null},
+ {id:'lydia',name:'Lilith Ashbane',role:'Purifier',faction:'Old Islefolk',hp:10,sp:2,mv:2,str:0,dex:2,int:2,cha:1,atk:'mag',range:[1,2],
+  passive:{name:'Iron Prayer',txt:'ทิ้งลูกเต๋าชนิดเดียวกัน 2 ลูก เพื่อได้รับเต๋าชนิดนั้นในหน้าใดก็ได้ 1 ลูก (1ครั้ง / รอบ)'},
+  ups:['Skill ประจำตัวของ Lilith ทำ 6 ดาเมจใส่ช่องข้างๆ ช่องเป้าหมายด้วย','Passive ของ Lilith จะใช้แค่ลูกเต๋า 1 ลูกแทน 2 ลูก','ได้รับ +1 Int ชั่วคราว / การใช้ 1 Skill (จนจบรอบการเล่นของตนเอง)'],
+  skill:{name:'Purge',req:{type:'collect',total:10,lbl:'Charge (10)'},txt:'ทำ 8 ดาเมจใส่ศัตรูทั้งหมดในช่อง 1 ช่อง (Rang 2-4)'},
+  ult:{name:'HIGH RISK: Ashbane Rite',cost:'Int 1',txt:'เสีย Int สูงสุด 1 หน่วยถาวร เพื่อแลกกับในการต่อสู้นี้ทุก Skill ที่เป็นรูปแบบ Charge (N) ทั้งหมดที่มี ลดค่าในการ Charge ลง 3 (ใช้ได้ 1 ครั้งต่อการต่อสู้)'}},
  {id:'dixon',name:'Dixon',role:'Warlock',faction:'Old Ridgefolk',hp:12,sp:2,mv:2,str:1,dex:2,int:1,cha:0,atk:'mag',range:[0,2],
   passive:{name:'Wrath Body',txt:'พักผ่อนโดยไม่ต้องกินอาหารได้ (นับ 2 Rest)'},
   ups:['1 ครั้ง/วัน เข้าร่วมการต่อสู้โดยไม่เสียเสบียง','(ว่างในชีต)','(ว่างในชีต)'],
@@ -1060,8 +1060,9 @@ const DECK_TH={Str:'กายภาพ (Str)',Int:'เวทมนตร์ (Int
 function mkSkill(no,lv){const S=SKILL_DATA.find(s=>s.no===no),L=lv===2?S.l2:S.l1;
  return {no,lv,deck:S.deck,et:S.et,name:`${S.name?S.name:'สกิล'}${lv===2?' Lv2':''}`,cost:L.cost,txt:L.txt,mods:L.m||{},area:L.area};}
 function skMod(p,s){let v=0;for(const k of p.skills)if(!k.orig&&k.mods&&k.mods[s])v+=k.mods[s];return v;}
-function recalcMax(p){const old=p.maxhp;p.maxhp=Math.max(1,p.h.hp+skMod(p,'hp'));if(p.maxhp>old)p.hp+=p.maxhp-old;p.hp=Math.min(p.hp,p.maxhp);}
-function sTot(q,s){return Math.max(0,stat(q,s)+((q.slot&&q.slot[s])||0)+(s==='dex'?(q.dexAdd||0):0));}
+function recalcMax(p){const old=p.maxhp;p.maxhp=Math.max(1,p.h.hp+skMod(p,'hp')+(p.permHp||0));if(p.maxhp>old)p.hp+=p.maxhp-old;p.hp=Math.min(p.hp,p.maxhp);}
+function sTot(q,s){return Math.max(0,stat(q,s)+((q.slot&&q.slot[s])||0)+(s==='dex'?(q.dexAdd||0):0)+(s==='int'?(q.intAdd||0):0));}
+const cTot=(q,s)=>Math.max(1,s.cost.total-(q.chargeCut||0));
 const half=x=>Math.floor(x/2);
 function statusN(x){return (x.poison||0)+(x.stun||0)+(x.dearm||0)+(x.bleed||0)+(x.mb||0);}
 function clearStatus(x,n){for(const k of ['poison','dearm','bleed','stun','mb'])while(n>0&&(x[k]||0)>0){x[k]--;n--;}}
@@ -1733,7 +1734,7 @@ async function startCombat(p,o={}){
  const fams=[...new Set(liveM(C).map(u=>u.fam))];
  C.title=o.title||`${fams.map(f=>FAM_TH[f]).join(' + ')} — ระดับเถ้า ${T}`;
  // heroes: bottom 2 cells (1-2) facing up
- parts.forEach((q,i)=>{Object.assign(q,{pos:i%2,face:1,wtemp:0,poison:0,stun:0,dearm:0,charge:null,lydia6:false,ultUsed:false,movedLast:false,jacketUsed:false,licharmUsed:false,bonusW:0,extraAtk:0,mb:0,bleed:0,traps:0,dbl:false,dblNext:false,bomb50:0,curSp:stat(q,'dex')});});
+ parts.forEach((q,i)=>{Object.assign(q,{pos:i%2,face:1,wtemp:0,poison:0,stun:0,dearm:0,charge:null,lydia6:false,chargeCut:0,intAdd:0,lydDisc:0,lydR:null,ultUsed:false,movedLast:false,jacketUsed:false,licharmUsed:false,bonusW:0,extraAtk:0,mb:0,bleed:0,traps:0,dbl:false,dblNext:false,bomb50:0,curSp:stat(q,'dex')});});
  for(const q of parts){for(const a of q.allies)if(a.atk&&a.hp>0)C.units.push({uid:UID++,side:'s',ally:true,owner:q,ref:a,name:a.name,code:a.k,hp:a.hp,maxhp:a.maxhp,atk:a.atk,mv:a.d.mv||2,rng:a.d.rng||[0,1],pos:q.pos,face:1,poison:0,stun:0,dearm:0});}
  if(o.guest){const a=mkAlly(o.guest);C.units.push({uid:UID++,side:'s',ally:true,guest:true,owner:p,ref:a,name:a.name+' (ช่วยสู้)',code:a.k,hp:a.hp,maxhp:a.hp,atk:a.atk||0,mv:2,pos:0,face:1,poison:0,stun:0,dearm:0});}
  G.combat=C;G.stats.combats++;if(G.stats.firstCombatTurn==null)G.stats.firstCombatTurn=G.stats.turns;
@@ -1841,11 +1842,11 @@ async function placeDice(q,C){
  for(const s of q.skills){
   const k=skKey(s);if(!vals.length)break;
   if(s.cost.type==='collect'){
-   q.acc[k]=q.acc[k]||0;if(q.acc[k]>=s.cost.total){q.ready[k]=true;q.skN[k]=6;continue;}
-   const opts=[{v:-1,l:`ไม่ใส่ลูกเต๋าสะสม (${q.acc[k]}/${s.cost.total})`}].concat(vals.map((d,i)=>({v:i,l:`สะสมลูก ${d.t}${d.v} ให้ ${s.name} (${q.acc[k]}+${d.v}/${s.cost.total})`})));
-   let bi=-1;if(wantSkill(q,C,s)){const sorted=vals.map((d,i)=>[d.v,i]).sort((a,b)=>b[0]-a[0]);const need=s.cost.total-q.acc[k];const ex=sorted.filter(x=>x[0]>=need).pop();bi=ex?ex[1]:(vals.length>=3?sorted[0][1]:-1);}
+   q.acc[k]=q.acc[k]||0;if(q.acc[k]>=cTot(q,s)){q.ready[k]=true;q.skN[k]=6;continue;}
+   const opts=[{v:-1,l:`ไม่ใส่ลูกเต๋าสะสม (${q.acc[k]}/${cTot(q,s)})`}].concat(vals.map((d,i)=>({v:i,l:`สะสมลูก ${d.t}${d.v} ให้ ${s.name} (${q.acc[k]}+${d.v}/${cTot(q,s)})`})));
+   let bi=-1;if(wantSkill(q,C,s)){const sorted=vals.map((d,i)=>[d.v,i]).sort((a,b)=>b[0]-a[0]);const need=cTot(q,s)-q.acc[k];const ex=sorted.filter(x=>x[0]>=need).pop();bi=ex?ex[1]:(vals.length>=3?sorted[0][1]:-1);}
    const i=await ask(q,'skilldice',`${q.name}: ${s.name} — ${s.cost.lbl} (ลงได้ทีละ 1 ลูก สะสมได้)`,opts,bi+1);
-   if(i>=0){vals[i].tag='⚡'+s.name;q.acc[k]+=vals[i].v;vals.splice(i,1);if(q.acc[k]>=s.cost.total){q.ready[k]=true;q.skN[k]=6;log(`${q.name}: ${s.name} พร้อมใช้ (สะสม ${q.acc[k]}/${s.cost.total})`);}}
+   if(i>=0){vals[i].tag='⚡'+s.name;q.acc[k]+=vals[i].v;vals.splice(i,1);if(q.acc[k]>=cTot(q,s)){q.ready[k]=true;q.skN[k]=6;log(`${q.name}: ${s.name} พร้อมใช้ (สะสม ${q.acc[k]}/${cTot(q,s)})`);}}
    continue;}
   const subs=reqSubsets(s.cost,vals);if(!subs.length)continue;
   const opts=[{v:-1,l:'ไม่จองลูกเต๋า'}].concat(subs.slice(0,8).map((c,i)=>({v:i,l:`จองให้ ${s.name}: [${c.map(j=>vals[j].v).join(',')}]`})));
@@ -1861,21 +1862,22 @@ async function placeDice(q,C){
  // stats
  vals.sort((a,b)=>b.v-a.v);
  const main=q.h.atk==='mag'?'int':'str';const order=[main,'dex','move','hp'];
- for(const d of vals.slice()){
+ const DQ=vals.slice();for(let qi=0;qi<DQ.length;qi++){const d=DQ[qi];
   const free=['str','dex','int','move','hp'].filter(s=>!q.slot[s]);
   const opts=free.map(s=>({v:s,l:`${s.toUpperCase()} ← ${d.v}`+({str:' (Phy atk)',dex:' (+Sp)',int:' (Mag atk)',move:' (+½ Move)',hp:' (Temp HP / Guard)'}[s])}));
   if(!q.charge)opts.push({v:'charge',l:`Charge Die (เก็บ ${d.v} ไว้รอบหน้า)`});
-  if(q.id==='lydia')opts.push({v:'discard',l:`ทิ้ง (Iron Prayer ${q.lydDisc||0}/${upg(q,2)?1:2})`});
+  if(q.id==='lydia'&&q.lydR!==(C&&C.round)&&(!q.lydDisc||q.lydT===d.t))opts.push({v:'discard',l:`ทิ้ง (Iron Prayer ${q.lydDisc||0}/${upg(q,2)?1:2} — ชนิด ${d.t})`});
   if(!q.bot)opts.push({v:'none',l:`ไม่ใช้ลูก ${d.v} (Unused ⚠)`});
   let bi=opts.findIndex(o=>o.v===order.find(s=>free.includes(s)));
   if(d.v<=1&&!q.charge&&vals.length>2)bi=opts.findIndex(o=>o.v==='hp');
-  if(q.id==='lydia'&&d.v<=2&&!q.lydia6)bi=opts.findIndex(o=>o.v==='discard');
+  if(q.id==='lydia'&&d.v<=2&&opts.some(o=>o.v==='discard'))bi=opts.findIndex(o=>o.v==='discard');
   if(bi<0)bi=0;
   G.tray.cur=d;const s=await ask(q,'place',`${q.name}: วางลูกเต๋า ${d.t}${d.v} ลงช่องไหน?`,opts,bi);
   G.tray.cur=null;d.tag=s==='charge'?'Charge':s==='discard'?'ทิ้ง':s==='none'?'ไม่ใช้':s.toUpperCase();
   if(s==='none')log(`${q.name}: ไม่ใช้ลูก ${d.t}${d.v} รอบนี้`);
   else if(s==='charge')q.charge={t:d.t,v:d.v};
-  else if(s==='discard'){q.lydDisc=(q.lydDisc||0)+1;if(q.lydDisc>=(upg(q,2)?1:2)){q.lydia6=true;q.lydDisc=0;log('Lydia · Iron Prayer: รอบหน้าลูกเต๋า 1 ลูกเป็นหน้าใดก็ได้ (6)');}}
+  else if(s==='discard'){q.lydT=d.t;q.lydDisc=(q.lydDisc||0)+1;if(q.lydDisc>=(upg(q,2)?1:2)){q.lydDisc=0;q.lydT=null;q.lydR=C&&C.round;
+   const f=await ask(q,'face',`Lilith · Iron Prayer: เลือกหน้าเต๋า ${d.t}`,[6,5,4,3,2,1].map(v=>({v,l:`${d.t}${v}`})),0);DQ.push({t:d.t,v:f});log(`Lilith · Iron Prayer: ได้เต๋า ${d.t}${f}`,'good');}}
   else q.slot[s]=d.v;
  }
  q.wtemp=q.slot.hp;q.curSp=stat(q,'dex')+q.slot.dex;
@@ -1920,7 +1922,10 @@ function hurtS(C,s,dmg,src,eff={}){
  if(q.iron)dmg=Math.max(0,dmg-q.iron);
  if(C.huddle[q.pos])dmg=Math.max(0,dmg-C.huddle[q.pos]);
  if(C.hult&&C.hult.pos===q.pos)dmg=Math.max(0,dmg-C.hult.x);
- if(q.id==='hartmann'&&(!q.movedLast||upg(q,2)))dmg=Math.max(0,dmg-(upg(q,1)?3:1));
+ {const hm=q.id==='hartmann'?q:(C.hartUlt&&C.hartUlt.q.hp>0&&C.hartUlt.q.pos===q.pos?C.hartUlt.q:null);
+  if(hm&&(!hm.movedLast||upg(hm,2))){const r=(1+(upg(hm,1)?Math.floor(sTot(hm,'str')/3):0))*(C.hartUlt&&C.hartUlt.q===hm?2:1);dmg=Math.max(0,dmg-r);}}
+ if(q.blk){const b=Math.min(q.blk,dmg);q.blk-=b;dmg-=b;if(b)log(`${q.name} Block ${b}`);}
+ if(q.id==='hartmann'&&upg(q,3)&&eff.from&&eff.from.hp>0&&eff.from.side==='m'&&Math.abs(eff.from.pos-q.pos)<=1&&eff.from.d.rng&&eff.from.d.rng[1]<=1)damageM(C,eff.from,3,'Hartmann สะท้อน (Upg3)','phy');
  if(C.shield[q.pos]){const b=Math.min(C.shield[q.pos],dmg);dmg-=b;C.shield[q.pos]-=b;if(b)log(`Ash Wall บล็อค ${b}`);}
  if(q.wtemp){const b=Math.min(q.wtemp,dmg);q.wtemp-=b;dmg-=b;}
  q.hp-=dmg;log(`${src} → ${q.name} ${dmg} ดาเมจ (HP ${Math.max(0,q.hp)}/${q.maxhp})`,'bad');
@@ -1934,7 +1939,7 @@ function counter(C,q,u){if(!u||u.hp<=0||q.hp<=0||u.side!=='m')return;const melee
 async function combatRound(C){
  log(`— Round ${C.round}${C.limit?' / '+C.limit:''} · Start Up —`,'phase');
  C.bastion=false;C.shield={};C.huddle={};C.noEnter={};C.traps={};C.acted=[];C.resolving=false;C.hult=null;C.replay=null;
- for(const q of C.parts){Object.assign(q,{anthem:false,taunt:false,iron:0,pguard:0,veil:false,extraAtk:0,zemB:0,warped:null,b19:false,b29:null,ramp:0,rampN:0,b38:null,movedN:0,baMove:0,_mv:0,_noMove:false,swaps:0,c28:null,c46:false,reflect:0,killChain:0,steal:0,b58:false,hit58:[],b59:0,dexAdd:0,endTurn:false,ultStr:0,ultMv:0,anthemS:null,drinkS:null,traps:0,dbl:!!q.dblNext,dblNext:false});}
+ for(const q of C.parts){Object.assign(q,{blk:0,anthem:false,taunt:false,iron:0,pguard:0,veil:false,extraAtk:0,zemB:0,warped:null,b19:false,b29:null,ramp:0,rampN:0,b38:null,movedN:0,baMove:0,_mv:0,_noMove:false,swaps:0,c28:null,c46:false,reflect:0,killChain:0,steal:0,b58:false,hit58:[],b59:0,dexAdd:0,endTurn:false,ultStr:0,ultMv:0,anthemS:null,drinkS:null,traps:0,dbl:!!q.dblNext,dblNext:false});}
  for(const q of liveS(C))if(q.bomb50){const v=q.bomb50;q.bomb50=0;log(`${q.name}: ระเบิด (Skill #50) ${v} ดาเมจ`,'good');liveM(C).filter(u=>Math.abs(u.pos-q.pos)<=1).forEach(u=>damageM(C,u,v,q.name+' (#50)','skillmag'));}
  for(const u of liveM(C)){u.sp=u.d.sp;if(u.kind==='elite'&&u.d.bonus)u.bonus=roll(u.d.bonus);}
  for(const q of liveS(C))if(q.wear.includes('charm')){const h=heal(q,1);if(h)log(`${q.name}: เครื่องราง +1 HP`);}
@@ -1996,6 +2001,7 @@ function allyAI(a,C){
 function tgtsIn(q,C,rng,type){return liveM(C).filter(u=>inRange(q,u,rng)&&canHit(u,type));}
 function cellsIn(q,C,rng,type){return [...new Set(tgtsIn(q,C,rng,type).map(u=>u.pos))];}
 async function heroTurn(q,C){
+ if(C.hartUlt&&C.hartUlt.q===q&&C.hartUlt.r<C.round)C.hartUlt=null;
  let mv=q._noMove?0:moveOf(q)+Math.floor(q.slot.move/2);let attacks=1,moved=false;
  for(let guard=0;guard<40;guard++){
   if(!(C._mod&&C._mod.tut?liveM(C):liveE(C)).length||q.endTurn||q.hp<=0)break;
@@ -2026,13 +2032,13 @@ async function heroTurn(q,C){
    if(q.b58&&u.hp>0&&statusN(u)&&!q.hit58.includes(u.uid)){q.hit58.push(u.uid);q.extraAtk++;}
    if(k&&q.id==='sora'&&upg(q,2)){const nb=liveM(C).find(u=>Math.abs(u.pos-q.pos)<=1);if(nb){q.pos=nb.pos;q.face=nb.face;q.warped=nb.uid;log('Sora Upg2: ย้ายไปหลังศัตรูข้าง ๆ');}}}
   if(c.a==='skill'){q.used[c.k]=true;if(c.k!=='orig'||!(q.id==='zemaki'&&upg(q,2)))q.acc[c.k]=0;else q.acc[c.k]=0;
-   log(`${q.name} ใช้สกิล ${c.name}`,'good');c.run();
+   log(`${q.name} ใช้สกิล ${c.name}`,'good');c.run();if(q.id==='lydia'&&upg(q,3)){q.intAdd=(q.intAdd||0)+1;log('Lilith Upg3: +1 Int ชั่วคราว');}
    if(C.allyAgain){const aa=C.allyAgain;C.allyAgain=null;await allyTurn(aa,C);G.cur=q;}
    if(c.k==='orig'&&q.id==='zemaki'&&upg(q,2)){const g=q.skills.find(s=>!s.orig&&!q.ready[skKey(s)]);if(g){q.ready[skKey(g)]=true;q.skN[skKey(g)]=q.skN.orig||4;log('Zemaki Upg2: นำลูกเต๋าไปใช้สกิลอื่น');}}}
   if(c.a==='ult'){q.ultUsed=true;const x=c.cost||0;if(x){q.hp-=x;G.blood+=x;}log(`${q.name} จ่ายเลือด ${x} HP — ${q.h.ult.name}!`,'blood');c.run();}
   IO.render();await IO.sleep(1);
  }
- q.movedLast=moved;
+ q.movedLast=moved;q.intAdd=0;
 }
 function backAtk(q,u){return q.id==='sora'&&((u.face===q.face&&u.pos===q.pos)||q.warped===u.uid);}
 function skillOpts(q,C,s){
@@ -2043,12 +2049,12 @@ function skillOpts(q,C,s){
  if(s.orig)switch(q.id){
   case 'zemaki':for(const p of cellsIn(q,C,[0,1],'skill'))S(`6 ดาเมจ Splash ศัตรูทั้งช่อง ${p+1}`,()=>dmgCell(p,6,'Oni Splash','skill'));break;
   case 'damon':{const zs=liveA(C).filter(a=>a.zombie).length;if(zs<(upg(q,2)?3:2))S(`อัญเชิญซอมบี้ (${zs+1}/${upg(q,2)?3:2})`,()=>{C.units.push({uid:UID++,side:'s',ally:true,zombie:true,owner:q,ref:{hp:1,maxhp:1,d:{}},name:'ซอมบี้ (Zombie)',code:'zombie',hp:1,maxhp:1,atk:1,mv:1,pos:q.pos,face:1,poison:0,stun:0,dearm:0});});break;}
-  case 'hartmann':S(`Ash Wall บล็อค ${N}${upg(q,3)?' (+ลูกที่ 2)':''} ที่ช่อง ${q.pos+1}`,()=>{C.shield[q.pos]=(C.shield[q.pos]||0)+N+(upg(q,3)?2:0);});break;
+  case 'hartmann':S(`ได้รับ Block ${N}`,()=>{q.blk=(q.blk||0)+N;});break;
   case 'troika':{const cells=[q.pos].concat(upg(q,2)?[q.pos-1,q.pos+1].filter(x=>x>=0&&x<=5):[]);for(const p of cells)S(`ฟื้นฟู 2 HP Survivor ทั้งหมดในช่อง ${p+1}`,()=>{for(const x of liveS(C))if(x.pos===p)heal(x,2);});break;}
   case 'sora':for(const u of ms)S(`วาร์ปไปด้านหลัง ${u.name}`,()=>{q.pos=u.pos;q.face=u.face;q.warped=u.uid;});break;
   case 'mina':S(`Encore: Survivor ในช่อง ${q.pos+1} เปลี่ยนลูกโจมตีเป็น 6${upg(q,3)?' + Dex 6':''}`,()=>{for(const x of ss)if(x.pos===q.pos&&x!==q){const m=x.h.atk==='mag'?'int':'str';x.slot[m]=6;if(upg(q,3)){x.slot.dex=6;}}
    if(upg(q,2)){const t=ss.find(x=>x!==q&&Object.keys(x.used).length);if(t){t.used={};log(`Mina Upg2: ${t.name} ใช้สกิลได้อีกครั้ง`);}}});break;
-  case 'lydia':for(const p of cellsIn(q,C,[0,2],'skillmag'))S(`Purge 8 ดาเมจ ศัตรูทั้งช่อง ${p+1}${upg(q,1)?' (+ช่องข้าง ๆ)':''}`,()=>{dmgCell(p,8,'Purge','skillmag');if(upg(q,1))[p-1,p+1].filter(x=>x>=0&&x<=5).forEach(x=>dmgCell(x,8,'Purge','skillmag'));});break;
+  case 'lydia':for(const p of cellsIn(q,C,[1,3],'skillmag'))S(`Purge 8 ดาเมจ ศัตรูทั้งช่อง ${p+1}${upg(q,1)?' (+6 ช่องข้าง ๆ)':''}`,()=>{dmgCell(p,8,'Purge','skillmag');if(upg(q,1))[p-1,p+1].filter(x=>x>=0&&x<=5).forEach(x=>dmgCell(x,6,'Purge (Upg1)','skillmag'));});break;
   case 'dixon':break; // passive pact handled in placement
   case 'jack':{const ts=tgtsIn(q,C,[0,3],'skill');if(ts.length)S(`${N} ดาเมจ ใส่ ${upg(q,1)?3:2} เป้าหมาย`,()=>{const tt=ts.sort((a,b)=>(b.kind==='elite')-(a.kind==='elite')||a.hp-b.hp);const n=upg(q,1)?3:2;for(let i=0;i<n;i++){const u=upg(q,1)?tt.find(x=>x.hp>0):tt[i];if(u)damageM(C,u,N,'Twin Bolt','skill');}});break;}
   case 'ronan':{const al=liveA(C).filter(a=>a.owner===q&&a.atk);for(const a of al)S(`${a.name} โจมตีอีกครั้ง`,()=>{C.allyAgain=a;});break;}
@@ -2062,9 +2068,10 @@ function ultOpts(q,C){
  switch(q.id){
   case 'zemaki':U('Str +4 และ Move +2 รอบนี้',3,()=>{q.ultStr=4;q.ultMv=2;});break;
   case 'damon':for(const x of xs(6).filter(x=>x>=2))U(`อัญเชิญ "ผู้ถูกกลืนกิน" HP ${x} (ATK ${atkVal(q)} ⚠)`,x,()=>{C.units.push({uid:UID++,side:'s',ally:true,owner:q,ref:{hp:x,maxhp:x,d:{}},name:'ผู้ถูกกลืนกิน (Devoured)',code:'devoured',hp:x,maxhp:x,atk:atkVal(q),mv:moveOf(q),rng:q.h.range,pos:q.pos,face:1,poison:0,stun:0,dearm:0});});break;
-  case 'hartmann':for(const x of xs(3))U(`ช่อง ${q.pos+1} รับดาเมจ −${x} จนจบรอบ`,x,()=>{C.hult={pos:q.pos,x};});break;
+  case 'hartmann':if(q.maxhp>1)o.push({v:{a:'ult',cost:0,run:()=>{q.permHp=(q.permHp||0)-1;q.maxhp--;q.hp=Math.min(q.hp,q.maxhp);C.hartUlt={q,r:C.round};log(`${q.name} เสีย Hp สูงสุด 1 ถาวร (${q.maxhp})`,'blood');}},cost:0,l:`[Ultimate −1 Hp สูงสุด] ${q.h.ult.name}: Passive ×2 และส่งผลกับผู้เล่นในช่อง ${q.pos+1}`,ult:true});break;
   case 'troika':{const need=liveSA(C).filter(s=>s!==q).reduce((a,s)=>a+s.maxhp-s.hp,0);for(const x of xs(Math.min(6,need)))U(`ฟื้นฟู Survivor อื่นรวม ${x} HP`,x,()=>{let r=x;while(r>0){const t=liveSA(C).filter(s=>s!==q&&s.hp<s.maxhp).sort((a,b)=>(a.hp/a.maxhp)-(b.hp/b.maxhp))[0];if(!t)break;t.hp++;r--;}});break;}
   case 'sora':{const d=sTot(q,'dex');for(const dir of [1,-1])for(let n=1;n<=3;n++){const np=q.pos+dir*n;if(np<0||np>5)break;const hit=ms.filter(u=>(u.pos-q.pos)*dir>=0&&Math.abs(u.pos-q.pos)<=n);if(hit.length)U(`พุ่ง${dir>0?'▲':'▼'} ${n} ช่อง ${d} ดาเมจ + เลือดไหล → ${hit.length} ตัว`,3,()=>{hit.forEach(u=>{damageM(C,u,d,'Rainbow Dash','skill');if(u.hp>0)u.bleed=(u.bleed||0)+1;});q.pos=np;q.face=dir;},hit.find(u=>u.kind==='elite'));}break;}
+  case 'lydia':if(q.base.int>0)o.push({v:{a:'ult',cost:0,run:()=>{q.base.int--;q.chargeCut=3;log(`${q.name} เสีย Int สูงสุด 1 ถาวร — Charge ทุกสกิล −3 ในการต่อสู้นี้`,'blood');}},cost:0,l:`[Ultimate −1 Int สูงสุด] ${q.h.ult.name}: Charge (N) −3 จนจบการต่อสู้`,ult:true});break;
   case 'mina':U(`Survivor ในช่อง ${q.pos+1} สเตตัสหลัก +3 จนจบรอบ`,3,()=>{for(const s of liveS(C))if(s.pos===q.pos)s.anthemS=s.h.atk==='mag'?'int':'str';});break;
  }
  return o;
@@ -3595,5 +3602,6 @@ if(/lanetest/.test(location.search))setInterval(()=>{try{const C=G.combat;if(!C)
 
 // v0.9.19: party-panel mini-card names clamp to 2 lines (no vertical spill into next slot)
 (function(){const s=document.createElement('style');s.textContent='html body #game .mrow .mcard .mnm{display:-webkit-box!important;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden!important;max-height:2.35em}';document.head.appendChild(s);})();
+
 
 </script></body></html>
