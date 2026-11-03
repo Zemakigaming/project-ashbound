@@ -805,15 +805,15 @@ body.rwopen #vnChoice,body.rwopen #scenePop,body.rwopen #evPop,body.vnopen #scen
 body.dragging #tipbox{display:none!important}
 </style></head><body>
 <div id="setup"><div id="tbg"></div><div class="tfog"></div><div class="tin">
-<div class="tlogo"><small>ACT 1 · THE SURVIVORS</small><h1>PROJECT<br>ASHBOUND</h1><div class="tsub">เมืองอาชา (Achar) — ผนึก 666 ปีแตก เถ้าต้องสาปปกคลุมเมือง</div></div>
+<div class="tlogo"><small>องก์ที่ 1 · ผู้รอดชีวิต</small><h1>PROJECT<br>ASHBOUND</h1><div class="tsub">เมืองอาชา (Achar) — ผนึก 666 ปีแตก เถ้าต้องสาปปกคลุมเมือง</div></div>
 <div class="tmenu"><button class="obtn" onclick="startBtn()">▶ เริ่มเกม <small>Start</small></button><button id="btnOnline" class="obtn" onclick="showLobby()">🌐 เล่นออนไลน์ <small>Online Co-op</small></button><button class="obtn" onclick="tutStart()">🎓 Tutorial <small>สอนเล่น</small></button>
 <div class="tlinks"><button onclick="start(true)">👁 ดู Bot เล่น</button><button onclick="showHow()">📖 วิธีเล่น</button></div></div>
 <div class="tsel"><div class="tselh">เลือก SURVIVOR <span>(สูงสุด 4 · ชี้เมาส์ดูรายละเอียด)<br><span class="hleg">❤ เลือด = พลังชีวิต · 💨 เร็ว (Sp) = ใครสูงกว่าได้เล่นก่อนในการต่อสู้ · 👣 เดิน = จำนวนช่องที่เดินได้</span></span></div><p id="selInfo"></p><div id="heroGrid"></div>
-<details class="trules"><summary>กติกาโดยย่อ</summary><div class="rules">เมืองอาชา (Achar) · Act 1: THE SURVIVORS — ผนึก 666 ปีแตก เถ้าต้องสาปปกคลุมเมือง<br>
+<details class="trules"><summary>กติกาโดยย่อ</summary><div class="rules">เมืองอาชา · องก์ที่ 1: ผู้รอดชีวิต — ผนึก 666 ปีแตก เถ้าต้องสาปปกคลุมเมือง<br>
 <b>เกมเอาชีวิตรอดแบบร่วมมือ</b> · ผู้เล่น 1–4 คน · เริ่มที่ท่าเรือ · แผนที่องก์ที่ 1 มี 12 ช่อง<br>
-วันละ 3 ช่วง เช้า/บ่าย/กลางคืน · ทุกคน 1 Action ต่อช่วง: Forage ■ / Explore ■ / Talk ■ / <b>เดินไปช่องติดกัน = 1 Action</b><br>
-Main Quest: Scene B7-1 (มอลล์) เปิดร้านค้า → B7-2 ส่งเสบียง 5 ชุด → B7-3 ทุกคนรวมตัวที่ B7 ต่อสู้ <b>กระสือ (Krasue)</b> · แพ้การต่อสู้ไม่แพ้เกม — แพ้เมื่อหมดเวลา Act (8 วัน ⚠)<br>
-Combat: Start Up (รีเซ็ต Sp มอน + ทอย Buff) → Player phase (ทอย/วางลูกเต๋า) → Resolve (ตาม Sp) · สนาม 6 ช่องแนวนอน ฮีโร่เริ่ม 2 ช่องล่าง · Soot T1–T4 · ⚠ = ค่าสมมติ (ดูปุ่ม Assumptions)<br>Survivor ที่เลือก = ผู้เล่นควบคุมเอง · ทุกตัวเลือกมีปุ่ม 🤖 Auto · กรอบทอง = Bot แนะนำ</div></details></div>
+วันละ 3 ช่วง เช้า/บ่าย/กลางคืน · ทุกคนทำได้ 1 แอกชันต่อช่วง: หาอาหาร / สำรวจ / คุย / <b>เดินไปช่องติดกัน = 1 แอกชัน</b><br>
+ภารกิจหลัก: ห้างสรรพสินค้าเปิดร้านค้า → ส่งเสบียง 5 ชุด → ทุกคนรวมตัวที่ห้างเพื่อต่อสู้ <b>กระสือ</b> · แพ้การต่อสู้ไม่แพ้เกม — แพ้เมื่อหมดเวลาองก์ (8 วัน)<br>
+การต่อสู้: เริ่มรอบ (รีเซ็ตความเร็วมอนสเตอร์ + ทอยบัฟ) → ช่วงผู้เล่น (ทอย/วางลูกเต๋า) → ทำงานตามลำดับความเร็ว · สนาม 6 ช่อง · ระดับเถ้า 1–4<br>ผู้รอดชีวิตที่เลือก = ผู้เล่นควบคุมเอง · ทุกตัวเลือกมีปุ่ม 🤖 อัตโนมัติ · กรอบทอง = บอทแนะนำ</div></details></div>
 </div></div>
 <div id="netbar"></div><div id="lobby"></div><div id="game"><div id="top"></div><div id="party"></div><div id="mid"><div id="banslot"></div><div id="map"></div><div id="combat"></div></div><div id="right"><div id="phasebar"></div><div id="tray"></div><div id="choices"></div><div id="log"></div><div id="chat"><input id="chatIn" maxlength="200" placeholder="💬 แชทถึงทุกคน…"><button id="chatSend" onclick="chatSend()">ส่ง</button></div></div></div>
 <div id="overlay"></div><div id="asm"></div><div id="confirm" class="modal"></div><div id="tut"></div><div id="howto" class="modal"><div class="mbox"><button class="mx" onclick="hideHow()">✕ ปิด</button><h2>📖 วิธีเล่น ASHBOUND (Act 1)</h2>
@@ -2230,10 +2230,10 @@ function showReward(a,b,res){const won=res?res==='win':b.wins>a.wins,rows=[];
  G.players.forEach((p,i)=>{const nw=b.wear[i].filter(k=>!a.wear[i].includes(k));nw.forEach(k=>rows.push(`<div class="rw card up" data-tip="${esc(ITEMS[k].txt)}"><span>${itemIcon(k)}</span><b>${esc(ITEMS[k].name.split(' (')[0])}</b><small>→ ${esc(p.name)}</small></div>`));
   const al=b.allies[i]-a.allies[i];if(al>0)rows.push(`<div class="rw up"><span>★</span><b>+${al} Ally</b><small>${esc(p.name)}</small></div>`);
   const cp=b.corpses[i]-a.corpses[i];if(cp>0)rows.push(`<div class="rw up"><span>⚰</span><b>+${cp}</b><small>Corpse · ${esc(p.name)}</small></div>`);
-  const hp=b.hp[i]-a.hp[i];if(hp)rows.push(`<div class="rw ${hp>0?'up':'dn'}"><span>❤</span><b>${hp>0?'+':''}${hp}</b><small>HP ${esc(p.name)}</small></div>`);});
+  const hp=b.hp[i]-a.hp[i];if(hp)rows.push(`<div class="rw ${hp>0?'up':'dn'}"><span>❤</span><b>${esc(p.name)} ${hp>0?'ได้':'เสีย'} ${Math.abs(hp)} HP</b></div>`);});
  let r=$('#reward');if(!r){r=document.createElement('div');r.id='reward';document.body.appendChild(r);}
  r.innerHTML=`<div class="rwbox ${won?'win':'lose'}"><div class="rwt">${won?'🏆 ชนะ!':'💀 แพ้การต่อสู้'}</div><div class="rws">${won?'ชนะการต่อสู้':res==='timeout'?'หมดเวลา':res==='retreat'?'ถอยหนี':'ทุกคนล้มลง'} — สรุปผล</div><div class="rwg">${rows.join('')||'<div class="sm">ไม่มีของเปลี่ยนแปลง</div>'}</div><button id="rwOk" class="rec">ดำเนินต่อ ▶</button></div>`;
- r.className='show';const close=()=>{r.className='';};$('#rwOk').onclick=close;clearTimeout(showReward.t);showReward.t=setTimeout(close,window.FAST?1500:6000);}
+ r.className='show';const close=()=>{r.className='';};$('#rwOk').onclick=close;clearTimeout(showReward.t);if(window.FAST)showReward.t=setTimeout(close,1500);}
 /* ---- card HTML ---- */
 function skillCard(p,s,i){if(!s)return `<div class="mcard empty">Skill ${i+1}</div>`;const acc=p.acc&&p.acc[s.orig?'orig':'s'+s.no];
  return `<div class="mcard sk tcm ${skRar(s)} ${s.orig?'orig':''}" data-tip="${esc('<b>'+s.name+'</b> · Cost '+s.cost.lbl+'\n'+s.txt)}"><div class="tc-art art-${skArt(s)}"></div>${tcSocks(s)}<div class="mnm">${esc(s.name)}</div>${acc?`<div class="macc">${esc(String(acc))}</div>`:''}</div>`;}
@@ -3127,7 +3127,7 @@ doRoll=function(force){const had=TRAY.pending;_doRoll.apply(this,arguments);if(!
 
 /* v0.9.8: dev-text sanitizer, ordered popup flow, enemy-turn strip, confirm warnings, overworld helpers */
 (function(){
-const RX=[[/\s#\d+\b/g,''],[/🎬?\s*Scene\s*:?\s*(?=(?:[A-D][5-8]|MQ)-\d)/g,''],[/\(?\b(?:[A-D][5-8]|MQ)-\d\b\)?\s*(?:·\s*)?/g,''],[/\bSC-[A-D][5-8]\b/g,''],[/\bEX-[A-D][5-8]\b/g,''],[/\s*\(Q\d\)/g,''],[/\bQ\d\s*·\s*/g,''],[/Combat T(\d)/g,'ระดับเถ้า $1'],[/\bCombat Round\b/g,'การต่อสู้ รอบ'],[/SCENE REVEALED/g,'เปิดฉากใหม่'],[/\bCHOICE\b/g,'ทางเลือก'],[/\bENCOUNTER\b/g,'เผชิญหน้า'],[/\[\s*\]/g,''],[/\b(?:MN|ME|MB|BS|SA)-\d{3}\s*·?\s*/g,''],[/\s·\s[A-D][5-8]\b(?![-\d])/g,''],[/\bv0\.\d+\.\d+[a-z]?\b/g,''],
+const RX=[[/\bSURVIVORS?\b/g,'ผู้รอดชีวิต'],[/\bNecromancer\b/g,'ผู้ปลุกศพ'],[/\bHealer\b/g,'ผู้รักษา'],[/\bArcher\b/g,'นักธนู'],[/\bBuffer\b/g,'ผู้เสริมพลัง'],[/\bPurifier\b/g,'ผู้ชำระ'],[/\bWarlock\b/g,'ผู้ทำพันธะ'],[/\bShielder\b/g,'ผู้คุ้มกัน'],[/\bOrdinary\b/g,'คนธรรมดา'],[/\bMag\b/g,'เวท'],[/\[(\d) die ([^\]]*)\]/g,'[$1 ลูก $2]'],[/\[Up to (\d) dice? ([^\]]*)\]/g,'[สูงสุด $1 ลูก $2]'],[/📍\s*[A-D][5-8]\b\s*/g,''],[/(เดินไป|ไป|ที่)\s*[A-D][5-8]\b\s*/g,'$1 '],[/\s*\(\s*[A-D][5-8]\s*\)/g,''],[/(^|[\s·:—])[A-D][5-8](?=$|[\s·,:—)])/g,'$1'],[/ต่อสู้ (\d+) การต่อสู้/g,'ต่อสู้ $1 ครั้ง'],[/:\s*"?ต่อสู้ (\d+) (?:Combat|ครั้ง)"?/g,': ต่อสู้ $1 ครั้ง'],[/\bTHE SURVIVORS\b/g,'ผู้รอดชีวิต'],[/\bACT (\d)\b/g,'องก์ที่ $1'],[/\bSurvivors?\b/g,'ผู้รอดชีวิต'],[/\bWarrior\b/g,'นักรบ'],[/\bPhy\b/g,'กายภาพ'],[/\bROLL\b/g,'ทอย'],[/\bD6\b/g,'ลูกเต๋า 6 หน้า'],[/\bSupport\b/g,'สนับสนุน'],[/\bPrologue\b/g,'บทนำ'],[/QUEST ใหม่/g,'ภารกิจใหม่'],[/\bQUEST\b/g,'ภารกิจ'],[/\bStr\b/g,'พลัง'],[/\bInt\b/g,'ปัญญา'],[/\bDex\b/g,'ไว'],[/\bGeneral\b/g,'ทั่วไป'],[/-(\d+)\s*HP\s+([A-Z][a-z]+)/g,'$2 เสีย $1 HP'],[/⚠\s*=\s*ค่าสมมติ[^<\n]*Assumptions\)?/g,''],[/\s#\d+\b/g,''],[/🎬?\s*Scene\s*:?\s*(?=(?:[A-D][5-8]|MQ)-\d)/g,''],[/\(?\b(?:[A-D][5-8]|MQ)-\d\b\)?\s*(?:·\s*)?/g,''],[/\bSC-[A-D][5-8]\b/g,''],[/\bEX-[A-D][5-8]\b/g,''],[/\s*\(Q\d\)/g,''],[/\bQ\d\s*·\s*/g,''],[/Combat T(\d)/g,'ระดับเถ้า $1'],[/\bCombat Round\b/g,'การต่อสู้ รอบ'],[/SCENE REVEALED/g,'เปิดฉากใหม่'],[/\bCHOICE\b/g,'ทางเลือก'],[/\bENCOUNTER\b/g,'เผชิญหน้า'],[/\[\s*\]/g,''],[/\b(?:MN|ME|MB|BS|SA)-\d{3}\s*·?\s*/g,''],[/\s·\s[A-D][5-8]\b(?![-\d])/g,''],[/\bv0\.\d+\.\d+[a-z]?\b/g,''],
 [/\s*\((?:Morning|Afternoon|Night)\)/g,''],[/\bMorning\b/g,'เช้า'],[/\bAfternoon\b/g,'บ่าย'],[/\bNight\b/g,'กลางคืน'],[/\bDAY\b/g,'วัน'],[/\bDay\b/g,'วัน'],
 [/\bBoss Encounter\b/g,'บอส'],[/\bEncounter\b/g,'การเผชิญหน้า'],[/\bSkill (\d)\b/g,'สกิล $1'],[/\bItem (\d)\b/g,'ไอเท็ม $1'],[/\bPASSIVE\b/g,'ติดตัว'],[/\bULTIMATE\b/g,'ไม้ตาย'],[/\bUltimate\b/g,'ไม้ตาย'],
 [/\bRound (\d+)/g,'รอบ $1'],[/\bStart Up\b/g,'เริ่มรอบ'],[/\bPlayer phase\b/g,'ช่วงผู้เล่น'],[/\bTURN ORDER\b/g,'ลำดับเทิร์น'],[/\bCP\b/g,'เช็กพอยต์'],[/\bSpeed\b/g,'ความเร็ว'],[/\bLog\b/g,'บันทึก'],
@@ -3281,5 +3281,31 @@ let k='';setInterval(()=>{try{if(innerHeight>900||innerWidth<761)return;const c=
 (function(){const s=document.createElement('style');s.textContent=`.tc-front{display:flex!important;flex-direction:column!important;height:auto!important;min-height:100%}.tc-front .tc-text{height:auto!important;max-height:none!important;overflow:visible!important;flex:0 0 auto!important}.tc-front .tc-foot{position:static!important;margin-top:auto!important}`;document.head.appendChild(s);})();
 (function(){const s=document.createElement('style');s.textContent=`@media(max-width:760px){html body #tray .bigdie b{font-size:20px!important}}html body #tray .tsum{margin-top:14px!important}.tok .tpo{transform:translateY(4px)}`;document.head.appendChild(s);})();
 (function(){const s=document.createElement('style');s.textContent='@media(min-width:761px) and (min-height:901px){html body #right:has(#choices.cbk){min-height:510px!important}}';document.head.appendChild(s);})();
+
+/* v0.9.11 */
+(function(){const s=document.createElement('style');s.id='v911css';s.textContent=`
+@media(min-width:761px){html body #right:has(#choices.planb){min-height:min(560px,52vh)!important}
+html body .planb .pwrap>.abar,html body .planb .pwrap>.aoth{padding-bottom:6px!important}
+html body #choices.planb #pstat{padding-top:4px!important;padding-bottom:4px!important}}
+#choices .acard{height:auto!important;max-height:none!important}
+#choices .acard .tc-text,#choices .acard .atx,#choices .acard .adesc{overflow:visible!important;max-height:none!important;height:auto!important}
+.rwbox.lose{transform:scale(1.3);transform-origin:center}
+#map .grid{filter:brightness(1.3) saturate(1.1)!important}
+#map .mleg,#map .mleg *,#party .hchip *,#party small,#tut,#tut *{font-size:max(14px,1em)!important}
+#game:not(.incombat) ~ #tut,body:not(:has(#game.incombat)) #tut{top:auto!important;bottom:16px!important;right:16px!important;left:auto!important;max-width:380px!important}
+.v911tgt{outline:3px dashed #ffcf4a!important;outline-offset:2px;animation:v910p 1.2s infinite}
+.v911pop{position:fixed;z-index:9998;pointer-events:none;font:700 22px sans-serif;color:#ff6a4a;text-shadow:0 2px 6px #000;animation:v911up 1.4s ease-out forwards}
+@keyframes v911up{to{transform:translateY(-50px);opacity:0}}`;document.head.appendChild(s);
+/* 8: highlight valid targets of READY targeted skills; damage pop on use */
+setInterval(()=>{try{const want=new Set();document.querySelectorAll('#choices.cbk .achips button').forEach(b=>{if(b._o&&b._o.u&&!b.disabled)want.add(String(b._o.u.uid));});
+document.querySelectorAll('.v911tgt').forEach(e=>{if(!want.has(e.dataset.uid))e.classList.remove('v911tgt')});want.forEach(u=>document.querySelectorAll(`#combat [data-uid="${u}"]`).forEach(e=>e.classList.add('v911tgt')));}catch(e){}},300);
+document.addEventListener('click',e=>{try{const b=e.target.closest&&e.target.closest('#choices .achips button');if(!b||!b._o||!b._o.u)return;const u=b._o.u,h0=u.hp,el=document.querySelector(`#combat [data-uid="${u.uid}"]`);const r=el?el.getBoundingClientRect():{x:innerWidth/2,y:innerHeight/3,width:0};
+setTimeout(()=>{const d=h0-u.hp;const p=document.createElement('div');p.className='v911pop';p.textContent=d>0?`${u.name||''} เสีย ${d} HP`:'✦ ใช้สกิลแล้ว';p.style.left=(r.x+r.width/2-60)+'px';p.style.top=(r.y+10)+'px';document.body.appendChild(p);setTimeout(()=>p.remove(),1500);},500);}catch(_){}} ,true);
+/* 3: auto-shrink card text that still overflows (min 12px) */
+setInterval(()=>{try{document.querySelectorAll('#choices .acard,.tc-front').forEach(c=>{if(c.scrollHeight<=c.clientHeight+1)return;c.querySelectorAll('.tc-text,.atx').forEach(t=>{const f=parseFloat(getComputedStyle(t).fontSize);if(f>12)t.style.setProperty('font-size',(f-1)+'px','important');});});}catch(e){}},500);
+/* 9: remove stale combat header on overworld */
+setInterval(()=>{try{if(G&&!G.combat){document.querySelectorAll('#combat .cbhead,#phasebar .cround').forEach(e=>e.remove());}}catch(e){}},500);
+})();
+(function(){const s=document.createElement('style');s.textContent='.mrow .mcard{min-width:0!important;overflow:hidden}.mrow .mnm{overflow-wrap:anywhere;word-break:break-word;max-width:100%}';document.head.appendChild(s);})();
 
 </script></body></html>
