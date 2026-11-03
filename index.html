@@ -1329,7 +1329,7 @@ const SCENES={
   meter('bond',1,'ช่วยคนไร้บ้าน');if(addAlly(p,'homeless')){addQuest('SC-A7',2,'พาคนไร้บ้านไปส่งโบสถ์ B5 → เปิด ');doneScene('A7-1');openScene('B5-1');}}},
  'A8-1':{tile:'A8',txt:'"ต่อสู้ 1 Combat"',run:async p=>{const r=await startCombat(p,{reason:'ปีศาจโผล่จากใต้ท่าเรือ — ต้องรอดให้ได้ก่อน',tut:1,title:'บทนำ: ท่าเรือ',tierCap:1});
    doneScene('A8-1');openScene('A8-2');await ericScene(p);}},
- 'A8-2':{tile:'A8',txt:'เจ้าของเรือแจกชุดพยาบาลเล็กทุกคน ชวนออกจากเกาะ "หาน้ำมันมาได้ 2 ชุด" (Q2)',run:async()=>{bagAdd('medS',G.players.length);log(`ได้ชุดพยาบาลเล็ก ×${G.players.length}`,'good');addQuest('SC-A8',2,'นำน้ำมัน 2 ถังมาที่ท่าเรือ A8 → 1 CP');G.scenes['A8-2']='quest';}},
+ 'A8-2':{tile:'A8',txt:'เจ้าของเรือแจกชุดพยาบาลเล็กทุกคน ชวนออกจากเกาะ "หาน้ำมันมาได้ 2 ชุด" (Q2)',run:async()=>{bagAdd('medS',G.players.length);log(`ได้ชุดพยาบาลเล็ก ×${G.players.length}`,'good');addQuest('SC-A8',2,'นำน้ำมัน 2 ถังมาที่ท่าเรือ → 1 CP');G.scenes['A8-2']='quest';}},
  'A8-3':{tile:'A8',txt:'เรือชนกันที่ท่าเรือ — ได้ข้อมูลว่ามอลล์และบ้านนายอำเภอมีการตั้งแคมป์',run:async()=>{doneScene('A8-3');openMQ1();}},
  'B5-1':{tile:'B5',need:()=>hasAlly('homeless'),txt:'"ต่อสู้ 1 Combat" คนไร้บ้านหายตัวไป',run:async p=>{removeAlly('homeless');finishQuest('SC-A7');doneScene('B5-1');openMQ1();meter('truth',1,'แผนที่อุโมงค์ที่คนไร้บ้านทิ้งไว้ ✎');
    const r=await startCombat(p,{reason:'ต่อสู้ 1 Combat ที่โบสถ์'});if(r==='win'){G.food=Math.max(0,G.food-2);log('เสบียงหายไป 2 ชุด','bad');await checkpoint('');}}},
@@ -1358,7 +1358,7 @@ async function runScene(p,k){const s=SCENES[k];log(`🎬 ${(TILES[s.tile]||{name
  await scenePop(p,{k,tile:s.tile,place:T.name||'',txt:s.txt,qlv:qm?qm[0].slice(1,-1):'',quests:rel.map(q=>({lvl:q.lvl,id:q.id,txt:q.txt})),stage:'open'});
  const q0=G.quests.map(q=>q.id);await s.run(p);
  const nq=G.quests.filter(q=>!q0.includes(q.id));
- if(nq.length&&!G.over)await scenePop(p,{k,tile:s.tile,place:T.name||'',txt:s.txt,quests:nq.map(q=>({lvl:q.lvl,id:q.id,txt:q.txt})),stage:'quest'});
+ if(nq.length&&!G.over)nq.forEach(q=>log('📜 ภารกิจใหม่: '+q.txt,'good'));if(false)await scenePop(p,{k,tile:s.tile,place:T.name||'',txt:s.txt,quests:nq.map(q=>({lvl:q.lvl,id:q.id,txt:q.txt})),stage:'quest'});
  IO.render();}
 // v0.8.9: หน้าต่าง Scene/Quest — ผู้เล่นคน = รอกดรับทราบ (ask 'scene'); Bot = แสดงแบบไม่บล็อก
 async function scenePop(p,info){G.scenePop={...info,seq:(G.scenePop?G.scenePop.seq:0)+1,who:p&&p.name,wait:!!(p&&!p.bot&&IO.ask)};G.stats.scenePops=(G.stats.scenePops||0)+1;
@@ -1538,7 +1538,7 @@ async function freeActions(p){
 async function playerTurn(p,ph){
  p.shopVisitedTurn=false;
  await tileEvents(p);if(G.over)return;
- await freeActions(p);if(G.over)return;
+ if(p.bot||!IO.ask)await freeActions(p);if(G.over)return;
  // Sora Upg1: free move once per day
  if(p.id==='sora'&&upg(p,1)&&!p.usedDay.free){const mo=movesOf(p);if(mo.length){
   const c=await ask(p,'freemove','Sora · Upg1: ย้ายสถานที่ฟรี 1 ครั้ง/วัน?',[{v:null,l:'ไม่ใช้'}].concat(mo),botFreeMove(p,mo));
@@ -1554,7 +1554,19 @@ async function playerTurn(p,ph){
  if(p.tile==='B7'&&questOpen('BOSS')&&G.players.every(q=>q.tile==='B7'))opts.push({v:'boss',l:'★ ต่อสู้กับรินา กระสือ (Cursed Seer) — ทุกคนอยู่ที่มอลล์'});
  if(p.allies.some(a=>a.k==='mechanic'))opts.push({v:'craft',l:'ช่าง: Craft ชุดพยาบาลเล็ก ⚠'});
  opts.push({v:'rest',l:ph==='night'?'Rest (พักผ่อนกลางคืน = 1 Rest)':'พัก (ไม่ทำอะไร)'});
- const a=await ask(p,'action',`${p.name} @ ${t.id} ${TILES[p.tile].name}: เลือก 1 Action (${PHASE_TH[ph]})`,opts,botActionIdx(p,opts,ph));
+ let a;for(let g=0;g<12;g++){
+  const fo=[];if(!p.bot&&IO.ask){if(bagN('medS')&&p.hp<p.maxhp)fo.push({v:'fa:medS',l:`⚡ ฟรี: ใช้ชุดพยาบาลเล็ก (+3 HP) — มี ${bagN('medS')}`});
+   if(bagN('medL')&&p.hp<p.maxhp)fo.push({v:'fa:medL',l:'⚡ ฟรี: ใช้ชุดพยาบาลขนาดใหญ่ (+8 HP)'});
+   if(G.shopOpen&&p.tile==='B7')fo.push({v:'fa:shop',l:`⚡ ฟรี: 🛒 ร้านค้า — ${G.coins} เหรียญ`});
+   for(const k of SHOP)if(bagN(k)&&p.wear.length<3)fo.push({v:'fa:wear:'+k,l:`⚡ ฟรี: สวมใส่ ${ITEMS[k].name}`});}
+  const all=opts.concat(fo);
+  a=await ask(p,'action',`${p.name} @ ${TILES[p.tile].name}: เลือก 1 Action (${PHASE_TH[ph]})${fo.length?' · ⚡ = ไม่เสีย Action':''}`,all,botActionIdx(p,opts,ph));
+  if(typeof a==='string'&&a.startsWith('fa:')){const c=a.slice(3);
+   if(c==='medS'||c==='medL'){bagAdd(c,-1);const h=heal(p,c==='medS'?3:8);log(`${p.name} ใช้${ITEMS[c].name} +${h} HP`,'good');}
+   else if(c==='shop'){p.shopVisitedTurn=true;await shop(p);}
+   else if(c.startsWith('wear:')){const k=c.slice(5);bagAdd(k,-1);p.wear.push(k);log(`${p.name} สวมใส่ ${ITEMS[k].name}`);}
+   IO.render();if(G.over)return;continue;}
+  break;}
  await doAction(p,a,ph);
 }
 function movesOf(p){return Object.entries(TILES[p.tile].adj).map(([dir,id])=>({v:id,l:`เดินไป ${id} ${TILES[id].name} (${{up:'▲',right:'▶',down:'▼',left:'◀'}[dir]})${G.tiles[id].locked?' 🔒':''}`,dis:G.tiles[id].locked})).filter(o=>!o.dis);}
@@ -2134,9 +2146,9 @@ function loadG(str){G=deser(str);UID=G.uid||UID;return G;}
 
 // ===== v0.9.6 STORY (World Building doc 10JLRD07…; ✎ = เขียนเพิ่มโดยทีม prototype) =====
 const LORE={"zemaki": {"bg": "Zemaki ผมสีทองยาวประบ่า มัดครึ่งหัว และดวงตาสีฟ้า แขนเต็มไปด้วยรอยสักประหลาดคล้ายตัวอักษรจีน ผู้ตื่นขึ้นมาโดยไร้ความทรงจำ แต่ไม่รู้ว่าเกิดอะไรขึ้นกับตนเอง เขาพบว่าตัวเองมาพร้อมดาบคาตานะที่มีสัญลักษณ์ของหน้าตาประหลาด (โอนิ)…", "nar": "ระหว่างการตามหาคำตอบว่าเขาเป็นใครและทำไมถึงมาอยู่ที่นี่ ผู้ถูกกลืนกินเข้าจู่โจม Zemaki จนเขาต้องหยิบดาบที่ติดตัวขึ้นมาต่อสู้ และเมื่อคมดาบสามารถฟันผู้ถูกกลืนกินได้ เขาจึงรู้ว่าดาบเล่มนี้คือสิ่งที่ช่วยชีวิตเขาไว้ ทำให้เขาต้องค้นหาคำตอบว่าอดีตของตนคืออะไร ทำไมเขาถึงมาอยู่ที่นี่…", "wep": "ดาบโอนิ (Oni — 鬼) ดาบโอนิที่ผ่านพิธีกรรมชำระล้างอันศักดิ์สิทธิ์ก่อนมอบให้แก่นักรบ…", "mot": "ตามหาความจริงว่าดาบโอนิเล่มนี้คืออะไร — และทำไมรอยสักบนแขนจึงลุกไหม้ทุกครั้งที่เถ้าต้องสาปเข้าใกล้", "q": "ดาบเล่มนี้… มันกระหายเลือดพวกมัน"}, "damon": {"bg": "Damon Cross ผมสีดำและดวงตาสีเขียว ผิวขาวร่างสูง ผู้ตื่นขึ้นมาโดยไร้ความทรงจำ ไม่รู้ว่าตนเองเป็นใครหรือเกิดอะไรขึ้น เขาพบว่าตัวเองตื่นขึ้นมาเพียงลำพังและตัวเปล่าอยู่ที่ใดที่หนึ่ง โดยไม่รู้เลยว่าเกิดอะไรขึ้นกับตัวเอง", "nar": "ระหว่างการตามหาคำตอบว่าเขาเป็นใครและทำไมถึงมาอยู่ที่นี่ ผู้ถูกกลืนกินเข้าจู่โจมจนเขาได้รับบาดเจ็บ จู่ ๆ ผู้ถูกกลืนกิน FOREST SPIRITS ก็ปรากฏตัวขึ้นและช่วยเขาไว้ ทำให้เขาค้นพบว่าเมื่อเสียเลือด เขาสามารถเรียกผู้ถูกกลืนกินออกมาเพื่อช่วยต่อสู้ได้ และยังสามารถเข้าใจภาษาของพวกมัน…", "wep": "เลือดเรียกวิญญาณ เลือดคือสิ่งที่สามารถดึงผู้ถูกกลืนกินมาใช้งานในการต่อสู้แทนได้…", "mot": "อยากรู้ว่าทำไมผู้ถูกกลืนกินจึง “เชื่อฟัง” เลือดของเขา — ก่อนที่พันธสัญญานั้นจะกลืนตัวเขาเอง", "q": "เลือดของฉันจะเรียกพวกแกมาเป็นของฉัน"}, "hartmann": {"bg": "ชายร่างสูงใหญ่กำยำ ผิวแทน ผมสั้นสีน้ำตาลเข้ม ดวงตาสีดำ ผู้ตื่นขึ้นมาโดยไร้ความทรงจำ ไม่รู้ว่าตนเองเป็นใครหรือเกิดอะไรขึ้น เขาพบว่าตัวเองตื่นขึ้นมาเพียงลำพัง พร้อมกับกำยานประหลาดที่ปล่อยควันออกมาอย่างไม่เคยดับ", "nar": "ระหว่างการตามหาคำตอบว่าเขาเป็นใครและเหตุใดจึงมาอยู่ที่นี่ ผู้ถูกกลืนกินเข้าจู่โจมจนเขาตกอยู่ในอันตราย แต่เมื่อเขาจับตะเกียงกำยาน ควันก็ผสานเข้ากับเถ้าถ่านรอบตัวและก่อตัวขึ้นเป็นเกราะกำแพงตามที่เขานึกคิด ช่วยปกป้องชีวิตของเขาไว้…", "wep": "ตะเกียงกำยานที่มีรูปลักษณ์คล้ายกระทิงผสานปีกนก (ของที่คนใช้ถวาย) ตะเกียงกำยานที่ชาวอาชา…", "mot": "ปกป้องทุกคนที่ยังเหลืออยู่ — เพราะควันกำยานที่ไม่เคยดับ บอกเขาว่าเขาเคยเป็นผู้พิทักษ์ของใครบางคน", "q": "อยู่หลังกำแพงควันไว้ ทุกคน!"}, "troika": {"bg": "ผู้หญิงผมสีเทาสั้นประบ่า มีหน้าม้า ผิวซีด ปากแดง แต่งหน้าจัด รูปร่างเล็ก เธอตื่นขึ้นมาโดยไร้ความทรงจำ ไม่รู้ว่าตัวเองเป็นใครหรือเกิดอะไรขึ้นกับตัวเอง มีเพียงไม้กวาดที่มีด้ามเป็นที่บดยาประหลาด พร้อมกับแมวดำและหมาดำที่นอนอยู่ข้างตัว…", "nar": "เมื่อเถ้าคำสาปเกิดขึ้น ผู้คนบนเมืองอาชาเริ่มเจ็บป่วยจากเถ้าถ่านที่แพร่กระจายไปทั่วเมือง มีเพียงทรอยก้าที่ไม่ได้รับผลกระทบจากคำสาป จนวันหนึ่งเธอถูกผู้ถูกกลืนกินเข้าทำร้าย เธอไม่รู้ว่าจะทำอย่างไร แต่แมวและหมาสองตัวกลับลุกขึ้นต่อสู้แทนเธอ จนสามารถขับไล่ผู้ถูกกลืนกินให้หนีหายกลับเข้าไปกับพื้นดิน…", "wep": "ไม้กวาดด้ามบดยา (แม้เรียกว่าไม้กวาดแต่ลักษณะคือปืนคาบศิลา) แมวดำและหมาดำ…", "mot": "รักษาคนที่ป่วยจากเถ้า และหาคำตอบว่าทำไมแมวกับหมาดำถึงรู้จักชื่อเธอดีกว่าตัวเธอเอง", "q": "แมวน้อย หมาดำ — ถึงเวลาทำงานแล้ว"}, "sora": {"bg": "เด็กสาวตาสีรุ้ง เล็บสีรุ้ง ใส่แว่นกันแดดเพื่อปกปิดสีตาของตัวเอง ใส่กระเป๋าใส่กรรไกรตัดผมคาดเอว เด็กสาวสายเลือดชาวอาชาที่ถูกครอบครัวฝึกให้เป็นโจรมาตั้งแต่เด็ก แม้ครอบครัวจะย้ำเสมอว่าต้นกำเนิดที่แท้จริงของตระกูลคือช่างตัดเย็บเสื้อผ้า…", "nar": "เมื่อเถ้าคำสาปแพร่กระจาย ผู้คนบนเมืองอาชาเริ่มเจ็บป่วย มีเพียงแคร์ที่ยังคงไม่ได้รับผลกระทบ จนวันหนึ่งเธอถูกผู้ถูกกลืนกินเข้าจู่โจม แคร์จึงหยิบกรรไกรลึกลับที่ครอบครัวเก็บรักษาไว้อย่างดีขึ้นมาใช้ ความคมของมันสามารถแทงทะลุร่างผู้ถูกกลืนกินจากด้านหลังจนตาย…", "wep": "กรรไกรสีรุ้ง กรรไกรตกทอดจากรุ่นสู่รุ่นมานานกว่าพันปี สร้างขึ้นโดยชาวอาชามอบให้แก่ตระกูลฮัน…", "mot": "ปกป้องครอบครัว และพิสูจน์ว่ากรรไกรของตระกูลฮันมีไว้เพื่ออะไรมากกว่าการขโมย", "q": "เร็ว ๆ เข้า ก่อนที่มันจะตั้งตัว"}, "mina": {"bg": "หญิงสาวผมสีน้ำบลอนซ์น้ำตาล ตาสีน้ำตาล สวย มัดผมไว้ด้านหลัง สูง เพียวหุ่นดี หลังมีรอยสักยันต์สีรุ้งคล้ายรูปแบบรอยสักไทย หญิงสาวผู้เกิดและเติบโตบนเมืองอาชาในบาร์เล็ก ๆ ของครอบครัวที่แอบอยู่ฝ่ายชาวอาชา และเติบโตมากับเสียงดนตรีจนกลายเป็นนักร้องประจำร้าน…", "nar": "เมื่อเถ้าคำสาปเกิดขึ้น ผู้คนบนเมืองอาชาเริ่มเจ็บป่วย มีเพียงมีนาที่ไม่เป็นอะไร จนเธอถูกผู้ถูกกลืนกินเข้าทำร้าย ด้วยความกลัวตาย คำพูดของปู่ผุดขึ้นในความทรงจำ เธอจึงหยิบไมโครโฟนที่ดัดแปลงจากไม้เท้าอาคมขึ้นมา และวาดยันต์ตามที่ปู่เคยสอนโดยใช้เลือดของตัวเองเป็นตัวนำ…", "wep": "ไมค์ไม้เท้าอาคม ไม้เท้าอาคมที่ชาวอาชาสร้างขึ้นมาตั้งแต่พันปีก่อนเพื่อช่วยให้ชาวริดจ์โฟล์กแ…", "mot": "ทำตามคำสอนของปู่ — ใช้เสียงเพลงและยันต์ให้คนที่เหลืออยู่ยังมีแรงสู้ต่อ", "q": "ฟังเสียงฉันไว้ แล้วอย่าล้ม!"}, "lydia": {"bg": "Lydia Ashbane ผมยาวหยักศกสีแดง ดวงตาสีเขียว ที่แต่งตัวมิดชิดใส่หน้ากากเพื่อไม่ให้ตัวโดนเถ้าถ่าน เธอสวมกำไลล้างเถ้าถ่านตลอดเวลา เธอเติบโตมากับครอบครัวที่เกลียดชาวอาชา และถูกปลูกฝังให้เรียนรู้วิธีต่อสู้และปกป้องตัวเองจากคำสาป…", "nar": "เมื่อเถ้าถ่านต้องสาปกระจายไปทั่วเมือง ชาวริดจ์โฟล์กเริ่มถูกด้านมืดในจิตใจกลืนกินจนกลายเป็นผู้ถูกกลืนกิน และเข้าทำร้ายผู้คนโดยไม่เลือกหน้า Lydia Ashbane จึงใช้กำไลและความรู้ที่ถูกสอนมาเพื่อจัดการกับผู้ถูกกลืนกิน แต่เธอกลับพบว่ากำไลของเธอมี Living Iron อยู่เพียงเล็กน้อย…", "wep": "กำไลล้างเถ้าถ่าน กำไลที่สร้างขึ้นจาก Living Iron โดยกลุ่ม The Old RIDGEFOLK…", "mot": "ล้างเถ้าต้องสาปให้หมดสิ้น — และตามหาต้นตอที่ครอบครัวสอนเธอว่าคือ “ชาวอาชา”", "q": "เถ้าพวกนี้ต้องถูกล้างให้หมด"}, "dixon": {"bg": "ชายหนุ่มวัยรุ่นหัวโจก ผิวขาวเหลือง ผมสีดำ ดวงตาสีดำ ร่างสูง เขาเติบโตมาในครอบครัวที่เกลียดชาวอาชา และถูกปลูกฝังให้ต่อต้าน ต่อสู้ และจงเกลียดจงชังชาวอาชามาตั้งแต่เด็ก แม้ตัวเขาเองจะยังไม่เคยรู้จักชาวอาชาเลยก็ตาม…", "nar": "เมื่อเถ้าถ่านต้องสาปเริ่มกระจายไปทั่วเมือง เขาเห็นเพื่อนชาวไอล์โฟล์กถูกผู้ถูกกลืนกินฆ่าตายไปต่อหน้าต่อตา จนต้องรีบหนีเอาตัวรอดอย่างที่คนใจนักเลงไม่เคยทำมาก่อน ตำนานที่ตระกูลเคยเล่าขานกลายเป็นความจริง และสร้างความแค้นให้กับเขาเป็นอย่างมาก แต่เมื่อเห็นผู้คนที่กล้าต่อกรกับผู้ถูกกลืนกิน…", "wep": "ร่างโทสะของผู้ถูกกลืนกิน / ปืนลูกซองสั้น ควบคุมร่างบาปโทสะของผู้ถูกกลืนกินที่มีลักษณะเป็นไ…", "mot": "ควบคุมร่างโทสะในตัวให้ได้ก่อนที่มันจะกลืนกินเขาเหมือนคนอื่น ๆ", "q": "โทสะ… จงตื่น"}, "jack": {"bg": "นักสืบเรื่องสิ่งมีชีวิตประหลาดนอกโลกชาวอังกฤษ ผมสั้นสีทอง ตาสีฟ้า มีหนวดเครา แต่งตัวปิดบังร่างกายเพื่อไม่ให้โดนเถ้าถ่าน สภาพโทรมจากการตกอับ โดยตระกูลของเขาเคยอพยพออกจากเมืองอาชาเมื่อ 666 ปีก่อน พร้อมนำชิ้นส่วน Living Iron ติดตัวไปด้วย…", "nar": "เมื่อเดินทางมาถึงเมือง ก็เกิดเหตุเถ้าถ่านในทันที ผู้ถูกกลืนกินโผล่เข้ามาทำร้าย เขาจึงหน้าไม้ที่ดัดแปลงด้วย Living Iron เพื่อปกป้องตัวเอง และเมื่อพบว่ามันสามารถสร้างความเสียหายแก่ผู้ถูกกลืนกินได้ เขาจึงเตรียมตัวออกตามหา Living Iron เพื่อสร้างอาวุธเพิ่มเติม…", "wep": "หน้าไม้ หน้าไม้ธรรมดาที่เขาดัดแปลงด้วยการยัด Living Iron…", "mot": "หาทางออกจากเมืองที่ปิดตาย — และใช้ Living Iron ยิงทุกสิ่งที่ขวางทาง", "q": "ลูกศรเหล็กมีชีวิต พร้อมยิง"}, "ronan": {"bg": "ชายหนุ่ม ผิวสีน้ำตาลแดง ผมหยิกสีดำ ดวงตาสีดำ เด็กเดินเรือที่พานักท่องเที่ยวมายังเมืองอาชา ซึ่งกลายเป็นเมืองท่องเที่ยวชื่อดัง วันหนึ่งขณะที่เขากำลังเดินเรือเพื่อส่งนักท่องเที่ยว เขาสูดดมก๊าซบางอย่างเข้าไปก่อนจะหมดสติ", "nar": "เมื่อตื่นขึ้นมาอีกครั้ง เขากลับพบว่าเมืองทั้งเมืองกลายเป็นเถ้าถ่าน นักท่องเที่ยวที่พยายามช่วยเขาถูกเถ้าต้องสาปกลายเป็นผู้ถูกกลืนกินต่อหน้าต่อตา ขณะที่ตัวเขากลับไม่ได้รับผลกระทบใด ๆ เมื่อผู้ถูกกลืนกินเข้ามาทำร้าย เขาจึงใช้เชือกที่ผูกกับสมอเรือเหวี่ยงใส่จนมันถอยหนีไป…", "wep": "สมอเรือ เชือกที่ผูกติดกับสมอเรือธรรมดา ใช้เหวี่ยงไล่ผู้ถูกกลืนกิน…", "mot": "คนธรรมดาที่ไม่มีพลังพิเศษ แต่ไม่ยอมทิ้งใครไว้ข้างหลัง — สมอเรือหนึ่งอันก็พอแล้ว", "q": "มาสิ! สมอเรือนี่ยังไม่เคยพลาด"}};
-const STORY_WORLD=['เมื่อระดับน้ำบนเมืองอาชาลดลง เผยให้เห็นรากของต้นไม้โบราณขนาดมหึมากลางน้ำตก ซึ่งถูกผนึกไว้ใต้น้ำมานานกว่า 666 ปี','ผนึกเริ่มเสื่อมสลาย ไฟประหลาดลุกไหม้จากภายในต้นไม้ ปล่อย “เถ้าต้องสาป” ไปทั่วเมือง — ผู้คนที่ถูกเถ้ากัดกินความกลัว ความโกรธ และความแค้น กลายเป็น THE TWISTED — ผู้ถูกกลืนกิน','ท่ามกลางหายนะ กลุ่มคนกลุ่มหนึ่งฟื้นขึ้นมาโดยไร้ความทรงจำ ที่ท่าเรือ A8… พวกเขาไม่ได้รับผลกระทบจากเถ้า และต้องร่วมมือกันค้นหาความจริง — โดยไม่รู้ว่าชะตากรรมของตนเกี่ยวข้องกับคำสาปนี้'];
+const STORY_WORLD=['เมื่อระดับน้ำบนเมืองอาชาลดลง เผยให้เห็นรากของต้นไม้โบราณขนาดมหึมากลางน้ำตก ซึ่งถูกผนึกไว้ใต้น้ำมานานกว่า 666 ปี','ผนึกเริ่มเสื่อมสลาย ไฟประหลาดลุกไหม้จากภายในต้นไม้ ปล่อย “เถ้าต้องสาป” ไปทั่วเมือง — ผู้คนที่ถูกเถ้ากัดกินความกลัว ความโกรธ และความแค้น กลายเป็น THE TWISTED — ผู้ถูกกลืนกิน','ท่ามกลางหายนะ กลุ่มคนกลุ่มหนึ่งฟื้นขึ้นมาโดยไร้ความทรงจำ ที่ท่าเรือ… พวกเขาไม่ได้รับผลกระทบจากเถ้า และต้องร่วมมือกันค้นหาความจริง — โดยไม่รู้ว่าชะตากรรมของตนเกี่ยวข้องกับคำสาปนี้'];
 function storyLines(kind,o){const ps=(G.players||[]).filter(p=>!o.only||o.only.includes(p));const P=ps[0]||{};const L=id=>LORE[id]||{};
- if(kind==='intro')return [{who:'ASHBOUND · Act 1 — THE SURVIVORS',nar:1,txt:STORY_WORLD.join('\n\n')}].concat(ps.map(p=>({who:p.name,id:p.id,fac:p.faction,txt:(L(p.id).nar||L(p.id).bg||'')+'\n\n🎯 เป้าหมาย: '+(L(p.id).mot||'')+' ✎'})));
+ if(kind==='intro')return [{who:'ASHBOUND · องก์ 1 — ผู้รอดชีวิต',nar:1,txt:STORY_WORLD.join('\n\n')}].concat(ps.map(p=>({who:p.name,id:p.id,fac:p.faction,txt:(L(p.id).nar||L(p.id).bg||'')+'\n\n🎯 เป้าหมาย: '+(L(p.id).mot||'')+' ✎'})));
  if(kind==='combat'){const C=o.C||{};const first=!G.storyFirstFight;G.storyFirstFight=1;const why=C.reason||'การต่อสู้';const pl=C.tile||P.tile||'';
   if(o.boss)return [{who:'ผู้บรรยาย',nar:1,txt:'ลมหยุดนิ่ง… ดวงไฟริบหรี่ลอยต่ำเหนือหลังคามอลล์ เสียงหัวเราะแหลมดังมาจากความมืด — “รินา กระสือ” ผู้ทำนายต้องสาป ปรากฏตัวขวางทางออกจากเมือง (World Building: กระสือจะโผล่มาเมื่อเหล่าผู้รอดจะออกจากเมือง)\n\nทำไมต้องสู้: ถ้าไม่ปราบมัน เถ้าต้องสาปจะกลืนกินเมืองอาชาทั้งเมือง ✎'},{who:P.name,id:P.id,txt:'ถ้ามันคือสิ่งที่ขวางทางออก… เราก็ต้องผ่านมันไปให้ได้ ✎'}];
   return [{who:'ผู้บรรยาย',nar:1,txt:(first?'ครั้งแรกที่เผชิญหน้า — ร่างบิดเบี้ยวคลานออกมาจากกองเถ้า ดวงตาว่างเปล่าที่เคยเป็นมนุษย์จ้องมาที่พวกเขา นี่คือ “ผู้ถูกกลืนกิน” ผู้คนของเมืองอาชาที่ถูกเถ้าต้องสาปกัดกินจิตใจ (World Building) ✎':'เถ้าต้องสาปหมุนวนรอบตัว… ผู้ถูกกลืนกินได้กลิ่นของผู้ที่ไม่ถูกคำสาปอีกครั้ง ✎')+'\n\nทำไมต้องสู้: '+why+(pl?' · '+pl:'')},{who:P.name,id:P.id,txt:(L(P.id).q||'มาเลย!')+' ✎'}];}
@@ -2602,7 +2614,7 @@ function drawScenePop(){let el=document.getElementById('scenePop');const sp=G&&G
  el.innerHTML=`<div class="spbox ${sp.stage}"><div class="spk">${sp.stage==='quest'?'📜 QUEST ใหม่':'🎬 เปิดฉากใหม่'}</div>
  <h3>${esc(sp.place||sp.tile)}</h3>
  <p class="sptx">${esc(devClean(sp.txt))}</p>
- <div class="spq"><div class="spqh">เควส</div>${qs?`<ul>${qs}</ul>`:`<div class="sm">${sp.stage==='open'?(sp.qlv?'Quest ของ Scene นี้จะถูกเพิ่มลงรายการหลังเหตุการณ์ใน Scene':'Scene นี้ไม่มี Quest ใหม่'):'—'}</div>`}</div>
+ <div class="spq"><div class="spqh">เควส</div>${qs?`<ul>${qs}</ul>`:`<div class="sm">${sp.stage==='open'?(sp.qlv?'ภารกิจของฉากนี้จะถูกเพิ่มลงรายการเมื่อเหตุการณ์จบ':'ฉากนี้ไม่มีภารกิจใหม่'):'—'}</div>`}</div>
  <div class="spwho">${esc(sp.who||'')}</div>
  <button id="sceneOk" class="planok">${asking?'รับทราบ — ไปต่อ':'ปิด'}<small>${asking?'Continue':'Close'}</small></button></div>`;
  el.querySelector('#sceneOk').onclick=()=>{SCENE_SEEN=sp.seq;if(CUR&&CUR.kind==='scene'){CUR.res(1);}else{el.remove();}};
@@ -3418,5 +3430,99 @@ if(typeof G!=='undefined'&&G&&!G.combat){document.querySelectorAll('#banslot *')
 (function(){const s=document.createElement('style');s.id='v913zoom';s.textContent=`@media(min-width:761px) and (max-height:950px){html body #game.incombat #choices.planb>.ptop,html body #game.incombat #choices.planb>.pwrap{zoom:.8}}`;document.head.appendChild(s);})();
 (function(){const s=document.createElement('style');s.textContent=`html body #choices.planb>#v913hint{grid-column:1/3!important;grid-row:1!important;align-self:center;display:block!important}html body #choices.planb>#v910hint:not(:empty)~#v913hint,html body #choices.planb>#v913hint:has(~#v910hint){display:none!important}`;document.head.appendChild(s);})();
 (function(){const s=document.createElement('style');s.id='v913fix';s.textContent=`html body #choices.planb .abar .acard .atx{max-height:none!important;overflow:visible!important}html body #choices.planb .acard .asocks{position:relative!important}html body #choices.planb>#v910hint{max-height:none!important;overflow:visible!important;white-space:normal!important;line-height:1.3}`;document.head.appendChild(s);})();
+
+/* v0.9.14 */
+(function(){const s=document.createElement('style');s.id='v914lay';s.textContent=`
+@media(min-width:761px){
+html body #game.incombat #choices.planb>.ptop,html body #game.incombat #choices.planb>.pwrap{zoom:1!important}
+html body #choices.planb .acard .atx,html body #choices.cbk .acard .atx,html body .dcard .atx,html body .acard .atx{display:-webkit-box!important;-webkit-box-orient:vertical!important;-webkit-line-clamp:3;overflow:hidden!important;max-height:none!important}
+html body #choices .acard .asocks{position:static!important}
+html body #choices.planb .acard .apv{position:static!important}
+html body #choices,html body #choices *{scrollbar-width:none}
+html body #choices ::-webkit-scrollbar,html body #choices::-webkit-scrollbar{display:none}
+}
+@media(min-width:761px) and (max-height:950px){
+html body #game #choices.planb .acard.scard{width:66px!important;min-width:0!important}
+html body #game #choices.planb .acard.scard .atx,html body #game #choices.planb .acard.scard .ast{display:none!important}
+html body #game #choices.planb #pstat{padding:0 4px!important;margin:0!important;min-height:0!important}
+html body #game #choices.planb #pstat button,html body #game #choices.planb #planOk{padding:3px 12px!important;min-height:0!important}
+html body #game #choices.planb #pstat .pmsg,html body #game #choices.planb #pstat .ptsum{display:none!important}
+html body #game #choices.planb #v913hint,html body #game #choices.planb #v910hint{padding:2px 6px!important;margin:0!important}
+html body #game #choices.planb .abar .acard:not(.scard) .atx{-webkit-line-clamp:2!important;display:-webkit-box!important;-webkit-box-orient:vertical!important;overflow:hidden!important;max-height:3em!important}
+html body #choices.planb .abar .acard{width:132px!important}
+html body #choices.planb .acard .atx{-webkit-line-clamp:2}
+html body #choices.planb .ppool{padding:2px 4px!important}
+html body #choices.planb .ppool .pdie,html body #choices.planb .ppool .die{width:36px!important;height:36px!important}
+html body #choices.planb .acard .asock{min-height:34px!important;height:34px!important}
+html body #choices.planb .acard .asock .pdie{width:30px!important;height:30px!important}
+html body #choices.cbk{overflow:hidden!important}
+html body #choices.cbk .acard{max-height:none}
+}
+#choices *{font-size:max(14px,1em)}
+`;document.head.appendChild(s);})();
+(function(){const s=document.createElement('style');s.textContent=`
+@media(min-width:761px) and (max-height:950px){
+html body #game #choices.planb #v910hint,html body #game #choices.planb #v913hint{white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;max-height:26px!important;line-height:22px!important;font-size:14px!important}
+html body #game #choices.planb .pstats .acard{width:64px!important;min-width:0!important}
+html body #game #choices.planb .pstats .acard .atx{display:none!important}
+html body #game #choices.planb .acard .ahd{padding:1px 4px!important}
+html body #game #choices.planb .acard{padding-bottom:2px!important}
+}`;document.head.appendChild(s);
+setInterval(()=>{for(const id of ['v910hint','v913hint']){const e=document.getElementById(id);if(e&&!e.title)e.title=e.textContent.trim()}},1000);})();
+(function(){const s=document.createElement('style');s.textContent=`
+@media(min-width:761px) and (max-height:950px){
+html body #game #choices.planb .acard.scard .suse{display:none!important}
+html body #game #choices.planb .acard.scard{width:60px!important;min-width:0!important;flex:0 0 60px!important}
+html body #game #choices.planb .abar .acard:not(.scard){width:118px!important;min-width:0!important;flex:0 0 118px!important}
+html body #game #choices.planb .pwrap,html body #game #choices.planb .abar{overflow:visible!important}
+html body #game #choices.planb #pstat{align-self:center!important}
+}`;document.head.appendChild(s);})();
+/* (6) damage pops on kills/hits of monsters that vanish; (4) Thai text fixes + keyword tooltips; (5) coach tab */
+(function(){
+ const R={};function lastDmg(){try{const L=(G.log||[]).slice(-6).map(x=>typeof x==='string'?x:(x.t||x.txt||x.msg||'')).reverse();for(const t of L){const m=String(t).match(/ดาเมจ\s*(\d+)|(\d+)\s*ดาเมจ/);if(m)return '-'+(m[1]||m[2]);}}catch(e){}return '✖';}
+ const of=window.fxScan;if(typeof of==='function'){window.fxScan=fxScan=function(){const seen={};document.querySelectorAll('[data-uk^="m"]').forEach(el=>{const r=el.getBoundingClientRect();if(r.width)seen[el.dataset.uk]={r,hp:+el.dataset.hp};});
+  
+  for(const k in R)delete R[k];Object.assign(R,seen);return of.apply(this,arguments);};}
+ const KW={Poison:'พิษ: เสีย 1 HP ต่อเทิร์นต่อสแตก (สูงสุด 3) หายเมื่อจบการต่อสู้',Taunt:'ยั่วยุ: ศัตรูต้องโจมตีเป้าหมายนี้ก่อน',Charge:'พุ่งชน: เก็บลูกเต๋าไว้ใช้รอบหน้า / โจมตีพร้อมเคลื่อนที่','De-Armor':'เกราะแตก: ดาเมจครั้งถัดไป ×1.5 ต่อสแตก',Splash:'กระเซ็น: ดาเมจโดนศัตรูทุกตัวในช่องเดียวกัน'};
+ function fix(){const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){const t=n.nodeValue;if(!t||!/Challenge|\bHp\b|Poison|Taunt|Charge|Splash|De-Armor/.test(t))continue;const p=n.parentElement;if(!p||/SCRIPT|STYLE/.test(p.tagName))continue;
+   let u=t.replace(/\bChallenge\b/g,'ท้าทาย').replace(/\bHp\b/g,'HP');if(u!==t)n.nodeValue=u;
+   if(!p.title||p.dataset.kw){const ks=Object.keys(KW).filter(k=>u.includes(k));if(ks.length){p.title=ks.map(k=>KW[k]).join('\n');p.dataset.kw=1;p.style.cursor='help';}}}
+  const g=document.getElementById('game'),inC=!!(g&&g.classList.contains('incombat'));
+  for(const id of ['v913hint','v910hint']){const e=document.getElementById(id);if(e&&!inC)e.style.display='none';}
+  const tut=document.getElementById('tut');if(tut){tut.classList.add('v914tut');tut.classList.toggle('v914col',window.V914COL!==false);
+   if(!tut.querySelector('.v914tab')){const b=document.createElement('button');b.className='v914tab';b.textContent='💡 คำแนะนำ';b.onclick=e=>{e.stopPropagation();window.V914COL=(window.V914COL===false);fix();};tut.prepend(b);}}}
+ setInterval(fix,400);
+ const s=document.createElement('style');s.textContent=`
+ html body #tut.v914tut{position:fixed!important;left:auto!important;right:8px!important;top:44px!important;bottom:auto!important;max-width:300px!important;width:300px!important;z-index:9000!important;opacity:.97;pointer-events:none!important;transform:none!important}
+ html body #tut.v914tut button,html body #tut.v914tut a{pointer-events:auto!important}
+ html body #tut.v914tut .v914tab{display:block;margin:0 0 4px auto;font-size:14px;padding:2px 8px}
+ html body #tut.v914tut.v914col>*:not(.v914tab):not(#tutNext):not(:has(#tutNext)){display:none!important}
+ html body #tut.v914tut.v914col{width:auto!important;background:none!important;border:0!important;box-shadow:none!important;padding:0!important}`;document.head.appendChild(s);
+})();
+(function(){let seen=null;
+ function mEl(name){let best=null;document.querySelectorAll('[data-uk^="m"]').forEach(el=>{if(el.getBoundingClientRect().width&&el.textContent.includes(name))best=best||el;});return best;}
+ setInterval(()=>{try{if(!window.G||!G.log)return;const L=G.log;if(seen===null||seen>L.length){seen=L.length;return;}
+  const g=document.getElementById('game');const inC=g&&g.classList.contains('incombat');
+  for(let i=seen;i<L.length;i++){const m=String(L[i].m||'');let r=m.match(/→ (.+?) (\d+) ดาเมจ/),txt,nm;
+   if(r){nm=r[1];txt='-'+r[2];}else if(r=m.match(/ล้ม (.+?) \(/)){nm=r[1];txt='ล้ม!';}
+   if(inC&&nm&&L[i].cls!=='bad'){const el=mEl(nm);if(el){const t0=Date.now();setTimeout(()=>{const b=el.getBoundingClientRect();const dup=[...document.querySelectorAll('.fnum.dmg')].some(f=>{const q=f.getBoundingClientRect();return Math.abs(q.left-(b.left+b.width/2))<40&&(+f.dataset.t||0)<=0;});if(!dup||txt==='ล้ม!'){window.V914P=(window.V914P||0)+1;fxFloat(el,txt,'dmg');el.classList.add('hit');}},250);}}}
+  seen=L.length;}catch(e){}},120);
+})();
+/* (7) highlight skill cards a pool die can go on (selected die only, else any free die) */
+(function(){const s=document.createElement('style');s.textContent=`html body #choices.planb .abar .acard.v914ok:not(.scard){box-shadow:0 0 0 2px #ffd36b,0 0 12px rgba(255,211,107,.6)!important}`;document.head.appendChild(s);
+ setInterval(()=>{const c=document.querySelector('#choices.planb');if(!c)return;try{const pk=c.querySelector('.ppool .pdie.picked');const ds=pk?[+pk.dataset.di]:[...c.querySelectorAll('.ppool .pdie[data-di]')].map(e=>+e.dataset.di);
+  c.querySelectorAll('.abar .acard[data-s]:not(.scard)').forEach(el=>{let ok=false;try{const S=planSock(el.dataset.s);ok=!!S&&ds.some(i=>planCanAdd(S,i)===true)&&planIn(S.id).length<(S.cap||1);}catch(e){}el.classList.toggle('v914ok',ok);});}catch(e){}},300);})();
+/* (7) '→ เดินไป X' hint text becomes a button that clicks the map tile */
+(function(){setInterval(()=>{const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);const hits=[];let n;while(n=w.nextNode()){if(/→\s*เดินไป\s*\S/.test(n.nodeValue)&&n.parentElement&&!n.parentElement.closest('button,#map,.v914go,#log,.log'))hits.push(n);}
+ for(const n of hits){const m=n.nodeValue.match(/→\s*เดินไป\s*([^\s(·,]+)/);if(!m)continue;const name=m[1];const i=n.nodeValue.indexOf(m[0]);const after=n.splitText(i);after.splitText(m[0].length);
+  const b=document.createElement('button');b.className='v914go';b.textContent='→ เดินไป '+name;b.style.cssText='font-size:14px;padding:2px 10px;margin:0 4px;cursor:pointer';
+  b.onclick=e=>{e.stopPropagation();const ts=[...document.querySelectorAll('#map *')].filter(x=>x.children.length<12&&x.textContent.includes(name)&&getComputedStyle(x).cursor==='pointer');(ts[0]||[...document.querySelectorAll('#map *')].find(x=>x.textContent.trim().startsWith(name)))?.click();};
+  after.replaceWith(b);}},700);})();
+(function(){const s=document.createElement('style');s.textContent=`html body #choices .acard .apv{position:static!important;transform:none!important}html body #choices .acard .asocks{position:static!important}`;document.head.appendChild(s);})();
+(function(){const s=document.createElement('style');s.textContent=`html body #game #choices .abar .acard{height:auto!important;max-height:none!important;display:flex!important;flex-direction:column!important}
+html body #game #choices .abar .acard>*{flex:0 0 auto!important;position:relative}
+html body #game #choices .acard .asock .areq{white-space:nowrap!important;overflow:hidden!important;display:block;max-width:100%;line-height:1.2}
+html body #game #choices .acard .asock{overflow:hidden!important}
+html body #game #choices .acard .apv{margin-top:2px!important;line-height:1.2}`;document.head.appendChild(s);})();
 
 </script></body></html>
