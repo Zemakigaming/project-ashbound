@@ -1,3 +1,7 @@
+# Ashbound v0.9.31
+
+Combat can be the whole battlefield, or the cells in front of the hero who is acting. The other view sits in a gold frame and swaps when you click it or the buttons สนามรบ / ด้านหน้าเรา. Nothing behind you is drawn as ahead. Moving the pointer no longer resizes those frames.
+
 # Ashbound v0.9.30
 
 The character picker shows a portrait, the name, and one short strength. Full stats, skill text, upgrades, and the ultimate open when you press ดูรายละเอียด. Lore stays behind its own button. Choosing still allows up to 4 people, and Start uses that selection.
