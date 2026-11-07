@@ -1,3 +1,7 @@
+# Ashbound v0.9.32
+
+หน้าเราสองแบบสลับกันได้. สนามรบใหญ่พร้อมแถบย่อของสกิล เต๋า และสถานะ หรือแผงสกิล เต๋า สถานะใหญ่พร้อมสนาม 6 ช่องย่อ. สลับด้วยปุ่ม สนามรบ / สกิล · เต๋า · สถานะ หรือปุ่มขยายบนแผงย่อ. คลิกตัวบนสนามย่อคือเลือกเป้า ไม่สลับหน้า. ลูกเต๋า สกิลที่เลือก และการกระทำค้างไว้เมื่อสลับ. มุมมองด้านหน้าถูกเอาออกจากหน้าเล่น. ไฟล์ v0.9.31 ยังอยู่.
+
 # Ashbound v0.9.31
 
 Combat can be the whole battlefield, or the cells in front of the hero who is acting. The other view sits in a gold frame and swaps when you click it or the buttons สนามรบ / ด้านหน้าเรา. Nothing behind you is drawn as ahead. Moving the pointer no longer resizes those frames.
