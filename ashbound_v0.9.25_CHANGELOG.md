@@ -8,7 +8,7 @@ New file only. v0.9.23 and older builds are unchanged. `index.html` is unchanged
 - Your figure and facing arrow sit **inside** your own square. If that square is also hit, the effect icon stays in the corner so you remain visible.
 - ✹ = every enemy in the cell. ◎ = choose a target in those cells. · = not affected.
 - Dice sockets are a separate row. Body text is 14px, wraps, and is not ellipsized.
-- Dark/gold dock. It scrolls inside the combat panel at 1280×800 and 1920×1072 so the bottom of a card can be reached.
+- Dark/gold dock. The board gives up height so the cards on screen fit in the viewport. Extra skills move with ก่อนหน้า / ถัดไป. A card that is on screen shows its name, diagram, full body, sockets, and the lock line together. The lock line sits under the sockets. Diagram captions are one short line; the strip shows the cells. Missing combat title or tier prints a fallback instead of the word undefined.
 - Hover no longer scales or slides cards. Idle loops stay off.
 
 ## Rules touched

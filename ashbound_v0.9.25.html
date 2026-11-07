@@ -2283,7 +2283,7 @@ function fxAfterRender(){if(!G)return;fxScan();
   fxBanner(`<div class="phb"><span class="phi">${PH_IC[G.phase]}</span></div><div><small>${nd?'วันใหม่':'เปลี่ยนช่วงเวลา'}</small><b>วันที่ ${G.day}/${CFG.dayLimit} · ${esc(PHASE_TH[PHASES[G.phase]])}</b><em>${G.phase===2?'🌙 กลางคืน: สิ้นช่วงนี้ทุกคนต้องพัก (Rest) อย่างน้อย 1 หน่วย / กินอาหาร':'เหลือ '+(CFG.dayLimit-G.day)+' วันหลังจากวันนี้ ⚠'}</em><i class="phnext"></i></div>`,'phase ph'+G.phase);FX_PHHOLD=Date.now()+(typeof FAST!=='undefined'&&FAST?600:2200);FX_LASTCUR=G.cur||FX_LASTCUR;fxAfterRender.k=(G.cur&&G.cur.id||'')+G.day+G.phase;return;}}
  const c=G.cur;if(c&&c!==FX_LASTCUR&&c.h&&!G.over){const key=(c.id||'')+G.day+G.phase+(G.combat?G.combat.round:'');if(Date.now()<FX_PHHOLD&&!G.combat){const n=document.querySelector('#banslot .phnext');if(n)n.textContent='▶ ตาของ '+c.name;fxAfterRender.k=key;}else if(FX_LASTCUR===null||FX_LASTCUR.id!==c.id||key!==fxAfterRender.k){fxBanner(`<img src="${artOf(c.id)}"><div><small>${G.combat?'⚔ การต่อสู้ รอบ '+G.combat.round:esc(PHASE_TH[PHASES[G.phase]])}</small><b>ตาของ ${esc(c.name)}</b><em>${meTag(c)}</em></div>`,G.combat?'cb':'');fxAfterRender.k=key;}}
  FX_LASTCUR=c||FX_LASTCUR;
- const inC=!!G.combat;if(inC&&!FX_INC){FX_SNAP=snapRes();fxBanner(`<div><small>ENCOUNTER</small><b>⚔ ${esc(G.combat.title)}</b><em>ระดับเถ้า ${G.combat.tier}</em></div>`,'enc');}
+ const inC=!!G.combat;if(inC&&!FX_INC){FX_SNAP=snapRes();const ct=(G.combat.title!=null&&String(G.combat.title)!=='undefined'&&String(G.combat.title)!=='')?G.combat.title:'การต่อสู้';const tr=(G.combat.tier!=null&&String(G.combat.tier)!=='undefined')?G.combat.tier:'—';fxBanner(`<div><small>ENCOUNTER</small><b>⚔ ${esc(ct)}</b><em>ระดับเถ้า ${esc(tr)}</em></div>`,'enc');}
  if(!inC&&(G.combatEndN||0)!==(window.FX_ENDN||0)){window.FX_ENDN=G.combatEndN;showReward(FX_SNAP||snapRes(),snapRes(),G.lastCombat&&G.lastCombat.res);FX_SNAP=null;}
  FX_INC=inC;}
 function showReward(a,b,res){const won=res?res==='win':b.wins>a.wins,rows=[];
@@ -2577,7 +2577,10 @@ function drawCombat(){
  if(!C){el.style.display='none';return;}
  el.style.display='block';
  const foes=C.units.filter(u=>u.side==='m'&&u.hp>0);
- let h=`<div class="cbanner">⚔ การต่อสู้! <b>${esc(C.title)}</b> · รอบ ${C.round}${C.limit?'/'+C.limit:''} · ระดับเถ้า ${C.tier}<div class="creason">${esc(devClean(C.reason||''))}</div>${C._mod&&C._mod.tut?`<div class="tutp">🎓 สอนเล่น: ① กด ROLL แล้วลากลูกเต๋าไปวางในช่องใต้การ์ด ② กด ✔ ยืนยันแอกชัน ③ ถึงตาคุณ: คลิกการ์ด Move เพื่อเดิน หรือคลิกศัตรูขอบแดงเพื่อโจมตี ④ กด END TURN ⑤ ศัตรูจะเดิน/โจมตีตามลำดับความเร็ว (Sp) — ดูแถบ “ตาศัตรู” · ศึกแรกนี้มีศัตรู ${foes.length} ตัว</div>`:''}</div>${turnBarHTML(C)}
+ const cTitle=(C.title!=null&&String(C.title)!=='undefined'&&String(C.title)!=='')?C.title:'การต่อสู้';
+ const cTier=(C.tier!=null&&String(C.tier)!=='undefined')?C.tier:'—';
+ const cReason=(C.reason!=null&&String(C.reason)!=='undefined')?C.reason:'';
+ let h=`<div class="cbanner">⚔ การต่อสู้! <b>${esc(cTitle)}</b> · รอบ ${C.round||1}${C.limit?'/'+C.limit:''} · ระดับเถ้า ${esc(cTier)}<div class="creason">${esc(devClean(cReason))}</div>${C._mod&&C._mod.tut?`<div class="tutp">🎓 สอนเล่น: ① กด ROLL แล้วลากลูกเต๋าไปวางในช่องใต้การ์ด ② กด ✔ ยืนยันแอกชัน ③ ถึงตาคุณ: คลิกการ์ด Move เพื่อเดิน หรือคลิกศัตรูขอบแดงเพื่อโจมตี ④ กด END TURN ⑤ ศัตรูจะเดิน/โจมตีตามลำดับความเร็ว (Sp) — ดูแถบ “ตาศัตรู” · ศึกแรกนี้มีศัตรู ${foes.length} ตัว</div>`:''}</div>${turnBarHTML(C)}
  ${typeof rngBarHTML==='function'?rngBarHTML():''}<div class="bfv">`;
  for(let i=0;i<=5;i++){
   const ss=C.parts.filter(q=>q.pos===i&&q.hp>0),as=C.units.filter(u=>u.side==='s'&&u.pos===i&&u.hp>0),ms=C.units.filter(u=>u.side==='m'&&u.pos===i&&u.hp>0),n=ss.length+as.length+ms.length;
@@ -3748,7 +3751,17 @@ const s2=document.createElement('style');s2.textContent=`#reward.v923win{backgro
 /* v0.9.25 — cell-effect diagrams on combat dock, readable cards, facing, no hover zoom */
 (function(){
 const css=`
-html body #game.incombat #right,html body #right:has(> #choices.planb),html body #right:has(> #choices.cbk){max-height:min(52vh,560px)!important;overflow-y:auto!important;overflow-x:hidden!important;border-top:2px solid #e8a33a!important;background:#1b1719!important}
+html body #game.incombat{height:100vh!important;max-height:100vh!important;overflow:hidden!important}
+html body #game.incombat #mid,html body #game.incombat #combat{min-height:0!important;overflow:hidden!important}
+html body #game.incombat .bfv{min-height:0!important;height:100%!important;max-height:100%!important}
+html body #game.incombat .bfv .cell{min-height:0!important}
+html body #game.incombat #right,html body #right:has(> #choices.planb),html body #right:has(> #choices.cbk){max-height:none!important;overflow:visible!important;border-top:2px solid #e8a33a!important;background:#1b1719!important}
+html body #game #choices .acard .ast,html body #game #choices .abar .acard:not(.scard) .ast{position:static!important;display:block!important;margin:6px 0 0!important;clear:both!important;z-index:auto!important;background:transparent!important;width:100%!important;max-height:none!important;overflow:visible!important;font-size:14px!important}
+html body #game #choices .acard .asocks,html body #choices.planb .ptop .acard.scard.tcp .asocks{position:static!important;bottom:auto!important;top:auto!important;left:auto!important;right:auto!important}
+html body #choices .v925page{display:flex;gap:8px;align-items:center;justify-content:flex-end;width:100%;margin:0 0 6px;font-size:14px;color:#eee}
+html body #choices .v925page button{font-size:14px!important;min-height:36px;padding:4px 12px;background:#2a2118;color:#ffd68a;border:1px solid #e8a33a;border-radius:8px;cursor:pointer}
+html body #choices .v925page button:disabled{opacity:.4;cursor:default}
+html body #choices.planb .pstats{flex:0 0 auto!important;align-items:flex-start!important}
 html body #choices.planb,html body #choices.cbk{height:auto!important;max-height:none!important;overflow:visible!important}
 html body #choices .abar,html body #choices .pwrap,html body #choices .aoth{display:flex!important;flex-wrap:wrap!important;gap:10px!important;height:auto!important;max-height:none!important;overflow:visible!important;align-items:stretch!important;width:100%!important}
 html body #game #choices.planb .acard.tcp:not(.scard),html body #game #choices.cbk .acard.tcp:not(.scard),html body #choices .acard:not(.scard){flex:0 0 216px!important;width:216px!important;min-width:200px!important;max-width:240px!important;height:auto!important;min-height:0!important;max-height:none!important;overflow:visible!important;background:#2a2326!important;border:2px solid #6b5a3a!important;border-radius:10px!important;color:#eee!important;padding:8px!important;box-sizing:border-box!important}
@@ -3765,7 +3778,7 @@ html body #choices .acard .asocks{display:flex!important;flex-wrap:wrap!importan
 html body #choices .acard .asock{position:static!important;min-width:44px!important;width:auto!important;height:auto!important;min-height:32px!important;overflow:visible!important;padding:2px 4px!important}
 html body #game #choices .acard .asock .areq,html body #choices .acard.tcp .asock .areq{font-size:13px!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;max-width:none!important;width:auto!important;height:auto!important;line-height:1.15!important;display:flex!important}
 html body #choices .pdie b,html body #choices .bigdie b{font-size:18px!important;line-height:1!important;display:block!important;visibility:visible!important;opacity:1!important}
-html body #game.incombat #right{max-height:min(60vh,640px)!important;overflow-y:auto!important;overflow-x:hidden!important}
+html body #game.incombat #right{max-height:none!important;overflow:visible!important}
 html body #choices .acard:not(.scard)>.tc-art{display:none!important}
 html body #choices .abar.turn{align-items:flex-start!important}
 html body #choices .abar.turn .acard.mv{order:-1!important}
@@ -3891,24 +3904,77 @@ function htmlSpec(spec,p){
    dist+=`<i>${i<0?'หลัง':i}</i>`;
   }
  }
- return `<div class="aoerow">${row}</div><div class="aoedist">${dist}</div><div class="aoemode">${spec.mode||''}</div>${spec.note?`<div class="aoenote">${spec.note}</div>`:''}`;
+ const vals=Object.values(spec.c||{});
+ const short=vals.includes('w')&&!vals.includes('a')&&!vals.includes('p')?'เดินตามลูกศร':vals.includes('a')&&vals.includes('p')?'เลือกช่อง · ทุกตัวในช่องนั้น':vals.includes('a')?'ทุกตัวในช่องสีส้ม':vals.includes('p')?'เลือกเป้าในช่องสีส้ม':'ไม่เลือกช่อง';
+ const tip=[spec.tag,spec.mode,spec.note].filter(Boolean).join(' · ');
+ return `<div class="aoerow" title="${tip.replace(/"/g,'')}">${row}</div><div class="aoedist">${dist}</div><div class="aoemode">${short}</div>`;
 }
-function dockFit(){
- const R=document.getElementById('right'),g=document.getElementById('game');
- if(!R||!g||!g.classList.contains('incombat'))return;
- R.style.setProperty('max-height','min(60vh,640px)','important');
- R.style.setProperty('overflow-y','auto','important');
- R.style.setProperty('overflow-x','hidden','important');
- const e=document.querySelector('#choices .endturn');
- if(e){e.style.setProperty('order','-2','important');e.style.setProperty('align-self','flex-start','important');e.style.setProperty('position','sticky','important');e.style.setProperty('top','8px','important');}
- const mv=document.querySelector('#choices .acard.mv');
- if(mv){const rb=R.getBoundingClientRect(),mb=mv.getBoundingClientRect();
-  if(mb.height&&(mb.top<rb.top+4||mb.bottom>rb.bottom-4))R.scrollTop+=mb.top-rb.top-8;}
+let PAGE=0;
+function fitViewport(){
+ const g=document.getElementById('game'),top=document.getElementById('top'),R=document.getElementById('right'),mid=document.getElementById('mid');
+ if(!g||!R||!g.classList.contains('incombat'))return;
+ const vh=window.innerHeight,th=top?top.getBoundingClientRect().height:44;
+ g.style.setProperty('height','100vh','important');
+ g.style.setProperty('max-height','100vh','important');
+ g.style.setProperty('overflow','hidden','important');
+ g.style.setProperty('grid-template-rows','auto minmax(96px,1fr) auto','important');
+ if(mid){mid.style.setProperty('min-height','0','important');mid.style.setProperty('overflow','hidden','important');}
+ R.style.setProperty('height','auto','important');
+ R.style.setProperty('max-height','none','important');
+ R.style.setProperty('overflow','visible','important');
+ const box=document.getElementById('choices');
+ if(box){box.style.setProperty('overflow','visible','important');box.style.setProperty('max-height','none','important');box.style.setProperty('height','auto','important');}
+ const over=R.getBoundingClientRect().bottom-vh;
+ if(over>2){
+  const board=Math.max(96, (mid?mid.getBoundingClientRect().height:200)-over-4);
+  g.style.setProperty('grid-template-rows','auto '+Math.max(96,Math.round(board))+'px auto','important');
+ }
+}
+function layoutPages(){
+ const box=document.getElementById('choices');if(!box){fitViewport();return;}
+ const bar=box.querySelector('.abar.turn')||box.querySelector('.pwrap .abar')||box.querySelector('.abar');
+ if(!bar){fitViewport();return;}
+ box.querySelectorAll('.acard .ast').forEach(ast=>{const socks=ast.parentElement&&ast.parentElement.querySelector('.asocks');if(socks&&ast.previousElementSibling!==socks)socks.after(ast);});
+ const stats=box.querySelector('.pstats');
+ box.querySelectorAll('.aoth').forEach(row=>{if(stats)[...row.children].forEach(c=>stats.appendChild(c));else bar.appendChild(row);row.remove();});
+ const all=[...bar.children].filter(c=>c.classList&&c.classList.contains('acard')&&!c.classList.contains('scard'));
+ const fixed=all.filter(c=>c.classList.contains('mv')||(c.classList.contains('atk')&&!c.classList.contains('skill')));
+ const paged=all.filter(c=>!fixed.includes(c));
+ const host=box.closest('#right')||box;
+ const gap=8, avail=Math.max(480, host.clientWidth-16-(box.querySelector('.endturn')?110:0));
+ const fixedReserve=fixed.length*(220+gap);
+ let per=Math.max(1, Math.floor((avail-fixedReserve)/(220+gap)));
+ while(per>1 && fixed.length+per>0 && (fixed.length+per)*210+gap*(fixed.length+per-1)>avail) per--;
+ if(!paged.length) per=1;
+ const pages=Math.max(1, Math.ceil(paged.length/Math.max(1,per)));
+ if(PAGE>=pages) PAGE=0;
+ const slice=paged.slice(PAGE*per, PAGE*per+per);
+ const shown=fixed.concat(slice);
+ const each=Math.max(210, Math.min(320, Math.floor((avail-fixedReserve-gap*Math.max(0,shown.length-1))/Math.max(1,shown.length))));
+ bar.dataset.pg=all.map(c=>c.dataset.s||c.className).join(',')+'|'+PAGE+'|'+Math.round(avail||0)+'|'+each;
+ all.forEach(c=>{
+  const on=shown.includes(c);
+  c.style.setProperty('display',on?'flex':'none','important');
+  c.style.setProperty('flex-direction','column','important');
+  if(on){c.style.setProperty('width',each+'px','important');c.style.setProperty('flex','0 0 '+each+'px','important');c.style.setProperty('max-width',each+'px','important');c.style.setProperty('min-width','200px','important');}
+ });
+ bar.style.setProperty('flex-wrap','nowrap','important');
+ bar.style.setProperty('overflow','visible','important');
+ bar.style.setProperty('width','100%','important');
+ let nav=document.getElementById('v925page');
+ if(pages>1){
+  if(!nav){nav=document.createElement('div');nav.id='v925page';nav.className='v925page';bar.before(nav);}
+  nav.innerHTML=`<button type="button" id="v925prev" ${PAGE?'':'disabled'}>◀ ก่อนหน้า</button><span>ชุด ${PAGE+1}/${pages} · การ์ด ${PAGE*per+1}–${Math.min(paged.length,(PAGE+1)*per)} จาก ${paged.length}</span><button type="button" id="v925next" ${PAGE<pages-1?'':'disabled'}>ถัดไป ▶</button>`;
+  nav.querySelector('#v925prev').onclick=()=>{PAGE=Math.max(0,PAGE-1);layoutPages();};
+  nav.querySelector('#v925next').onclick=()=>{PAGE=Math.min(pages-1,PAGE+1);layoutPages();};
+ }else if(nav) nav.remove();
+ const end=box.querySelector('.endturn');
+ if(end){end.style.setProperty('position','static','important');end.style.setProperty('order','0','important');end.style.setProperty('align-self','stretch','important');}
+ fitViewport();
 }
 function paint(){
  const box=document.getElementById('choices');if(!box)return;
  box.querySelectorAll('.acard.mv .btx').forEach(e=>{if(/หันกลับ/.test(e.textContent)){e.textContent=e.textContent.replace(/ใช้ 1 เดิน/,'ใช้ 1 Move');e.classList.add('v925name');}});
- dockFit();
  const p=actor();
  box.querySelectorAll('.acard').forEach(card=>{
   if(card.dataset.v925||card.classList.contains('scard')||card.classList.contains('mini'))return;
@@ -3940,7 +4006,7 @@ function paint(){
   const html=`<span><b class="lgc aoec me o"><span class="pi">🧍${face}</span></b> ตัวคุณ + ทิศในช่องตัวเอง (มุมขวาบน = ผลที่ช่องตนโดน)</span><span><b class="lgc aoec a">✹</b> โดนทุกตัวในช่อง</span><span><b class="lgc aoec p">◎</b> เลือกเป้าในช่องเหล่านี้</span><span><b class="lgc aoec o">·</b> ไม่โดน</span><span style="color:#998">เลขใต้ช่อง = ห่างจากตัวเรา</span>`;
   if(leg.innerHTML!==html)leg.innerHTML=html;
  }else{const old=document.getElementById('v925leg');if(old)old.remove();}
- dockFit();
+ layoutPages();
 }
 function markBack(){
  try{
@@ -3955,12 +4021,12 @@ function unhover(){for(const sh of document.styleSheets){let rs;try{rs=sh.cssRul
  const walk=list=>{for(const r of list){if(r.cssRules&&!r.selectorText)walk(r.cssRules);else if(r.selectorText&&/:hover/.test(r.selectorText)&&r.style)BAD.forEach(k=>{if(r.style.getPropertyValue(k))r.style.removeProperty(k);});}};
  try{walk(rs);}catch(e){}}}
 let q=0,lock=0;
-function run(){q=0;if(lock)return;lock=1;try{paint();markBack();}catch(e){console.warn('v925',e);}finally{lock=0;}}
+function run(){q=0;if(lock)return;lock=1;try{mo.disconnect();}catch(e){}try{paint();markBack();}catch(e){console.warn('v925',e);}finally{lock=0;if(document.body)mo.observe(document.body,{childList:true,subtree:true});}}
 const mo=new MutationObserver(()=>{if(!q)q=setTimeout(run,50);});
 if(typeof planRender==='function'){const _pr=planRender;planRender=function(){const r=_pr.apply(this,arguments);try{paint();}catch(e){}return r;};window.planRender=planRender;}
 if(typeof buildAsk==='function'){const _ba=buildAsk;buildAsk=function(){const r=_ba.apply(this,arguments);try{paint();markBack();}catch(e){}return r;};window.buildAsk=buildAsk;}
 if(typeof render==='function'){const _rd=render;render=function(){const r=_rd.apply(this,arguments);try{markBack();}catch(e){}return r;};window.render=render;if(IO)IO.render=()=>render();}
-function go(){unhover();if(document.body)mo.observe(document.body,{childList:true,subtree:true});run();setTimeout(unhover,1200);}
+function go(){unhover();if(document.body)mo.observe(document.body,{childList:true,subtree:true});run();setTimeout(unhover,1200);addEventListener('resize',()=>{PAGE=0;layoutPages();});}
 if(document.body)go();else addEventListener('DOMContentLoaded',go);
 window.v925specSkill=specSkill;window.v925specOrig=specOrig;window.v925specAtk=specAtk;
 })();
