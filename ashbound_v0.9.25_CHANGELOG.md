@@ -1,6 +1,35 @@
+# Ashbound v0.9.26
+
+Playable file: `ashbound_v0.9.26.html`. `index.html` is the same file, so the public page serves this version. Older versioned HTML files are unchanged.
+
+Sheet dated 7 Nov 2026 wins over the attached rulebook text (that file is labeled 1.6 and still matches the 3 Nov PDF).
+
+## Sheet logic
+
+- Mina Charge costs 5 (Encore and Rainbow Warp).
+- THE CURSED SEER ริน่า is MES-002: 30 HP, speed 7, walk 3, melee 1 target, 4 damage, bonus Y. A hit applies เลือดสาด and she steps up to 4 cells away. The old shriek is gone.
+- AMY: Str 1, Atk 1, range 1–3. She grants +1 Move, and the first attack this turn spends that extra step.
+- ALICE rolls her own W. Face 1–3 heals 1 HP to one hurt friend in her cell.
+- AVA Elite: Dex 2, Int 0, Atk 3, melee all enemies in range. End of round, D6 1–3 hits enemies in her cell and the cells beside it; 4–6 hits those cells including survivors and allies.
+- Bicycle no longer discounts food. Joining a friend’s fight does not spend the next action. Other actions still cost an action.
+- สร้อยรินา (IT-020): +2 Int while worn, and 2 HP at the start of each combat round. No shop price in the sheet.
+- รองเท้าหนัง is IT-031. Same first-round extra die. The invented name and price are gone, and it is not in the shop.
+- พลุไฟ is IT-02. IT-018 is not in this catalog.
+
+## Still unresolved
+
+- Night still fights first, then food and weakness. The rulebook lists food before the fight.
+- Oni Echo still uses Close Melee (same cell), matching Zemaki’s basic attack.
+- Skills that only say “ระยะ N” and already hit both ways were not rewritten to facing-only.
+- Safe Passage still does not bring allies. เลือดสาด still ticks once per cell stepped.
+- ALICE’s “(1–3)” is her own white die, not a die the owner already placed.
+- Boss HP still scales with party size. Four players get the sheet’s 30 HP.
+- IT-020 and IT-031 have no drop or shop row in the sheet, so they only work if the character is already wearing them.
+- Summon and facing cases the sheet does not specify stay as they were.
+
 # Ashbound v0.9.25
 
-New file only. v0.9.23 and older builds are unchanged. `index.html` is unchanged, so the live page is not updated.
+New file only. v0.9.23 and older builds are unchanged. The live page now points at v0.9.26.
 
 ## Combat dock
 
