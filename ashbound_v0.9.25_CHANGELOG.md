@@ -1,3 +1,9 @@
+# Ashbound v0.9.29
+
+Minions do not have HP. The 2/2 bar was wrong. A minion shows the sheet threshold, for example ฆ่าทันทีเมื่อดาเมจ ≥ 2. One hit at or above that number destroys that minion only. A smaller hit knocks it down; the next hit destroys it. Elites and bosses still show current/max HP.
+
+The opening fight was throwing away every hit in round 1, so a Rapid Volley of 4 damage left the bloom standing. Those hits count now.
+
 # Ashbound v0.9.28
 
 Every enemy on the field shows current/max HP and a bar, including minions (2/2, or 1/2 after they are knocked down), elites, and bosses. The same numbers are on each monster card in the left panel. The number updates as soon as the hit lands.
