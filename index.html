@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="th"><head><link rel="icon" href="data:,"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
-<title>Ashbound v0.9.29</title><style>
+<title>Ashbound v0.9.30</title><style>
 *{box-sizing:border-box}body{margin:0;background:#08080a;color:#cfc8bd;font-family:"Sarabun","Noto Sans Thai",Tahoma,sans-serif;font-size:14px}
 body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 30%,transparent 40%,#000 100%),repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0 1px,transparent 1px 3px);z-index:50}
 h1,.ttl{font-family:Georgia,serif;letter-spacing:.3em;color:#b33a2f;text-shadow:0 0 12px #600}
@@ -808,7 +808,7 @@ body.dragging #tipbox{display:none!important}
 <div class="tlogo"><small>องก์ที่ 1 · ผู้รอดชีวิต</small><h1>PROJECT<br>ASHBOUND</h1><div class="tsub">เมืองอาชา (Achar) — ผนึก 666 ปีแตก เถ้าต้องสาปปกคลุมเมือง</div></div>
 <div class="tmenu"><button class="obtn" onclick="startBtn()">▶ เริ่มเกม <small>Start</small></button><button id="btnOnline" class="obtn" onclick="showLobby()">🌐 เล่นออนไลน์ <small>Online Co-op</small></button><button class="obtn" onclick="tutStart()">🎓 Tutorial <small>สอนเล่น</small></button>
 <div class="tlinks"><button onclick="start(true)">👁 ดู Bot เล่น</button><button onclick="showHow()">📖 วิธีเล่น</button></div></div>
-<div class="tsel"><div class="tselh">เลือก SURVIVOR <span>(สูงสุด 4 · ชี้เมาส์ดูรายละเอียด)<br><span class="hleg">❤ เลือด = พลังชีวิต · 💨 เร็ว (Sp) = ใครสูงกว่าได้เล่นก่อนในการต่อสู้ · 👣 เดิน = จำนวนช่องที่เดินได้</span></span></div><p id="selInfo"></p><div id="heroGrid"></div>
+<div class="tsel"><div class="tselh">เลือกตัวละคร <span>ได้สูงสุด 4 คน</span></div><p id="selInfo"></p><div id="heroGrid"></div>
 <details class="trules"><summary>กติกาโดยย่อ</summary><div class="rules">เมืองอาชา · องก์ที่ 1: ผู้รอดชีวิต — ผนึก 666 ปีแตก เถ้าต้องสาปปกคลุมเมือง<br>
 <b>เกมเอาชีวิตรอดแบบร่วมมือ</b> · ผู้เล่น 1–4 คน · เริ่มที่ท่าเรือ · แผนที่องก์ที่ 1 มี 12 ช่อง<br>
 วันละ 3 ช่วง · เช้า/บ่าย ทุกคนทำได้ 1 แอกชันต่อช่วง · <b>กลางคืน = ทำแอกชันไม่ได้ ต่อสู้ทันที</b>: หาอาหาร / สำรวจ / คุย / <b>เดินไปช่องติดกัน = 1 แอกชัน</b><br>
@@ -846,7 +846,7 @@ Object.assign(FIG,{"dog": "data:image/webp;base64,UklGRvIZAABXRUJQVlA4WAoAAAAQAA
 const PETART={"ally:dog": "data:image/webp;base64,UklGRuwCAABXRUJQVlA4IOACAAAwHgCdASqAAIAAPm0skkYkIqGhLxiLEIANiWkA1UXG5mGN+Em1tUZxM2435BUMrrtXU+0v8nThP8YQtQoUjztK7fUgmFgqcxXLr4p79O7NPIlAH3Ecr7EleBqcESF+B8ePmDa1+RldWcyg6BsylGMU5ybX/LbrFL4lNlQEAapr7KoLslIIyl3KL2pOW4CPSAEvNF1aQprYfd4TubzrTQGrUW5GvfzZfayyhh0P8RXPFC7GIbWH9B5jCyF9o1vs3659sN93ZzbrdYXMjKu3IiNe0PRW/MPi7dvFNzYECShdCVWZro0ygwTrx0zMFWsOxfgr2CAz9bdBIEHgAP75ZlNbZSaz97zIA+EjrwsQoRGLB8Kt/9ExhVaQtW/223tt+uQ2Ik0EXuCJzqlFpos1zxFKdtu4FUUnmEO6MOkb/w1LSaqgi+vsHzRO/kMsjzDWIlV8XevVrabdhN7nUd1z7iJHT4VXxnqnKWgocuV7/ILuPtsz6MnRJQQ64SUKUwz3UgWVMDUc9ozrU5L5xYOV9drNGA7cqGCb4EhiCJdI6Oilhp2rKkeorDyjjKhHCopq7EcLNPRjXrvjrsavUf1A3m9ziX4CgwWbFNNtQQUSXglqH7L01LPfAPb6gdm5g4UUHlFbEnBzDxmU53Quwj0aVzzc0sUHIOOX7qYGTO5IfKca21+BuUPwbuluNcSsGOdKEu+zKq8MjHVyTl3V4ZzPpjfJKZ/u6TOsaBdOu6oEliN/bXKrcwb7h/tZB5nK0c6n5NY+6N7M7tGyi1BZH94vXSGDhxwD1915u259Bo674rP7WAgE/AowwFO5hb+HPNHahdt9ePcEHl87BUXqCkrgqTljqVJkTTsZLTTwq82UwO1etHbLfbku5/8TaPCyGZ/BLRqXGxDN6ecESHiGgd0JvRoerVElHzsXY+w6Zn/nXiAMVPbRpwAAhCZ+ch74OQA1gDU0orFI9+aIU5oTwIE+AAAA", "ally:cat": "data:image/webp;base64,UklGRkYDAABXRUJQVlA4IDoDAABwHgCdASqAAIAAPm0wk0YkIyGhKhWdEIANiWkA1Qu5QOKULe4utpMEK+icgyj0drvlz14oVxqiyUcV13XHDIqXhlC7vRaO8APeFSD2TZtFA9qEpDhu6ebcsnsTFPcKA+OspeTefmvFq4o255lmi0LJ8b4Yf4cvpbwUKEEWFOr2uXP8ABYmnuIEEmEZC+LNqjmsoXc65lH5sY4ievoRk7yDfisuSpWBY95GslML4j8mageAFGqwH2ba3oWYivUD9Y10ht1GzSioUDCiPUlfpbLHdVzVGiZ4hbqcAyAb0z4IsJSMAgBK+/itVCPzrEhXr+VeF5Qe2svEsfsVfAAA/vozJ3WF8KNvNADEXSvIPH8gEuG729xSrlDP4AWh22304keZ54Q9iPEZ+WDQ1JsEz3HZyzaMStps/UnDtHEKKl0OxpyFX1ALqroSH+KKpaKqXbDdYlNSz2AR4eyjrJR9G/tbceNeaegDoQcwQyKlSsrYew1q56WD0WR8ZdARsSu96u5m2DAiVWrwLafXFVoxm22DuyS1NefOhtPtLR7PnAfMu9CP8dmwhzzVN98k3fgsditzzRFe1gzBzv49L2dzI9wX8g1t+zG2zYYoZLGli5wd3cB4adyA1AgbRWbLFN1Tjp2m2HYiFu5aqk19DqlLoA4w/aquurVkvzvoCyAMv8eeGPEbCkcHHhAzeGUmKWhOKh+2q6emATatLkZoa7sDoUbRxXFvNKeNs2AP0M3YCJdHRLb8qWDeieUz2obVH2T8rL9APHq88jq4oS2kXmWpux3YEOsNRSymOo1GHAIUwXsvq1f7NDKmIFRmOcCQqngOxZaXznOTmUGDWtu2XHe/MdhCdrEtyMt5YBMuyXNd/CRB2Y7uBy6XpOihBxLO7aCXO4CDA7rc77p3d5w2MbyMN/CTjTmv8uc9rTSfn7JTs3fKeiyalpDKxKrUHU8jluln/8GvJpL1kpVfH/UK+YgzuIax6A7RMmwcVfT6xapOjBKGmxl+UbS8oXz9YGC3aU52Y1CCR8FQj8iwOpURZAyLX6V6eDceK4oL1RLSpk8VwsSU/Eu2FVdteSUdG47hq0JbenmsEIkEr1SrugAA"};
 
 // ===== Project Ashbound v0.6.1 engine — Rulebook + sheet " ASHBOUND " + World Building (update 2026-10-24) =====
-const VERSION='v0.9.29';
+const VERSION='v0.9.30';
 let RNG=Math.random;
 const rnd=n=>Math.floor(RNG()*n);
 const pick=a=>a[rnd(a.length)];
@@ -2343,19 +2343,25 @@ let SPEED=1;const sel=[];let CUR=null;const TRAY={pending:null,anim:false};
 function toggleAsm(){const a=$('#asm');if(a.style.display==='block'){a.style.display='none';return;}
  a.innerHTML=`<b>⚠ Assumptions / Placeholders (${ASSUMPTIONS.length})</b> — สิ่งที่ Rulebook V1.3 / ชีต ยังไม่กำหนด ต้นแบบนี้ใช้ค่าสมมติ <button onclick="toggleAsm()">ปิด</button><ol>${ASSUMPTIONS.map(x=>`<li>${esc(x)}</li>`).join('')}</ol>`;a.style.display='block';}
 function heroTip(h){return '<b>'+h.name+'</b> · '+h.role+' · '+h.faction+'\nHP '+h.hp+' · Sp '+h.sp+' · Move '+h.mv+' · Str '+h.str+'⚠ Dex '+h.dex+'⚠ Int '+h.int+'⚠ CHA '+h.cha+'⚠\nPassive — '+h.passive.name+': '+h.passive.txt+'\nOriginal Skill — '+h.skill.name+' ['+h.skill.req.lbl+']: '+h.skill.txt+'\nPassive Upgrade: '+h.ups.map((u,i)=>(i+1)+') '+u).join(' · ')+'\nBlood of the Past: '+(h.ult?h.ult.name+': '+h.ult.txt:'— ไม่มี (ชีตระบุ "-")');}
+function heroPick(id){const i=sel.indexOf(id);if(i>=0)sel.splice(i,1);else if(sel.length<4)sel.push(id);setupScreen();const open=document.getElementById('hdetail');if(open&&open.dataset.id===id)heroDetail(HEROES.find(h=>h.id===id));}
+function heroDetail(h){let el=document.getElementById('hdetail');if(!el){el=document.createElement('div');el.id='hdetail';document.body.appendChild(el);}el.dataset.id=h.id;const on=sel.includes(h.id);
+ const ups=(h.ups||[]).map(u=>`<li>${esc(u)}</li>`).join('');
+ el.innerHTML=`<div class="hdbox"><img src="${artOf(h.id)}" alt=""><div class="hdtx"><h2>${esc(h.name)}</h2><div class="hdrole">${esc(h.role)} · ${h.atk==='mag'?'เวท':'กายภาพ'}${h.faction?' · '+esc(h.faction):''}</div><div class="hdstats">เลือด ${h.hp} · เร็ว ${h.sp} · เดิน ${h.mv} · พลัง ${h.str} · คล่อง ${h.dex} · ปัญญา ${h.int} · เสน่ห์ ${h.cha}</div><h3>ความสามารถติดตัว · ${esc(h.passive.name)}</h3><p>${esc(h.passive.txt)}</p><h3>สกิล · ${esc(h.skill.name)}</h3><p>ลูกเต๋า ${esc(h.skill.req.lbl)}. ${esc(h.skill.txt)}</p><h3>อัปเกรด</h3><ol>${ups}</ol>${h.ult?`<h3>ไม้ตาย · ${esc(h.ult.name)}</h3><p>${esc(h.ult.txt)}</p>`:'<h3>ไม้ตาย</h3><p>ไม่มี</p>'}<div class="hdbtns"><button type="button" id="hdPick">${on?'เอาออก':'เลือกตัวนี้'}</button><button type="button" id="hdLore">เรื่องราว</button><button type="button" id="hdClose">ปิด</button></div></div></div>`;
+ el.querySelector('#hdPick').onclick=()=>heroPick(h.id);
+ el.querySelector('#hdLore').onclick=()=>loreModal(h);
+ el.querySelector('#hdClose').onclick=()=>el.remove();
+ el.onclick=e=>{if(e.target===el)el.remove();};}
 function setupScreen(){
  $('#setup').style.display='block';$('#game').style.display='none';
  const bg=$('#tbg');if(bg&&!bg.dataset.on){bg.dataset.on=1;bg.style.backgroundImage=`url(${artOf('KRASUE')})`;}
  const grid=$('#heroGrid');grid.innerHTML='';
- HEROES.forEach(h=>{const d=document.createElement('div');d.className='hcard'+(sel.includes(h.id)?' on':'');d.dataset.id=h.id;d.dataset.tip=esc(heroTip(h));
-  const n=sel.indexOf(h.id);
-  d.innerHTML=`<img class="hart" src="${artOf(h.id)}"><div class="hgr"></div>${n>=0?`<div class="hsel">✓ ผู้เล่น ${n+1}</div>`:''}<div class="hbody"><div class="hn">${esc(h.name)}</div><div class="hr">${esc(h.role)} · ${h.atk==='mag'?'Mag':'Phy'}</div>
-  <div class="hst"><span>❤ ${h.hp} <i>เลือด</i></span><span>💨 ${h.sp} <i>เร็ว</i></span><span>👣 ${h.mv} <i>เดิน</i></span></div><div class="hspx">💨 Sp = ความเร็ว: ค่ามากได้เล่นก่อนในการต่อสู้</div><div class="hsk">✧ ${esc(h.skill.name)} <i>[${esc(h.skill.req.lbl)}]</i></div><div class="hfac">⚑ ${esc(h.faction||'')}</div><div class="hmot">🎯 ${esc((LORE[h.id]||{}).mot||'')} ✎</div></div><button class="hlore" data-id="${h.id}">📖 เรื่องราว</button>`;
-  d.querySelector('.hlore').onclick=e=>{e.stopPropagation();loreModal(h);};
-  d.onclick=()=>{const i=sel.indexOf(h.id);if(i>=0)sel.splice(i,1);else if(sel.length<4)sel.push(h.id);setupScreen();};
+ HEROES.forEach(h=>{const d=document.createElement('div');d.className='hcard'+(sel.includes(h.id)?' on':'');d.dataset.id=h.id;
+  const n=sel.indexOf(h.id);const sum=(h.passive&&h.passive.sh)||h.role;
+  d.innerHTML=`<img class="hart" src="${artOf(h.id)}" alt="">${n>=0?`<div class="hsel">เลือกแล้ว ${n+1}</div>`:''}<div class="hbody"><div class="hn">${esc(h.name)}</div><p class="hsum">${esc(sum)}</p><button type="button" class="hmore">ดูรายละเอียด</button></div>`;
+  d.querySelector('.hmore').onclick=e=>{e.stopPropagation();heroDetail(h);};
+  d.onclick=()=>heroPick(h.id);
   grid.appendChild(d);});
- ($('#setup')||document.body).classList.toggle('nosel',!sel.length);$('#selInfo').innerHTML=sel.length?`เลือกแล้ว <b>${sel.length}/4</b> — ${sel.map(id=>esc(HEROES.find(h=>h.id===id).name)).join(', ')}`:'คลิกการ์ด Survivor เพื่อเลือก (สูงสุด 4) · เลือกอย่างน้อย 1 ตัวแล้วกดเริ่มเกม · ชี้เมาส์ดูรายละเอียด';
- /* v0.9.2: ลบแผง What's New ออก (pt78u) */
+ ($('#setup')||document.body).classList.toggle('nosel',!sel.length);$('#selInfo').innerHTML=sel.length?`เลือกแล้ว <b>${sel.length}/4</b> — ${sel.map(id=>esc(HEROES.find(h=>h.id===id).name)).join(', ')}`:'แตะการ์ดเพื่อเลือก แล้วกดเริ่มเกม';
 }
 const WHATSNEW=['v0.9.1: รวม Dice Tray ซ้ายกับกล่องลูกเต๋าในแผงฮีโร่เป็นถาดเดียว (แสดงผลรวม/สูงสุด) — หน้าจอ Combat กว้างขึ้น','v0.9.0: กดสำรวจ (Explore) แล้วเปิดหน้าต่างเหตุการณ์ทุกครั้ง — ชื่อการ์ด โซน ข้อความการ์ดจากชีต ทางเลือก และผลลัพธ์; เพิ่มกองการ์ดสำรวจทั่วไป 12 ใบจากชีต (แทน D6 ชั่วคราว); การ์ดที่ชีตไม่มีเนื้อเรื่องติดป้าย ⚠','v0.8.9: นำระบบ Hunt (ล่ามอนสเตอร์) ออก — Combat เกิดจาก Scene / Explore / Ally ตาม Rulebook','นาฬิกาบนแผนที่: วันที่ X/8 · เช้า › บ่าย › กลางคืน · ใครเล่นไปแล้ว/ตาใคร + แถบประกาศเมื่อเปลี่ยนช่วงเวลา/วันใหม่','Passive (Zemaki Reroll / Jack ทิ้ง-ปรับเต๋า) เลือกเองว่าจะใช้ก่อนหลัง หรือไม่ใช้ แล้วค่อยไปวางเต๋า','แสดงระยะโจมตี: ชี้/แตะตัวละคร · ศัตรู · การ์ด Skill / Ultimate เพื่อไฮไลต์ช่องในสนาม · ปุ่ม ☠ ระยะศัตรู','ปุ่ม ✔ Confirm Action — วางเต๋าครบแล้วไม่ออกแอกชันเอง ต้องกดยืนยัน และกดยืนยันได้แม้ยังวางไม่ครบ','เปิด Scene จะมีหน้าต่างบอกว่าเจอ Scene อะไร ที่ไหน และ Quest ที่เกี่ยวข้อง/ได้รับใหม่','ควบคุม Ally ได้เอง: เลือกเดิน ◀ ▶ และเลือกเป้าที่จะตี (บอทยังใช้ AI)','— v0.8.8 —','v0.8.8: Sp เท่ากัน ตาม Rulebook V1.3 — Survivor เท่ากันผู้เล่นตกลงกันเอง, Monster เท่ากันผู้เล่นเลือกตัวที่เล่นก่อน (แตะในแถบ TURN ORDER) · ป้าย "ตาของ X" ย้ายเป็นแถบคงที่ด้านบน ไม่ทับการ์ดศัตรูแล้ว','v0.8.7: แถบ TURN ORDER ด้านบนสนามรบ (รูป+Sp, ตาตอนนี้/ถัดไป, คนที่เล่นแล้วจาง) · แก้ตัวหนังสือซ้อนกัน — ป้าย COMMON หลุดไปอยู่บนการ์ด Stat (STR/DEX/INT/HP/MOV) · ตรวจข้อความซ้อน/ล้นทุกหน้าจอทั้งเดสก์ท็อปและมือถือ','v0.8.6: 🔊 เสียง SFX+บรรยากาศ (ปุ่มปิดเสียงมุมล่างซ้าย) · Intent ใหญ่ขึ้น+กรอบแดงฮีโร่ที่จะโดนตี+เส้นชี้เป้าเมื่อชี้ศัตรู · เต๋ากลิ้งก่อนออกผล · ↶ Undo การวางเต๋า · เลขดาเมจใหญ่/hit-stop/แฟลช/HP bar 2 ชั้น/ศัตรูพุ่งตี · Keyword สี+tooltip+Glossary ในวิธีเล่น · ร้านค้าใหม่+ไอคอน SVG · ช่องว่างในแผงฮีโร่กะทัดรัด','v0.8.5: แถวลูกเต๋า+Stat ติดด้านบน (sticky) ตอนเลื่อนบอร์ด — แก้ปัญหาลากลูกเต๋าไปการ์ดสกิลด้านล่างไม่ได้เมื่อการ์ดเยอะ; สัตว์เลี้ยง Troika ใช้ภาพแมวดำ/หมาดำจากภาพตัวละคร (แทน emoji)','v0.8.4: หน้า COMBAT ใช้ภาพเต็มตัว (ตัดพื้นหลังโปร่งใส) — ฮีโร่ซ้ายหันขวา ศัตรูขวาหันซ้าย, HP/สถานะอยู่เหนือหัว, ไฮไลต์เป้าหมาย + สั่นเมื่อโดนตี (Token บนแผนที่ยังกลมเหมือนเดิม)','v0.8.3: กล่องลูกเต๋าอยู่แถวเดียวกับช่อง Stat แคบๆ (ขนาดเท่าลูกเต๋า) ด้านบน · การ์ดที่มีคำอธิบายยาว (Skill/Ultimate/Attack/Move/Charge/ทิ้งลูก) อยู่แถวล่างแบบกว้าง อ่านง่าย','v0.8.2: จัดเลย์เอาต์ใหม่ — ค่า Stat (STR/DEX/INT/HP/Move…) เรียงเป็นแถวเดียวด้านบน ทั้งช่องวางเต๋าตอนต่อสู้และแผงฮีโร่ · ด้านล่าง = ลูกเต๋า, การ์ด Skill/Ultimate/ท่าพื้นฐาน, Charge/ทิ้งลูก (ยังลากอย่างเดียวเหมือนเดิม)','v0.8.1: ไม่มีปุ่มจอง/เลือกลูกเต๋าแล้ว — ลากลูกเต๋า (เมาส์/นิ้ว) ไปวางบนการ์ดอย่างเดียว · ลากออกหรือย้ายได้','v0.8.1: Skill / Ultimate / Attack / Move เป็นการ์ด Ability แถบล่าง มีช่องเงื่อนไขลูกเต๋า, พรีวิวค่าระหว่างลาก, สถานะ READY / ใช้แล้ว / ล็อก','หน้าจอใหม่ทั้งหมด: Title / แผนที่เต็มจอ / สนามรบแนวนอนแบบ SpellRogue','ศัตรูตัวใหญ่ + Intent เหนือหัว · คลิกศัตรูเพื่อโจมตี · ปุ่มส้ม END TURN','Skill draft / ร้านค้า / ทางเลือกการ์ด = การ์ดใหญ่ "เลือก 1"','ปุ่ม Action ขึ้นข้างช่องที่ยืนอยู่ · Log ย้ายไปลิ้นชัก 📜'];
 function showNew(){}function hideNew(){}
@@ -3669,7 +3675,7 @@ function loreBook(){let el=document.getElementById('loreBook');if(el)return;el=d
 .lbsc{text-align:left;overflow:auto;flex:1;padding-right:8px}.lbin h2{margin:0 0 8px}.lbin h3{color:#e8b04a;margin:14px 0 6px}.lbh{border-top:1px solid #3a2f22;padding:6px 0}.lbh i{color:#b9a888;font-size:12px}.lbs{font-size:13px;color:#cfc2a6}
 #lbBtn{position:fixed;left:8px;bottom:8px;z-index:8000;background:#2a2119;color:#eadfca;border:1px solid #6b5536;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:13px}`;document.head.appendChild(st);
  const b=document.createElement('button');b.id='lbBtn';b.textContent='📖 Lorebook';b.title='เปิด Lorebook อีกครั้ง';b.onclick=loreBook;document.body.appendChild(b);
- const place=()=>{const m=document.getElementById('muteBtn');if(m&&m.getClientRects().length){const r=m.getBoundingClientRect();b.style.left=(r.right+8)+'px';b.style.bottom=(innerHeight-r.bottom)+'px';}};addEventListener('resize',place);let q=0;const sweep=()=>{q=0;place();document.querySelectorAll('.acard,.hcard,#loreBook,.cinfo,.hpas').forEach(kwWrap);
+ const place=()=>{const m=document.getElementById('muteBtn');const setup=document.getElementById('setup');if(setup&&getComputedStyle(setup).display!=='none'){if(m)m.style.display='none';b.style.display='none';return;}if(m){m.style.display='';m.style.top='';m.style.right='';m.style.bottom='';m.style.left='';}b.style.display='';b.style.top='';b.style.right='';if(m&&m.getClientRects().length){const r=m.getBoundingClientRect();b.style.left=(r.right+8)+'px';b.style.bottom=(innerHeight-r.bottom)+'px';}};addEventListener('resize',place);let q=0;const sweep=()=>{q=0;place();document.querySelectorAll('.acard,.hcard,#loreBook,.cinfo,.hpas').forEach(kwWrap);
   document.querySelectorAll('.hcard').forEach(d=>{if(d.querySelector('.hpas'))return;const h=HEROES.find(x=>x.id===d.dataset.id);if(!h||!h.passive.sh)return;const sk=d.querySelector('.hsk');if(!sk)return;const e=document.createElement('div');e.className='hpas';e.style.fontSize='11px';e.title='Passive — '+h.passive.txt;e.textContent='✦ '+h.passive.sh+' ✎';sk.before(e);kwWrap(e);});};
  new MutationObserver(()=>{if(!q){q=1;setTimeout(sweep,60);}}).observe(document.body,{childList:true,subtree:true});
  /* auto-open once when the game screen first appears and no other modal is up */
@@ -4046,6 +4052,43 @@ html body #game.incombat .bfv .toks>.tok.tm .ehp>.ehpn{position:absolute!importa
 #monside .mcard.acting .ehp{outline:1px solid #ffd166}
 html body #game.incombat .bfv .toks>.tok.tm .mkill,#monside .mkill{display:block;font:800 14px/1.25 system-ui,sans-serif;color:#ffe2c4;background:#3a2414;text-align:center;padding:2px 4px;margin:0}
 html body #game.incombat .bfv .toks>.tok.tm .mkill{flex:0 0 auto;width:100%}
+`;document.head.appendChild(st);})();
+
+
+(()=>{const st=document.createElement('style');st.id='v930pick';st.textContent=`
+html body #setup .tin{display:flex;flex-direction:column;gap:14px;padding:18px 20px 28px;min-height:100vh}
+html body #setup .tlogo h1{font-size:clamp(36px,5vw,64px);margin:4px 0}
+html body #setup .tmenu{flex-direction:row;flex-wrap:wrap;margin-top:8px;max-width:none;gap:10px}
+html body #setup .obtn{font-size:18px;padding:12px 16px!important}
+html body #setup .tsel{width:100%}
+html body #setup #heroGrid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))!important;gap:16px!important}
+html body #setup .hcard{position:relative;display:flex;flex-direction:column;height:auto!important;aspect-ratio:auto!important;overflow:hidden;padding:0!important;border-radius:12px!important;border:2px solid #4a3d34!important;background:#14110e!important;cursor:pointer;transform:none!important}
+html body #setup .hcard:hover,html body #setup .hcard:active{transform:none!important;filter:none}
+html body #setup .hcard::after{display:none!important;animation:none!important}
+html body #setup .hcard.on{border-color:#e8b84a!important;box-shadow:0 0 0 3px #e8b84a}
+html body #setup .hcard .hart{position:relative!important;inset:auto!important;width:100%!important;height:168px!important;object-fit:cover;object-position:50% 15%;display:block;margin:0}
+html body #setup .hgr{display:none}
+html body #setup .hbody{position:static;padding:10px 12px 12px;display:flex;flex-direction:column;gap:8px}
+html body #setup .hn{font:800 18px/1.3 system-ui,sans-serif;color:#fff;white-space:normal}
+html body #setup .hsum{margin:0;font:16px/1.4 system-ui,sans-serif;color:#f0e2cc;white-space:normal}
+html body #setup .hsel{position:absolute;top:8px;left:8px;z-index:2;background:#e8b84a;color:#1b1206;font:800 14px/1.2 system-ui,sans-serif;border-radius:8px;padding:4px 8px}
+html body #setup .hmore{align-self:flex-start;font:700 15px/1.2 system-ui,sans-serif;padding:8px 12px;border-radius:8px;background:#2a2118;color:#ffe7c2;border:1px solid #c9a66b;cursor:pointer}
+#hdetail{position:fixed;inset:0;z-index:100000;background:rgba(0,0,0,.72);display:flex;align-items:flex-start;justify-content:center;padding:24px 12px;overflow:auto}
+#hdetail .hdbox{width:min(640px,100%);max-height:calc(100vh - 48px);overflow:auto;background:#1b1612;color:#f3e7d4;border:2px solid #c9a66b;border-radius:14px;display:flex;gap:14px;padding:16px;box-sizing:border-box}
+#hdetail img{width:140px;height:190px;object-fit:cover;border-radius:10px;flex:none}
+#hdetail .hdtx{min-width:0;flex:1}
+#hdetail h2{margin:0 0 4px;font-size:28px;line-height:1.2}
+#hdetail h3{margin:14px 0 4px;font-size:16px;color:#e8b84a}
+#hdetail p,#hdetail li,#hdetail .hdrole,#hdetail .hdstats{font-size:16px;line-height:1.45}
+#hdetail .hdbtns{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;position:sticky;bottom:0;background:#1b1612;padding-top:8px}
+#hdetail button{font:700 16px/1.2 system-ui,sans-serif;padding:10px 14px;border-radius:8px;background:#3a2814;color:#ffe7c2;border:1px solid #e8b84a;cursor:pointer}
+@media (max-width:720px){
+ html body #setup #heroGrid{grid-template-columns:1fr!important}
+ html body #setup .hcard{flex-direction:row;align-items:stretch}
+ html body #setup .hcard .hart{width:112px!important;height:auto!important;min-height:148px}
+ #hdetail .hdbox{flex-direction:column}
+ #hdetail img{width:100%;height:180px}
+}
 `;document.head.appendChild(st);})();
 
 </script></body></html>

@@ -1,3 +1,7 @@
+# Ashbound v0.9.30
+
+The character picker shows a portrait, the name, and one short strength. Full stats, skill text, upgrades, and the ultimate open when you press ดูรายละเอียด. Lore stays behind its own button. Choosing still allows up to 4 people, and Start uses that selection.
+
 # Ashbound v0.9.29
 
 Minions do not have HP. The 2/2 bar was wrong. A minion shows the sheet threshold, for example ฆ่าทันทีเมื่อดาเมจ ≥ 2. One hit at or above that number destroys that minion only. A smaller hit knocks it down; the next hit destroys it. Elites and bosses still show current/max HP.
