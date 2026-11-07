@@ -1,3 +1,9 @@
+# Ashbound v0.9.28
+
+Every enemy on the field shows current/max HP and a bar, including minions (2/2, or 1/2 after they are knocked down), elites, and bosses. The same numbers are on each monster card in the left panel. The number updates as soon as the hit lands.
+
+Rapid Volley is a Str skill: one target, range 2–3 forward, damage (Str+N) once per hit, hit count floor(Dex/2) at level 1 and (Dex−2) at level 2. It already killed when that damage was enough. It could not target a magic-immune enemy, because every non-Int skill was treated as magic. A Str skill is physical again. Full immunity and physical immunity still block it. Standing in melee range, or facing the wrong way, still does not reach a Rang 2–3 shot.
+
 # Ashbound v0.9.27
 
 Same game as v0.9.26. The repeated diagram sentence under each card is gone, including “เลือกเป้าในช่องสีส้ม” and the all-target version of that line. The cell strip still shows which cells are affected. The legend stays once, above the cards. Skill text, damage, range tags, dice sockets, and the buttons that play the turn stay.
