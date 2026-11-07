@@ -1,3 +1,7 @@
+# Ashbound v0.9.27
+
+Same game as v0.9.26. The repeated diagram sentence under each card is gone, including “เลือกเป้าในช่องสีส้ม” and the all-target version of that line. The cell strip still shows which cells are affected. The legend stays once, above the cards. Skill text, damage, range tags, dice sockets, and the buttons that play the turn stay.
+
 # Ashbound v0.9.26
 
 Playable file: `ashbound_v0.9.26.html`. `index.html` is the same file, so the public page serves this version. Older versioned HTML files are unchanged.
