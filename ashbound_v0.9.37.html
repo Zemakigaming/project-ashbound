@@ -2528,7 +2528,7 @@ function nowHint(){
  if(G&&G.cur&&G.cur.bot)return 'รอ '+whoNm(G.cur)+' (บอท) เล่นอยู่';
  return 'รอสักครู่';}
 function paintNow(){
- if(!document.getElementById('nowdoCss')){const st=document.createElement('style');st.id='nowdoCss';st.textContent='#nowdo{pointer-events:none;user-select:none;font:16px/1.4 system-ui,sans-serif;color:#ffe7c2;background:#24180f;border:1px solid #e0a24a;border-radius:8px;padding:8px 12px;box-sizing:border-box;white-space:normal;overflow:visible;min-height:44px;width:100%}#mid>#nowdo{position:sticky;top:0;z-index:8;margin:0 0 6px}#setup #nowdo{display:block;margin:12px 0 0;width:min(640px,100%)}#nowdo:hover{transform:none}';document.head.appendChild(st);}
+ if(!document.getElementById('nowdoCss')){const st=document.createElement('style');st.id='nowdoCss';st.textContent='#nowdo{pointer-events:none;user-select:none;font:16px/1.4 system-ui,sans-serif;color:#ffe7c2;background:#24180f;border:1px solid #e0a24a;border-radius:8px;padding:8px 12px;box-sizing:border-box;white-space:normal;overflow:visible;min-height:44px;width:100%}#mid>#nowdo{position:sticky;top:0;z-index:8;margin:0 0 6px}#setup #nowdo{display:block;margin:12px 0 0;width:min(640px,100%)}#nowdo:hover,.nowpulse:hover{transform:none}.nowpulse{outline:3px solid #ffcf6a;outline-offset:3px;box-shadow:0 0 0 2px #ffcf6a55,0 0 12px #ffb24a88;animation:nowglow 1.8s ease-in-out infinite}@keyframes nowglow{0%,100%{outline-color:#c9852a;box-shadow:0 0 0 2px #ffcf6a44,0 0 8px #ffb24a55}50%{outline-color:#fff1c2;box-shadow:0 0 0 3px #ffe7a0aa,0 0 18px #ffd27acc}}@media (prefers-reduced-motion:reduce){.nowpulse{animation:none;outline-color:#ffcf6a;box-shadow:0 0 0 2px #ffcf6aaa,0 0 12px #ffb24a}}';document.head.appendChild(st);}
  let el=document.getElementById('nowdo');if(!el){el=document.createElement('div');el.id='nowdo';el.setAttribute('role','status');}
  const setup=document.getElementById('setup'),game=document.getElementById('game');
  const gameOn=game&&getComputedStyle(game).display!=='none';
@@ -2536,6 +2536,35 @@ function paintNow(){
  if(gameOn){const mid=document.getElementById('mid');if(mid&&el.parentElement!==mid)mid.prepend(el);}
  else if(setupOn){const logo=setup.querySelector('.tlogo');if(logo){if(el.previousElementSibling!==logo)logo.after(el);}else if(el.parentElement!==setup)setup.prepend(el);}
  const t=nowHint();if(el.textContent!==t)el.textContent=t;
+ nowMark();
+}
+function shownEls(list){return list.filter(el=>el&&el.getClientRects().length&&!el.disabled&&!el.classList.contains('why'));}
+function nowEls(){
+ const lb=document.getElementById('lbOk');
+ if(lb&&lb.getClientRects().length)return [lb];
+ const rw=document.getElementById('reward');
+ if(rw&&rw.classList.contains('show')){const b=document.getElementById('rwOk');return b&&b.getClientRects().length?[b]:[];}
+ const setup=document.getElementById('setup'),game=document.getElementById('game');
+ const setupOn=setup&&getComputedStyle(setup).display!=='none';
+ const gameOn=game&&getComputedStyle(game).display!=='none';
+ if(setupOn&&!gameOn){
+  if(!sel.length)return shownEls([...document.querySelectorAll('#setup .hcard')]);
+  return shownEls([...document.querySelectorAll('#setup button')].filter(b=>/เริ่มเกม/.test(b.innerText||'')&&!/สอน|ออนไลน์|Bot/.test(b.innerText||'')));
+ }
+ if((typeof NETWAIT!=='undefined'&&NETWAIT)||(TRAY.pending&&TRAY.pending.remote)||(!CUR&&!(TRAY.pending)))return [];
+ if(TRAY.pending){const b=document.getElementById('rollBtn');if(b&&b.getClientRects().length)return [b];
+  const mini=document.getElementById('dashsum');return mini&&mini.getClientRects().length?[mini]:[];}
+ const k=CUR.kind;
+ if(k==='event'){const b=document.getElementById('evOk');return b&&b.getClientRects().length?[b]:[];}
+ if(k==='scene'){const b=document.getElementById('sceneOk');return b&&b.getClientRects().length?[b]:[];}
+ if(dockHidden()&&!['setup','unit','target','ally'].includes(k)){const mini=document.getElementById('dashsum');return mini&&mini.getClientRects().length?[mini]:[];}
+ if(k==='place'||k==='skilldice')return shownEls([...document.querySelectorAll('#choices .ppool .pdie,#planOk')]);
+ return shownEls([...document.querySelectorAll('#choices button,.vnopt')]);
+}
+function nowMark(){
+ const next=new Set(nowEls());
+ document.querySelectorAll('.nowpulse').forEach(el=>{if(!next.has(el))el.classList.remove('nowpulse');});
+ next.forEach(el=>el.classList.add('nowpulse'));
 }
 function hintText(){return nowHint();}
 function drawPhase(){const el=$('#phasebar');if(!el)return;const c=G.cur;
@@ -2573,7 +2602,7 @@ function buildAsk(p,kind,prompt,opts,bi,res,noAuto){
  if(kind==='event'){CUR={p,kind,opts,bi,res:done,prompt};box.innerHTML='';box.className='';render();return;}
  {const g=document.getElementById('game'); if(g){const show=kind==='ally'||kind==='setup'||kind==='unit'||kind==='target';g.classList.toggle('allyturn', show); const R=document.getElementById('right'); if(R&&show&&g.classList.contains('cv-board'))R.style.setProperty('max-height','320px','important');}}
  if(kind==='scene'){CUR={p,kind,opts,bi,res:done,prompt};box.innerHTML='';box.className='';render();return;}
- CUR={p,kind,opts,bi,res:done,prompt};
+ CUR={p,kind,opts,bi,res:done,prompt};if(typeof paintNow==='function')paintNow();
  let h=(kind==='shop'?`<div class="event"><div><b>🛒 ร้านค้าเด็กสาวลึกลับ</b><br><small>มอลล์ B7 · ราคาจากแท็บ Items${G.promo?" · โปรโมชั่น 50% ชิ้นถัดไป":""}</small></div></div>`:'')+`<div class="prompt">${MODALK.includes(kind)?'<small>เลือก 1</small>':''}${esc(G.combat?prompt.replace(/ขึ้น ▲/g,'ขวา ▶').replace(/ลง ▼/g,'ซ้าย ◀'):prompt)}</div>`;
  box.innerHTML=h;
  if(kind==='place'){const g=document.createElement('div');g.className='slotgrid';box.appendChild(g);box.classList.add('placek');
