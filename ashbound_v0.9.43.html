@@ -2473,8 +2473,16 @@ function showReward(a,b,res){const won=res?res==='win':b.wins>a.wins,rows=[];
  r.innerHTML=`<div class="rwbox ${won?'win':'lose'}"><div class="rwt">${won?'🏆 ชนะ!':'💀 แพ้การต่อสู้'}</div><div class="rws">${won?'ชนะการต่อสู้':res==='timeout'?'หมดเวลา':res==='retreat'?'ถอยหนี':'ทุกคนล้มลง'} — สรุปผล</div><div class="rwg">${rows.join('')||'<div class="sm">ไม่มีของเปลี่ยนแปลง</div>'}</div><button id="rwOk" class="rec">ดำเนินต่อ ▶</button></div>`;
  r.className='show';const close=()=>{r.className='';if(typeof paintNow==='function')paintNow();};$('#rwOk').onclick=close;clearTimeout(showReward.t);if(typeof paintNow==='function')paintNow();}
 /* ---- card HTML ---- */
-function skillCard(p,s,i){if(!s)return `<div class="mcard empty">Skill ${i+1}</div>`;const acc=p.acc&&p.acc[s.orig?'orig':'s'+s.no];
- return `<div class="mcard sk tcm ${skRar(s)} ${s.orig?'orig':''}" data-tip="${esc('<b>'+s.name+'</b> · Cost '+s.cost.lbl+'\n'+s.txt)}"><div class="tc-art art-${skArt(s)}"></div>${tcSocks(s)}<div class="mnm">${esc(s.name)}</div>${acc?`<div class="macc">${esc(String(acc))}</div>`:''}</div>`;}
+function skillCard(p,s,i){if(!s)return `<div class="mcard empty">Skill ${i+1}</div>`;const c=s.cost||{},acc=p.acc&&p.acc[s.orig?'orig':'s'+s.no];
+ let tag='',sub='';
+ if(c.type==='collect'){const need=Math.max(1,c.total||1);tag='สะสม';sub=acc?acc+'/'+need:String(need);}
+ else if(c.type==='same')tag='เท่ากัน';
+ else if(c.type==='pair')tag=(c.lo!=null?c.lo:1)+'–'+(c.hi!=null?c.hi:6);
+ else if(c.type==='range')tag=(c.min!=null?c.min:1)+'–'+(c.max!=null?c.max:6);
+ else if(c.type==='sum')tag='รวม '+(c.total||0);
+ else if(c.type==='any')tag=(c.n||1)+' ลูก';
+ else if(c.type&&c.type!=='none'&&c.lbl)tag=String(c.lbl).split(',')[0].trim();
+ return `<div class="mcard sk tcm ${skRar(s)} ${s.orig?'orig':''}" data-tip="${esc('<b>'+s.name+'</b> · Cost '+(c.lbl||'')+'\n'+s.txt)}"><div class="tc-art art-${skArt(s)}"></div><div class="mnm">${esc(s.name)}</div>${tag?`<div class="mcost">${esc(tag)}${sub?`<br>${esc(sub)}`:''}</div>`:''}</div>`;}
 function itemCard(k,i){if(!k)return `<div class="mcard empty it">Item ${i+1}</div>`;const I=ITEMS[k];
  return `<div class="mcard it tcm com" data-tip="${esc('<b>'+I.name+'</b>\n'+I.txt)}"><div class="tc-art art-item"></div><div class="mic">${itemIcon(k)}</div><div class="mnm">${esc(I.name.split(' (')[0])}</div></div>`;}
 function hpBar(u,max,extra){const hp=Math.max(0,u.hp),t=u.wtemp||0,tot=Math.max(max,hp+t);
@@ -3584,7 +3592,7 @@ let estT=null;const ol=window.logLine;if(typeof ol==='function'){window.logLine=
 const pc=window.planCommit;if(typeof pc==='function'){window.planCommit=async function(){if(!PLAN||!PLAN.pending)return;const free=PLAN.pool.filter(i=>!PLAN.at[i]).length;const b=document.getElementById('planOk');
  if(free&&!window.FAST){if(!await confirmBox(`ยังมีลูกเต๋า ${free} ลูกที่ไม่ได้วาง — ลูกเหล่านี้จะไม่ถูกใช้ในเทิร์นนี้ ยืนยันต่อไหม?`))return;}
  if(b)b.classList.add('pressed');toast('✓ ยืนยันแล้ว');pc();};planCommit=window.planCommit;}
-function toast(t){let e=document.getElementById('v98ok');if(!e){e=document.createElement('div');e.id='v98ok';document.body.appendChild(e);}e.textContent=t;e.className='show';clearTimeout(toast.t);toast.t=setTimeout(()=>e.className='',window.FAST?200:1300);}
+function toast(t){const g=document.getElementById('game');if(g&&g.classList.contains('incombat'))return;let e=document.getElementById('v98ok');if(!e){e=document.createElement('div');e.id='v98ok';document.body.appendChild(e);}e.textContent=t;e.className='show';clearTimeout(toast.t);toast.t=setTimeout(()=>e.className='',window.FAST?200:1300);}
 window.v98ok=toast;
 /* Move card: whole body clickable */
 let pd0=null;document.addEventListener('pointerdown',e=>{pd0=[e.clientX,e.clientY,e.target];},true);
@@ -4623,5 +4631,8 @@ html body #combat .tok.pickon{outline:3px solid #ffcf6a;outline-offset:3px;curso
 html body #combat .tok.pickok{outline:3px solid #7dff9a;outline-offset:3px}
 html body #pickBar{display:flex;gap:8px;align-items:center;padding:8px}
 html body #pickBar .prompt{margin:0}
+html body #party .mrow .mcard{overflow:hidden!important;height:auto!important;min-height:0!important;margin:0!important;display:flex!important;flex-direction:column;align-items:stretch;justify-content:flex-start;padding:4px!important}
+html body #party .mrow .mcard .tc-socks,html body #party .mrow .mcard .macc{display:none!important}
+html body #party .mrow .mcard .mcost{position:static!important;display:block!important;margin:2px 0 0!important;padding:0!important;max-width:100%!important;overflow:hidden!important;white-space:normal!important;background:none!important;color:#ffe2a0;font:700 11px/1.15 system-ui,sans-serif;text-align:center}
 `;document.head.appendChild(s);})();
 </script></body></html>
