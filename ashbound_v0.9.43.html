@@ -910,7 +910,7 @@ const ASSUMPTIONS=['⚠ v0.8.9 Confirm Action: เต๋าที่ไม่ไ
  'เด็กปั๊ม A6: ซื้อน้ำมันได้หลายถังตอนเปิดการ์ด (2 เหรียญ/ถัง)',
  'Ronan เริ่มด้วย Ally สุ่มจาก ช่าง/นักโทษ/ลูกนายอำเภอ/ตำรวจ',
  'B5-1: คนไร้บ้านออกจากกลุ่ม',
- 'De-Armor: ดาเมจครั้งถัดไป ×1.5 ต่อ stack; Poison: เสีย 1 HP/เทิร์น ต่อ stack (สูงสุด 3), หายเมื่อจบการต่อสู้',
+ 'De-Armor: ดาเมจครั้งถัดไป ×1.5 ต่อ stack; Poison: เสีย 1 HP/เทิร์น ต่อ stack สะสมได้ไม่จำกัด, หายเมื่อจบการต่อสู้',
  'ชื่อในเกมใช้ตาม World Building: Lydia (ชีต Lilith), Dixon (ชีต Dissen), Jack Blackwood (ชีต Jack Hartmere)',
 ];
 // ---------------- Heroes (sheet Survivor tab; names = World Building) ----------------
@@ -2009,7 +2009,7 @@ function hurtS(C,s,dmg,src,eff={}){
  if(q.wtemp){const b=Math.min(q.wtemp,dmg);q.wtemp-=b;dmg-=b;}
  q.hp-=dmg;log(`${src} → ${q.name} โดน ${dmg} ดาเมจหลังกัน (HP ${Math.max(0,q.hp)}/${q.maxhp})`,'bad');markFlash(q,q.hp<=0?'dead':'hit');
  if(dmg>0&&q.id==='dixon'&&upg(q,3)){q.intAdd=(q.intAdd||0)+1;q.strAdd=(q.strAdd||0)+1;log(`${q.name} ได้รับความเสียหาย: +1 Int +1 Str ชั่วคราว`,'good');}
- if(eff.poison){q.poison=Math.min(3,q.poison+eff.poison);log(`${src} ทำให้ ${q.name} ติดพิษ +${eff.poison} (รวม ${q.poison})`,'bad');}
+ if(eff.poison){q.poison=(q.poison||0)+eff.poison;log(`${src} ทำให้ ${q.name} ติดพิษ +${eff.poison} (รวม ${q.poison})`,'bad');}
  if(eff.stun){q.stun=1;log(`${src} ทำให้ ${q.name} ติด Stun`,'bad');}
  if(eff.dearmor){q.dearm=(q.dearm||0)+eff.dearmor;log(`${src} ทำให้ ${q.name} ติด De-Armor +${eff.dearmor}`,'bad');}
  if(eff.mb){q.mb=(q.mb||0)+eff.mb;log(`${src} ทำให้ ${q.name} ติดมึน +${eff.mb}`,'bad');}
@@ -3910,7 +3910,7 @@ html body #game #choices.planb #pstat{align-self:center!important}
  const of=window.fxScan;if(typeof of==='function'){window.fxScan=fxScan=function(){const seen={};document.querySelectorAll('[data-uk^="m"]').forEach(el=>{const r=el.getBoundingClientRect();if(r.width)seen[el.dataset.uk]={r,hp:+el.dataset.hp};});
   
   for(const k in R)delete R[k];Object.assign(R,seen);return of.apply(this,arguments);};}
- const KW={Poison:'พิษ: เสีย 1 HP ต่อเทิร์นต่อสแตก (สูงสุด 3) หายเมื่อจบการต่อสู้',Taunt:'ยั่วยุ: ศัตรูต้องโจมตีเป้าหมายนี้ก่อน',Charge:'พุ่งชน: เก็บลูกเต๋าไว้ใช้รอบหน้า / โจมตีพร้อมเคลื่อนที่','De-Armor':'เกราะแตก: ดาเมจครั้งถัดไป ×1.5 ต่อสแตก',Splash:'กระเซ็น: ดาเมจโดนศัตรูทุกตัวในช่องเดียวกัน'};
+ const KW={Poison:'พิษ: เสีย 1 HP ต่อเทิร์นต่อสแตก สะสมได้ไม่จำกัด หายเมื่อจบการต่อสู้',Taunt:'ยั่วยุ: ศัตรูต้องโจมตีเป้าหมายนี้ก่อน',Charge:'พุ่งชน: เก็บลูกเต๋าไว้ใช้รอบหน้า / โจมตีพร้อมเคลื่อนที่','De-Armor':'เกราะแตก: ดาเมจครั้งถัดไป ×1.5 ต่อสแตก',Splash:'กระเซ็น: ดาเมจโดนศัตรูทุกตัวในช่องเดียวกัน'};
  function fix(){const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){const t=n.nodeValue;if(!t||!/Challenge|\bHp\b|Poison|Taunt|Charge|Splash|De-Armor/.test(t))continue;const p=n.parentElement;if(!p||/SCRIPT|STYLE/.test(p.tagName))continue;
    let u=t.replace(/\bChallenge\b/g,'ท้าทาย').replace(/\bHp\b/g,'HP');if(u!==t)n.nodeValue=u;
    if(!p.title||p.dataset.kw){const ks=Object.keys(KW).filter(k=>u.includes(k));if(ks.length){p.title=ks.map(k=>KW[k]).join('\n');p.dataset.kw=1;p.style.cursor='help';}}}
@@ -4634,5 +4634,7 @@ html body #pickBar .prompt{margin:0}
 html body #party .mrow .mcard{overflow:hidden!important;height:auto!important;min-height:0!important;margin:0!important;display:flex!important;flex-direction:column;align-items:stretch;justify-content:flex-start;padding:4px!important}
 html body #party .mrow .mcard .tc-socks,html body #party .mrow .mcard .macc{display:none!important}
 html body #party .mrow .mcard .mcost{position:static!important;display:block!important;margin:2px 0 0!important;padding:0!important;max-width:100%!important;overflow:hidden!important;white-space:normal!important;background:none!important;color:#ffe2a0;font:700 11px/1.15 system-ui,sans-serif;text-align:center}
+html body #party .st.po,html body #game.incombat .bfv .toks>.tok.ts .tpo{white-space:nowrap;font:800 14px/1.2 system-ui,sans-serif}
+html body #game.incombat .bfv .toks>.tok.ts .tpo{display:block!important;position:absolute!important;top:2px!important;right:2px!important;left:auto!important;bottom:auto!important;z-index:7;background:#14300c;color:#d6ffb0;border:1px solid #6ab04a;border-radius:8px;padding:1px 5px}
 `;document.head.appendChild(s);})();
 </script></body></html>
