@@ -1820,9 +1820,17 @@ async function startCombat(p,o={}){
   if(res!=='timeout'){G.food=Math.max(0,G.food-1);log('ทุกคนฟื้น 1 HP · อาหาร −1 ⚠','bad');}}
  if(parts.some(q=>q.allies.some(a=>a.k==='homeless'))){G.food=Math.max(0,G.food-1);log('คนไร้บ้าน: เสบียงหาย 1','bad');}
  G.lastCombat={res,downed:C.downed,reason:C.reason};G.combatEndN=(G.combatEndN||0)+1;
- G.holdHits=(C.hits||[]).slice();
- G.combat=null;IO.render();if(typeof paintHits==='function')paintHits();
- if(IO.afterCombat)await IO.afterCombat(res);
+ G.holdHits=(C.hits||[]).slice();C.hits=G.holdHits;
+ G.summarizing=true;clearFloats();
+ if(typeof CVIEW!=='undefined'&&CVIEW!=='board'&&typeof cvSwap==='function')cvSwap('board');
+ const box=document.getElementById('choices');if(box){box.innerHTML='';box.className='';}
+ IO.render();if(typeof paintHits==='function')paintHits();clearFloats();
+ window.FX_ENDN=G.combatEndN;
+ const before=typeof FX_SNAP!=='undefined'&&FX_SNAP?FX_SNAP:snapRes();
+ showReward(before,snapRes(),res);
+ const rw=document.getElementById('reward');const host=document.getElementById('combat');const bfv=host&&host.querySelector('.bfv');
+ if(rw&&bfv)bfv.before(rw);else if(rw&&host)host.appendChild(rw);
+ await new Promise(ok=>{const go=()=>{G.summarizing=false;clearFloats();G.holdHits=null;const h=document.getElementById('hitLog');if(h)h.remove();if(rw)rw.className='';document.querySelectorAll('[data-uk]').forEach(el=>{FXHP[el.dataset.uk]=+el.dataset.hp;});G.combat=null;IO.render();clearFloats();setTimeout(clearFloats,350);ok();};const b=document.getElementById('rwOk');if(b)b.onclick=go;else go();});
  return res;
 }
 async function rollPool(q,C){
@@ -2434,7 +2442,8 @@ function previewAtk(q,u,d,type){u=findUnit(u);if(!u)return null;const C=G.combat
 /* ---- floating numbers ---- */
 const FXHP={};let FXON=false;
 function fxLayer(){let l=$('#fxl');if(!l){l=document.createElement('div');l.id='fxl';document.body.appendChild(l);}return l;}
-function fxFloat(el,txt,cls){if(!el)return;const r=el.getBoundingClientRect();if(!r.width)return;const s=document.createElement('div');s.className='fnum '+cls;s.textContent=txt;
+function clearFloats(){document.querySelectorAll('.fnum,.rdelta,#v98ok,#turnban').forEach(n=>n.remove());const f=document.getElementById('foeDid');if(f&&G&&G.summarizing)f.style.display='none';}
+function fxFloat(el,txt,cls){if(!el||(G&&G.summarizing))return;const r=el.getBoundingClientRect();if(!r.width)return;const s=document.createElement('div');s.className='fnum '+cls;s.textContent=txt;
  s.style.left=(r.left+r.width/2+(Math.random()*16-8))+'px';s.style.top=(r.top+r.height*0.35)+'px';fxLayer().appendChild(s);setTimeout(()=>s.remove(),1300);}
 function fxScan(){const m={};document.querySelectorAll("[data-uk]").forEach(el=>{m[el.dataset.uk]=el;});Object.entries(m).forEach(([k,el])=>{const hp=+el.dataset.hp;
  if(k in FXHP&&FXON){const d=hp-FXHP[k];if(d<0){fxFloat(el,String(d),'dmg');el.classList.add('hit');}else if(d>0)fxFloat(el,'+'+d,'heal');}FXHP[k]=hp;});FXON=true;}
@@ -2461,7 +2470,7 @@ function showReward(a,b,res){const won=res?res==='win':b.wins>a.wins,rows=[];
   const hp=b.hp[i]-a.hp[i];if(hp)rows.push(`<div class="rw ${hp>0?'up':'dn'}"><span>❤</span><b>${esc(p.name)} ${hp>0?'ได้':'เสีย'} ${Math.abs(hp)} HP</b></div>`);});
  let r=$('#reward');if(!r){r=document.createElement('div');r.id='reward';document.body.appendChild(r);}
  r.innerHTML=`<div class="rwbox ${won?'win':'lose'}"><div class="rwt">${won?'🏆 ชนะ!':'💀 แพ้การต่อสู้'}</div><div class="rws">${won?'ชนะการต่อสู้':res==='timeout'?'หมดเวลา':res==='retreat'?'ถอยหนี':'ทุกคนล้มลง'} — สรุปผล</div><div class="rwg">${rows.join('')||'<div class="sm">ไม่มีของเปลี่ยนแปลง</div>'}</div><button id="rwOk" class="rec">ดำเนินต่อ ▶</button></div>`;
- r.className='show';const close=()=>{r.className='';if(typeof paintNow==='function')paintNow();};$('#rwOk').onclick=close;clearTimeout(showReward.t);if(window.FAST)showReward.t=setTimeout(close,1500);if(typeof paintNow==='function')paintNow();}
+ r.className='show';const close=()=>{r.className='';if(typeof paintNow==='function')paintNow();};$('#rwOk').onclick=close;clearTimeout(showReward.t);if(typeof paintNow==='function')paintNow();}
 /* ---- card HTML ---- */
 function skillCard(p,s,i){if(!s)return `<div class="mcard empty">Skill ${i+1}</div>`;const acc=p.acc&&p.acc[s.orig?'orig':'s'+s.no];
  return `<div class="mcard sk tcm ${skRar(s)} ${s.orig?'orig':''}" data-tip="${esc('<b>'+s.name+'</b> · Cost '+s.cost.lbl+'\n'+s.txt)}"><div class="tc-art art-${skArt(s)}"></div>${tcSocks(s)}<div class="mnm">${esc(s.name)}</div>${acc?`<div class="macc">${esc(String(acc))}</div>`:''}</div>`;}
@@ -3910,7 +3919,7 @@ html body #game #choices.planb #pstat{align-self:center!important}
 })();
 (function(){let seen=null;
  function mEl(name){let best=null;document.querySelectorAll('[data-uk^="m"]').forEach(el=>{if(el.getBoundingClientRect().width&&el.textContent.includes(name))best=best||el;});return best;}
- setInterval(()=>{try{if(!window.G||!G.log)return;const L=G.log;if(seen===null||seen>L.length){seen=L.length;return;}
+ setInterval(()=>{try{if(!window.G||!G.log||G.summarizing)return;const L=G.log;if(seen===null||seen>L.length){seen=L.length;return;}
   const g=document.getElementById('game');const inC=g&&g.classList.contains('incombat');
   for(let i=seen;i<L.length;i++){const m=String(L[i].m||'');let r=m.match(/→ (.+?) (\d+) ดาเมจ/),txt,nm;
    if(r){nm=r[1];txt='-'+r[2];}else if(r=m.match(/ล้ม (.+?) \(/)){nm=r[1];txt='ล้ม!';}
@@ -4094,10 +4103,8 @@ const mo2=new MutationObserver(()=>{const lb=document.getElementById('loreBook')
 const go2=()=>mo2.observe(document.body,{childList:true});if(document.body)go2();else addEventListener('DOMContentLoaded',go2);
 
 // 9) + 18) combat end: loss popup blocks until clicked; win summary is a short auto-closing toast
-if(typeof IO!=='undefined'){IO.afterCombat=res=>new Promise(ok=>{const finish=()=>{G.holdHits=null;const h=document.getElementById('hitLog');if(h&&h.classList.contains('hold'))h.remove();ok();};if(window.FAST){setTimeout(finish,400);return;}
- const t0=Date.now();const iv=setInterval(()=>{const r=document.getElementById('reward');if(!r||!r.classList.contains('show')||Date.now()-t0>600000){clearInterval(iv);finish();}},120);});}
-if(typeof showReward==='function'){const _sr=showReward;window.showReward=showReward=function(a,b,res){_sr(a,b,res);const r=document.getElementById('reward');if(!r)return;const won=r.querySelector('.rwbox.win');
- if(won){r.classList.add('v923win');clearTimeout(showReward.t2);}else r.classList.remove('v923win');
+if(typeof IO!=='undefined'){IO.afterCombat=()=>Promise.resolve();}
+if(typeof showReward==='function'){const _sr=showReward;window.showReward=showReward=function(a,b,res){_sr(a,b,res);const r=document.getElementById('reward');if(!r)return;r.classList.remove('v923win');
  const t=document.getElementById('v910toast');if(t)t.remove();};}
 const s2=document.createElement('style');s2.textContent=`#reward.v923win{background:transparent!important;pointer-events:none}#reward.v923win .rwbox{pointer-events:auto;transform:scale(.85);transform-origin:top center;position:fixed;top:70px;left:50%;margin-left:-160px;width:320px}#reward.v923win .rws{display:none}`;document.head.appendChild(s2);
 })();
@@ -4602,7 +4609,14 @@ html body #game.incombat.cv-board .cell>.mdot{position:absolute;left:6px;bottom:
 html body #game.incombat .mdot.justdead{opacity:.85;filter:grayscale(.4);outline:2px solid #d42828}
 html body #game.incombat .tok.justhit{outline:3px solid #ffb24a;outline-offset:2px}
 html body #hitLog{max-height:140px;overflow:auto;font:14px/1.35 system-ui,sans-serif;color:#ffe7c2;background:#24140f;border:1px solid #a85a32;border-radius:8px;padding:4px 8px;margin:2px 6px}
-html body #hitLog.hold{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:8600;width:min(680px,92vw);max-height:180px;pointer-events:none;box-shadow:0 8px 24px #000a}
+html body #game.incombat #combat:has(#reward.show){grid-template-rows:auto auto auto auto minmax(120px,1fr)!important}
+html body #game.incombat #combat:has(#reward.show)>#hitLog{grid-column:1/-1;grid-row:3}
+html body #game.incombat #combat:has(#reward.show)>#reward.show{grid-column:1/-1;grid-row:4}
+html body #game.incombat #combat:has(#reward.show)>.bfv{grid-row:5!important}
+html body #game.incombat #reward.show{position:relative!important;left:auto!important;top:auto!important;transform:none!important;z-index:6;display:block!important;margin:4px 8px;width:auto;pointer-events:auto;background:none}
+html body #game.incombat #reward.show .rwbox{position:relative!important;left:auto!important;top:auto!important;transform:none!important;width:min(560px,100%)!important;margin:0!important;pointer-events:auto}
+html body #game.incombat #reward.show .rws{display:block!important}
+html body #game.incombat #hitLog{position:relative;z-index:5;margin:4px 8px;min-height:88px;max-height:140px;line-height:1.45;background:#24140f}
 html body #game.incombat.cv-dash #hitLog{max-height:120px}
 html body #combat .tok.pickon{outline:3px solid #ffcf6a;outline-offset:3px;cursor:pointer}
 html body #combat .tok.pickok{outline:3px solid #7dff9a;outline-offset:3px}
