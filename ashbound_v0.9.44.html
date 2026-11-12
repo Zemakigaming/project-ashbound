@@ -4638,26 +4638,28 @@ html body #party .mrow .mcard .mcost{position:static!important;display:block!imp
 html body #party .st.po,html body #game.incombat .bfv .toks>.tok.ts .tpo{white-space:nowrap;font:800 14px/1.2 system-ui,sans-serif}
 html body #game.incombat .bfv .toks>.tok.ts .tpo{display:block!important;position:absolute!important;top:2px!important;right:2px!important;left:auto!important;bottom:auto!important;z-index:7;background:#14300c;color:#d6ffb0;border:1px solid #6ab04a;border-radius:8px;padding:1px 5px}
 html body.hstop .fnum{animation-play-state:running!important}
-html body #game.incombat.cv-board #mid,html body #game.incombat.cv-board #combat{overflow:auto!important}
-html body #game.incombat .bfv:not(.bfv-compact){min-height:220px!important;height:auto!important;align-items:stretch!important}
-html body #game.incombat .bfv:not(.bfv-compact) .cell{overflow:visible!important;min-height:168px!important;height:auto!important}
-html body #combat .bfv .cell>.toks,html body #game.incombat .bfv:not(.bfv-compact) .toks{display:flex!important;flex-wrap:wrap!important;align-items:flex-end!important;align-content:flex-end!important;justify-content:center!important;gap:4px 4px!important;row-gap:4px!important;margin-top:4px!important;padding:18px 2px 4px!important;overflow:visible!important;width:100%!important;min-height:0!important}
-html body #game.incombat .bfv .toks>.tok.fig{flex:1 1 42px!important;width:auto!important;max-width:100%!important;min-width:0!important;height:auto!important}
-html body #game.incombat .bfv .toks>.tok.fig>img.fimg{width:100%!important;height:auto!important;max-height:120px!important;min-height:0!important}
-html body #game.incombat .bfv .toks:has(>.tok:nth-child(3))>.tok.fig>img.fimg{max-height:84px!important}
-html body #game.incombat .bfv .toks:has(>.tok:nth-child(5)){display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;justify-items:center!important}
-html body #game.incombat .bfv .toks:has(>.tok:nth-child(5))>.tok.fig>img.fimg{max-height:64px!important}
+html body #game.incombat.cv-board #mid{min-height:0!important;overflow:hidden!important}
+html body #game.incombat.cv-board #combat{overflow:hidden!important;min-height:0!important;height:100%!important;box-sizing:border-box!important}
+html body #game.incombat.cv-board .bfv:not(.bfv-compact){min-height:0!important;height:100%!important;max-height:100%!important;align-items:stretch!important;overflow:hidden!important;box-sizing:border-box!important}
+html body #game.incombat.cv-board .bfv:not(.bfv-compact) .cell{overflow:hidden!important;min-height:0!important;height:100%!important;max-height:100%!important;display:flex!important;flex-direction:column!important;padding:2px 3px 0!important;box-sizing:border-box!important}
+html body #game.incombat.cv-board .bfv:not(.bfv-compact) .cn{position:relative!important;z-index:5;flex:0 0 auto;width:100%;margin:0 0 2px!important;padding:1px 4px;line-height:1.25;background:#120e12;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html body #game.incombat.cv-board #combat .bfv:not(.bfv-compact) .cell>.toks{flex:1 1 0!important;min-height:0!important;height:auto!important;max-height:100%!important;overflow:hidden!important;display:grid!important;grid-template-columns:minmax(0,1fr)!important;grid-auto-rows:minmax(0,1fr)!important;align-items:stretch!important;justify-items:stretch!important;align-content:stretch!important;gap:2px!important;row-gap:2px!important;margin:0!important;padding:0!important;width:100%!important;box-sizing:border-box!important}
+html body #game.incombat.cv-board #combat .bfv:not(.bfv-compact) .cell>.toks:has(>.tok:nth-child(2)){grid-template-columns:repeat(2,minmax(0,1fr))!important}
+html body #game.incombat.cv-board #combat .bfv:not(.bfv-compact) .cell>.toks:has(>.tok:nth-child(5)){grid-template-columns:repeat(3,minmax(0,1fr))!important}
+html body #game.incombat.cv-board .bfv:not(.bfv-compact) .toks>.tok.fig{display:flex!important;flex-direction:column!important;width:100%!important;max-width:100%!important;height:100%!important;max-height:100%!important;min-width:0!important;min-height:0!important;margin:0!important;overflow:hidden!important;align-self:stretch!important;justify-content:flex-end!important;box-sizing:border-box!important}
+html body #game.incombat.cv-board .bfv:not(.bfv-compact) .toks>.tok.fig>img.fimg{flex:1 1 0!important;width:100%!important;max-width:100%!important;height:0!important;max-height:100%!important;min-height:0!important;object-fit:contain!important;object-position:50% 100%!important}
+html body #game.incombat .bfv .tok.cur,html body #game.incombat .bfv .tok.fig.cur,html body #game.incombat .bfv .tok.v911tgt,html body #game.incombat .bfv .v911tgt,html body #game.incombat .bfv .tok.justhit,html body #game.incombat .bfv .tok.targeted,html body #game.incombat .bfv .tok.pickon,html body #game.incombat .bfv .tok.pickok,html body #game.incombat .bfv .tok.nowpulse{outline-offset:-3px!important}
 html body #game.incombat .bfv .toks>.tok .thb,html body #game.incombat .bfv .toks>.tok .thp,html body #game.incombat .bfv .toks>.tok .ehpn{display:none!important}
-html body #game.incombat .hhart{position:relative;display:flex;align-items:center;justify-content:center;width:48px;height:42px;flex:none;margin-top:1px;pointer-events:none}
+html body #game.incombat .hhart{position:relative;display:flex;align-items:center;justify-content:center;width:min(48px,100%);height:34px;max-height:34px;flex:0 0 auto;margin:0;pointer-events:none}
 html body #game.incombat .hhart svg{position:absolute;inset:0;width:100%;height:100%;fill:#e23b3b;filter:drop-shadow(0 1px 1px #000)}
 html body #game.incombat .hhart.low svg{fill:#7a1818}
 html body #game.incombat .hhart b{position:relative;z-index:1;color:#fff;font:800 16px/1 system-ui,sans-serif;text-shadow:0 1px 2px #000;letter-spacing:-.4px}
 html body #game.incombat .hhart.wide{width:58px}
 html body #game.incombat .hhart.wide b{font-size:13px}
-html body #game.incombat .bfv .toks:has(>.tok:nth-child(5)) .hhart{width:34px;height:30px}
+html body #game.incombat .bfv .toks:has(>.tok:nth-child(5)) .hhart{width:min(36px,100%);height:26px;max-height:26px}
 html body #game.incombat .bfv .toks:has(>.tok:nth-child(5)) .hhart b{font-size:12px}
-html body #game.incombat .bfv .toks:has(>.tok:nth-child(5)) .hhart.wide{width:40px}
-html body #game.incombat .bfv .toks:has(>.tok:nth-child(5)) .hhart.wide b{font-size:10px}
+html body #game.incombat .bfv .toks:has(>.tok:nth-child(5)) .hhart.wide{width:min(44px,100%)}
+html body #game.incombat .bfv .toks:has(>.tok:nth-child(5)) .hhart.wide b{font-size:11px}
 html body #game.incombat.cv-dash .mdot{width:auto!important;height:auto!important;min-height:0!important;display:flex!important;flex-direction:column;align-items:center;justify-content:flex-start;background:none!important;border:0!important;overflow:visible!important;gap:1px}
 html body #game.incombat.cv-dash .mdot .mface{width:32px;height:32px;border-radius:50%;border:2px solid #5a4636}
 html body #game.incombat .hhart.mini{width:36px;height:32px}
